@@ -11,11 +11,11 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
-
-#include "renderUtils.h"
+#include <SFML/Graphics/Vertex.hpp>
 
 // forward declaration
 class TextureAtlas;
+using Quad = std::array <sf::Vertex, 6>;
 
 class UVMesh
 {

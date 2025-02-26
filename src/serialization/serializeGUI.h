@@ -7,11 +7,17 @@
 #pragma once
 
 #include "nlohmann/json.hpp"
-#include "../GUI/guiStyle.h"
-#include "../GUI/guiLayout.h"
 
 // for readability
 using json = nlohmann::json;
+
+// forward declaration
+struct FontSize;
+struct GuiStyle;
+struct GuiPanel;
+struct GuiConstraint;
+struct GuiIcon;
+struct LayoutEntry;
 
 /**
  * convert FontSize to/from json

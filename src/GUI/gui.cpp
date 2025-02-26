@@ -4,9 +4,8 @@
 #include <sstream>
 #include <iostream>
 
-#include "../render/renderer.h"
-#include "../resources/textContainer.h"
 #include "guiLayout.h"
+#include "resources/textContainer.h"
 
 
 /**

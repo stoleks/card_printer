@@ -1,5 +1,6 @@
 #include "textContainer.h"
-#include "../resources/loadLookupTable.h"
+
+#include "loadLookupTable.h"
 
 /////////////////////////////////////////////////
 const std::string& TextContainer::tongue () const

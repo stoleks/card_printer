@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include "../serialization/loadJson.h"
-#include "../serialization/serializeContainer.h"
+#include "serialization/loadJson.h"
+#include "serialization/serializeContainer.h"
 
 /**
  * save/load look-up table from file

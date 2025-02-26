@@ -1,6 +1,7 @@
+#include "log.h"
 #include "UVMesh.h"
-#include "../log.h"
-#include "../resources/textureAtlas.h"
+#include "renderUtils.h"
+#include "resources/textureAtlas.h"
 
 /////////////////////////////////////////////////
 void UVMesh::computeMapping (

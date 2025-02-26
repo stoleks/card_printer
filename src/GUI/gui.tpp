@@ -1,7 +1,7 @@
 #include <cctype>
 #include <type_traits>
 
-#include "../math/interpolation.h"
+#include "math/interpolation.h"
 
 
 /**

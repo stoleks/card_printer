@@ -1,5 +1,5 @@
 #include "guiLayout.h"
-#include "../resources/loadGuiLayout.h"
+#include "resources/loadGuiLayout.h"
 
 /////////////////////////////////////////////////
 void GuiLayout::loadFromFile (const std::string& set)

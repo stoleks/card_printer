@@ -11,10 +11,11 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-#include "../GUI/widget.h"
-#include "../math/shapes.h"
-
 #include "UVMesh.h"
+#include "renderUtils.h"
+#include "GUI/widget.h"
+#include "math/shapes.h"
+#include "resources/textureAtlas.h"
 
 
 /**

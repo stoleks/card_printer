@@ -3,9 +3,9 @@
 #include <thread>
 
 #include <SFML/Graphics.hpp>
-#include <entt/entt.hpp>
-#include "src/GUI/gui.h"
-#include "src/serialization/serializeSFML.h"
+#include "GUI/gui.h"
+#include "resources/resourceHolder.h"
+#include "serialization/serializeSFML.h"
 
 int main()
 {
@@ -30,11 +30,11 @@ int main()
   auto style = GuiStyle ();
   style.fontColor = sf::Color::White;
   auto fonts = FontHolder ();
-  fonts.load ("GUI", "Averia-Bold.ttf");
+  fonts.load ("GUI", "../../contents/Averia-Bold.ttf");
   auto atlases = AtlasHolder ();
-  atlases.load ("GUI", "atlases.json");
+  atlases.load ("GUI", "../../contents/atlases.json");
   auto textures = TextureHolder ();
-  textures.load ("GUI", "widgets.png");
+  textures.load ("GUI", "../../contents/widgets.png");
 
   /**
    * Gui initialization

@@ -1,5 +1,6 @@
 #include "renderUtils.h"
-#include "../math/interpolation.h"
+
+#include "math/interpolation.h"
 
 /////////////////////////////////////////////////
 sf::Color lerp (
@@ -23,15 +24,11 @@ void computeMeshCoordinates (
   const auto top    = box.position.y;
   const auto width  = box.size.x;
   const auto height = box.size.y;
-  /*
-  mesh[0].position = sf::Vector2f (box.position.x,             box.position.y);
-  mesh[1].position = sf::Vector2f (box.position.x + box.size.x, box.position.y);
-  mesh[2].position = sf::Vector2f (box.position.x + box.size.x, box.position.y + box.size.y);
-  mesh[3].position = sf::Vector2f (box.position.x,             box.position.y + box.size.y);
-  */
+  // first triangle (top left)
   mesh[0].position = sf::Vector2f (left,         top);
   mesh[1].position = sf::Vector2f (left + width, top);
   mesh[2].position = sf::Vector2f (left,         top + height);
+  // second triangle (bottom right)
   mesh[3].position = sf::Vector2f (left + width, top);
   mesh[4].position = sf::Vector2f (left + width, top + height);
   mesh[5].position = sf::Vector2f (left,         top + height);
@@ -46,15 +43,11 @@ void computeMeshTexture (
   const auto top    = static_cast<float> (textureBox.position.y);
   const auto width  = static_cast<float> (textureBox.size.x);
   const auto height = static_cast<float> (textureBox.size.y);
-  /*
-  mesh[0].texCoords = sf::Vector2f (x,     y);
-  mesh[1].texCoords = sf::Vector2f (x + w, y);
-  mesh[2].texCoords = sf::Vector2f (x + w, y + h);
-  mesh[3].texCoords = sf::Vector2f (x,     y + h);
-  */
+  // first triangle (top left)
   mesh[0].texCoords = sf::Vector2f (left,         top);
   mesh[1].texCoords = sf::Vector2f (left + width, top);
   mesh[2].texCoords = sf::Vector2f (left,         top + height);
+  // second triangle (bottom right)
   mesh[3].texCoords = sf::Vector2f (left + width, top);
   mesh[4].texCoords = sf::Vector2f (left + width, top + height);
   mesh[5].texCoords = sf::Vector2f (left,         top + height);

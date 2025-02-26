@@ -9,8 +9,10 @@
 #pragma once
 
 #include <array>
-#include <SFML/Graphics.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Vertex.hpp>
 
 using Quad = std::array <sf::Vertex, 6>;
 

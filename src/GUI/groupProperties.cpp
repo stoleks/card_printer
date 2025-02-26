@@ -1,5 +1,5 @@
 #include "groupProperties.h"
-#include "../math/math.h"
+#include "math/math.h"
 
 /////////////////////////////////////////////////
 ScrollData::ScrollData (

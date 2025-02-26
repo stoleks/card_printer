@@ -17,14 +17,13 @@
 #include "guiLayout.h"
 #include "groupProperties.h"
 
-#include "../log.h"
-#include "../render/plotter.h"
-#include "../render/UIRender.h"
-#include "../container/objectPool.h"
-#include "../resources/resourceHolder.h"
+#include "log.h"
+#include "render/plotter.h"
+#include "render/UIRender.h"
+#include "container/objectPool.h"
 
 // forward declaration
-class Renderer;
+class TextContainer;
 
 class Gui
 {

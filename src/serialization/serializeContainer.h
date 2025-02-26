@@ -7,9 +7,8 @@
 #pragma once
 
 #include "nlohmann/json.hpp"
-
-#include "../container/objectPool.h"
-#include "../container/lookupTable.h"
+#include "container/objectPool.h"
+#include "container/lookupTable.h"
 
 // for readability
 using json = nlohmann::json;

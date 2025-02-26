@@ -13,7 +13,7 @@
 #include <algorithm>
 #include <unordered_map>
 
-#include "../log.h"
+#include "log.h"
 
 /////////////////////////////////////////////////
 /**

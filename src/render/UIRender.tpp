@@ -1,6 +1,3 @@
-#include "renderUtils.h"
-#include "../resources/textureAtlas.h"
-
 /////////////////////////////////////////////////
 template <Widget Type>
 void UIRender::draw (

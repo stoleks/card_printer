@@ -1,7 +1,7 @@
 #include "primitiveShapeRender.h"
 
-#include <SFML/Graphics/RenderTarget.hpp>
 #include <iostream>
+#include <SFML/Graphics/RenderTarget.hpp>
 
 /////////////////////////////////////////////////
 // PrimitiveShapeRender impl

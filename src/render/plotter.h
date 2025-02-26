@@ -12,7 +12,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
-#include "primitiveShapeRender.h"
+#include "render/primitiveShapeRender.h"
 
 /**
  * define plot range

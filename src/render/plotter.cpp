@@ -1,5 +1,5 @@
-#include "plotter.h"
-#include "../math/interpolation.h"
+#include "render/plotter.h"
+#include "math/interpolation.h"
 
 /////////////////////////////////////////////////
 void Plotter::setRangeX (const PlotRange xRange)

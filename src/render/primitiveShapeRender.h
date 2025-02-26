@@ -11,7 +11,7 @@
 #include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 
-#include "../math/polygonGraph.h"
+#include "math/polygonGraph.h"
 
 class PrimitiveShapeRender :
   public sf::Drawable,

@@ -1,5 +1,8 @@
 #include "serializeGUI.h"
+
 #include "serializeSFML.h"
+#include "GUI/guiLayout.h"
+#include "GUI/guiStyle.h"
 
 /**
  * convert FontSize to/from json

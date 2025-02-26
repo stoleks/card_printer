@@ -1,6 +1,6 @@
 #include "textureAtlas.h"
 
-#include "../log.h"
+#include "log.h"
 #include "loadTextureAtlas.h"
 
 /////////////////////////////////////////////////

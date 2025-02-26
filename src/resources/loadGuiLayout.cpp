@@ -1,8 +1,9 @@
 #include "loadGuiLayout.h"
+
 #include "loadLookupTable.h"
-#include "../GUI/guiLayout.h"
-#include "../serialization/serializeGUI.h"
-#include "../serialization/serializeSFML.h"
+#include "GUI/guiLayout.h"
+#include "serialization/serializeGUI.h"
+#include "serialization/serializeSFML.h"
 
 /////////////////////////////////////////////////
 bool loadFromFile (

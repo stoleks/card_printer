@@ -1,7 +1,6 @@
 /**
   groupScrolling.h
-  Purpose: define structs and class to store properties
-    of gui internal group
+  Purpose: define structs and class to store properties of gui internal group
   @author: A. J.
 */
 

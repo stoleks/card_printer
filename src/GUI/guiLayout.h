@@ -10,7 +10,7 @@
 #include <vector>
 
 #include "guiLayoutTypes.h"
-#include "../container/lookupTable.h"
+#include "container/lookupTable.h"
 
 /////////////////////////////////////////////////
 class GuiLayout

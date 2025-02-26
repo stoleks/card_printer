@@ -1,8 +1,8 @@
 #include "UIRender.h"
 
-#include "../log.h"
-#include "../math/math.h"
-#include "../resources/loadTextureAtlas.h"
+#include "log.h"
+#include "math/math.h"
+#include "resources/loadTextureAtlas.h"
 
 /////////////////////////////////////////////////
 void UIRender::setResources (

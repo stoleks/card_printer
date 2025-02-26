@@ -13,7 +13,8 @@
 #include <memory>
 #include <cassert>
 #include <unordered_map>
-#include "../log.h"
+
+#include "log.h"
 
 template <typename Resource,
           typename Identifier>

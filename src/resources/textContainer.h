@@ -9,7 +9,7 @@
 
 #include <string>
 
-#include "../container/lookupTable.h"
+#include "container/lookupTable.h"
 
 class TextContainer {
 public:
