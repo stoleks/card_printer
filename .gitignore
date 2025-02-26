@@ -4,6 +4,5 @@ out
 .idea
 .vs
 .vscode
-CMakeFiles/*
+CMakeFiles*
 CMakeCache*
-CMakeList*
