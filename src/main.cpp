@@ -101,7 +101,7 @@ int main()
         gui.backToAnchor ();
         gui.separation ();
         // Display a function
-        gui.slider (sliderValue, 0.f, 10.f, "Slider from 0 to 1, value is : " + std::to_string (sliderValue));
+        gui.slider (sliderValue, 0.f, 10.f, "Slider from 0 to 10, value is : " + std::to_string (sliderValue));
         gui.checkBox (displayFunction, "Display a function");
         if (displayFunction) {
           auto func = [t, sliderValue] (float x) {
@@ -114,6 +114,8 @@ int main()
           gui.plot (func, 2.f);
           gui.forcePlotUpdate ();
         }
+        // Change window size
+        gui.slider (panel.size.y, 50.f, 700.f, "Slider from 0 to 700, value is : " + std::to_string (sliderValue));
       }
       gui.endWindow ();
       // second window

@@ -71,20 +71,6 @@ void rotateMeshTexture (
   // top right -> top left
   mesh[3].texCoords = topLeftCorner;
   mesh[1].texCoords = topLeftCorner;
-  /**
-   * Rotate mesh
-   */
-  const auto topLeftCornerMesh = mesh[0].position;
-  // top left -> bottom left
-  mesh[0].position = mesh[2].position;
-  // bottom left -> bottom right
-  mesh[2].position = mesh[4].position;
-  mesh[5].position = mesh[4].position;
-  // bottom right -> top right
-  mesh[4].position = mesh[3].position;
-  // top right -> top left
-  mesh[3].position = topLeftCornerMesh;
-  mesh[1].position = topLeftCornerMesh;
 }
 
 /////////////////////////////////////////////////
