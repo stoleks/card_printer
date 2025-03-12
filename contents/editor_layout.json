@@ -1,0 +1,48 @@
+{
+  "Constraint::editFromMenu": {
+    "centeredHorizontaly": false,
+    "centeredVerticaly": false,
+    "pixelsFromBottom": 0,
+    "pixelsFromLeft": 0,
+    "pixelsFromRight": 0,
+    "pixelsFromTop": 0
+  },
+  "Constraint::editOnCard": {
+    "centeredHorizontaly": false,
+    "centeredVerticaly": false,
+    "pixelsFromBottom": 0,
+    "pixelsFromLeft": 0,
+    "pixelsFromRight": 0,
+    "pixelsFromTop": 0
+  },
+  "Panel::editFromMenu": {
+    "closable": true,
+    "closed": false,
+    "movable": true,
+    "position": {
+      "x": 1000.0,
+      "y": 64.0
+    },
+    "reduced": false,
+    "size": {
+      "x": 600.0,
+      "y": 900.0
+    },
+    "visible": true
+  },
+  "Panel::editOnCard": {
+    "closable": true,
+    "closed": false,
+    "movable": true,
+    "position": {
+      "x": 180.0,
+      "y": 64.0
+    },
+    "reduced": false,
+    "size": {
+      "x": 500.0,
+      "y": 800.0
+    },
+    "visible": true
+  }
+}

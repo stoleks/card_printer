@@ -27,15 +27,16 @@ private:
   void editCardFromMenu ();
   void editOnCard ();
   void exitMenu ();
-  void addTextToCard ();
-  void addTextureToCard ();
-  void changeCardBackground ();
+  void editCardTexts ();
+  void editCardTextures ();
   void swipeToNextCard ();
 private:
   bool m_isTemplate = false;
+  int m_cardsCount = 0;
   sgui::Gui& m_gui;
   sgui::Layout m_layout;
   sgui::TextContainer m_texts;
   entt::entity m_activeCard;
   entt::registry m_entities;
+  sgui::LookupTable <sgui::Panel, int> m_panels;
 };

@@ -1,5 +1,8 @@
 #include "CardEditorScene.h"
 
+#include<chrono>
+#include<thread>
+
 #include "cards/Informations.h"
 #include "cards/GraphicalParts.h"
 
@@ -9,11 +12,18 @@ CardEditorScene::CardEditorScene (
   sgui::Gui& g) 
   : sw::Activity (&controller), m_gui (g)
 {
-  spdlog::info ("adding first card");
+  spdlog::info ("Load card editor layout and text.");
+  m_layout.loadFromFile ("../../contents/editor_layout.json");
+  sgui::LookupTable <std::string> paths;
+  paths.insert ("english", "../../contents/english_");
+  m_texts.loadFromFile ("editor_texts.json", "english", paths);
+
+  spdlog::info ("Add first card.");
   m_activeCard = m_entities.create ();
   m_entities.emplace <Identifier> (m_activeCard);
   m_entities.emplace <CardFormat> (m_activeCard);
   m_entities.emplace <GraphicalParts> (m_activeCard);
+  m_cardsCount++;
 }
 
 
@@ -48,29 +58,29 @@ void CardEditorScene::editCardFromMenu ()
     } else {
       m_entities.remove <CardTemplate> (m_activeCard);
     }
+
     // change card to edit
-    if (m_gui.iconTextButton ("next", m_texts.get ("nextCard"))) {
+    if (m_gui.iconTextButton ("right", m_texts.get ("nextCard"))) {
       swipeToNextCard ();
     }
-    // add text to the card
-    if (m_gui.textButton (m_texts.get ("addText"))) {
-      addTextToCard ();
-    }
-    // add texture to the card
-    if (m_gui.textButton (m_texts.get ("addTexture"))) {
-      addTextureToCard ();
-    }
+
+    // add and edit text to the card
+    editCardTexts ();
+
+    // add and edit texture to the card
+    editCardTextures ();
+
     // change card background
-    if (m_gui.textButton (m_texts.get ("changeCardBackground"))) {
-      changeCardBackground ();
-    }
+    auto& format = m_entities.get <CardFormat> (m_activeCard);
+    m_gui.inputText (format.background, m_texts.get ("changeCardBackground"));
+
     // add a card to the pack
     if (m_gui.textButton (m_texts.get ("addCard"))) {
-      const auto currentCardNumber = m_entities.get <Identifier> (m_activeCard).number;
       const auto newCard = m_entities.create ();
-      m_entities.emplace <Identifier> (newCard, currentCardNumber + 1);
+      m_entities.emplace <Identifier> (newCard, m_cardsCount);
       m_entities.emplace <CardFormat> (newCard);
       m_entities.emplace <GraphicalParts> (newCard);
+      m_cardsCount++;
     }
   }
   m_gui.endWindow ();
@@ -92,15 +102,26 @@ void CardEditorScene::editOnCard ()
     // draw card form 
     const auto& format = m_entities.get <CardFormat> (m_activeCard);
     m_gui.icon (format.background, format.rect.size, sgui::Tooltip (), format.rect.position);
+
     // draw card decorations and texts
+    auto iconID = 0;
     const auto& parts = m_entities.get <GraphicalParts> (m_activeCard);
     for (const auto& icon : parts.textures) {
+      // draw texture in a wrapper panel
+      auto& panel = m_panels.at (iconID);
+      panel.size = icon.rect.size + sf::Vector2f (16.f, 16.f);
+      m_gui.beginPanel (panel);
       m_gui.icon (icon.identifier, icon.rect.size, sgui::Tooltip (), icon.rect.position);
+      m_gui.endPanel ();
+      iconID++;
     }
+
+    // draw card text
     for (const auto& text : parts.texts) {
       m_gui.text (m_texts.get (text.identifier), text.position);
     }
   }
+  m_gui.endWindow ();
 }
 
 ////////////////////////////////////////////////////////////
@@ -109,22 +130,38 @@ void CardEditorScene::exitMenu ()
 }
 
 ////////////////////////////////////////////////////////////
-void CardEditorScene::addTextToCard ()
+void CardEditorScene::editCardTexts ()
 {
+  // add text
   auto& parts = m_entities.get <GraphicalParts> (m_activeCard);
-  parts.texts.emplace_back ();
+  if (m_gui.textButton (m_texts.get ("addText"))) {
+    parts.texts.emplace_back ();
+  }
+  // edit text
+  for (auto& text : parts.texts) {
+    m_gui.inputText (text.identifier, "Card text : ");
+  }
 }
 
 ////////////////////////////////////////////////////////////
-void CardEditorScene::addTextureToCard ()
+void CardEditorScene::editCardTextures ()
 {
+  // add texture
   auto& parts = m_entities.get <GraphicalParts> (m_activeCard);
-  parts.textures.emplace_back ();
-}
-
-////////////////////////////////////////////////////////////
-void CardEditorScene::changeCardBackground ()
-{
+  if (m_gui.textButton (m_texts.get ("addTexture"))) {
+    // set-up wrapper panel to move texture around
+    const auto panelID = parts.textures.size ();
+    m_panels.insert (panelID, sgui::Panel ());
+    // add texture to card
+    parts.textures.emplace_back ();
+    parts.textures.back ().rect.size = sf::Vector2f (64.f, 64.f);
+  }
+  // edit texture
+  for (auto& texture : parts.textures) {
+    m_gui.inputText (texture.identifier, "Texture identifier : ");
+    m_gui.inputVector2 (texture.rect.size, "Texture size : ");
+    m_gui.inputVector2 (texture.rect.position, "Texture position : ");
+  }
 }
 
 ////////////////////////////////////////////////////////////
@@ -134,7 +171,7 @@ void CardEditorScene::swipeToNextCard ()
   auto view = m_entities.view <const Identifier> ();
   auto nextCardNumber = m_entities.get <Identifier> (m_activeCard).number + 1;
   // if we are at the last card, go to first card
-  if (nextCardNumber > view.size ()) {
+  if (nextCardNumber >= view.size ()) {
     nextCardNumber = 0;
   }
   // check every card number
@@ -143,9 +180,11 @@ void CardEditorScene::swipeToNextCard ()
     // set next card and reset template if needed
     if (cardNum == nextCardNumber) {
       m_activeCard = card;
+      spdlog::info ("Swipe to edit card {} / {}", cardNum, view.size () - 1);
       if (auto* c = m_entities.try_get <CardTemplate> (card)) {
         m_isTemplate = false;
       }
+      return;
     }
   }
 }

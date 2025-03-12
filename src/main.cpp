@@ -17,6 +17,7 @@ int main()
    */
   auto style = sgui::Style ();
   style.fontColor = sf::Color::White;
+  style.fontSize.normal = 14u;
   auto font = sf::Font ("../../contents/Averia-Bold.ttf");
   // auto atlas = sgui::TextureAtlas ("../../contents/atlases.json");
   auto atlas = sgui::TextureAtlas ();
@@ -70,7 +71,7 @@ int main()
         if (event->is <sf::Event::Closed> ()) {
           window.close ();
         } else if (event->is <sf::Event::FocusLost> ()) {
-          // pause = true;
+          pause = true;
         }
         else if (event->is <sf::Event::FocusGained> ()) {
           pause = false;

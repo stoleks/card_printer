@@ -28,7 +28,7 @@ public:
     gui.text ("Loading...");
     gui.endFrame ();
     // faux paux "loading" time
-    if (timer.getElapsed().asSeconds() > 2) {
+    if (timer.getElapsed().asSeconds() > 0.5) {
       auto onReturn = [](sw::Context& context) {
         // We can check for previous contexts which were adopted
         auto prev = context.previous();

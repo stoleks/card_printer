@@ -33,5 +33,5 @@ struct GraphicalParts {
  */
 struct CardFormat {
   sf::FloatRect rect;
-  std::string background;
+  std::string background = "right";
 };
