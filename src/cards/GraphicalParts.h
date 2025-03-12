@@ -32,6 +32,6 @@ struct GraphicalParts {
  * @brief Store card format
  */
 struct CardFormat {
-  sf::FloatRect rect;
-  std::string background = "right";
+  sf::Vector2f size = {595.f, 842.f}; // A4 at 72 dpi
+  std::string background = "card";
 };

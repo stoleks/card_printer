@@ -181,5 +181,6 @@
   "Icon::left":   { "count": 1, "texture": { "position": { "x":  256, "y": 704 }, "size": { "x": 128, "y": 128 } } },
   "Icon::right":  { "count": 1, "texture": { "position": { "x":  384, "y": 704 }, "size": { "x": 128, "y": 128 } } },
   "Icon::reduce": { "count": 1, "texture": { "position": { "x":  512, "y": 704 }, "size": { "x": 128, "y": 128 } } },
+  "Icon::card":   { "count": 1, "texture": { "position": { "x": 1920, "y": 128 }, "size": { "x": 128, "y": 128 } } },
   "Icon::close":  { "count": 1, "texture": { "position": { "x":  640, "y": 704 }, "size": { "x": 128, "y": 128 } } }
 }

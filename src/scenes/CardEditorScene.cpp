@@ -101,24 +101,37 @@ void CardEditorScene::editOnCard ()
   // if (m_gui.beginPanel (unpacker.get <Window> (element))) {
     // draw card form 
     const auto& format = m_entities.get <CardFormat> (m_activeCard);
-    m_gui.icon (format.background, format.rect.size, sgui::Tooltip (), format.rect.position);
+    m_gui.icon (format.background, format.size);
 
     // draw card decorations and texts
-    auto iconID = 0;
-    const auto& parts = m_entities.get <GraphicalParts> (m_activeCard);
-    for (const auto& icon : parts.textures) {
+    auto& parts = m_entities.get <GraphicalParts> (m_activeCard);
+    for (auto& icon : parts.textures) {
       // draw texture in a wrapper panel
-      auto& panel = m_panels.at (iconID);
+      auto panel = sgui::Panel ();
+      panel.position = icon.rect.position;
       panel.size = icon.rect.size + sf::Vector2f (16.f, 16.f);
-      m_gui.beginPanel (panel);
-      m_gui.icon (icon.identifier, icon.rect.size, sgui::Tooltip (), icon.rect.position);
+      m_gui.beginPanel (panel); 
+      {
+        m_gui.icon (icon.identifier, icon.rect.size);
+      }
       m_gui.endPanel ();
-      iconID++;
+      // store texture position
+      icon.rect.position = panel.position;
     }
 
     // draw card text
-    for (const auto& text : parts.texts) {
-      m_gui.text (m_texts.get (text.identifier), text.position);
+    for (auto& text : parts.texts) {
+      // draw texture in a wrapper panel
+      auto panel = sgui::Panel ();
+      panel.position = text.position;
+      panel.size = sf::Vector2f (m_gui.activePanelSize ().x, m_gui.buttonSize ().y);
+      m_gui.beginPanel (panel); 
+      {
+        m_gui.text (m_texts.get (text.identifier));
+      }
+      m_gui.endPanel ();
+      // store texture position
+      text.position = panel.position;
     }
   }
   m_gui.endWindow ();
@@ -136,6 +149,7 @@ void CardEditorScene::editCardTexts ()
   auto& parts = m_entities.get <GraphicalParts> (m_activeCard);
   if (m_gui.textButton (m_texts.get ("addText"))) {
     parts.texts.emplace_back ();
+    parts.texts.back ().position = sf::Vector2f (1.f, m_gui.buttonSize ().y + 8.f);
   }
   // edit text
   for (auto& text : parts.texts) {
@@ -149,12 +163,10 @@ void CardEditorScene::editCardTextures ()
   // add texture
   auto& parts = m_entities.get <GraphicalParts> (m_activeCard);
   if (m_gui.textButton (m_texts.get ("addTexture"))) {
-    // set-up wrapper panel to move texture around
-    const auto panelID = parts.textures.size ();
-    m_panels.insert (panelID, sgui::Panel ());
     // add texture to card
     parts.textures.emplace_back ();
     parts.textures.back ().rect.size = sf::Vector2f (64.f, 64.f);
+    parts.textures.back ().rect.position = sf::Vector2f (1.f, m_gui.buttonSize ().y + 8.f);
   }
   // edit texture
   for (auto& texture : parts.textures) {

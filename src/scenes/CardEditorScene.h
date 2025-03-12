@@ -38,5 +38,4 @@ private:
   sgui::TextContainer m_texts;
   entt::entity m_activeCard;
   entt::registry m_entities;
-  sgui::LookupTable <sgui::Panel, int> m_panels;
 };
