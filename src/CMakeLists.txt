@@ -2,16 +2,11 @@ add_executable(${PROJECT_NAME})
 
 ####
 #include all subdirectories
-add_subdirectory (GUI)
-add_subdirectory (container)
-add_subdirectory (math)
-add_subdirectory (render)
 add_subdirectory (resources)
-add_subdirectory (serialization)
 
 ####
 # Add source files
-target_sources (${PROJECT_NAME} PRIVATE main.cpp log.cpp log.h)
+target_sources (${PROJECT_NAME} PRIVATE main.cpp)
 
 ####
 # Add src as public directory
@@ -41,5 +36,7 @@ target_link_libraries (${PROJECT_NAME} PRIVATE
   EnTT
   nlohmann_json
   spdlog
+  SmolGui
+  Swoosh
 )
 

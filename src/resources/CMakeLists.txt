@@ -4,18 +4,8 @@ set(SRCROOT ${PROJECT_SOURCE_DIR}/src/resources)
 
 # all source files
 set (SRC
-  ${SRCROOT}/loadGuiLayout.cpp
-  ${INCROOT}/loadGuiLayout.h
-  ${INCROOT}/loadLookupTable.tpp
-  ${INCROOT}/loadLookupTable.h
-  ${SRCROOT}/loadTextureAtlas.cpp
-  ${INCROOT}/loadTextureAtlas.h
   ${INCROOT}/resourceHolder.tpp
   ${INCROOT}/resourceHolder.h
-  ${SRCROOT}/textContainer.cpp
-  ${INCROOT}/textContainer.h
-  ${SRCROOT}/textureAtlas.cpp
-  ${INCROOT}/textureAtlas.h
 )
 source_group ("" FILES ${SRC})
 

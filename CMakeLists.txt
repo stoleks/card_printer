@@ -46,11 +46,25 @@ FetchContent_Declare (spdlog
   GIT_PROGRESS TRUE
 )
 
+FetchContent_Declare (SmolGui
+  GIT_REPOSITORY https://github.com/stoleks/smolgui
+  GIT_TAG v0.1.0
+  GIT_PROGRESS TRUE
+)
+
+FetchContent_Declare (Swoosh
+  GIT_REPOSITORY https://github.com/stoleks/swoosh
+  GIT_TAG v2.0.0
+  GIT_PROGRESS TRUE
+)
+
 FetchContent_MakeAvailable (
   SFML
   entt
   nlohmann-json
   spdlog
+  smolGui
+  Swoosh
 )
 
 ####
