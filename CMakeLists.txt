@@ -30,13 +30,13 @@ FetchContent_Declare (SFML
 
 FetchContent_Declare (entt
   GIT_REPOSITORY https://github.com/skypjack/entt.git
-  GIT_TAG 4a2d1a8541228a90e02a873dba6a980506c42c03 # v3.14.0
+  GIT_TAG v3.14.0
   GIT_PROGRESS TRUE
 )
 
 FetchContent_Declare (nlohmann-json
   GIT_REPOSITORY https://github.com/nlohmann/json.git
-  GIT_TAG 9cca280a4d0ccf0c08f47a99aa71d1b0e52f8d03 # v3.11.3
+  GIT_TAG v3.11.3
   GIT_PROGRESS TRUE
 )
 
@@ -48,13 +48,13 @@ FetchContent_Declare (spdlog
 
 FetchContent_Declare (SmolGui
   GIT_REPOSITORY https://github.com/stoleks/smolgui
-  GIT_TAG v0.1.0
+  GIT_TAG v0.2.0
   GIT_PROGRESS TRUE
 )
 
 FetchContent_Declare (Swoosh
   GIT_REPOSITORY https://github.com/stoleks/swoosh
-  GIT_TAG v2.0.0
+  GIT_TAG v2.0.1
   GIT_PROGRESS TRUE
 )
 

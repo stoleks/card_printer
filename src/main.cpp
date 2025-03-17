@@ -2,7 +2,7 @@
 #include <chrono>
 #include <thread>
 
-#include <gui/sgui.h>
+#include <sgui/sgui.h>
 #include <Swoosh/ActivityController.h>
 #include <Swoosh/Renderers/SimpleRenderer.h>
 #include <Segues/ZoomOut.h>

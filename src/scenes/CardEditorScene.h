@@ -1,6 +1,6 @@
 #pragma once
 
-#include <gui/sgui.h>
+#include <sgui/sgui.h>
 #include <entt/entt.hpp>
 #include <Swoosh/ActivityController.h>
 

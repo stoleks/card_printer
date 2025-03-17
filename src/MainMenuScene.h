@@ -1,7 +1,7 @@
 #pragma once
 
-#include <gui/sgui.h>
-#include <serialization/serializeGui.h>
+#include <sgui/sgui.h>
+#include <sgui/serialization/serializeGui.h>
 #include <Swoosh/ActivityController.h>
 
 class MainMenuScene : public sw::Activity {

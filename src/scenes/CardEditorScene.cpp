@@ -1,7 +1,7 @@
 #include "CardEditorScene.h"
 
-#include<chrono>
-#include<thread>
+#include <chrono>
+#include <thread>
 
 #include "cards/Informations.h"
 #include "cards/GraphicalParts.h"
@@ -14,9 +14,7 @@ CardEditorScene::CardEditorScene (
 {
   spdlog::info ("Load card editor layout and text.");
   m_layout.loadFromFile ("../../contents/editor_layout.json");
-  sgui::LookupTable <std::string> paths;
-  paths.insert ("english", "../../contents/english_");
-  m_texts.loadFromFile ("editor_texts.json", "english", paths);
+  m_texts.loadFromFile ("../../contents/english_editor_texts.json", "english");
 
   spdlog::info ("Add first card.");
   m_activeCard = m_entities.create ();
