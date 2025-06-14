@@ -2,6 +2,7 @@
 
 #include <Segues/ZoomIn.h>
 #include "scenes/CardEditorScene.h"
+#include "scenes/CardPrinterScene.h"
 
 class IntroScene : public sw::Activity {
 public:

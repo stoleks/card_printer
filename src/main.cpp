@@ -50,13 +50,14 @@ int main()
    * app initialization
    */
   spdlog::info ("Initialize app");
+  sgui::PrimitiveShapeRender shapes;
   sw::RenderEntries renderOptions;
   renderOptions.enroll <SimpleRenderer> ("simple", window.getView ());
   sw::ActivityController app (window, renderOptions);
   app.optimizeForPerformance (sw::quality::realtime);
   app.buildRenderEntries ();
   app.activateRenderEntry (0);
-  app.push <sw::segue <ZoomOut>::to <IntroScene>> (gui, cardGui);
+  app.push <sw::segue <ZoomOut>::to <CardPrinterScene>> (gui, cardGui, shapes);
   /**
    * Main App loop
    */
@@ -102,6 +103,11 @@ int main()
     app.draw ();
     gui.draw (window);
     cardGui.draw (window);
+    auto view = window.getDefaultView ();
+    view.zoom (4.f);
+    view.move ({0.f, 1400.f});
+    window.setView (view);
+    window.draw (shapes);
     window.display ();
   }
 }

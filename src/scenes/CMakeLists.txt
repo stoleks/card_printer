@@ -6,6 +6,8 @@ set(SRCROOT ${PROJECT_SOURCE_DIR}/src/scenes)
 set (SRC
   ${SRCROOT}/CardEditorScene.cpp
   ${INCROOT}/CardEditorScene.h
+  ${SRCROOT}/CardPrinterScene.cpp
+  ${INCROOT}/CardPrinterScene.h
 )
 source_group ("" FILES ${SRC})
 
