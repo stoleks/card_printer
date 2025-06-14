@@ -4,16 +4,18 @@ add_executable(${PROJECT_NAME})
 #include all subdirectories
 add_subdirectory (cards)
 add_subdirectory (scenes)
-add_subdirectory (resources)
 
 ####
 # Add source files
 target_sources (${PROJECT_NAME} PRIVATE main.cpp)
 
 ####
-# Add src as public directory
+# Add src as public directory and assets dir macro
 target_include_directories (${PROJECT_NAME}
   PUBLIC "${PROJECT_SOURCE_DIR}/src"
+)
+target_compile_definitions(${PROJECT_NAME}
+  PRIVATE ContentsDir="${PROJECT_SOURCE_DIR}/contents"
 )
 
 ####
@@ -35,6 +37,7 @@ target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 # Link third party libraries
 target_link_libraries (${PROJECT_NAME} PRIVATE
   SFML::Graphics
+  SFML::Audio
   EnTT
   nlohmann_json
   spdlog

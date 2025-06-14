@@ -7,10 +7,10 @@
  */
 struct Identifier {
   Identifier () = default;
-  Identifier (int n) : number (n) {}
+  Identifier (uint32_t n) : number (n) {}
   // data
   std::string id = "";
-  int number = 0;
+  uint32_t number = 0;
 };
 
 /**

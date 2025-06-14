@@ -1,48 +1,98 @@
 {
-  "Constraint::editFromMenu": {
-    "centeredHorizontaly": false,
-    "centeredVerticaly": false,
-    "pixelsFromBottom": 0,
-    "pixelsFromLeft": 0,
-    "pixelsFromRight": 0,
-    "pixelsFromTop": 0
+  "Window::chooseCardsFormat": {
+    "constraints": {
+      "centeredHorizontaly": false,
+      "centeredVerticaly": false,
+      "pixelsFromBottom": 0,
+      "pixelsFromLeft": 0,
+      "pixelsFromRight": 0,
+      "pixelsFromTop": 0
+    },
+    "panel": {
+      "closable": true,
+      "movable": true,
+      "position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "size": {
+        "x": 200.0,
+        "y": 1080.0
+      },
+      "visible": true,
+      "title": "Choose format"
+    }
   },
-  "Constraint::editOnCard": {
-    "centeredHorizontaly": false,
-    "centeredVerticaly": false,
-    "pixelsFromBottom": 0,
-    "pixelsFromLeft": 0,
-    "pixelsFromRight": 0,
-    "pixelsFromTop": 0
+  "Window::displayCards": {
+    "constraints": {
+      "centeredHorizontaly": false,
+      "centeredVerticaly": false,
+      "pixelsFromBottom": 0,
+      "pixelsFromLeft": 0,
+      "pixelsFromRight": 0,
+      "pixelsFromTop": 0
+    },
+    "panel": {
+      "closable": true,
+      "movable": true,
+      "position": {
+        "x": 200.0,
+        "y": 0.0
+      },
+      "size": {
+        "x": 1780.0,
+        "y": 1080.0
+      },
+      "visible": true,
+      "title": "Printable cards"
+    }
   },
-  "Panel::editFromMenu": {
-    "closable": true,
-    "closed": false,
-    "movable": true,
-    "position": {
-      "x": 1000.0,
-      "y": 64.0
+  "Window::editFromMenu": {
+    "constraints": {
+      "centeredHorizontaly": false,
+      "centeredVerticaly": false,
+      "pixelsFromBottom": 0,
+      "pixelsFromLeft": 0,
+      "pixelsFromRight": 0,
+      "pixelsFromTop": 0
     },
-    "reduced": false,
-    "size": {
-      "x": 600.0,
-      "y": 900.0
-    },
-    "visible": true
+    "panel": {
+      "closable": true,
+      "movable": true,
+      "position": {
+        "x": 1000.0,
+        "y": 64.0
+      },
+      "size": {
+        "x": 600.0,
+        "y": 900.0
+      },
+      "visible": true,
+      "title": "editFromMenu"
+    }
   },
-  "Panel::editOnCard": {
-    "closable": true,
-    "closed": false,
-    "movable": true,
-    "position": {
-      "x": 180.0,
-      "y": 64.0
+  "Window::editOnCard": {
+    "constraints": {
+      "centeredHorizontaly": false,
+      "centeredVerticaly": false,
+      "pixelsFromBottom": 0,
+      "pixelsFromLeft": 0,
+      "pixelsFromRight": 0,
+      "pixelsFromTop": 0
     },
-    "reduced": false,
-    "size": {
-      "x": 620.0,
-      "y": 870.0
-    },
-    "visible": true
+    "panel": {
+      "closable": true,
+      "movable": true,
+      "position": {
+        "x": 180.0,
+        "y": 64.0
+      },
+      "size": {
+        "x": 620.0,
+        "y": 870.0
+      },
+      "visible": true,
+      "title": "editOnCard"
+    }
   }
 }

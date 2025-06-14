@@ -7,8 +7,8 @@ set (CMAKE_CONFIGURATION_TYPES "Debug;Release")
 # Projects informations
 project (CardsGenerator
   VERSION 0.0.1
-	 DESCRIPTION "Cards generator"
-	 LANGUAGES CXX
+  DESCRIPTION "Cards generator"
+  LANGUAGES CXX
 )
 set (PROJECT_AUTHOR "Alexandre Jedrecy")
 set (PROJECT_IDENTIFIER "stoleks.cardsGenerator")
@@ -22,7 +22,7 @@ include (FetchContent)
 
 FetchContent_Declare (SFML
   GIT_REPOSITORY https://github.com/SFML/SFML.git
-  GIT_TAG 3.0.0
+  GIT_TAG 3.0.1
   GIT_SHALLOW ON
   EXCLUDE_FROM_ALL
   SYSTEM
@@ -48,13 +48,13 @@ FetchContent_Declare (spdlog
 
 FetchContent_Declare (SmolGui
   GIT_REPOSITORY https://github.com/stoleks/smolgui
-  GIT_TAG v0.2.0
+  GIT_TAG v0.5.4
   GIT_PROGRESS TRUE
 )
 
 FetchContent_Declare (Swoosh
   GIT_REPOSITORY https://github.com/stoleks/swoosh
-  GIT_TAG v2.0.1
+  GIT_TAG v2.0.3
   GIT_PROGRESS TRUE
 )
 

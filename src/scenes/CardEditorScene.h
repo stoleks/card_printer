@@ -9,7 +9,7 @@ public:
   /**
    * @brief Set-up gui and first card
    */
-  CardEditorScene (sw::ActivityController& controller, sgui::Gui& g);
+  CardEditorScene (sw::ActivityController& controller, sgui::Gui& g, sgui::Gui& cg);
   /**
    * @brief Edit card
    */
@@ -34,8 +34,10 @@ private:
   bool m_isTemplate = false;
   int m_cardsCount = 0;
   sgui::Gui& m_gui;
+  sgui::Gui& m_cardGui;
   sgui::Layout m_layout;
   sgui::TextContainer m_texts;
+  sgui::TextContainer m_cardTexts;
   entt::entity m_activeCard;
   entt::registry m_entities;
 };

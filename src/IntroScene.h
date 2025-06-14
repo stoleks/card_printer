@@ -1,13 +1,14 @@
 #pragma once
 
-#include "MainMenuScene.h"
-#include "scenes/CardEditorScene.h"
 #include <Segues/ZoomIn.h>
+#include "scenes/CardEditorScene.h"
 
 class IntroScene : public sw::Activity {
 public:
-  IntroScene (sw::ActivityController& controller, sgui::Gui& g) : sw::Activity (&controller), gui (g)
+  IntroScene (sw::ActivityController& controller, sgui::Gui& g, sgui::Gui& cg)
+  : sw::Activity (&controller), gui (g), cardGui (cg)
   {
+    spdlog::info ("Launch intro");
     texture = sf::Texture ("../../contents/background.png");
     sprite = std::make_unique <sf::Sprite> (texture);
     sprite->scale ({2.f, 2.f});
@@ -44,7 +45,7 @@ public:
       std::cout << "Pushing MainMenuScene\n";
       using Effect = segue <ZoomIn>;
       using Transition = Effect::to <CardEditorScene>;
-      getController ().push <Transition> (gui).take (onReturn);
+      getController ().push <Transition> (gui, cardGui).take (onReturn);
 
       // Reset so we can return and kick off the effect again
       timer.reset();
@@ -66,6 +67,7 @@ private:
   sf::Texture texture;
   std::unique_ptr <sf::Sprite> sprite;
   sgui::Gui& gui;
+  sgui::Gui& cardGui;
   sw::Timer timer;
   bool inFocus;
 };
