@@ -34,11 +34,17 @@ CardPrinterScene::CardPrinterScene (
 ////////////////////////////////////////////////////////////
 void CardPrinterScene::onUpdate (double elapsed)
 {
+  // card formats selection and print
   m_gui.beginFrame ();
   {
-    chooseCardsFormat ();
+    if (m_gui.beginWindow (m_layout.get <sgui::Window> ("chooseCardsFormat"), m_texts)) {
+      chooseCardsFormat ();
+      saveCards ();
+      m_gui.endWindow ();
+    }
   }
   m_gui.endFrame ();
+  // cards display
   computeLattice ();
   m_cardGui.beginFrame ();
   {
@@ -48,30 +54,39 @@ void CardPrinterScene::onUpdate (double elapsed)
 }
 
 ////////////////////////////////////////////////////////////
-// void CardPrinterScene::onDraw (sw::IRenderer& renderer)
-// {
-//   auto& window = getController ().getWindow ();
-//   const auto view = window.getDefaultView ();
-//   window.setView (view);
-//   window.draw (m_shapes);
-// }
+void CardPrinterScene::onDraw (sw::IRenderer& renderer)
+{
+  m_cardsImage.clear (sf::Color::White);
+  m_cardsImage.draw (m_shape);
+  m_cardsImage.display ();
+  sf::Sprite cards (m_cardsImage.getTexture ());
+  renderer.submit (&cards);
+}
 
 ////////////////////////////////////////////////////////////
 void CardPrinterScene::chooseCardsFormat ()
 {
-  // open cards' format selection
-  if (m_gui.beginWindow (m_layout.get <sgui::Window> ("chooseCardsFormat"), m_texts)) {
-    m_gui.dropList (m_selectedFormatId, m_cardFormatNames);
-    m_cardFormat = PaperFormatNames.at (m_cardFormatNames.at (m_selectedFormatId));
-    // choose paper orientation
-    if (m_gui.textButton ("Change orientation")) {
-      if (m_orientation == PaperOrientation::Landscape) {
-        m_orientation = PaperOrientation::Portrait;
-      } else {
-        m_orientation = PaperOrientation::Landscape;
-      }
+  // cards' format selection
+  m_gui.dropList (m_selectedFormatId, m_cardFormatNames);
+  m_cardFormat = PaperFormatNames.at (m_cardFormatNames.at (m_selectedFormatId));
+  // choose paper orientation
+  if (m_gui.textButton ("Change orientation")) {
+    if (m_orientation == PaperOrientation::Landscape) {
+      m_orientation = PaperOrientation::Portrait;
+    } else {
+      m_orientation = PaperOrientation::Landscape;
     }
-    m_gui.endWindow ();
+  }
+}
+
+////////////////////////////////////////////////////////////
+void CardPrinterScene::saveCards ()
+{
+  if (m_gui.textButton ("Print")) {
+    auto path = std::string("card_print");
+    if (m_cardsImage.getTexture ().copyToImage ().saveToFile (path+".png")) {
+      spdlog::info ("Saved cards at {}", path+".png");
+    }
   }
 }
 
@@ -94,16 +109,20 @@ void CardPrinterScene::computeLattice ()
   // clear previous cards
   m_cardsPositions.clear ();
   // compute paper format and its orientation
-  auto textSize = (PaperFormatInMillimeter.at (m_paperFormat) - m_pagePadding) * m_resolution / mmPerInch;
+  auto pageSize = (PaperFormatInMillimeter.at (m_paperFormat) - m_pagePadding) * m_resolution / mmPerInch;
   if (m_orientation == PaperOrientation::Landscape) {
-    const auto height = textSize.x;
-    textSize.x = textSize.y;
-    textSize.y = height;
+    const auto height = pageSize.x;
+    pageSize.x = pageSize.y;
+    pageSize.y = height;
   }
   const auto textPos = m_pagePadding * m_resolution / mmPerInch;
-  const auto textBox = sf::FloatRect (textPos, textSize);
+  const auto textBox = sf::FloatRect (textPos, pageSize);
   m_shape.clear ();
-  m_shape.loadFilled (sf::FloatRect (sf::Vector2f (), textSize + m_pagePadding * m_resolution / mmPerInch));
+  m_shape.loadFilled (sf::FloatRect (sf::Vector2f (), pageSize + m_pagePadding * m_resolution / mmPerInch));
+  // Initialize render texture
+  if (!m_cardsImage.resize (sf::Vector2u (pageSize))) {
+    spdlog::warn ("Failed to initialize render texture");
+  }
   // compute card size, their orientations are always in portrait
   const auto cardSize = PaperFormatInMillimeter.at (m_cardFormat) * m_resolution / mmPerInch;
   auto lastCardPosition = textPos;

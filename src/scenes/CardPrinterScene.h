@@ -16,7 +16,7 @@ public:
    * @brief Edit card
    */
   void onUpdate (double elapsed) override;
-  void onDraw (sw::IRenderer& renderer) override {}
+  void onDraw (sw::IRenderer& renderer) override;
   // unused functions
   void onStart () override {}
   void onLeave() override {}
@@ -27,6 +27,7 @@ public:
   ~CardPrinterScene() {}
 private:
   void chooseCardsFormat ();
+  void saveCards ();
   void computeLattice ();
   void displayCardsInLattice ();
 private:
@@ -46,4 +47,5 @@ private:
   sgui::TextContainer m_texts;
   sgui::TextContainer m_cardTexts;
   entt::registry m_entities;
+  sf::RenderTexture m_cardsImage;
 };
