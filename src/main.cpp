@@ -25,20 +25,21 @@ int main()
   /**
    * Gui initialization
    */
-  auto atlas = sgui::TextureAtlas (ContentsDir"/atlases.json");
-  auto texture = sf::Texture (ContentsDir"/widget.png");
+  auto atlas = sgui::TextureAtlas (ContentsDir"/atlas.json");
+  auto texture = sf::Texture (ContentsDir"/widgets.png");
   spdlog::info ("Initialize app gui");
   auto gui = sgui::Gui ();
-  gui.setResources (font, sounds, texture, atlas);
+  gui.setResources (font, texture, atlas);
+  gui.setSounds (sounds);
   gui.setStyle (style);
   /**
    * Gui card initialization
    */
-  auto cardAtlas = sgui::TextureAtlas (ContentsDir"/card_atlases.json");
+  auto cardAtlas = sgui::TextureAtlas (ContentsDir"/card_atlas.json");
   auto cardTexture = sf::Texture (ContentsDir"/card_textures.png");
   spdlog::info ("Initialize card gui");
   auto cardGui = sgui::Gui ();
-  cardGui.setResources (font, sounds, cardTexture, cardAtlas);
+  cardGui.setResources (font, cardTexture, cardAtlas);
   cardGui.setStyle (style);
   /**
    * Window initialization
