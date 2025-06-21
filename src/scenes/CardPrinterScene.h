@@ -11,7 +11,11 @@ public:
   /**
    * @brief Set-up gui and first card
    */
-  CardPrinterScene (sw::ActivityController& controller, sgui::Gui& g, sgui::Gui& cg, sgui::PrimitiveShapeRender& s);
+  CardPrinterScene (
+    sw::ActivityController& controller, 
+    sgui::Gui& g, 
+    sgui::Gui& cg, 
+    sgui::Gui& cr);
   /**
    * @brief Edit card
    */
@@ -27,25 +31,27 @@ public:
   ~CardPrinterScene() {}
 private:
   void chooseCardsFormat ();
-  void saveCards ();
+  void exportCardsToPdf ();
   void computeLattice ();
   void displayCardsInLattice ();
 private:
-  float m_resolution = 300.f;
+  float m_resolution = 125.f;
   uint32_t m_selectedFormatId = 0u;
+  sf::Vector2f m_cardsPosition = {};
   sf::Vector2f m_pagePadding = { 2.f, 2.f };
   sf::Vector2f m_cardPadding = { 1.f, 1.f };
   PaperOrientation m_orientation = PaperOrientation::Landscape;
   PaperFormat m_paperFormat = PaperFormat::A4;
   PaperFormat m_cardFormat = PaperFormat::B8;
+  std::vector <std::string> m_cardFormatNames;
   sgui::Gui& m_gui;
   sgui::Gui& m_cardGui;
-  std::vector <std::string> m_cardFormatNames;
+  sgui::Gui& m_cardRender;
   std::vector <sf::Vector2f> m_cardsPositions;
-  sgui::PrimitiveShapeRender& m_shape;
   sgui::Layout m_layout;
   sgui::TextContainer m_texts;
   sgui::TextContainer m_cardTexts;
+  entt::entity m_activeCard;
   entt::registry m_entities;
   sf::RenderTexture m_cardsImage;
 };

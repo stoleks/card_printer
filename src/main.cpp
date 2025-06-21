@@ -23,6 +23,12 @@ int main()
     sounds.load (sound, ContentsDir"/wood1.wav");
   }
   /**
+   * Window initialization
+   */
+  spdlog::info ("Open window");
+  auto window = sf::RenderWindow (sf::VideoMode ({1920u, 1080u}), "Card generator project");
+  window.setFramerateLimit (60);
+  /**
    * Gui initialization
    */
   auto atlas = sgui::TextureAtlas (ContentsDir"/atlas.json");
@@ -32,6 +38,7 @@ int main()
   gui.setResources (font, texture, atlas);
   gui.setSounds (sounds);
   gui.setStyle (style);
+  gui.setView (window);
   /**
    * Gui card initialization
    */
@@ -41,24 +48,21 @@ int main()
   auto cardGui = sgui::Gui ();
   cardGui.setResources (font, cardTexture, cardAtlas);
   cardGui.setStyle (style);
-  /**
-   * Window initialization
-   */
-  spdlog::info ("Open window");
-  auto window = sf::RenderWindow (sf::VideoMode ({1920u, 1080u}), "Card generator project");
-  window.setFramerateLimit (60);
+  cardGui.setView (window);
+  auto cardRender = sgui::Gui ();
+  cardRender.setResources (font, cardTexture, cardAtlas);
+  cardRender.setStyle (style);
   /**
    * app initialization
    */
   spdlog::info ("Initialize app");
-  sgui::PrimitiveShapeRender shapes;
   sw::RenderEntries renderOptions;
   renderOptions.enroll <SimpleRenderer> ("simple", window.getView ());
   sw::ActivityController app (window, renderOptions);
   app.optimizeForPerformance (sw::quality::realtime);
   app.buildRenderEntries ();
   app.activateRenderEntry (0);
-  app.push <sw::segue <ZoomOut>::to <CardPrinterScene>> (gui, cardGui, shapes);
+  app.push <sw::segue <ZoomOut>::to <CardPrinterScene>> (gui, cardGui, cardRender);
   /**
    * Main App loop
    */
@@ -88,13 +92,11 @@ int main()
         }
         if (!pause) {
           gui.update (window, event);
-          cardGui.update (window, event);
         }
       }
       if (!pause) {
         app.update (dt.asSeconds ());
         gui.updateTimer (dt);
-        cardGui.updateTimer (dt);
       }
     }
     /**
@@ -102,13 +104,8 @@ int main()
      */
     window.clear ();
     app.draw ();
-    gui.draw (window);
-    cardGui.draw (window);
-    auto view = window.getDefaultView ();
-    view.zoom (4.f);
-    view.move ({0.f, 1400.f});
-    window.setView (view);
-    window.draw (shapes);
+    window.draw (cardGui);
+    window.draw (gui);
     window.display ();
   }
 }

@@ -29,7 +29,6 @@ private:
   void exitMenu ();
   void editCardTexts ();
   void editCardTextures ();
-  void swipeToNextCard ();
 private:
   bool m_isTemplate = false;
   int m_cardsCount = 0;

@@ -5,6 +5,8 @@ set (SRC
   ${INCROOT}/GraphicalParts.h
   ${INCROOT}/PaperFormats.h
   ${INCROOT}/Informations.h
+  ${INCROOT}/CardUtils.cpp
+  ${INCROOT}/CardUtils.h
 )
 source_group ("" FILES ${SRC})
 

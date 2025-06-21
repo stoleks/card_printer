@@ -6,14 +6,16 @@
 
 #include "cards/Informations.h"
 #include "cards/GraphicalParts.h"
+#include "cards/CardUtils.h"
 
 ////////////////////////////////////////////////////////////
 CardPrinterScene::CardPrinterScene (
   sw::ActivityController& controller,
   sgui::Gui& g,
   sgui::Gui& cg,
-  sgui::PrimitiveShapeRender& shapes) 
-  : sw::Activity (&controller), m_gui (g), m_cardGui (cg), m_cardFormatNames (), m_shape (shapes)
+  sgui::Gui& cr)
+  : sw::Activity (&controller), m_cardFormatNames (), 
+    m_gui (g), m_cardGui (cg), m_cardRender (cr)
 {
   // load texts and layouts
   spdlog::info ("Load card printer layout and text.");
@@ -32,6 +34,22 @@ CardPrinterScene::CardPrinterScene (
     m_cardFormatNames.push_back (formatEntry.first);
     cardFormatId++;
   }
+
+  // SCAFFOLD : add a card for test
+  m_activeCard = m_entities.create ();
+  m_entities.emplace <Identifier> (m_activeCard);
+  m_entities.emplace <CardFormat> (m_activeCard);
+  m_entities.emplace <GraphicalParts> (m_activeCard);
+  auto& parts = m_entities.get <GraphicalParts> (m_activeCard);
+  parts.textures.emplace_back ();
+  auto& texture = parts.textures.back ();
+  texture.identifier = "plus";
+  texture.rect.size = sf::Vector2f (64.f, 64.f);
+  texture.rect.position = sf::Vector2f (1.f, 32.f);
+  parts.texts.emplace_back ();
+  auto& text = parts.texts.back ();
+  text.position = sf::Vector2f (4.f, 64.f);
+  text.identifier = "nextCard"; 
 }
 
 
@@ -43,7 +61,12 @@ void CardPrinterScene::onUpdate (double elapsed)
   {
     if (m_gui.beginWindow (m_layout.get <sgui::Window> ("chooseCardsFormat"), m_texts)) {
       chooseCardsFormat ();
-      saveCards ();
+      exportCardsToPdf ();
+      m_gui.slider (m_resolution, 75.f, 300.f, {
+        fmt::format ("Card resolution : {}", m_resolution)
+      });
+      m_gui.inputNumber (m_resolution);
+      m_resolution = std::round (m_resolution);
       m_gui.endWindow ();
     }
   }
@@ -51,20 +74,17 @@ void CardPrinterScene::onUpdate (double elapsed)
   // cards display
   computeLattice ();
   m_cardGui.beginFrame ();
-  {
-    displayCardsInLattice ();
-  }
+  displayCardsInLattice ();
   m_cardGui.endFrame ();
 }
 
 ////////////////////////////////////////////////////////////
 void CardPrinterScene::onDraw (sw::IRenderer& renderer)
 {
+  m_cardRender.setView (m_cardsImage);
   m_cardsImage.clear (sf::Color::White);
-  m_cardsImage.draw (m_shape);
+  m_cardsImage.draw (m_cardRender);
   m_cardsImage.display ();
-  sf::Sprite cards (m_cardsImage.getTexture ());
-  renderer.submit (&cards);
 }
 
 ////////////////////////////////////////////////////////////
@@ -84,7 +104,7 @@ void CardPrinterScene::chooseCardsFormat ()
 }
 
 ////////////////////////////////////////////////////////////
-void CardPrinterScene::saveCards ()
+void CardPrinterScene::exportCardsToPdf ()
 {
   if (m_gui.textButton ("Print")) {
     // print card image and then add it to a pdf
@@ -124,14 +144,30 @@ void CardPrinterScene::saveCards ()
 ////////////////////////////////////////////////////////////
 void CardPrinterScene::displayCardsInLattice ()
 {
+  m_cardRender.beginFrame ();
   // open panel that will hold card
   if (m_cardGui.beginWindow (m_layout.get <sgui::Window> ("displayCards"), m_texts)) {
     const auto cardSize = PaperFormatInMillimeter.at (m_cardFormat) / mmPerInch * m_resolution;
     for (const auto& cardPos : m_cardsPositions) {
-      m_shape.loadFilled (sf::FloatRect (sf::Vector2f (cardPos), sf::Vector2f (cardSize)), sf::Color::Green);
+      // draw cards decoration
+      const auto cardBox = sf::FloatRect (sf::Vector2f (cardPos), sf::Vector2f (cardSize));
+      auto cardPanel = sgui::Panel ();
+      cardPanel.position = cardBox.position;
+      cardPanel.size = cardBox.size;
+      // on screen
+      m_cardGui.beginPanel (cardPanel);
+      drawCardDecoration (m_cardGui, m_entities, m_activeCard, m_cardTexts);
+      m_cardGui.endPanel ();
+      // on pdf
+      m_cardRender.beginPanel (cardPanel);
+      drawCardDecoration (m_cardRender, m_entities, m_activeCard, m_cardTexts);
+      m_cardRender.endPanel ();
+      // go to next card
+      swipeToNextCard (m_activeCard, m_entities);
     }
     m_cardGui.endWindow ();
   }
+  m_cardRender.endFrame ();
 }
 
 ////////////////////////////////////////////////////////////
@@ -148,8 +184,6 @@ void CardPrinterScene::computeLattice ()
   }
   const auto textPos = m_pagePadding * m_resolution / mmPerInch;
   const auto textBox = sf::FloatRect (textPos, pageSize);
-  m_shape.clear ();
-  m_shape.loadFilled (sf::FloatRect (sf::Vector2f (), pageSize + m_pagePadding * m_resolution / mmPerInch));
   // Initialize render texture
   if (!m_cardsImage.resize (sf::Vector2u (pageSize))) {
     spdlog::warn ("Failed to initialize render texture");

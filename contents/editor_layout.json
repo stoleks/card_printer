@@ -9,11 +9,11 @@
       "closable": true,
       "movable": true,
       "position": {
-        "x": 0.0,
+        "x": 1515.0,
         "y": 0.0
       },
       "size": {
-        "x": 200.0,
+        "x": 400.0,
         "y": 1080.0
       },
       "visible": true,
@@ -30,11 +30,11 @@
       "closable": true,
       "movable": true,
       "position": {
-        "x": 200.0,
-        "y": 0.0
+        "x": -5.0,
+        "y": -20.0
       },
       "size": {
-        "x": 1780.0,
+        "x": 1520.0,
         "y": 1080.0
       },
       "visible": true,

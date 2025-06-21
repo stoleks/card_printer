@@ -1,10 +1,8 @@
 #include "CardEditorScene.h"
 
-#include <chrono>
-#include <thread>
-
 #include "cards/Informations.h"
 #include "cards/GraphicalParts.h"
+#include "cards/CardUtils.h"
 
 ////////////////////////////////////////////////////////////
 CardEditorScene::CardEditorScene (
@@ -59,7 +57,10 @@ void CardEditorScene::editCardFromMenu ()
 
     // change card to edit
     if (m_gui.iconTextButton ("right", m_texts.get ("nextCard"))) {
-      swipeToNextCard ();
+      swipeToNextCard (m_activeCard, m_entities);
+      if (auto* c = m_entities.try_get <CardTemplate> (m_activeCard); c == nullptr) {
+        m_isTemplate = false;
+      }
     }
 
     // add and edit text to the card
@@ -95,36 +96,7 @@ void CardEditorScene::editOnCard ()
     m_cardGui.addLastSpacing (-4.f);
 
     // draw card decorations and texts
-    auto& parts = m_entities.get <GraphicalParts> (m_activeCard);
-    for (auto& icon : parts.textures) {
-      // draw texture in a wrapper panel
-      auto panel = sgui::Panel ();
-      panel.position = icon.rect.position;
-      panel.size = icon.rect.size;
-      m_cardGui.beginPanel (panel); 
-      {
-        m_cardGui.addSpacing ({-1.f, -1.f});
-        m_cardGui.icon (icon.identifier, icon.rect.size);
-      }
-      m_cardGui.endPanel ();
-      // store texture position
-      icon.rect.position = {std::round (panel.position.x), std::round (panel.position.y)};
-    }
- 
-    // draw card text
-    for (auto& text : parts.texts) {
-      // draw texture in a wrapper panel
-      auto panel = sgui::Panel ();
-      panel.position = text.position;
-      panel.size = sf::Vector2f (0.5f*m_cardGui.activePanelSize ().x, 10.f*m_cardGui.normalSizeOf ("A").y);
-      m_cardGui.beginPanel (panel); 
-      {
-        m_cardGui.text (m_cardTexts.get (text.identifier));
-      }
-      m_cardGui.endPanel ();
-      // store texture position
-      text.position = panel.position;
-    }
+    drawCardDecoration (m_cardGui, m_entities, m_activeCard, m_cardTexts);
   }
   m_cardGui.endWindow ();
 }
@@ -165,30 +137,5 @@ void CardEditorScene::editCardTextures ()
     m_gui.inputText (texture.identifier, {}, {"Texture identifier : "});
     m_gui.inputVector2 (texture.rect.size, {"Texture size : "});
     m_gui.inputVector2 (texture.rect.position, {"Texture position : "});
-  }
-}
-
-////////////////////////////////////////////////////////////
-void CardEditorScene::swipeToNextCard ()
-{
-  // get current card number and id of all cards
-  auto view = m_entities.view <const Identifier> ();
-  auto nextCardNumber = m_entities.get <Identifier> (m_activeCard).number + 1;
-  // if we are at the last card, go to first card
-  if (nextCardNumber >= view.size ()) {
-    nextCardNumber = 0;
-  }
-  // check every card number
-  for (auto card : view) {
-    const auto cardNum = view.get <Identifier> (card).number;
-    // set next card and reset template if needed
-    if (cardNum == nextCardNumber) {
-      m_activeCard = card;
-      spdlog::info ("Swipe to edit card {} / {}", cardNum, view.size () - 1);
-      if (auto* c = m_entities.try_get <CardTemplate> (card); c == nullptr) {
-        m_isTemplate = false;
-      }
-      return;
-    }
   }
 }
