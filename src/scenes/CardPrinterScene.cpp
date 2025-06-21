@@ -1,4 +1,8 @@
 #include "CardPrinterScene.h"
+  
+#include <PDFWriter.h>
+#include <PDFPage.h>
+#include <PageContentContext.h>
 
 #include "cards/Informations.h"
 #include "cards/GraphicalParts.h"
@@ -83,9 +87,36 @@ void CardPrinterScene::chooseCardsFormat ()
 void CardPrinterScene::saveCards ()
 {
   if (m_gui.textButton ("Print")) {
-    auto path = std::string("card_print");
-    if (m_cardsImage.getTexture ().copyToImage ().saveToFile (path+".png")) {
-      spdlog::info ("Saved cards at {}", path+".png");
+    // print card image and then add it to a pdf
+    const auto path = std::string("card_print");
+    const auto png = path + ".png";
+    if (m_cardsImage.getTexture ().copyToImage ().saveToFile (png)) {
+      // start a pdf
+      auto pdfWriter = PDFWriter ();
+      const auto pdf = path + ".pdf";
+      pdfWriter.StartPDF (pdf, ePDFVersion13);
+      // create a A4 page with the right orientation
+      auto page = std::make_unique <PDFPage> ();
+      auto pageWidth = 595;
+      auto pageHeight = 842;
+      const auto imageDimensions = pdfWriter.GetImageDimensions (png);
+      if (imageDimensions.first > imageDimensions.second) {
+        std::swap (pageWidth, pageHeight);
+      }
+      page->SetMediaBox (PDFRectangle (0, 0, pageWidth, pageHeight));
+      // add card image that takes the whole page
+      auto options = AbstractContentContext::ImageOptions ();
+      options.transformationMethod = AbstractContentContext::eFit;
+      options.boundingBoxWidth = pageWidth;
+      options.boundingBoxHeight = pageHeight;
+      options.fitProportional = true;
+      // draw image and close pdf
+      auto cxt = pdfWriter.StartPageContentContext (page.get ());
+      cxt->DrawImage (0, 0, png, options);
+      pdfWriter.EndPageContentContext (cxt);
+      pdfWriter.WritePage (page.get ());
+      pdfWriter.EndPDF ();
+      spdlog::info ("Saved cards at {} and {}", png, pdf);
     }
   }
 }

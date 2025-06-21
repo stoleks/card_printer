@@ -43,5 +43,7 @@ target_link_libraries (${PROJECT_NAME} PRIVATE
   spdlog
   SmolGui
   Swoosh
+  PDFHummus::PDFWriter
+  PDFHummus::LibPng
 )
 

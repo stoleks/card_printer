@@ -30,32 +30,38 @@ FetchContent_Declare (SFML
 
 FetchContent_Declare (entt
   GIT_REPOSITORY https://github.com/skypjack/entt.git
-  GIT_TAG v3.14.0
+  GIT_TAG        v3.14.0
   GIT_PROGRESS TRUE
 )
 
 FetchContent_Declare (nlohmann-json
   GIT_REPOSITORY https://github.com/nlohmann/json.git
-  GIT_TAG v3.11.3
+  GIT_TAG        v3.11.3
   GIT_PROGRESS TRUE
 )
 
 FetchContent_Declare (spdlog
   GIT_REPOSITORY https://github.com/gabime/spdlog
-  GIT_TAG v1.9.2
+  GIT_TAG        v1.9.2
   GIT_PROGRESS TRUE
 )
 
 FetchContent_Declare (SmolGui
   GIT_REPOSITORY https://github.com/stoleks/smolgui
-  GIT_TAG v0.6.1
+  GIT_TAG        v0.6.1
   GIT_PROGRESS TRUE
 )
 
 FetchContent_Declare (Swoosh
   GIT_REPOSITORY https://github.com/stoleks/swoosh
-  GIT_TAG v2.0.3
+  GIT_TAG        v2.0.3
   GIT_PROGRESS TRUE
+)
+
+FetchContent_Declare (PDFHummus
+  GIT_REPOSITORY https://github.com/galkahana/PDF-Writer
+  GIT_TAG        v4.7.0
+  FIND_PACKAGE_ARGS
 )
 
 FetchContent_MakeAvailable (
@@ -65,6 +71,7 @@ FetchContent_MakeAvailable (
   spdlog
   smolGui
   Swoosh
+  PDFHummus
 )
 
 ####
