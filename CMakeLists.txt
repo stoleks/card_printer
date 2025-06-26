@@ -22,7 +22,7 @@ include (FetchContent)
 
 FetchContent_Declare (SFML
   GIT_REPOSITORY https://github.com/SFML/SFML.git
-  GIT_TAG 3.0.1
+  GIT_TAG        3.0.1
   GIT_SHALLOW ON
   EXCLUDE_FROM_ALL
   SYSTEM
@@ -48,7 +48,7 @@ FetchContent_Declare (spdlog
 
 FetchContent_Declare (SmolGui
   GIT_REPOSITORY https://github.com/stoleks/smolgui
-  GIT_TAG        v0.7.1
+  GIT_TAG        v0.7.2
   GIT_PROGRESS TRUE
 )
 

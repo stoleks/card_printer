@@ -62,11 +62,7 @@ void CardPrinterScene::onUpdate (double elapsed)
     if (m_gui.beginWindow (m_layout.get <sgui::Window> ("chooseCardsFormat"), m_texts)) {
       chooseCardsFormat ();
       exportCardsToPdf ();
-      m_gui.slider (m_resolution, 75.f, 300.f, {
-        fmt::format ("Card resolution : {}", m_resolution)
-      });
-      m_gui.inputNumber (m_resolution);
-      m_resolution = std::round (m_resolution);
+      renderOptions ();
       m_gui.endWindow ();
     }
   }
@@ -142,26 +138,50 @@ void CardPrinterScene::exportCardsToPdf ()
 }
 
 ////////////////////////////////////////////////////////////
+void CardPrinterScene::renderOptions ()
+{
+  // resolution
+  m_gui.slider (m_resolution, 75.f, 300.f, {fmt::format ("Card resolution : {} dpi", m_resolution)} );
+  m_gui.inputNumber (m_resolution);
+  m_resolution = std::round (m_resolution);
+  // page padding
+  m_gui.text (fmt::format ("Page padding: ({}, {})", m_pagePadding.x, m_pagePadding.y));
+  m_gui.slider (m_pagePadding.x, 2.f, 20.f);
+  m_gui.slider (m_pagePadding.y, 2.f, 20.f);
+  m_pagePadding = sgui::round (m_pagePadding);
+  const auto pageSize = computePageSize ();
+  m_gui.text (fmt::format ("Page size: ({}, {})", pageSize.x, pageSize.y));
+  const auto format = millimToPixel (PaperFormatInMillimeter.at (m_paperFormat));
+  m_gui.text (fmt::format ("Page format: ({}, {})", format.x, format.y));
+  // card padding
+  m_gui.text (fmt::format ("Card padding: ({}, {})", m_cardPadding.x, m_cardPadding.y));
+  m_gui.slider (m_cardPadding.x, 0.f, 3.f);
+  m_gui.slider (m_cardPadding.y, 0.f, 3.f);
+}
+
+////////////////////////////////////////////////////////////
 void CardPrinterScene::displayCardsInLattice ()
 {
   m_cardRender.beginFrame ();
   // open panel that will hold card
   if (m_cardGui.beginWindow (m_layout.get <sgui::Window> ("displayCards"), m_texts)) {
-    const auto cardSize = PaperFormatInMillimeter.at (m_cardFormat) / mmPerInch * m_resolution;
+    const auto shift = m_cardGui.cursorPosition ();
+    const auto cardSize = millimToPixel (PaperFormatInMillimeter.at (m_cardFormat));
     for (const auto& cardPos : m_cardsPositions) {
       // draw cards decoration
       const auto cardBox = sf::FloatRect (sf::Vector2f (cardPos), sf::Vector2f (cardSize));
       auto cardPanel = sgui::Panel ();
       cardPanel.position = cardBox.position;
       cardPanel.size = cardBox.size;
-      // on screen
-      m_cardGui.beginPanel (cardPanel);
-      drawCardDecoration (m_cardGui, m_entities, m_activeCard, m_cardTexts);
-      m_cardGui.endPanel ();
       // on pdf
       m_cardRender.beginPanel (cardPanel);
       drawCardDecoration (m_cardRender, m_entities, m_activeCard, m_cardTexts);
       m_cardRender.endPanel ();
+      // on screen
+      cardPanel.position += shift;
+      m_cardGui.beginPanel (cardPanel);
+      drawCardDecoration (m_cardGui, m_entities, m_activeCard, m_cardTexts);
+      m_cardGui.endPanel ();
       // go to next card
       swipeToNextCard (m_activeCard, m_entities);
     }
@@ -176,35 +196,52 @@ void CardPrinterScene::computeLattice ()
   // clear previous cards
   m_cardsPositions.clear ();
   // compute paper format and its orientation
-  auto pageSize = (PaperFormatInMillimeter.at (m_paperFormat) - m_pagePadding) * m_resolution / mmPerInch;
-  if (m_orientation == PaperOrientation::Landscape) {
-    const auto height = pageSize.x;
-    pageSize.x = pageSize.y;
-    pageSize.y = height;
-  }
-  const auto textPos = m_pagePadding * m_resolution / mmPerInch;
+  const auto pageSize = computePageSize ();
+  const auto textPos = computeTextPosition ();;
   const auto textBox = sf::FloatRect (textPos, pageSize);
   // Initialize render texture
   if (!m_cardsImage.resize (sf::Vector2u (pageSize))) {
     spdlog::warn ("Failed to initialize render texture");
   }
   // compute card size, their orientations are always in portrait
-  const auto cardSize = PaperFormatInMillimeter.at (m_cardFormat) * m_resolution / mmPerInch;
+  const auto cardSize = millimToPixel (PaperFormatInMillimeter.at (m_cardFormat));
   auto lastCardPosition = textPos;
   bool addCard = true;
   while (addCard) {
     // if new card is outside the pages boundaries, try to go to the line
     const auto cardBottomRight = lastCardPosition + cardSize;
-    if (cardBottomRight.x > textBox.position.x + textBox.size.x) {
+    if (cardBottomRight.x >= textBox.position.x + textBox.size.x) {
       lastCardPosition.x = textPos.x;
-      lastCardPosition.y += cardSize.y + m_cardPadding.y * m_resolution / mmPerInch;
+      lastCardPosition.y += cardSize.y + millimToPixel (m_cardPadding.y);
     }
     // if new line is outside boundaries, stop procedure
     if (textBox.contains (lastCardPosition + cardSize)) {
       m_cardsPositions.push_back (lastCardPosition);
-      lastCardPosition.x += cardSize.x + m_cardPadding.x * m_resolution / mmPerInch;
+      lastCardPosition.x += cardSize.x + millimToPixel (m_cardPadding.x);
     } else {
       addCard = false;
     }
   }
+}
+ 
+////////////////////////////////////////////////////////////
+sf::Vector2f CardPrinterScene::computePageSize () const
+{
+  // substract page padding and use the correct orientation
+  auto pageSize = millimToPixel (PaperFormatInMillimeter.at (m_paperFormat) - m_pagePadding);
+  if (m_orientation == PaperOrientation::Landscape) {
+    std::swap (pageSize.x, pageSize.y);
+  }
+  return pageSize;
+}
+
+////////////////////////////////////////////////////////////
+sf::Vector2f CardPrinterScene::computeTextPosition () const
+{
+  // use the correct orientation for padding
+  auto textPosition = millimToPixel (m_pagePadding);
+  if (m_orientation == PaperOrientation::Landscape) {
+    std::swap (textPosition.x, textPosition.y);
+  }
+  return textPosition;
 }

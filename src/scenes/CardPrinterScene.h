@@ -20,6 +20,9 @@ public:
    * @brief Edit card
    */
   void onUpdate (double elapsed) override;
+  /**
+   * @brief Print cards
+   */
   void onDraw (sw::IRenderer& renderer) override;
   // unused functions
   void onStart () override {}
@@ -32,15 +35,24 @@ public:
 private:
   void chooseCardsFormat ();
   void exportCardsToPdf ();
+  void renderOptions ();
   void computeLattice ();
   void displayCardsInLattice ();
+  // to get page size
+  sf::Vector2f computePageSize () const;
+  sf::Vector2f computeTextPosition () const;
+  // conversion to pixel from millimeter, or the reverse
+  template <typename Type>
+  Type millimToPixel (const Type& millimSize) const { return millimSize * m_resolution / mmPerInch; }
+  template <typename Type>
+  Type pixelToMillim (const Type& pixelsSize) const { return pixelsSize * mmPerInch / m_resolution; }
 private:
-  float m_resolution = 125.f;
+  float m_resolution = 127.f;
   uint32_t m_selectedFormatId = 0u;
   sf::Vector2f m_cardsPosition = {};
-  sf::Vector2f m_pagePadding = { 2.f, 2.f };
-  sf::Vector2f m_cardPadding = { 1.f, 1.f };
-  PaperOrientation m_orientation = PaperOrientation::Landscape;
+  sf::Vector2f m_pagePadding = { 7.f, 10.f };
+  sf::Vector2f m_cardPadding = { 1.f,  1.f };
+  PaperOrientation m_orientation = PaperOrientation::Portrait;
   PaperFormat m_paperFormat = PaperFormat::A4;
   PaperFormat m_cardFormat = PaperFormat::B8;
   std::vector <std::string> m_cardFormatNames;
