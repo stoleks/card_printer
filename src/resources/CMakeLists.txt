@@ -4,8 +4,10 @@ set(SRCROOT ${PROJECT_SOURCE_DIR}/src/resources)
 
 # all source files
 set (SRC
-  ${INCROOT}/resourceHolder.tpp
-  ${INCROOT}/resourceHolder.h
+  ${INCROOT}/ResourceHolder.tpp
+  ${INCROOT}/ResourceHolder.h
+  ${SRCROOT}/TextureCollage.cpp
+  ${INCROOT}/TextureCollage.h
 )
 source_group ("" FILES ${SRC})
 

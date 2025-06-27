@@ -6,8 +6,10 @@
 #include <Swoosh/Renderers/SimpleRenderer.h>
 #include <Segues/ZoomOut.h>
 #include <sgui/sgui.h>
+#include <sgui/Resources/LoadTextureAtlas.h>
 
 #include "IntroScene.h"
+#include "resources/TextureCollage.h"
 
 int main()
 {
@@ -39,6 +41,14 @@ int main()
   gui.setSounds (sounds);
   gui.setStyle (style);
   gui.setView (window);
+  /**
+   * Collage 
+   */
+  const auto collage = TextureCollage (ContentsDir"/cards_textures/");
+  if (!collage.image ().saveToFile (ContentsDir"/cards_textures.png")) {
+    spdlog::warn ("Unable to save cards_textures.png"); 
+  }
+  sgui::saveInFile (collage.atlas (), ContentsDir"/cards_atlas.json");
   /**
    * Gui card initialization
    */

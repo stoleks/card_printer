@@ -79,4 +79,4 @@ using TextHolder = ResourceHolder <TextContainer, std::string>;
 using LayoutHolder = ResourceHolder <GuiLayout, StateID>;
 using FontHolder = ResourceHolder <sf::Font, std::string>;
 
-#include "resourceHolder.tpp"
+#include "ResourceHolder.tpp"
