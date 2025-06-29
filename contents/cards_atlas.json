@@ -1,0 +1,2485 @@
+{
+  "Box::Act::Bot::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1280,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Act::Bot::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1152,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Act::Bot::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1408,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Act::Mid::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1280,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Act::Mid::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1152,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Act::Mid::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1408,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Act::Top::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1280,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Act::Top::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1152,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Act::Top::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1408,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Hov::Bot::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1280,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Hov::Bot::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1152,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Hov::Bot::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1408,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Hov::Mid::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1280,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Hov::Mid::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1152,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Hov::Mid::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1408,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Hov::Top::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1280,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Hov::Top::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1152,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Hov::Top::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1408,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Neu::Bot::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 896,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Neu::Bot::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 768,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Neu::Bot::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1024,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Neu::Mid::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 896,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Neu::Mid::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 768,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Neu::Mid::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1024,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Neu::Top::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 896,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Neu::Top::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 768,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Box::Neu::Top::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1024,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Button::Act": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Button::Hov": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Button::Neu": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "CheckBox::Act": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 512,
+        "y": 256
+      },
+      "size": {
+        "x": 256,
+        "y": 128
+      }
+    }
+  },
+  "CheckBox::Hov": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 512,
+        "y": 128
+      },
+      "size": {
+        "x": 256,
+        "y": 128
+      }
+    }
+  },
+  "CheckBox::Neu": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 512,
+        "y": 0
+      },
+      "size": {
+        "x": 256,
+        "y": 128
+      }
+    }
+  },
+  "FootnoteBox::Act": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 640
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "FootnoteBox::Hov": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 512
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "FootnoteBox::Neu": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 384
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Icon::Nmethylethanamide": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 4227,
+        "y": 3040
+      },
+      "size": {
+        "x": 714,
+        "y": 399
+      }
+    }
+  },
+  "Icon::Nmethylmethanamide": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 3040
+      },
+      "size": {
+        "x": 825,
+        "y": 417
+      }
+    }
+  },
+  "Icon::adenine": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 2881,
+        "y": 1312
+      },
+      "size": {
+        "x": 768,
+        "y": 848
+      }
+    }
+  },
+  "Icon::alanine": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 4586,
+        "y": 1312
+      },
+      "size": {
+        "x": 768,
+        "y": 768
+      }
+    }
+  },
+  "Icon::arachidonique": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 2048,
+        "y": 0
+      },
+      "size": {
+        "x": 1684,
+        "y": 1312
+      }
+    }
+  },
+  "Icon::aspartame": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 5285,
+        "y": 0
+      },
+      "size": {
+        "x": 1666,
+        "y": 993
+      }
+    }
+  },
+  "Icon::butan-2-one": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 3552
+      },
+      "size": {
+        "x": 598,
+        "y": 396
+      }
+    }
+  },
+  "Icon::butanal": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 2217,
+        "y": 3040
+      },
+      "size": {
+        "x": 768,
+        "y": 415
+      }
+    }
+  },
+  "Icon::butanamine": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 2684,
+        "y": 3552
+      },
+      "size": {
+        "x": 866,
+        "y": 241
+      }
+    }
+  },
+  "Icon::butanoique": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 4883,
+        "y": 2160
+      },
+      "size": {
+        "x": 848,
+        "y": 452
+      }
+    }
+  },
+  "Icon::butanol": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1813,
+        "y": 3552
+      },
+      "size": {
+        "x": 871,
+        "y": 256
+      }
+    }
+  },
+  "Icon::carte_molecules": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1136,
+        "y": 2160
+      },
+      "size": {
+        "x": 620,
+        "y": 880
+      }
+    }
+  },
+  "Icon::carte_molecules_dos": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1756,
+        "y": 2160
+      },
+      "size": {
+        "x": 620,
+        "y": 880
+      }
+    }
+  },
+  "Icon::close": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1600,
+        "y": 640
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Icon::ethamine": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 3249,
+        "y": 2160
+      },
+      "size": {
+        "x": 837,
+        "y": 512
+      }
+    }
+  },
+  "Icon::ethanal": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 6627,
+        "y": 2160
+      },
+      "size": {
+        "x": 848,
+        "y": 431
+      }
+    }
+  },
+  "Icon::ethanoatemethyle": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 2376,
+        "y": 2160
+      },
+      "size": {
+        "x": 873,
+        "y": 493
+      }
+    }
+  },
+  "Icon::ethanoique": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 5731,
+        "y": 2160
+      },
+      "size": {
+        "x": 896,
+        "y": 417
+      }
+    }
+  },
+  "Icon::ethanol": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 4086,
+        "y": 2160
+      },
+      "size": {
+        "x": 797,
+        "y": 512
+      }
+    }
+  },
+  "Icon::ethanoxymethane": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 5005,
+        "y": 3552
+      },
+      "size": {
+        "x": 585,
+        "y": 228
+      }
+    }
+  },
+  "Icon::ethoxyethane": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 3550,
+        "y": 3552
+      },
+      "size": {
+        "x": 768,
+        "y": 218
+      }
+    }
+  },
+  "Icon::fructose": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 3649,
+        "y": 1312
+      },
+      "size": {
+        "x": 937,
+        "y": 660
+      }
+    }
+  },
+  "Icon::glucose": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 6890,
+        "y": 1312
+      },
+      "size": {
+        "x": 768,
+        "y": 768
+      }
+    }
+  },
+  "Icon::hecasopentoique": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 3732,
+        "y": 0
+      },
+      "size": {
+        "x": 1553,
+        "y": 1077
+      }
+    }
+  },
+  "Icon::left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1472,
+        "y": 384
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Icon::methamide": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 7257,
+        "y": 3040
+      },
+      "size": {
+        "x": 587,
+        "y": 427
+      }
+    }
+  },
+  "Icon::methamine": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1593,
+        "y": 3040
+      },
+      "size": {
+        "x": 624,
+        "y": 512
+      }
+    }
+  },
+  "Icon::methanal": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 598,
+        "y": 3552
+      },
+      "size": {
+        "x": 507,
+        "y": 455
+      }
+    }
+  },
+  "Icon::methanoatemethyl": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 825,
+        "y": 3040
+      },
+      "size": {
+        "x": 768,
+        "y": 429
+      }
+    }
+  },
+  "Icon::methanoique": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 6671,
+        "y": 3040
+      },
+      "size": {
+        "x": 586,
+        "y": 461
+      }
+    }
+  },
+  "Icon::methanol": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 2985,
+        "y": 3040
+      },
+      "size": {
+        "x": 616,
+        "y": 512
+      }
+    }
+  },
+  "Icon::methoymethane": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 5590,
+        "y": 3552
+      },
+      "size": {
+        "x": 712,
+        "y": 140
+      }
+    }
+  },
+  "Icon::minus": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1600,
+        "y": 512
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Icon::oleique": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 1312
+      },
+      "size": {
+        "x": 1712,
+        "y": 760
+      }
+    }
+  },
+  "Icon::paracetamol": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1712,
+        "y": 1312
+      },
+      "size": {
+        "x": 1169,
+        "y": 596
+      }
+    }
+  },
+  "Icon::plus": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1472,
+        "y": 512
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Icon::propanal": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 6038,
+        "y": 3040
+      },
+      "size": {
+        "x": 633,
+        "y": 428
+      }
+    }
+  },
+  "Icon::propanamine": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 4318,
+        "y": 3552
+      },
+      "size": {
+        "x": 687,
+        "y": 211
+      }
+    }
+  },
+  "Icon::propanoatemethyl": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 2160
+      },
+      "size": {
+        "x": 1136,
+        "y": 482
+      }
+    }
+  },
+  "Icon::propanoique": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 3601,
+        "y": 3040
+      },
+      "size": {
+        "x": 626,
+        "y": 478
+      }
+    }
+  },
+  "Icon::propanol": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 4941,
+        "y": 3040
+      },
+      "size": {
+        "x": 1097,
+        "y": 256
+      }
+    }
+  },
+  "Icon::propanone": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1105,
+        "y": 3552
+      },
+      "size": {
+        "x": 708,
+        "y": 316
+      }
+    }
+  },
+  "Icon::reduce": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1472,
+        "y": 640
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Icon::right": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1600,
+        "y": 384
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Icon::threonine": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 6122,
+        "y": 1312
+      },
+      "size": {
+        "x": 768,
+        "y": 768
+      }
+    }
+  },
+  "Icon::valine": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 5354,
+        "y": 1312
+      },
+      "size": {
+        "x": 768,
+        "y": 768
+      }
+    }
+  },
+  "Icon::widgets": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "x": 2048,
+        "y": 1312
+      }
+    }
+  },
+  "IconButton::Act": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "IconButton::Hov": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "IconButton::Neu": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "IconTextButton::Act": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "IconTextButton::Hov": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "IconTextButton::Neu": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ItemBox::Act::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ItemBox::Act::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ItemBox::Act::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ItemBox::Hov::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ItemBox::Hov::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ItemBox::Hov::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ItemBox::Neu::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ItemBox::Neu::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ItemBox::Neu::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "MenuBox::Act": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "MenuBox::Hov": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "MenuBox::Neu": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "MenuItemBox::Act": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "MenuItemBox::Hov": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "MenuItemBox::Neu": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ProgressBar::Act::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 960,
+        "y": 640
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "ProgressBar::Act::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 832,
+        "y": 640
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ProgressBar::Act::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1024,
+        "y": 640
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ProgressBar::Hov::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 960,
+        "y": 512
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "ProgressBar::Hov::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 832,
+        "y": 512
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ProgressBar::Hov::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1024,
+        "y": 512
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ProgressBar::Neu::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 960,
+        "y": 384
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "ProgressBar::Neu::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 832,
+        "y": 384
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ProgressBar::Neu::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1024,
+        "y": 384
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ProgressFilling::Act::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1280,
+        "y": 640
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ProgressFilling::Act::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1152,
+        "y": 640
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ProgressFilling::Act::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1344,
+        "y": 640
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ProgressFilling::Hov::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1280,
+        "y": 512
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ProgressFilling::Hov::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1152,
+        "y": 512
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ProgressFilling::Hov::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1344,
+        "y": 512
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ProgressFilling::Neu::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1280,
+        "y": 384
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ProgressFilling::Neu::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1152,
+        "y": 384
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "ProgressFilling::Neu::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1344,
+        "y": 384
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Scroller::Act::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 512,
+        "y": 640
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "Scroller::Act::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 448,
+        "y": 640
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "Scroller::Act::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 576,
+        "y": 640
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "Scroller::Hov::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 512,
+        "y": 512
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "Scroller::Hov::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 448,
+        "y": 512
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "Scroller::Hov::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 576,
+        "y": 512
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "Scroller::Neu::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 512,
+        "y": 384
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "Scroller::Neu::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 448,
+        "y": 384
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "Scroller::Neu::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 576,
+        "y": 384
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "ScrollerBar::Act::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 704,
+        "y": 640
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "ScrollerBar::Act::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 640,
+        "y": 640
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "ScrollerBar::Act::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 768,
+        "y": 640
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "ScrollerBar::Hov::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 704,
+        "y": 512
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "ScrollerBar::Hov::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 640,
+        "y": 512
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "ScrollerBar::Hov::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 768,
+        "y": 512
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "ScrollerBar::Neu::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 704,
+        "y": 384
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "ScrollerBar::Neu::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 640,
+        "y": 384
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "ScrollerBar::Neu::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 768,
+        "y": 384
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "Separation::Act::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1344,
+        "y": 640
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "Separation::Act::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1152,
+        "y": 640
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Separation::Act::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1280,
+        "y": 640
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Separation::Hov::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1344,
+        "y": 512
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "Separation::Hov::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1152,
+        "y": 512
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Separation::Hov::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1280,
+        "y": 512
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Separation::Neu::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1344,
+        "y": 512
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "Separation::Neu::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1152,
+        "y": 512
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Separation::Neu::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1280,
+        "y": 512
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "Slider::Act::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 192,
+        "y": 640
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "Slider::Act::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 128,
+        "y": 640
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "Slider::Act::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 256,
+        "y": 640
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "Slider::Hov::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 192,
+        "y": 512
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "Slider::Hov::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 128,
+        "y": 512
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "Slider::Hov::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 256,
+        "y": 512
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "Slider::Neu::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 192,
+        "y": 384
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "Slider::Neu::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 128,
+        "y": 384
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "Slider::Neu::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 256,
+        "y": 384
+      },
+      "size": {
+        "x": 64,
+        "y": 128
+      }
+    }
+  },
+  "SliderBar::Act": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 320,
+        "y": 640
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "SliderBar::Hov": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 320,
+        "y": 512
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "SliderBar::Neu": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 320,
+        "y": 384
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TextBox::Act::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TextBox::Act::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TextBox::Act::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TextBox::Hov::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TextBox::Hov::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TextBox::Hov::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TextBox::Neu::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TextBox::Neu::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TextBox::Neu::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1920,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TextButton::Act::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 256,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TextButton::Act::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 128,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TextButton::Act::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 384,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TextButton::Hov::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 256,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TextButton::Hov::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 128,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TextButton::Hov::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 384,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TextButton::Neu::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 256,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TextButton::Neu::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 128,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TextButton::Neu::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 384,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TitleBox::Act::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1664,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TitleBox::Act::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1536,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TitleBox::Act::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1792,
+        "y": 256
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TitleBox::Hov::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1664,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TitleBox::Hov::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1536,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TitleBox::Hov::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1792,
+        "y": 128
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TitleBox::Neu::Cent": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1664,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TitleBox::Neu::Left": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1536,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TitleBox::Neu::Righ": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1792,
+        "y": 0
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TitleButton::Act": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1856,
+        "y": 384
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TitleButton::Hov": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1856,
+        "y": 384
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  },
+  "TitleButton::Neu": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1728,
+        "y": 384
+      },
+      "size": {
+        "x": 128,
+        "y": 128
+      }
+    }
+  }
+}

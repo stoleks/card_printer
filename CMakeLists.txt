@@ -48,7 +48,7 @@ FetchContent_Declare (spdlog
 
 FetchContent_Declare (SmolGui
   GIT_REPOSITORY https://github.com/stoleks/smolgui
-  GIT_TAG        v0.7.2
+  GIT_TAG        v0.8.1
   GIT_PROGRESS TRUE
 )
 

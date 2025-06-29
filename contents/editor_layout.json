@@ -1,16 +1,19 @@
 {
   "Window::chooseCardsFormat": {
     "constraints": {
-      "centeredHorizontally": false,
-      "centeredVertically": false,
-      "relativePosition": { "x": 0, "y": 0 }
+      "horizontal": "HorizontalAlignment::Left",
+      "vertical": "VerticalAlignment::Top",
+      "relativePosition": { 
+        "x": 0,
+        "y": 0 
+      }
     },
     "panel": {
-      "closable": true,
+      "closable": false,
       "movable": true,
       "position": {
-        "x": 1520.0,
-        "y": 0.0
+        "x": 0,
+        "y": 0
       },
       "size": {
         "x": 400.0,
@@ -22,16 +25,19 @@
   },
   "Window::displayCards": {
     "constraints": {
-      "centeredHorizontally": false,
-      "centeredVertically": false,
-      "relativePosition": { "x": 0, "y": 0 }
+      "horizontal": "HorizontalAlignment::Right",
+      "vertical": "VerticalAlignment::Top",
+      "relativePosition": { 
+        "x": 0,
+        "y": 0 
+      }
     },
     "panel": {
-      "closable": true,
+      "closable": false,
       "movable": true,
       "position": {
         "x": 0.0,
-        "y": -20.0
+        "y": 0.0
       },
       "size": {
         "x": 1520.0,
@@ -43,20 +49,23 @@
   },
   "Window::editFromMenu": {
     "constraints": {
-      "centeredHorizontally": false,
-      "centeredVertically": false,
-      "relativePosition": { "x": 0, "y": 0 }
+      "horizontal": "HorizontalAlignment::Right",
+      "vertical": "VerticalAlignment::Top",
+      "relativePosition": {
+        "x": 0,
+        "y": 0
+      }
     },
     "panel": {
-      "closable": true,
+      "closable": false,
       "movable": true,
       "position": {
-        "x": 1000.0,
-        "y": 64.0
+        "x": 0,
+        "y": 0
       },
       "size": {
-        "x": 600.0,
-        "y": 900.0
+        "x": 800.0,
+        "y": 1080.0
       },
       "visible": true,
       "title": "editFromMenu"
@@ -64,20 +73,23 @@
   },
   "Window::editOnCard": {
     "constraints": {
-      "centeredHorizontally": false,
-      "centeredVertically": false,
-      "relativePosition": { "x": 0, "y": 0}
+      "horizontal": "HorizontalAlignment::Left",
+      "vertical": "VerticalAlignment::Top",
+      "relativePosition": {
+        "x": 0,
+        "y": 0
+      }
     },
     "panel": {
-      "closable": true,
+      "closable": false,
       "movable": true,
       "position": {
-        "x": 180.0,
-        "y": 64.0
+        "x": 0,
+        "y": 0
       },
       "size": {
-        "x": 620.0,
-        "y": 870.0
+        "x": 1000.0,
+        "y": 1080.0
       },
       "visible": true,
       "title": "editOnCard"

@@ -9,7 +9,7 @@ public:
   /**
    * @brief Set-up gui and first card
    */
-  CardEditorScene (sw::ActivityController& controller, sgui::Gui& g, sgui::Gui& cg);
+  CardEditorScene (sw::ActivityController& controller, sgui::Gui& g, sgui::Gui& cg, sgui::Gui& cr);
   /**
    * @brief Edit card
    */
@@ -26,7 +26,6 @@ public:
 private:
   void editCardFromMenu ();
   void editOnCard ();
-  void exitMenu ();
   void editCardTexts ();
   void editCardTextures ();
 private:
@@ -34,6 +33,7 @@ private:
   int m_cardsCount = 0;
   sgui::Gui& m_gui;
   sgui::Gui& m_cardGui;
+  sgui::Gui& m_cardRender;
   sgui::Layout m_layout;
   sgui::TextContainer m_texts;
   sgui::TextContainer m_cardTexts;

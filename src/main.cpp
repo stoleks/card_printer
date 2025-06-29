@@ -8,7 +8,7 @@
 #include <sgui/sgui.h>
 #include <sgui/Resources/LoadTextureAtlas.h>
 
-#include "IntroScene.h"
+#include "scenes/CardPrinterScene.h"
 #include "resources/TextureCollage.h"
 
 int main()
@@ -18,10 +18,11 @@ int main()
    */
   auto style = sgui::Style ();
   style.fontColor = sf::Color::White;
-  style.fontSize.normal = 14u;
+  style.fontSize.normal = 15u;
+  style.fontSize.title = 18u;
   auto font = sf::Font (ContentsDir"/Averia-Bold.ttf");
   auto sounds = sgui::SoundHolder ();
-  for (const auto sound : {"Button", "CheckBox", "Slider", "Scroller", "InputText"}) {
+  for (const auto sound : {"Button", "CheckBox", "Slider", "Scroller", "InputText", "DropListItem", "InputNumber"}) {
     sounds.load (sound, ContentsDir"/wood1.wav");
   }
   /**
@@ -33,7 +34,8 @@ int main()
   /**
    * Gui initialization
    */
-  auto atlas = sgui::TextureAtlas (ContentsDir"/atlas.json");
+  const auto atlasFile = ContentsDir"/atlas.json";
+  auto atlas = sgui::TextureAtlas (atlasFile);
   auto texture = sf::Texture (ContentsDir"/widgets.png");
   spdlog::info ("Initialize app gui");
   auto gui = sgui::Gui ();
@@ -44,19 +46,26 @@ int main()
   /**
    * Collage 
    */
-  const auto collage = TextureCollage (ContentsDir"/cards_textures/");
-  if (!collage.image ().saveToFile (ContentsDir"/cards_textures.png")) {
-    spdlog::warn ("Unable to save cards_textures.png"); 
+  spdlog::info ("Prepare cards sprite sheet");
+  const auto cardTextureFile = std::string (ContentsDir"/cards_textures");
+  const auto cardsAtlasFile = std::string (ContentsDir"/cards_atlas.json");
+  /*
+  auto collage = TextureCollage (cardTextureFile);
+  if (!collage.image ().saveToFile (cardTextureFile + ".png")) {
+    spdlog::warn ("Unable to save {}.png", cardTextureFile); 
   }
-  sgui::saveInFile (collage.atlas (), ContentsDir"/cards_atlas.json");
+  collage.atlas ().loadFromFile (atlasFile);
+  sgui::saveInFile (collage.atlas (), cardsAtlasFile);
+  */
   /**
    * Gui card initialization
    */
-  auto cardAtlas = sgui::TextureAtlas (ContentsDir"/card_atlas.json");
-  auto cardTexture = sf::Texture (ContentsDir"/card_textures.png");
+  auto cardTexture = sf::Texture (cardTextureFile + ".png");
+  auto cardAtlas = sgui::TextureAtlas (cardsAtlasFile);
   spdlog::info ("Initialize card gui");
   auto cardGui = sgui::Gui ();
   cardGui.setResources (font, cardTexture, cardAtlas);
+  style.fontColor = sf::Color::Black;
   cardGui.setStyle (style);
   cardGui.setView (window);
   auto cardRender = sgui::Gui ();
@@ -102,6 +111,7 @@ int main()
         }
         if (!pause) {
           gui.update (window, event);
+          cardGui.update (window, event);
         }
       }
       if (!pause) {
@@ -114,8 +124,8 @@ int main()
      */
     window.clear ();
     app.draw ();
-    window.draw (cardGui);
     window.draw (gui);
+    window.draw (cardGui);
     window.display ();
   }
 }

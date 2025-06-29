@@ -53,7 +53,6 @@ TextureCollage::TextureCollage (const std::string& directory)
     textureSurface = collageSize.x * collageSize.y;
   }
   m_collage.resize (collageSize, sf::Color::White); 
-  m_atlas.setTextureDimension (collageSize);
   
   // build atlas and glue all images
   auto position = sf::Vector2i {};
@@ -79,16 +78,4 @@ TextureCollage::TextureCollage (const std::string& directory)
       rowHeight = std::max (size.y, rowHeight);
     }
   }
-}
-
-////////////////////////////////////////////////////////////
-const sf::Image& TextureCollage::image () const
-{
-  return m_collage;
-}
-
-////////////////////////////////////////////////////////////
-const sgui::TextureAtlas& TextureCollage::atlas () const
-{
-  return m_atlas;
 }

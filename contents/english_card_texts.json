@@ -6,5 +6,7 @@
   "addTexture": "add texture to current card",
   "changeCardBackground": "change card background",
   "isTemplate" : "is card a base template ?",
-  "addCard": "add a card to the pack"
+  "addCard": "add a card to the pack",
+  "goToBuilder": "Go to card builder",
+  "glucose": "Glucose"
 }

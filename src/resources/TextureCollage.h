@@ -19,11 +19,12 @@ public:
   /**
    * @brief get texture collage
    */
-  const sf::Image& image () const;
+  const sf::Image& image () const { return m_collage; }
   /**
    * @brief get texture atlas
    */
-  const sgui::TextureAtlas& atlas () const;
+  sgui::TextureAtlas& atlas () { return m_atlas; }
+  const sgui::TextureAtlas& atlas () const { return m_atlas; }
 private:
   sf::Image m_collage;
   sgui::TextureAtlas m_atlas;

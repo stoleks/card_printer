@@ -1,9 +1,11 @@
 #include "CardPrinterScene.h"
-  
+
+#include <Segues/ZoomIn.h>
 #include <PDFWriter.h>
 #include <PDFPage.h>
 #include <PageContentContext.h>
 
+#include "CardEditorScene.h"
 #include "cards/Informations.h"
 #include "cards/GraphicalParts.h"
 #include "cards/CardUtils.h"
@@ -36,42 +38,59 @@ CardPrinterScene::CardPrinterScene (
   }
 
   // SCAFFOLD : add a card for test
+  spdlog::info ("Build test card.");
   m_activeCard = m_entities.create ();
   m_entities.emplace <Identifier> (m_activeCard);
   m_entities.emplace <CardFormat> (m_activeCard);
   m_entities.emplace <GraphicalParts> (m_activeCard);
   auto& parts = m_entities.get <GraphicalParts> (m_activeCard);
+  const auto backSize = millimToPixel (PaperFormatInMillimeter.at (m_cardFormat));
+  spdlog::info ("Add background.");
   parts.textures.emplace_back ();
-  auto& texture = parts.textures.back ();
-  texture.identifier = "plus";
-  texture.rect.size = sf::Vector2f (64.f, 64.f);
-  texture.rect.position = sf::Vector2f (1.f, 32.f);
+  auto& background = parts.textures.back ();
+  background.identifier = "carte_molecules";
+  background.rect.size = backSize;
+  background.rect.position = sf::Vector2f (0.f, 0.f);
+  spdlog::info ("Add molecule.");
+  parts.textures.emplace_back ();
+  auto& molecule = parts.textures.back ();
+  molecule.identifier = "glucose";
+  molecule.rect.size = backSize / 3.f;
+  molecule.rect.position = backSize / 3.f;
+  spdlog::info ("Add molecule description.");
   parts.texts.emplace_back ();
   auto& text = parts.texts.back ();
-  text.position = sf::Vector2f (4.f, 64.f);
-  text.identifier = "nextCard"; 
+  text.position = sf::Vector2f (12.f, 400.f);
+  text.identifier = "glucose"; 
+  spdlog::info ("End of card test.");
 }
 
 
 ////////////////////////////////////////////////////////////
 void CardPrinterScene::onUpdate (double elapsed)
 {
-  // card formats selection and print
+  // Formats selection and print
   m_gui.beginFrame ();
   {
     if (m_gui.beginWindow (m_layout.get <sgui::Window> ("chooseCardsFormat"), m_texts)) {
       chooseCardsFormat ();
       exportCardsToPdf ();
       renderOptions ();
+
+      // switch to card builder
+      if (m_gui.textButton ("Go to card builder")) {// m_texts.get ("goToBuilder"))) {
+        using Effect = segue <ZoomIn>;
+        using Transition = Effect::to <CardEditorScene>;
+        getController ().push <Transition> (m_gui, m_cardGui, m_cardRender);
+      }
       m_gui.endWindow ();
     }
+
+    // Cards display
+    computeLattice ();
+    displayCardsInLattice ();
   }
   m_gui.endFrame ();
-  // cards display
-  computeLattice ();
-  m_cardGui.beginFrame ();
-  displayCardsInLattice ();
-  m_cardGui.endFrame ();
 }
 
 ////////////////////////////////////////////////////////////
@@ -162,10 +181,11 @@ void CardPrinterScene::renderOptions ()
 ////////////////////////////////////////////////////////////
 void CardPrinterScene::displayCardsInLattice ()
 {
+  m_cardGui.beginFrame ();
   m_cardRender.beginFrame ();
-  // open panel that will hold card
-  if (m_cardGui.beginWindow (m_layout.get <sgui::Window> ("displayCards"), m_texts)) {
-    const auto shift = m_cardGui.cursorPosition ();
+  // open panel that will hold cards
+  if (m_gui.beginWindow (m_layout.get <sgui::Window> ("displayCards"), m_texts)) {
+    const auto shift = m_gui.cursorPosition ();
     const auto cardSize = millimToPixel (PaperFormatInMillimeter.at (m_cardFormat));
     for (const auto& cardPos : m_cardsPositions) {
       // draw cards decoration
@@ -173,6 +193,7 @@ void CardPrinterScene::displayCardsInLattice ()
       auto cardPanel = sgui::Panel ();
       cardPanel.position = cardBox.position;
       cardPanel.size = cardBox.size;
+      cardPanel.scrollable = false;
       // on pdf
       m_cardRender.beginPanel (cardPanel);
       drawCardDecoration (m_cardRender, m_entities, m_activeCard, m_cardTexts);
@@ -185,9 +206,10 @@ void CardPrinterScene::displayCardsInLattice ()
       // go to next card
       swipeToNextCard (m_activeCard, m_entities);
     }
-    m_cardGui.endWindow ();
+    m_gui.endWindow ();
   }
   m_cardRender.endFrame ();
+  m_cardGui.endFrame ();
 }
 
 ////////////////////////////////////////////////////////////

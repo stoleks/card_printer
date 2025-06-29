@@ -15,11 +15,12 @@ void drawCardDecoration (
     // draw texture in a wrapper panel
     auto iconPanel = sgui::Panel ();
     iconPanel.position = icon.rect.position;
-    iconPanel.size = icon.rect.size;
+    iconPanel.size = 1.5f*icon.rect.size;
     iconPanel.visible = false;
+    iconPanel.scrollable = false;
     gui.beginPanel (iconPanel); 
     {
-      gui.addSpacing ({-1.f, -1.f});
+      gui.addSpacing ({-0.5f, -0.3125f});
       gui.icon (icon.identifier, icon.rect.size);
     }
     gui.endPanel ();
@@ -31,6 +32,7 @@ void drawCardDecoration (
   for (auto& text : parts.texts) {
     // draw text in a wrapper panel
     auto textPanel = sgui::Panel ();
+    textPanel.scrollable = false;
     textPanel.position = text.position;
     textPanel.size = sf::Vector2f (
       0.5f*gui.activePanelSize ().x,
@@ -39,7 +41,11 @@ void drawCardDecoration (
     textPanel.visible = false;
     gui.beginPanel (textPanel); 
     {
-      gui.text (cardsTexts.get (text.identifier));
+      if (cardsTexts.has (text.identifier)) {
+        gui.text (cardsTexts.get (text.identifier));
+      } else {
+        gui.text (text.identifier);
+      }
     }
     gui.endPanel ();
     // store texture position

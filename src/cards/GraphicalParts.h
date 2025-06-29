@@ -8,16 +8,16 @@
  * @brief Store rectangle and identifier of a card texture
  */
 struct TexturePart {
-  sf::FloatRect rect;
-  std::string identifier;
+  sf::FloatRect rect = {};
+  std::string identifier = "";
 };
 
 /**
  * @brief Store position and identifier of a card text
  */
 struct TextPart {
-  sf::Vector2f position;
-  std::string identifier;
+  sf::Vector2f position = {};
+  std::string identifier = "";
 };
 
 /**
@@ -32,6 +32,6 @@ struct GraphicalParts {
  * @brief Store card format
  */
 struct CardFormat {
-  sf::Vector2f size = {595.f, 842.f}; // A4 at 72 dpi
+  sf::Vector2f size = { 310.f, 440.f }; // B8 at 127 dpi
   std::string background = "card";
 };

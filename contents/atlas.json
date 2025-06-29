@@ -1,9 +1,4 @@
 {
-  "TextureDimension": {
-    "x": 2048,
-    "y": 1024
-  },
-
   "Button::Neu": { "count": 1, "texture": { "position": { "x": 0, "y":   0 }, "size": { "x": 128, "y": 128 } } },
   "Button::Hov": { "count": 1, "texture": { "position": { "x": 0, "y": 128 }, "size": { "x": 128, "y": 128 } } },
   "Button::Act": { "count": 1, "texture": { "position": { "x": 0, "y": 256 }, "size": { "x": 128, "y": 128 } } },
@@ -88,9 +83,15 @@
   "MenuItemBox::Hov": { "count": 1, "texture": { "position": { "x": 1920, "y": 128 }, "size": { "x": 128, "y": 128 } } },
   "MenuItemBox::Act": { "count": 1, "texture": { "position": { "x": 1920, "y": 256 }, "size": { "x": 128, "y": 128 } } },
 
-  "ItemBox::Neu": { "count": 1, "texture": { "position": { "x": 1920, "y":   0 }, "size": { "x": 128, "y": 128 } } },
-  "ItemBox::Hov": { "count": 1, "texture": { "position": { "x": 1920, "y": 128 }, "size": { "x": 128, "y": 128 } } },
-  "ItemBox::Act": { "count": 1, "texture": { "position": { "x": 1920, "y": 256 }, "size": { "x": 128, "y": 128 } } },
+  "ItemBox::Neu::Left": { "count": 1, "texture": { "position": { "x": 1920, "y":   0 }, "size": { "x": 128, "y": 128 } } },
+  "ItemBox::Neu::Cent": { "count": 1, "texture": { "position": { "x": 1920, "y":   0 }, "size": { "x": 128, "y": 128 } } },
+  "ItemBox::Neu::Righ": { "count": 1, "texture": { "position": { "x": 1920, "y":   0 }, "size": { "x": 128, "y": 128 } } },
+  "ItemBox::Hov::Left": { "count": 1, "texture": { "position": { "x": 1920, "y": 128 }, "size": { "x": 128, "y": 128 } } },
+  "ItemBox::Hov::Cent": { "count": 1, "texture": { "position": { "x": 1920, "y": 128 }, "size": { "x": 128, "y": 128 } } },
+  "ItemBox::Hov::Righ": { "count": 1, "texture": { "position": { "x": 1920, "y": 128 }, "size": { "x": 128, "y": 128 } } },
+  "ItemBox::Act::Left": { "count": 1, "texture": { "position": { "x": 1920, "y": 256 }, "size": { "x": 128, "y": 128 } } },
+  "ItemBox::Act::Cent": { "count": 1, "texture": { "position": { "x": 1920, "y": 256 }, "size": { "x": 128, "y": 128 } } },
+  "ItemBox::Act::Righ": { "count": 1, "texture": { "position": { "x": 1920, "y": 256 }, "size": { "x": 128, "y": 128 } } },
 
   "FootnoteBox::Neu": { "count": 1, "texture": { "position": { "x": 0, "y": 384 }, "size": { "x": 128, "y": 128 } } },
   "FootnoteBox::Hov": { "count": 1, "texture": { "position": { "x": 0, "y": 512 }, "size": { "x": 128, "y": 128 } } },
@@ -160,10 +161,10 @@
   "Separation::Act::Righ": { "count": 1, "texture": { "position": { "x": 1280, "y": 640 }, "size": { "x": 128, "y": 128 } } },
   "Separation::Act::Cent": { "count": 1, "texture": { "position": { "x": 1344, "y": 640 }, "size": { "x":  64, "y": 128 } } },
 
-  "Icon::plus":   { "count": 1, "texture": { "position": { "x": 1472, "y": 384 }, "size": { "x": 128, "y": 128 } } },
-  "Icon::minus":  { "count": 1, "texture": { "position": { "x": 1600, "y": 384 }, "size": { "x": 128, "y": 128 } } },
-  "Icon::left":   { "count": 1, "texture": { "position": { "x": 1472, "y": 512 }, "size": { "x": 128, "y": 128 } } },
-  "Icon::right":  { "count": 1, "texture": { "position": { "x": 1600, "y": 512 }, "size": { "x": 128, "y": 128 } } },
+  "Icon::left":   { "count": 1, "texture": { "position": { "x": 1472, "y": 384 }, "size": { "x": 128, "y": 128 } } },
+  "Icon::right":  { "count": 1, "texture": { "position": { "x": 1600, "y": 384 }, "size": { "x": 128, "y": 128 } } },
+  "Icon::plus":   { "count": 1, "texture": { "position": { "x": 1472, "y": 512 }, "size": { "x": 128, "y": 128 } } },
+  "Icon::minus":  { "count": 1, "texture": { "position": { "x": 1600, "y": 512 }, "size": { "x": 128, "y": 128 } } },
   "Icon::reduce": { "count": 1, "texture": { "position": { "x": 1472, "y": 640 }, "size": { "x": 128, "y": 128 } } },
   "Icon::close":  { "count": 1, "texture": { "position": { "x": 1600, "y": 640 }, "size": { "x": 128, "y": 128 } } },
 
