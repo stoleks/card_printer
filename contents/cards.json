@@ -1,0 +1,101 @@
+[
+  {
+    "format": {
+      "background": "carte_molecules",
+      "size": {
+        "x": 310.0,
+        "y": 440.0
+      }
+    },
+    "graphics": {
+      "texts": [
+        {
+          "identifier": "glucose",
+          "position": {
+            "x": 86.0,
+            "y": 311.0
+          }
+        }
+      ],
+      "textures": [
+        {
+          "identifier": "glucose",
+          "rect": {
+            "position": {
+              "x": 78.0,
+              "y": 189.0
+            },
+            "size": {
+              "x": 64.0,
+              "y": 64.0
+            }
+          }
+        }
+      ]
+    },
+    "identifier": {
+      "id": "",
+      "number": 0
+    },
+    "templat": {
+      "displayNumber": false,
+      "isTemplate": false
+    }
+  },
+  {
+    "format": {
+      "background": "carte_molecules_dos",
+      "size": {
+        "x": 310.0,
+        "y": 440.0
+      }
+    },
+    "graphics": {
+      "texts": [],
+      "textures": []
+    },
+    "identifier": {
+      "id": "",
+      "number": 1
+    },
+    "templat": {
+      "displayNumber": false,
+      "isTemplate": false
+    }
+  },
+  {
+    "format": {
+      "background": "carte_molecules",
+      "size": {
+        "x": 310.0,
+        "y": 440.0
+      }
+    },
+    "graphics": {
+      "texts": [],
+      "textures": [
+        {
+          "identifier": "arachidonique",
+          "rect": {
+            "position": {
+              "x": 14.0,
+              "y": 135.0
+            },
+            "size": {
+              "x": 320.0,
+              "y": 256.0
+            }
+          }
+        }
+      ]
+    },
+    "identifier": {
+      "id": "",
+      "number": 2
+    },
+    "templat": {
+      "displayNumber": false,
+      "isTemplate": false
+    }
+  }
+]

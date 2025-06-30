@@ -10,7 +10,8 @@ void drawCardDecoration (
   sgui::Gui& gui,
   entt::registry& cards,
   const entt::entity& activeCard,
-  const sgui::TextContainer& cardsTexts);
+  const sgui::TextContainer& cardsTexts,
+  const bool render = false);
 
 /**
  * @brief swipe to next card in the pack

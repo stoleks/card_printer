@@ -38,6 +38,7 @@ private:
   void renderOptions ();
   void computeLattice ();
   void displayCardsInLattice ();
+  void loadCards (const std::string& file);
   // to get page size
   sf::Vector2f computePageSize () const;
   sf::Vector2f computeTextPosition () const;

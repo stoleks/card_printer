@@ -1,14 +1,15 @@
 #include "CardPrinterScene.h"
 
+#include <iostream>
 #include <Segues/ZoomIn.h>
-#include <PDFWriter.h>
 #include <PDFPage.h>
+#include <PDFWriter.h>
 #include <PageContentContext.h>
+#include <sgui/Serialization/LoadJson.h>
 
 #include "CardEditorScene.h"
-#include "cards/Informations.h"
-#include "cards/GraphicalParts.h"
 #include "cards/CardUtils.h"
+#include "cards/CardsSerialization.h"
 
 ////////////////////////////////////////////////////////////
 CardPrinterScene::CardPrinterScene (
@@ -36,33 +37,26 @@ CardPrinterScene::CardPrinterScene (
     m_cardFormatNames.push_back (formatEntry.first);
     cardFormatId++;
   }
+  // load cards
+  loadCards (ContentsDir"/cards.json");
+}
 
-  // SCAFFOLD : add a card for test
-  spdlog::info ("Build test card.");
-  m_activeCard = m_entities.create ();
-  m_entities.emplace <Identifier> (m_activeCard);
-  m_entities.emplace <CardFormat> (m_activeCard);
-  m_entities.emplace <GraphicalParts> (m_activeCard);
-  auto& parts = m_entities.get <GraphicalParts> (m_activeCard);
-  const auto backSize = millimToPixel (PaperFormatInMillimeter.at (m_cardFormat));
-  spdlog::info ("Add background.");
-  parts.textures.emplace_back ();
-  auto& background = parts.textures.back ();
-  background.identifier = "carte_molecules";
-  background.rect.size = backSize;
-  background.rect.position = sf::Vector2f (0.f, 0.f);
-  spdlog::info ("Add molecule.");
-  parts.textures.emplace_back ();
-  auto& molecule = parts.textures.back ();
-  molecule.identifier = "glucose";
-  molecule.rect.size = backSize / 3.f;
-  molecule.rect.position = backSize / 3.f;
-  spdlog::info ("Add molecule description.");
-  parts.texts.emplace_back ();
-  auto& text = parts.texts.back ();
-  text.position = sf::Vector2f (12.f, 400.f);
-  text.identifier = "glucose"; 
-  spdlog::info ("End of card test.");
+////////////////////////////////////////////////////////////
+void CardPrinterScene::loadCards (const std::string& file)
+{
+  json allCards = sgui::loadFromFile (file);
+  for (auto& card : allCards.items ()) {
+    const auto cardId = m_entities.create ();
+    Card cardData = card.value ();
+    m_entities.emplace <CardIdentifier> (cardId);
+    m_entities.get <CardIdentifier> (cardId) = cardData.identifier;
+    m_entities.emplace <CardFormat> (cardId);
+    m_entities.get <CardFormat> (cardId) = cardData.format;
+    m_entities.emplace <CardTemplate> (cardId);
+    m_entities.get <CardTemplate> (cardId) = cardData.templat;
+    m_entities.emplace <GraphicalParts> (cardId);
+    m_entities.get <GraphicalParts> (cardId) = cardData.graphics;
+  }
 }
 
 
@@ -187,6 +181,8 @@ void CardPrinterScene::displayCardsInLattice ()
   if (m_gui.beginWindow (m_layout.get <sgui::Window> ("displayCards"), m_texts)) {
     const auto shift = m_gui.cursorPosition ();
     const auto cardSize = millimToPixel (PaperFormatInMillimeter.at (m_cardFormat));
+    const auto view = m_entities.view <const CardIdentifier> ();
+    auto cardId = 0u;
     for (const auto& cardPos : m_cardsPositions) {
       // draw cards decoration
       const auto cardBox = sf::FloatRect (sf::Vector2f (cardPos), sf::Vector2f (cardSize));
@@ -196,15 +192,18 @@ void CardPrinterScene::displayCardsInLattice ()
       cardPanel.scrollable = false;
       // on pdf
       m_cardRender.beginPanel (cardPanel);
-      drawCardDecoration (m_cardRender, m_entities, m_activeCard, m_cardTexts);
+      drawCardDecoration (m_cardRender, m_entities, m_activeCard, m_cardTexts, true);
       m_cardRender.endPanel ();
       // on screen
       cardPanel.position += shift;
       m_cardGui.beginPanel (cardPanel);
-      drawCardDecoration (m_cardGui, m_entities, m_activeCard, m_cardTexts);
+      drawCardDecoration (m_cardGui, m_entities, m_activeCard, m_cardTexts, true);
       m_cardGui.endPanel ();
       // go to next card
       swipeToNextCard (m_activeCard, m_entities);
+      // to only print loaded cards... Need to be refined
+      cardId++;
+      if (cardId >= view.size ()) break;
     }
     m_gui.endWindow ();
   }

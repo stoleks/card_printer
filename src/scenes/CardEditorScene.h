@@ -28,9 +28,11 @@ private:
   void editOnCard ();
   void editCardTexts ();
   void editCardTextures ();
+  void saveCards ();
 private:
   bool m_isTemplate = false;
   int m_cardsCount = 0;
+  std::string m_saveFile;
   sgui::Gui& m_gui;
   sgui::Gui& m_cardGui;
   sgui::Gui& m_cardRender;
