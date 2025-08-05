@@ -270,7 +270,8 @@ void CardPrinterScene::displayCardsInLattice (
       cardPanel.position = cardBox.position + shift;
       cardPanel.size = cardBox.size;
       cardPanel.scrollable = false;
-      // draw cards decorations
+      m_entities.get <CardFormat> (m_activeCard).size = cardBox.size;
+      // draw card decorations
       gui.beginPanel (cardPanel);
       ::drawCardDecoration (gui, m_entities, m_activeCard, m_cardTexts, true);
       gui.endPanel ();

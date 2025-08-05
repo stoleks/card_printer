@@ -103,11 +103,6 @@ void CardEditorScene::editOnCard ()
 {
   // open panel that will hold card
   if (m_cardGui.beginWindow (m_layout.get <sgui::Window> ("editOnCard"), m_texts)) {
-    // draw card form 
-    const auto& format = m_entities.get <CardFormat> (m_activeCard);
-    m_cardGui.icon (format.background, format.size);
-    m_cardGui.addLastSpacing (-4.f);
-
     // draw card decorations and texts
     ::drawCardDecoration (m_cardGui, m_entities, m_activeCard, m_cardTexts);
     m_cardGui.endWindow ();
