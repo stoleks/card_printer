@@ -75,8 +75,24 @@ void swipeToNextCard (
   for (const auto& card : view) {
     const auto cardNum = view.get <const CardIdentifier> (card).number;
     // spdlog::warn ("current card: {}, next card: {}, cards count: {}", cardNum, nextCardNumber, view.size ());
-    // set next card and reset template if needed
     if (cardNum == nextCardNumber) {
+      activeCard = card;
+      return;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////
+void goToCard (
+  entt::entity& activeCard,
+  const entt::registry& cards,
+  const uint32_t firstCard)
+{
+  // check every card number
+  const auto view = cards.view <const CardIdentifier> ();
+  for (const auto& card : view) {
+    const auto cardNum = view.get <const CardIdentifier> (card).number;
+    if (firstCard == cardNum) {
       activeCard = card;
       return;
     }

@@ -65,6 +65,128 @@
   },
   {
     "format": {
+      "background": "carte_molecules_dos",
+      "size": {
+        "x": 310.0,
+        "y": 440.0
+      }
+    },
+    "graphics": {
+      "texts": [],
+      "textures": []
+    },
+    "identifier": {
+      "id": "",
+      "number": 2
+    },
+    "templat": {
+      "displayNumber": false,
+      "isTemplate": false
+    }
+  },
+  {
+    "format": {
+      "background": "carte_molecules_dos",
+      "size": {
+        "x": 310.0,
+        "y": 440.0
+      }
+    },
+    "graphics": {
+      "texts": [],
+      "textures": []
+    },
+    "identifier": {
+      "id": "",
+      "number": 3
+    },
+    "templat": {
+      "displayNumber": false,
+      "isTemplate": false
+    }
+  },
+  {
+    "format": {
+      "background": "carte_molecules_dos",
+      "size": {
+        "x": 310.0,
+        "y": 440.0
+      }
+    },
+    "graphics": {
+      "texts": [],
+      "textures": []
+    },
+    "identifier": {
+      "id": "",
+      "number": 4
+    },
+    "templat": {
+      "displayNumber": false,
+      "isTemplate": false
+    }
+  },
+  {
+    "format": {
+      "background": "carte_molecules_dos",
+      "size": { "x": 310.0, "y": 440.0 }
+    },
+    "graphics": { "texts": [], "textures": [] },
+    "identifier": { "id": "", "number": 5 },
+    "templat": { "displayNumber": false, "isTemplate": false }
+  },
+  {
+    "format": {
+      "background": "carte_molecules",
+      "size": { "x": 310.0, "y": 440.0 }
+    },
+    "graphics": { "texts": [], "textures": [] },
+    "identifier": { "id": "", "number": 6 },
+    "templat": { "displayNumber": false, "isTemplate": false }
+  },
+  {
+    "format": {
+      "background": "carte_molecules_dos",
+      "size": { "x": 310.0, "y": 440.0 }
+    },
+    "graphics": { "texts": [], "textures": [
+        {
+          "identifier": "arachidonique",
+          "rect": {
+            "position": {
+              "x": 14.0,
+              "y": 135.0
+            },
+            "size": {
+              "x": 320.0,
+              "y": 256.0
+            }
+          }
+        }
+    ] },
+    "identifier": { "id": "", "number": 7 },
+    "templat": { "displayNumber": false, "isTemplate": false }
+  },
+  {
+    "format": {
+      "background": "carte_molecules_dos",
+      "size": { "x": 310.0, "y": 440.0 }
+    },
+    "graphics": { "texts": [], "textures": [] },
+    "identifier": { "id": "", "number": 8 },
+    "templat": { "displayNumber": false, "isTemplate": false }
+  },
+  {
+    "format": {
+      "background": "carte_molecules_dos",
+      "size": { "x": 310.0, "y": 440.0 }
+    },
+    "graphics": { "texts": [], "textures": [] },
+    "identifier": { "id": "", "number": 9 },
+    "templat": { "displayNumber": false, "isTemplate": false }
+  },
+  {
+    "format": {
       "background": "carte_molecules",
       "size": {
         "x": 310.0,
@@ -91,7 +213,7 @@
     },
     "identifier": {
       "id": "",
-      "number": 2
+      "number": 10
     },
     "templat": {
       "displayNumber": false,
