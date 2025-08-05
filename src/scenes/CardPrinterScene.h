@@ -44,7 +44,10 @@ private:
     const uint32_t pageIndex);
   void renderOptions ();
   void computeLattice ();
-  void displayCardsInLattice (const uint32_t pageIndex = 0u);
+  void displayCardsInLattice (
+    sgui::Gui& gui,
+    const uint32_t pageIndex = 0u,
+    const bool onScreen = true);
   void loadCards (const std::string& file);
   // to get page size
   sf::Vector2f computePageSize () const;

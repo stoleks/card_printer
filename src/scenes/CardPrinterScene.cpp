@@ -86,7 +86,7 @@ void CardPrinterScene::onUpdate (double elapsed)
 
     // Cards display
     computeLattice ();
-    displayCardsInLattice ();
+    displayCardsInLattice (m_cardGui);
   }
   m_gui.endFrame ();
 }
@@ -190,7 +190,7 @@ bool CardPrinterScene::drawCards (
 {
   // spdlog::warn ("CPS::drawCards");
   m_cardPrint.setView (m_cardsImage);
-  displayCardsInLattice (pageIndex);
+  displayCardsInLattice (m_cardPrint, pageIndex, false);
   m_cardsImage.clear (sf::Color::White);
   m_cardsImage.draw (m_cardPrint);
   m_cardsImage.display ();
@@ -204,9 +204,6 @@ void CardPrinterScene::computeLattice ()
 {
   // // spdlog::warn ("CPS::computeLattice");
   // clear previous cards
-  for (auto& cardsPos : m_cardsPositions) {
-    cardsPos.clear ();
-  }
   m_cardsPositions.clear ();
   m_cardsPositions.emplace_back ();
   // compute paper format and its orientation
@@ -248,35 +245,35 @@ void CardPrinterScene::computeLattice ()
 }
 
 ////////////////////////////////////////////////////////////
-void CardPrinterScene::displayCardsInLattice (const uint32_t pageIndex)
+void CardPrinterScene::displayCardsInLattice (
+  sgui::Gui& gui,
+  const uint32_t pageIndex,
+  const bool onScreen)
 {
   // spdlog::warn ("CPS::displayCardsInLattice");
   // go to first card
   const auto firstCard = m_cardsPositions.at (0u).size () * pageIndex;
   ::goToCard (m_activeCard, m_entities, firstCard);
   // draw cards
-  m_cardGui.beginFrame ();
-  m_cardPrint.beginFrame ();
+  gui.beginFrame ();
   // open panel that will hold cards
   if (m_gui.beginWindow (m_layout.get <sgui::Window> ("displayCards"), m_texts)) {
-    const auto shift = m_gui.cursorPosition ();
+    auto shift = sf::Vector2f ();
+    if (onScreen) {
+      shift = m_gui.cursorPosition ();
+    }
     const auto cardSize = millimToPixel (PaperFormatInMillimeter.at (m_cardFormat));
     for (const auto& cardPos : m_cardsPositions.at (pageIndex)) {
-      // draw cards decoration
+      // set card position and size
       const auto cardBox = sf::FloatRect (sf::Vector2f (cardPos), sf::Vector2f (cardSize));
       auto cardPanel = sgui::Panel ();
-      cardPanel.position = cardBox.position;
+      cardPanel.position = cardBox.position + shift;
       cardPanel.size = cardBox.size;
       cardPanel.scrollable = false;
-      // on pdf
-      m_cardPrint.beginPanel (cardPanel);
-      ::drawCardDecoration (m_cardPrint, m_entities, m_activeCard, m_cardTexts, true);
-      m_cardPrint.endPanel ();
-      // on screen
-      cardPanel.position += shift;
-      m_cardGui.beginPanel (cardPanel);
-      ::drawCardDecoration (m_cardGui, m_entities, m_activeCard, m_cardTexts, true);
-      m_cardGui.endPanel ();
+      // draw cards decorations
+      gui.beginPanel (cardPanel);
+      ::drawCardDecoration (gui, m_entities, m_activeCard, m_cardTexts, true);
+      gui.endPanel ();
       // go to next card
       if (pageIndex > 0u) {
         spdlog::warn ("Current card: {}", m_activeCard);
@@ -285,8 +282,7 @@ void CardPrinterScene::displayCardsInLattice (const uint32_t pageIndex)
     }
     m_gui.endWindow ();
   }
-  m_cardPrint.endFrame ();
-  m_cardGui.endFrame ();
+  gui.endFrame ();
 }
  
 ////////////////////////////////////////////////////////////
