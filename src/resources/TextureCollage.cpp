@@ -15,15 +15,20 @@ TextureCollage::TextureCollage (const std::string& directory)
   for (const auto& file : fs::directory_iterator (directory)) {
     const auto extension = file.path ().extension ();
     if (extension == ".bmp" || extension == ".png" 
-     || extension == ".tga" || extension == ".jpg" 
-     || extension == ".gif" || extension == ".psd"
-     || extension == ".hdr" || extension == ".pic" 
-     || extension == ".pnm") {
+    || extension == ".tga" || extension == ".jpg" 
+    || extension == ".gif" || extension == ".psd"
+    || extension == ".hdr" || extension == ".pic" 
+    || extension == ".pnm") {
       // load image and store its name
       imagesData.emplace_back ();
       auto& info = imagesData.back ();
       if (info.image.loadFromFile (file)) {
-        info.name  = "Icon::" + file.path ().stem ().string ();
+        const auto& imageName = file.path ().stem ().string ();
+        if (imageName != "widgets" && imageName != "carte_molecules"
+        && imageName != "carte_molecules_dos") {    
+          info.image.createMaskFromColor (sf::Color::White);
+        }
+        info.name  = "Icon::" + imageName;
         // compute image surface
         const auto size = info.image.getSize ();
         totalSurface += size.x * size.y;

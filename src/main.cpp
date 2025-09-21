@@ -6,7 +6,7 @@
 #include <Swoosh/Renderers/SimpleRenderer.h>
 #include <Segues/ZoomOut.h>
 #include <sgui/sgui.h>
-#include <sgui/Resources/LoadTextureAtlas.h>
+#include <sgui/Serialization/LoadTextureAtlas.h>
 
 #include "scenes/CardPrinterScene.h"
 #include "resources/TextureCollage.h"
@@ -44,19 +44,17 @@ int main()
   gui.setStyle (style);
   gui.setView (window);
   /**
-   * Collage 
+   * Collage of molecules textures 
    */
   spdlog::info ("Prepare cards sprite sheet");
   const auto cardTextureFile = std::string (ContentsDir"/cards_textures");
   const auto cardsAtlasFile = std::string (ContentsDir"/cards_atlas.json");
-  /*
   auto collage = TextureCollage (cardTextureFile);
   if (!collage.image ().saveToFile (cardTextureFile + ".png")) {
     spdlog::warn ("Unable to save {}.png", cardTextureFile); 
   }
   collage.atlas ().loadFromFile (atlasFile);
   sgui::saveInFile (collage.atlas (), cardsAtlasFile);
-  */
   /**
    * Gui card initialization
    */
