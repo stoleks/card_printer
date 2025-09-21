@@ -1,17 +1,85 @@
 #pragma once
 
-#include "GraphicalParts.h"
+#include <sgui/sgui.h>
+#include <entt/entt.hpp>
 #include "Informations.h"
+#include "GraphicalParts.h"
 
+/**
+ * @brief : store card complete model
+ */
 struct Card {
   Card () = default;
   Card (const CardFormat& f, const CardIdentifier& i, const GraphicalParts& g)
-    : format (f), identifier (i), graphics (g)
+    : format (f), graphics (g), identifier (i)
   {}
   // data
+  CardModel model = {};
   CardFormat format = {};
-  CardTemplate templat = {};
-  CardIdentifier identifier = {};
   GraphicalParts graphics = {};
+  CardIdentifier identifier = {};
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(Card, format, templat, identifier, graphics)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(Card, format, model, identifier, graphics)
+
+/**
+ * @brief : store a card's text
+ */
+struct TextData {
+  TextData () = default;
+  // data
+  std::string key;
+  std::string text;
+};
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(TextData, key, text)
+
+/**
+ * @brief : store a card's texture
+ */
+struct TextureData {
+  TextureData () = default;
+  // data
+  std::string key;
+  std::string texture;
+};
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(TextureData, key, texture)
+
+/**
+ * @brief : store card's text and textures
+ */
+struct CardFingerPrint {
+  CardFingerPrint () = default;
+  CardFingerPrint (const std::vector <TextData>& t, const std::vector <TextureData> tt)
+    : texts (t), textures (tt)
+  {}
+  // data
+  std::vector <TextData> texts;
+  std::vector <TextureData> textures;
+};
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardFingerPrint, texts, textures)
+
+/**
+ * Utils functions
+ */
+////////////////////////////////////////////////////////////
+void loadCardsFromFile (
+  entt::registry& registry,
+  const std::string& modelFile,
+  const std::string& cardsFile);
+
+////////////////////////////////////////////////////////////
+void buildCardsFromModel (
+  uint32_t& cardNumber,
+  entt::registry& registry,
+  const entt::entity& card,
+  const CardFingerPrint& data,
+  const Card& model);
+
+////////////////////////////////////////////////////////////
+sf::FloatRect findTexture (
+  const std::string& key,
+  const std::vector <CardTexture>& textures);
+
+////////////////////////////////////////////////////////////
+sf::Vector2f findText (
+  const std::string& key,
+  const std::vector <CardText>& texts);

@@ -1,0 +1,91 @@
+[
+  {
+    "texts": [
+      { 
+        "key": "title",
+        "text": "Glucide"
+      },
+      { 
+        "key": "description",
+        "text": "glucose"
+      }
+    ],
+    "textures": [
+      {
+        "key": "background",
+        "texture": "carte_molecules"
+      },
+      {
+        "key": "molecule",
+        "texture": "glucose"
+      }
+    ]
+  },
+  {
+    "texts": [
+      { 
+        "key": "title",
+        "text": "Acide gras"
+      },
+      { 
+        "key": "description",
+        "text": "oleique"
+      }
+    ],
+    "textures": [
+      {
+        "key": "background",
+        "texture": "carte_molecules"
+      },
+      {
+        "key": "molecule",
+        "texture": "oleique"
+      }
+    ]
+  },
+  {
+    "texts": [
+      { 
+        "key": "description",
+        "text": "arachidonique"
+      }
+    ],
+    "textures": [
+      {
+        "key": "background",
+        "texture": "carte_molecules"
+      },
+      {
+        "key": "molecule",
+        "texture": "arachidonique"
+      }
+    ]
+  },
+  {
+    "texts": [],
+    "textures": [
+      {
+        "key": "background",
+        "texture": "carte_molecules_dos"
+      }
+    ]
+  },
+  {
+    "texts": [],
+    "textures": [
+      {
+        "key": "background",
+        "texture": "carte_molecules_dos"
+      }
+    ]
+  },
+  {
+    "texts": [],
+    "textures": [
+      {
+        "key": "background",
+        "texture": "carte_molecules_dos"
+      }
+    ]
+  }
+]

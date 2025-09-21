@@ -1,0 +1,52 @@
+{
+  "model": {
+    "format": {
+      "background": "carte_molecules",
+      "size": {
+        "x": 310.0,
+        "y": 440.0
+      }
+    },
+    "graphics": {
+      "texts": [
+        {
+          "identifier": "description",
+          "position": {
+            "x": 86.0,
+            "y": 311.0
+          }
+        },
+        {
+          "identifier": "title",
+          "position": {
+            "x": 60.0,
+            "y": 20.0
+          }
+        }
+      ],
+      "textures": [
+        {
+          "identifier": "molecule",
+          "rect": {
+            "position": {
+              "x": 20.0,
+              "y": 50.0
+            },
+            "size": {
+              "x": 256.0,
+              "y": 256.0
+            }
+          }
+        }
+      ]
+    },
+    "identifier": {
+      "id": "",
+      "number": 0
+    },
+    "model": {
+      "displayNumber": false,
+      "isModel": true
+    }
+  }
+}

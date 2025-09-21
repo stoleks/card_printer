@@ -19,8 +19,8 @@ NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardIdentifier, id, number)
  * @brief Tag to indicate that a card is a template for other card generation
  * or that is number need to be displayer
  */
-struct CardTemplate {
+struct CardModel {
   bool isTemplate = false;
   bool displayNumber = false;
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardTemplate, isTemplate, displayNumber)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardModel, isTemplate, displayNumber)

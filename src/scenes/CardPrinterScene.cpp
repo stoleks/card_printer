@@ -5,7 +5,6 @@
 #include <PDFPage.h>
 #include <PDFWriter.h>
 #include <PageContentContext.h>
-#include <sgui/Serialization/LoadJson.h>
 
 #include "CardEditorScene.h"
 #include "cards/CardUtils.h"
@@ -38,30 +37,10 @@ CardPrinterScene::CardPrinterScene (
     cardFormatId++;
   }
   // load cards
-  spdlog::info ("load cards from {}/cards.json", ContentsDir);
-  loadCards (ContentsDir"/cards.json");
+  spdlog::info ("load cards from {}/cards_data.json", ContentsDir);
+  loadCardsFromFile (m_entities, ContentsDir"/model.json", ContentsDir"/cards_data.json");
   spdlog::info ("launch printer");
 }
-
-////////////////////////////////////////////////////////////
-void CardPrinterScene::loadCards (const std::string& file)
-{
-  // spdlog::warn ("CPS::loadCards");
-  json allCards = sgui::loadFromFile (file);
-  for (auto& card : allCards.items ()) {
-    const auto cardId = m_entities.create ();
-    Card cardData = card.value ();
-    m_entities.emplace <CardIdentifier> (cardId);
-    m_entities.get <CardIdentifier> (cardId) = cardData.identifier;
-    m_entities.emplace <CardFormat> (cardId);
-    m_entities.get <CardFormat> (cardId) = cardData.format;
-    m_entities.emplace <CardTemplate> (cardId);
-    m_entities.get <CardTemplate> (cardId) = cardData.templat;
-    m_entities.emplace <GraphicalParts> (cardId);
-    m_entities.get <GraphicalParts> (cardId) = cardData.graphics;
-  }
-}
-
 
 ////////////////////////////////////////////////////////////
 void CardPrinterScene::onUpdate (double elapsed)
@@ -270,6 +249,7 @@ void CardPrinterScene::displayCardsInLattice (
       cardPanel.position = cardBox.position + shift;
       cardPanel.size = cardBox.size;
       cardPanel.scrollable = false;
+      cardPanel.visible = false;
       m_entities.get <CardFormat> (m_activeCard).size = cardBox.size;
       // draw card decorations
       gui.beginPanel (cardPanel);

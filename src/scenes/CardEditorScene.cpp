@@ -26,7 +26,7 @@ CardEditorScene::CardEditorScene (
   m_entities.emplace <CardIdentifier> (m_activeCard);
   m_entities.emplace <CardFormat> (m_activeCard);
   m_entities.emplace <GraphicalParts> (m_activeCard);
-  m_entities.emplace <CardTemplate> (m_activeCard);
+  m_entities.emplace <CardModel> (m_activeCard);
   m_cardsCount++;
 }
 
@@ -70,19 +70,19 @@ void CardEditorScene::editCardFromMenu ()
     m_entities.emplace <CardIdentifier> (newCard, m_cardsCount);
     m_entities.emplace <CardFormat> (newCard);
     m_entities.emplace <GraphicalParts> (newCard);
-    m_entities.emplace <CardTemplate> (newCard);
+    m_entities.emplace <CardModel> (newCard);
     m_cardsCount++;
   }
 
   // choose if its a template for a set of cards
-  auto& templ = m_entities.get <CardTemplate> (m_activeCard);
+  auto& templ = m_entities.get <CardModel> (m_activeCard);
   m_gui.checkBox (templ.isTemplate, m_texts.get ("isTemplate"));
   m_gui.checkBox (templ.displayNumber, m_texts.get ("displayNumber"));
 
   // change card to edit
   if (m_gui.iconTextButton ("right", m_texts.get ("nextCard"))) {
     ::swipeToNextCard (m_activeCard, m_entities);
-    if (auto* c = m_entities.try_get <CardTemplate> (m_activeCard); c == nullptr) {
+    if (auto* c = m_entities.try_get <CardModel> (m_activeCard); c == nullptr) {
       m_isTemplate = false;
     }
   }
@@ -152,9 +152,9 @@ void CardEditorScene::saveCards ()
   > ();
   for (const auto& [card, graphics, identifier, format] : view.each ()) {// (const auto& entity : view) {
     auto cardData = Card (format, identifier, graphics);
-    const auto* t = m_entities.try_get <CardTemplate> (card);
+    const auto* t = m_entities.try_get <CardModel> (card);
     if (t != nullptr) {
-      cardData.templat = *t;
+      cardData.model = *t;
     }
     out [identifier.number] = cardData;
   }
