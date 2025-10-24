@@ -26,7 +26,8 @@ void drawCardDecoration (
       // draw texture in a wrapper panel
       auto iconPanel = sgui::Panel ();
       iconPanel.position = icon.rect.position;
-      iconPanel.size = 1.5f*icon.rect.size;
+      iconPanel.size = 1.1f*icon.rect.size;
+      iconPanel.visible = false;
       iconPanel.scrollable = false;
       gui.beginPanel (iconPanel); 
       {

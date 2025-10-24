@@ -102,10 +102,16 @@ void CardEditorScene::editCardFromMenu ()
 void CardEditorScene::editOnCard ()
 {
   // open panel that will hold card
-  if (m_cardGui.beginWindow (m_layout.get <sgui::Window> ("editOnCard"), m_texts)) {
+  auto window = m_layout.get <sgui::Window> ("editOnCard");
+  if (m_gui.beginWindow (window, m_texts)) {
+    m_gui.addSpacing ({2.f, 4.f});
     // draw card decorations and texts
+    window.panel.visible = false;
+    window.panel.position = m_gui.cursorPosition ();
+    m_cardGui.beginPanel (window.panel);
     ::drawCardDecoration (m_cardGui, m_entities, m_activeCard, m_cardTexts);
-    m_cardGui.endWindow ();
+    m_cardGui.endPanel ();
+    m_gui.endWindow ();
   }
 }
 
@@ -137,9 +143,27 @@ void CardEditorScene::editCardTextures ()
   }
   // edit texture
   for (auto& texture : parts.textures) {
+    // allow user to set texture to its default size (the one in texture)
+    const auto textureBaseSize = m_cardGui.textureSize ("Icon::" + texture.identifier);
+    if (m_gui.textButton ("defaultTextureScale")) {
+      texture.rect.size = textureBaseSize;
+    }
+    auto textureScale = texture.rect.size.x / textureBaseSize.x;
+    // precise selection of texture size
     m_gui.inputText (texture.identifier, {}, {"Texture identifier : "});
     m_gui.inputVector2 (texture.rect.size, {"Texture size : "});
+    m_gui.separation();
+    // scaling of texture size
+    m_gui.slider (textureScale, 0.1f, 2.f);
+    texture.rect.size = textureBaseSize * textureScale;
+    m_gui.sameLine ();
+    m_gui.inputNumber (textureScale, {" : scale of texture."});
+    // set precisely texture position or slide it in the card
+    const auto cardSize = CardFormat ().size;
     m_gui.inputVector2 (texture.rect.position, {"Texture position : "});
+    m_gui.addSpacing ({0.f, 1.f});
+    m_gui.slider (texture.rect.position.x, 0.f, cardSize.x - texture.rect.size.x, {"x:"});
+    m_gui.slider (texture.rect.position.y, 0.f, cardSize.y - texture.rect.size.y, {"y:"});
   }
 }
 

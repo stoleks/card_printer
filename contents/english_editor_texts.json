@@ -10,5 +10,9 @@
   "goToBuilder": "Go to card builder",
   "goToPrinter": "Go to card printer",
   "saveCards": "Save cards to file",
+  "mainMenu": "Options",
+  "goToEditor": "Go to card editor",
+  "buildTextures": "Concatene textures",
+  "close": "Close app",
   "displayNumber": "Display card number"
 }

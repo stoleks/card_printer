@@ -2,14 +2,12 @@
 #include <chrono>
 #include <thread>
 
-#include <Swoosh/ActivityController.h>
+#include "scenes/IntroScene.h"
+
+#include <Segues/CircleOpen.h>
 #include <Swoosh/Renderers/SimpleRenderer.h>
-#include <Segues/ZoomOut.h>
-#include <sgui/sgui.h>
 #include <sgui/Serialization/LoadTextureAtlas.h>
 
-#include "scenes/CardPrinterScene.h"
-#include "resources/TextureCollage.h"
 
 int main()
 {
@@ -44,21 +42,11 @@ int main()
   gui.setStyle (style);
   gui.setView (window);
   /**
-   * Collage of molecules textures 
-   */
-  spdlog::info ("Prepare cards sprite sheet");
-  const auto cardTextureFile = std::string (ContentsDir"/cards_textures");
-  const auto cardsAtlasFile = std::string (ContentsDir"/cards_atlas.json");
-  auto collage = TextureCollage (cardTextureFile);
-  if (!collage.image ().saveToFile (cardTextureFile + ".png")) {
-    spdlog::warn ("Unable to save {}.png", cardTextureFile); 
-  }
-  collage.atlas ().loadFromFile (atlasFile);
-  sgui::saveInFile (collage.atlas (), cardsAtlasFile);
-  /**
    * Gui card initialization
    */
-  auto cardTexture = sf::Texture (cardTextureFile + ".png");
+  const auto cardsAtlasFile = std::string (ContentsDir"/cards_atlas.json");
+  const auto cardTextureFile = std::string (ContentsDir"/cards_textures.png");
+  auto cardTexture = sf::Texture (cardTextureFile);
   auto cardAtlas = sgui::TextureAtlas (cardsAtlasFile);
   spdlog::info ("Initialize card gui");
   auto cardGui = sgui::Gui ();
@@ -79,10 +67,12 @@ int main()
   app.optimizeForPerformance (sw::quality::realtime);
   app.buildRenderEntries ();
   app.activateRenderEntry (0);
-  app.push <sw::segue <ZoomOut>::to <CardPrinterScene>> (gui, cardGui, cardRender);
+  using Transition = sw::segue <CircleOpen>::to <IntroScene>;
+  app.push <Transition> (gui, cardGui, cardRender);
   /**
    * Main App loop
    */
+  spdlog::info ("Main app loop");
   bool pause = false;
   auto timer = sf::Clock ();
   auto timeSinceLastUpdate = sf::Time::Zero;
@@ -108,8 +98,8 @@ int main()
           pause = false;
         }
         if (!pause) {
-          gui.update (window, event);
           cardGui.update (window, event);
+          gui.update (window, event);
         }
       }
       if (!pause) {
