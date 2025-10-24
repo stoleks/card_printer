@@ -1,15 +1,3 @@
 {
-  "editFromMenu": "Add card and parts to it",
-  "editOnCard": "Edit graphical part of the card",
-  "nextCard": "edit next card",
-  "addText": "add text to current card",
-  "addTexture": "add texture to current card",
-  "changeCardBackground": "change card background",
-  "isTemplate" : "is card a base template ?",
-  "addCard": "add a card to the pack",
-  "glucose": "Glucose",
-  "mainMenu": "Options",
-  "goToEditor": "Go to card editor",
-  "buildTextures": "Concatene textures",
-  "close": "Close app"
+  "glucose": "Glucose"
 }

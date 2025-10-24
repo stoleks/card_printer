@@ -1,5 +1,7 @@
 #pragma once
 
+#include <unordered_map>
+
 /**
  * @brief List paper orientation
  */

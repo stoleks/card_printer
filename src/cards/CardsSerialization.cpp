@@ -45,7 +45,7 @@ void buildCardsFromModel (
       auto& format = registry.get <CardFormat> (card);
       format.background = pair.texture;
       format.size = model.format.size;
-      spdlog::info ("  background is : {}", pair.texture);
+      // spdlog::info ("  background is : {}", pair.texture);
       continue;
     }
     // set texture position and size
@@ -70,9 +70,9 @@ sf::FloatRect findTexture (
   const std::vector <CardTexture>& textures)
 {
   for (const auto& texture : textures) {
-  spdlog::warn ("  test texture {} with {}", key, texture.identifier);
+    // spdlog::warn ("  test texture {} with {}", key, texture.identifier);
     if (texture.identifier == key) {
-      spdlog::info ("  set texture {}", key);
+      // spdlog::info ("  set texture {}", key);
       return texture.rect;
     }
   }
@@ -85,9 +85,9 @@ sf::Vector2f findText (
   const std::vector <CardText>& texts)
 {
   for (const auto& text : texts) {
-  spdlog::warn ("  test text {} with {}", key, text.identifier);
+    // spdlog::warn ("  test text {} with {}", key, text.identifier);
     if (text.identifier == key) {
-      spdlog::info ("  set text {}", key);
+      // spdlog::info ("  set text {}", key);
       return text.position;
     }
   }

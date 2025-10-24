@@ -8,8 +8,8 @@ set (SRC
   ${INCROOT}/CardEditorScene.h
   ${SRCROOT}/CardPrinterScene.cpp
   ${INCROOT}/CardPrinterScene.h
-  ${INCROOT}/IntroScene.h
-  ${SRCROOT}/IntroScene.cpp
+  ${INCROOT}/Application.h
+  ${SRCROOT}/Application.cpp
 )
 source_group ("" FILES ${SRC})
 

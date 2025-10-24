@@ -52,12 +52,6 @@ FetchContent_Declare (SmolGui
   GIT_PROGRESS TRUE
 )
 
-FetchContent_Declare (Swoosh
-  GIT_REPOSITORY https://github.com/stoleks/swoosh
-  GIT_TAG        v2.0.3
-  GIT_PROGRESS TRUE
-)
-
 FetchContent_Declare (PDFHummus
   GIT_REPOSITORY https://github.com/galkahana/PDF-Writer
   GIT_TAG        v4.7.0
@@ -70,7 +64,6 @@ FetchContent_MakeAvailable (
   nlohmann-json
   spdlog
   smolGui
-  Swoosh
   PDFHummus
 )
 
