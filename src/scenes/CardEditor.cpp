@@ -1,4 +1,4 @@
-#include "CardEditorScene.h"
+#include "CardEditor.h"
 
 #include <sgui/Serialization/LoadJson.h>
 

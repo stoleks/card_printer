@@ -3,6 +3,7 @@
 #include <SFML/Graphics/RenderTexture.hpp>
 #include <sgui/sgui.h>
 #include <entt/entt.hpp>
+#include <memory>
 
 #include "cards/PaperFormats.h"
 
@@ -12,7 +13,7 @@
 struct CommonAppData {
   sgui::Gui gui;
   sgui::Gui cardGui;
-  sgui::Gui cardRender;
+  sgui::Gui cardPrint;
   sgui::Style style;
   sgui::Layout layout;
   sgui::TextContainer texts;
@@ -70,20 +71,20 @@ public:
   void events (const sf::RenderWindow& window, const std::optional<sf::Event>& event);
   void update (const sf::Time& dt);
   void draw (sf::RenderWindow& window);
+public:
+  PagePrint page;
+  CardsPrint cards;
+  CardEditor editor;
+  CommonAppData app;
 private:
   void globalMenu ();
   void options ();
 private:
   // resources
-  sf::Font m_font;
+  std::unique_ptr <sf::Font> m_font;
+  std::unique_ptr <sf::Texture> m_texture;
+  std::unique_ptr <sf::Texture> m_cardTexture;
   sgui::SoundHolder m_sounds;
   sgui::TextureAtlas m_atlas;
   sgui::TextureAtlas m_cardAtlas;
-  sf::Texture m_texture;
-  sf::Texture m_cardTexture;
-  // internal data
-  PagePrint m_page;
-  CardsPrint m_cards;
-  CardEditor m_editor;
-  CommonAppData m_app;
 };

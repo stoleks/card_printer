@@ -4,10 +4,10 @@ set(SRCROOT ${PROJECT_SOURCE_DIR}/src/scenes)
 
 # all source files
 set (SRC
-  ${SRCROOT}/CardEditorScene.cpp
-  ${INCROOT}/CardEditorScene.h
-  ${SRCROOT}/CardPrinterScene.cpp
-  ${INCROOT}/CardPrinterScene.h
+  ${SRCROOT}/CardEditor.cpp
+  ${INCROOT}/CardEditor.h
+  ${SRCROOT}/CardPrinter.cpp
+  ${INCROOT}/CardPrinter.h
   ${INCROOT}/Application.h
   ${SRCROOT}/Application.cpp
 )

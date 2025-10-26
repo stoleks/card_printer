@@ -12,7 +12,12 @@ int main()
    * Window and app initialization
    */
   spdlog::info ("Open window");
-  auto window = sf::RenderWindow (sf::VideoMode ({1920u, 1080u}), "Card generator project");
+  auto window = sf::RenderWindow (
+    sf::VideoMode ({1920u, 1080u}),
+    "Card generator project",
+    sf::Style::Default,
+    sf::State::Fullscreen
+  );
   window.setFramerateLimit (60);
   auto app = Application ();
   app.initialize (window);

@@ -3,8 +3,8 @@
 #include <sgui/Serialization/LoadJson.h>
 #include <sgui/Serialization/LoadTextureAtlas.h>
 
-#include "scenes/CardEditorScene.h"
-#include "scenes/CardPrinterScene.h"
+#include "scenes/CardEditor.h"
+#include "scenes/CardPrinter.h"
 #include "resources/TextureCollage.h"
 
 ////////////////////////////////////////////////////////////
@@ -13,11 +13,11 @@ Application::Application ()
   /**
    * Set gui style
    */
-  m_app.style.fontColor = sf::Color::White;
-  m_app.style.fontSize.normal = 15u;
-  m_app.style.fontSize.footnote = 12u;
-  m_app.style.fontSize.subtitle = 14u;
-  m_app.style.fontSize.title = 18u;
+  app.style.fontColor = sf::Color::White;
+  app.style.fontSize.normal = 15u;
+  app.style.fontSize.footnote = 12u;
+  app.style.fontSize.subtitle = 14u;
+  app.style.fontSize.title = 18u;
 }
 
 ////////////////////////////////////////////////////////////
@@ -27,9 +27,9 @@ void Application::initialize (sf::RenderWindow& window)
    * Font and text loading
    */
   spdlog::info ("Load font, layout and text");
-  m_font.openFromFile (ContentsDir"/Averia-Bold.ttf");
-  m_app.texts.loadFromFile (ContentsDir"/english_editor_texts.json", "english");
-  m_app.texts.loadFromFile (ContentsDir"/english_card_texts.json", "english");
+  m_font = std::make_unique <sf::Font> (ContentsDir"/Averia-Bold.ttf");
+  app.texts.loadFromFile (ContentsDir"/english_editor_texts.json", "english");
+  app.texts.loadFromFile (ContentsDir"/english_card_texts.json", "english");
 
   /**
    * Sounds loading
@@ -42,63 +42,69 @@ void Application::initialize (sf::RenderWindow& window)
   /**
    * Layout loading
    */
-  m_app.layout.loadFromFile (ContentsDir"/editor_layout.json");
+  app.layout.loadFromFile (ContentsDir"/editor_layout.json");
+  app.layout.get <sgui::Window> ("mainWindow").panel.hasMenu = true;
+  auto& mainWindow = app.layout.get <sgui::Window> ("mainWindow");
+  mainWindow.panel.position.y -= app.gui.titleTextHeight ();
 
   /**
    * Gui initialization
    */
   spdlog::info ("Load atlas, texture and set gui");
-  m_app.atlasFile = std::string (ContentsDir"/atlas.json");
-  m_atlas.loadFromFile (m_app.atlasFile);
-  m_texture.loadFromFile (ContentsDir"/widgets.png");
-  m_app.gui.setResources (m_font, m_texture, m_atlas);
-  m_app.gui.setSounds (m_sounds);
-  m_app.gui.setStyle (m_app.style);
-  m_app.gui.setView (window);
+  app.atlasFile = std::string (ContentsDir"/atlas.json");
+  m_atlas.loadFromFile (app.atlasFile);
+  m_texture = std::make_unique <sf::Texture> (ContentsDir"/widgets.png");
+  app.gui.setResources (*m_font, *m_texture, m_atlas);
+  app.gui.setSounds (m_sounds);
+  app.gui.setStyle (app.style);
+  app.gui.setView (window);
 
   /**
    * Gui card initialization
    */
-  spdlog::info ("Load card atlas, texture and set gui");
-  m_app.cardAtlasFile = std::string (ContentsDir"/cards_atlas.json");
-  m_app.cardTextureFile = std::string (ContentsDir"/cards_textures.png");
-  m_cardAtlas.loadFromFile (m_app.cardAtlasFile);
-  m_cardTexture.loadFromFile (m_app.cardTextureFile);
-  m_app.style.fontColor = sf::Color::Black;
+  app.cardAtlasFile = std::string (ContentsDir"/cards_atlas.json");
+  app.cardTextureFile = std::string (ContentsDir"/cards_textures.png");
+  spdlog::info ("Load cards atlas");
+  m_cardAtlas.loadFromFile (app.cardAtlasFile);
+  spdlog::info ("Load cards texture");
+  m_cardTexture = std::make_unique <sf::Texture> (app.cardTextureFile);
+  app.style.fontColor = sf::Color::Black;
   // in app display
-  m_app.cardGui.setResources (m_font, m_cardTexture, m_cardAtlas);
-  m_app.cardGui.setStyle (m_app.style);
-  m_app.cardGui.setView (window);
+  spdlog::info ("Set gui for cards");
+  app.cardGui.setResources (*m_font, *m_cardTexture, m_cardAtlas);
+  app.cardGui.setStyle (app.style);
+  app.cardGui.setView (window);
   // pdf printing
-  m_app.cardRender.setResources (m_font, m_cardTexture, m_cardAtlas);
-  m_app.cardRender.setStyle (m_app.style);
+  spdlog::info ("Set gui for printing");
+  app.cardPrint.setResources (*m_font, *m_cardTexture, m_cardAtlas);
+  app.cardPrint.setStyle (app.style);
 }
 
 ////////////////////////////////////////////////////////////
 void Application::events (const sf::RenderWindow& window, const std::optional<sf::Event>& event)
 {
-  m_app.cardGui.update (window, event);
-  m_app.gui.update (window, event);
+  app.cardGui.update (window, event);
+  app.gui.update (window, event);
 }
 
 ////////////////////////////////////////////////////////////
 void Application::update (const sf::Time& dt)
 {
-  m_app.gui.updateTimer (dt);
+  app.gui.updateTimer (dt);
   // launch both gui
-  m_app.gui.beginFrame ();
-  m_app.cardGui.beginFrame ();
+  app.gui.beginFrame ();
+  app.cardGui.beginFrame ();
   globalMenu ();
-  m_app.gui.endFrame ();
-  m_app.cardGui.endFrame ();
+  app.gui.endFrame ();
+  app.cardGui.endFrame ();
 }
 
 ////////////////////////////////////////////////////////////
 void Application::draw (sf::RenderWindow& window)
 {
   window.clear ();
-  window.draw (m_app.gui);
-  window.draw (m_app.cardGui);
+  window.draw (app.gui);
+  window.draw (app.cardGui);
   window.display ();
 }
 
@@ -106,41 +112,42 @@ void Application::draw (sf::RenderWindow& window)
 void Application::globalMenu ()
 {
   // open the main gui frame
-  if (m_app.gui.beginWindow (m_app.layout.get <sgui::Window> ("mainWindow"), m_app.texts)) {
-    // select m_app function with an upper menu
-    m_app.gui.beginMenu ();
-    if (m_app.gui.menuItem (m_app.texts.get ("options"))) {
-      options ();
+  if (app.gui.beginWindow (app.layout.get <sgui::Window> ("mainWindow"), app.texts)) {
+    // select app function with an upper menu
+    app.gui.beginMenu ();
+    if (app.gui.menuItem (app.texts.get ("toEditor"))) {
+      cardEditor (app, editor);
     }
-    if (m_app.gui.menuItem (m_app.texts.get ("toPrinter"))) {
-      cardPrinter (m_app, m_page, m_cards, m_editor);
+    if (app.gui.menuItem (app.texts.get ("toPrinter"))) {
+      cardPrinter (app, page, cards, editor);
     }
-    if (m_app.gui.menuItem (m_app.texts.get ("toEditor"))) {
-      cardEditor (m_app, m_editor);
-    }
-    m_app.gui.endMenu ();
-    m_app.gui.endWindow ();
+    app.gui.endMenu ();
+    options ();
+    app.gui.endWindow ();
   }
 }
 
 ////////////////////////////////////////////////////////////
 void Application::options ()
 {
-  if (m_app.gui.textButton (m_app.texts.get ("buildTextures"))) {
-    spdlog::info ("Prepare cards sprite sheet");
-    const auto directory = m_app.cardTextureFile.substr (m_app.cardTextureFile.size () - 4);
-    spdlog::info ("Load image from {}/", directory);
-    auto collage = TextureCollage (directory);
-    if (!collage.image ().saveToFile (m_app.cardTextureFile)) {
-      spdlog::warn ("Unable to save {}.png", m_app.cardTextureFile); 
+  if (app.gui.beginWindow (app.layout.get <sgui::Window> ("options"), app.texts)) {
+    if (app.gui.textButton (app.texts.get ("buildTextures"))) {
+      spdlog::info ("Prepare cards sprite sheet");
+      const auto directory = app.cardTextureFile.substr (app.cardTextureFile.size () - 4);
+      spdlog::info ("Load image from {}/", directory);
+      auto collage = TextureCollage (directory);
+      if (!collage.image ().saveToFile (app.cardTextureFile)) {
+        spdlog::warn ("Unable to save {}.png", app.cardTextureFile); 
+      }
+      collage.atlas ().loadFromFile (app.atlasFile);
+      sgui::saveInFile (collage.atlas (), app.cardAtlasFile);
     }
-    collage.atlas ().loadFromFile (m_app.atlasFile);
-    sgui::saveInFile (collage.atlas (), m_app.cardAtlasFile);
-  }
-  /**
-   * quit application
-   */
-  if (m_app.gui.textButton (m_app.texts.get ("close"))) {
-    // getController ().getWindow ().close ();
+    /**
+     * quit application
+     */
+    if (app.gui.textButton (app.texts.get ("close"))) {
+      // getController ().getWindow ().close ();
+    }
+    app.gui.endWindow ();
   }
 }

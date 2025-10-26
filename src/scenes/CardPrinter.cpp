@@ -1,4 +1,4 @@
-#include "CardPrinterScene.h"
+#include "CardPrinter.h"
 
 #include <iostream>
 #include <PDFPage.h>
@@ -7,7 +7,6 @@
 #include <SFML/Graphics/Image.hpp>
 
 #include "scenes/Application.h"
-#include "scenes/CardEditorScene.h"
 #include "cards/CardUtils.h"
 #include "cards/CardsSerialization.h"
 
@@ -142,10 +141,11 @@ bool drawCards (
   const std::string& path,
   const uint32_t pageIndex)
 {
-  app.cardRender.setView (cards.image);
-  displayCardsInLattice (app, app.cardRender, page, cards, editor, pageIndex, false);
+  app.cardPrint.setView (cards.image);
+  app.cardPrint.setScreenSize (sf::Vector2f (cards.image.getSize ()));
+  displayCardsInLattice (app, app.cardPrint, page, cards, editor, pageIndex, false);
   cards.image.clear (sf::Color::White);
-  cards.image.draw (app.cardRender);
+  cards.image.draw (app.cardPrint);
   cards.image.display ();
   const auto printed = cards.image.getTexture ().copyToImage ().saveToFile (path);
   spdlog::info ("Try to print cards to {}, success = {}", path, printed);
@@ -218,7 +218,7 @@ void displayCardsInLattice (CommonAppData& app, sgui::Gui& gui, PagePrint& page,
       const auto cardBox = sf::FloatRect (sf::Vector2f (cardPos), sf::Vector2f (cardSize));
       auto cardPanel = sgui::Panel ();
       cardPanel.position = cardBox.position + shift;
-      cardPanel.size = cardBox.size;
+      cardPanel.size = cardBox.size.componentWiseDiv (gui.parentGroupSize ());
       cardPanel.scrollable = false;
       cardPanel.visible = false;
       editor.cards.get <CardFormat> (editor.activeCard).size = cardBox.size;
