@@ -66,9 +66,13 @@ void editOnCard (CommonAppData& app, CardEditor& editor)
     // draw card decorations and texts
     window.panel.visible = false;
     window.panel.position = app.gui.cursorPosition ();
+    const auto size = window.panel.size;
+    const auto cardSize = CardFormat ().size; // default B8 size
+    window.panel.size = cardSize.componentWiseDiv (app.gui.parentGroupSize ());
     app.cardGui.beginPanel (window.panel);
     ::drawCardDecoration (app.cardGui, editor.cards, editor.activeCard, app.texts);
     app.cardGui.endPanel ();
+    window.panel.size = size;
     app.gui.endWindow ();
   }
 }
@@ -82,6 +86,11 @@ void editCardTexts (CommonAppData& app, CardEditor& editor)
     parts.texts.emplace_back ();
     parts.texts.back ().position = sf::Vector2f (1.f, app.gui.normalSizeOf ("A").y + 8.f);
   }
+  // set text size
+  const auto fontDescription = fmt::format ("font size is {}", app.style.fontSize.normal);
+  app.gui.slider (app.style.fontSize.normal, 10u, 40u, {fontDescription});
+  app.cardGui.setStyle (app.style);
+
   // edit text
   for (auto& text : parts.texts) {
     // set text value
@@ -93,9 +102,9 @@ void editCardTexts (CommonAppData& app, CardEditor& editor)
     const auto cardSize = CardFormat ().size; // default B8 size
     auto textSize = sf::Vector2f ();
     if (app.texts.has (text.identifier)) {
-      textSize = app.gui.normalSizeOf (app.texts.get (text.identifier));
+      textSize = app.cardGui.normalSizeOf (app.texts.get (text.identifier));
     } else {
-      textSize = app.gui.normalSizeOf (text.identifier);
+      textSize = app.cardGui.normalSizeOf (text.identifier);
     }
     app.gui.slider (text.position.x, 0.f, cardSize.x - textSize.x, {"x"});
     app.gui.slider (text.position.y, 0.f, cardSize.y - textSize.y, {"y"});
@@ -146,6 +155,10 @@ void editCardTextures (CommonAppData& app, CardEditor& editor)
     app.gui.addSpacing ({0.f, 1.f});
     app.gui.slider (texture.rect.position.x, 0.f, cardSize.x - texture.rect.size.x, {"x"});
     app.gui.slider (texture.rect.position.y, 0.f, cardSize.y - texture.rect.size.y, {"y"});
+
+    // set alignment
+    app.gui.checkBox (texture.isCenteredHorizontally, {app.texts.get ("centerHori")});
+    app.gui.checkBox (texture.isCenteredVertically, {app.texts.get ("centerVerti")});
   }
 }
 

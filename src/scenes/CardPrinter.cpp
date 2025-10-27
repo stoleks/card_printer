@@ -33,7 +33,9 @@ void cardPrinter (CommonAppData& app, PagePrint& page, CardsPrint& cards, CardEd
   // Formats selection and print
   if (app.gui.beginWindow (app.layout.get <sgui::Window> ("chooseCardsFormat"), app.texts)) {
     if (app.gui.textButton ("Load cards")) {
-      loadCardsFromFile (editor.cards, ContentsDir"/model.json", ContentsDir"/cards_data.json");
+      app.style.fontSize.normal = 
+        loadCardsFromFile (editor.cards, ContentsDir"/model.json", ContentsDir"/cards_data.json");
+      app.cardGui.setStyle (app.style);
     }
     // print cards
     renderOptions (app, page, cards);
@@ -141,6 +143,7 @@ bool drawCards (
   const std::string& path,
   const uint32_t pageIndex)
 {
+  app.cardPrint.setStyle (app.style);
   app.cardPrint.setView (cards.image);
   app.cardPrint.setScreenSize (sf::Vector2f (cards.image.getSize ()));
   displayCardsInLattice (app, app.cardPrint, page, cards, editor, pageIndex, false);

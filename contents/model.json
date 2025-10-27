@@ -13,15 +13,15 @@
           "identifier": "description",
           "isCenteredHorizontally": true,
           "position": {
-            "x": 86.0,
-            "y": 311.0
+            "x": 0.0,
+            "y": 340.0
           }
         },
         {
           "identifier": "title",
           "isCenteredHorizontally": true,
           "position": {
-            "x": 60.0,
+            "x": 0.0,
             "y": 20.0
           }
         }
@@ -51,6 +51,7 @@
     },
     "model": {
       "displayNumber": false,
+      "fontSize": 28,
       "isModel": true
     }
   }

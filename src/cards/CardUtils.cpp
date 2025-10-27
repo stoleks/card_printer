@@ -62,24 +62,24 @@ void drawCardDecoration (
     if (cardsTexts.has (text.identifier)) {
       textValue = cardsTexts.get (text.identifier);
     }
+
     // center text if asked
+    const auto textSize = gui.normalSizeOf (" " + textValue + " ");
     if (text.isCenteredHorizontally) {
-      text.position.x = 0.5f * (format.size - gui.normalSizeOf (textValue)).x;
+      text.position.x = 0.5f * (format.size - textSize).x;
     }
 
     // draw text in a wrapper panel
     auto textPanel = sgui::Panel ();
     textPanel.scrollable = false;
+    const auto panelSize = sf::Vector2f (textSize.x, 4.f*textSize.y);
     textPanel.position = text.position;
-    textPanel.size = sf::Vector2f (
-        0.5f*gui.activePanelSize ().x,
-        10.f*gui.normalSizeOf ("A").y
-      ).componentWiseDiv (gui.parentGroupSize ());
+    textPanel.size = panelSize.componentWiseDiv (gui.parentGroupSize ());
     textPanel.visible = false;
 
     // draw panel and text
     gui.beginPanel (textPanel); 
-    gui.text (textValue);
+    gui.text (textValue, {sgui::HorizontalAlignment::Center});
     gui.endPanel ();
     // store texture position
     text.position = textPanel.position;
@@ -102,7 +102,6 @@ void swipeToNextCard (
   // check every card number
   for (const auto& card : view) {
     const auto cardNum = view.get <const CardIdentifier> (card).number;
-    // spdlog::warn ("current card: {}, next card: {}, cards count: {}", cardNum, nextCardNumber, view.size ());
     if (cardNum == nextCardNumber) {
       activeCard = card;
       return;

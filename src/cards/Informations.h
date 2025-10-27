@@ -22,5 +22,6 @@ NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardIdentifier, id, number)
 struct CardModel {
   bool isModel = false;
   bool displayNumber = false;
+  uint32_t fontSize = 16u;
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardModel, isModel, displayNumber)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardModel, isModel, displayNumber, fontSize)

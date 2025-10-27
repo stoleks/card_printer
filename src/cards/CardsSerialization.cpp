@@ -2,7 +2,7 @@
 #include <sgui/Serialization/LoadJson.h>
 
 ////////////////////////////////////////////////////////////
-void loadCardsFromFile (
+uint32_t loadCardsFromFile (
   entt::registry& cards,
   const std::string& modelFile,
   const std::string& cardsFile)
@@ -27,7 +27,10 @@ void loadCardsFromFile (
     const auto card = cards.create ();
     CardFingerPrint data = cardFingerPrint.value ();
     buildCardsFromModel (cards, cardNumber, card, data, modelData);
+    cardNumber++;
   }
+
+  return modelData.model.fontSize;
 }
     
 ////////////////////////////////////////////////////////////
@@ -40,7 +43,7 @@ void buildCardsFromModel (
 {
   // build card data, first set identifier
   spdlog::info ("Set card number {} with model data", cardNumber); 
-  cards.emplace <CardIdentifier> (card, cardNumber++);
+  cards.emplace <CardIdentifier> (card, cardNumber);
   // add textures and format components
   cards.emplace <CardFormat> (card);
   cards.emplace <GraphicalParts> (card);

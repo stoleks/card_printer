@@ -61,7 +61,7 @@ NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardFingerPrint, texts, textures
  * Utils functions
  */
 ////////////////////////////////////////////////////////////
-void loadCardsFromFile (
+uint32_t loadCardsFromFile (
   entt::registry& registry,
   const std::string& modelFile,
   const std::string& cardsFile);
