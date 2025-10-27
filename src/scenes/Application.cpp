@@ -114,7 +114,7 @@ void Application::update (sf::RenderWindow& window, const sf::Time& dt)
       cardEditor (app, editor);
     }
     if (app.gui.menuItem (app.texts.get ("toPrinter"))) {
-      cardPrinter (app, page, cards, editor);
+      cardPrinter ();
     }
     app.gui.endMenu ();
     options (window);

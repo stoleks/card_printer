@@ -6,30 +6,20 @@
 
 #include "cards/PaperFormats.h"
 
-struct CardEditor;
-struct CommonAppData;
 struct PagePrint;
-struct CardsPrint;
-class PDFWriter;
 
 /**
- * @brief Edit card
+ * @brief compute page size
  */
-void cardPrinter (CommonAppData& app, PagePrint& page, CardsPrint& cards, CardEditor& editor);
-void renderOptions (CommonAppData& app, PagePrint& page, CardsPrint& cards);
-void chooseCardsFormat (CommonAppData& app, PagePrint& page, CardsPrint& cards);
-// pdf export
-void exportCardsToPdf (CommonAppData& app, PagePrint& page, CardsPrint& cards, CardEditor& editor);
-void printPage (CommonAppData& app, PagePrint& page, CardsPrint& cards, CardEditor& editor, PDFWriter& pdfWriter, const std::string& path, const uint32_t pageIndex, const bool verso = false);
-bool drawCards (CommonAppData& app, PagePrint& page, CardsPrint& cards, CardEditor& editor, const std::string& path, const uint32_t pageIndex, const bool verso = false);
-// card positions and display
-void computeLattice (PagePrint& page, CardsPrint& cards, CardEditor& editor);
-void displayCardsInLattice (CommonAppData& app, sgui::Gui& gui, PagePrint& page, CardsPrint& cards, CardEditor& editor, const uint32_t pageIndex = 0u, const bool onScreen = true, const bool verso = false);
-// to get page size
 sf::Vector2f computePageSize (const PagePrint& print);
+/**
+ * @brief compute text position
+ */
 sf::Vector2f computeTextPosition (const PagePrint& print);
 
-// conversion to pixel from millimeter, or the reverse
+/**
+ * @brief conversion to pixel from millimeter, or the reverse with pixelToMillim
+ */
 template <typename Type>
 Type millimToPixel (const Type& millimSize, const float resolution)
 { 

@@ -7,6 +7,8 @@
 
 #include "cards/PaperFormats.h"
 
+class PDFWriter;
+
 /**
  * @brief : data common to the different menus
  */
@@ -77,7 +79,38 @@ public:
   CardEditor editor;
   CommonAppData app;
 private:
+  // close or concatene texture
   void options (sf::RenderWindow& window);
+  
+  // Print cards to a pdf
+  void cardPrinter ();
+  // Choose render options (orientation, size of cards, etc.)
+  void renderOptions ();
+  // choose card format and if cards are printed double-sided
+  void chooseCardsFormat ();
+  
+  // pdf export
+  void exportCardsToPdf ();
+  // print a page to pdf
+  void printPage (
+      PDFWriter& pdfWriter,
+      const std::string& path,
+      const uint32_t pageIndex,
+      const bool verso = false);
+  // draw cards on a image
+  bool drawCards (
+      const std::string& path,
+      const uint32_t pageIndex,
+      const bool verso = false);
+  // display all cards in a regular lattice
+  void displayCardsInLattice (
+      sgui::Gui& gui,
+      const uint32_t pageIndex = 0u,
+      const bool onScreen = true,
+      const bool verso = false);
+  
+  // compute cards positions in a lattice that fit on the page dimension
+  void computeLattice ();
 private:
   // resources
   std::unique_ptr <sf::Font> m_font;
