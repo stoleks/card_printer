@@ -11,9 +11,17 @@
       "texts": [
         {
           "identifier": "description",
-          "isCenteredHorizontally": true,
+          "isCenteredHorizontally": false,
           "position": {
-            "x": 0.0,
+            "x": 10.0,
+            "y": 340.0
+          }
+        },
+        {
+          "identifier": "famille",
+          "isCenteredHorizontally": false,
+          "position": {
+            "x": 200.0,
             "y": 340.0
           }
         },

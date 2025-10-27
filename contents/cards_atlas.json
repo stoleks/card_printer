@@ -471,8 +471,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 4227,
-        "y": 3040
+        "x": 5219,
+        "y": 2864
       },
       "size": {
         "x": 714,
@@ -484,8 +484,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 0,
-        "y": 3040
+        "x": 992,
+        "y": 2864
       },
       "size": {
         "x": 825,
@@ -510,7 +510,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 4586,
+        "x": 6890,
         "y": 1312
       },
       "size": {
@@ -549,8 +549,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 0,
-        "y": 3552
+        "x": 1173,
+        "y": 3568
       },
       "size": {
         "x": 598,
@@ -562,8 +562,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 2217,
-        "y": 3040
+        "x": 3209,
+        "y": 2864
       },
       "size": {
         "x": 768,
@@ -575,8 +575,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 2684,
-        "y": 3552
+        "x": 3857,
+        "y": 3568
       },
       "size": {
         "x": 866,
@@ -588,7 +588,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 4883,
+        "x": 3643,
         "y": 2160
       },
       "size": {
@@ -601,8 +601,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 1813,
-        "y": 3552
+        "x": 2986,
+        "y": 3568
       },
       "size": {
         "x": 871,
@@ -614,12 +614,25 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 1136,
+        "x": 6731,
         "y": 2160
       },
       "size": {
-        "x": 620,
-        "y": 880
+        "x": 496,
+        "y": 704
+      }
+    }
+  },
+  "Icon::carte_molecules_AA": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 496,
+        "y": 2864
+      },
+      "size": {
+        "x": 496,
+        "y": 704
       }
     }
   },
@@ -627,12 +640,38 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 1756,
+        "x": 7227,
         "y": 2160
       },
       "size": {
-        "x": 620,
-        "y": 880
+        "x": 496,
+        "y": 704
+      }
+    }
+  },
+  "Icon::carte_molecules_glu": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 6235,
+        "y": 2160
+      },
+      "size": {
+        "x": 496,
+        "y": 704
+      }
+    }
+  },
+  "Icon::carte_molecules_joker": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 2864
+      },
+      "size": {
+        "x": 496,
+        "y": 704
       }
     }
   },
@@ -653,7 +692,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 3249,
+        "x": 2009,
         "y": 2160
       },
       "size": {
@@ -666,7 +705,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 6627,
+        "x": 5387,
         "y": 2160
       },
       "size": {
@@ -679,7 +718,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 2376,
+        "x": 1136,
         "y": 2160
       },
       "size": {
@@ -692,7 +731,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 5731,
+        "x": 4491,
         "y": 2160
       },
       "size": {
@@ -705,7 +744,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 4086,
+        "x": 2846,
         "y": 2160
       },
       "size": {
@@ -714,29 +753,29 @@
       }
     }
   },
-  "Icon::ethanoxymethane": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 5005,
-        "y": 3552
-      },
-      "size": {
-        "x": 585,
-        "y": 228
-      }
-    }
-  },
   "Icon::ethoxyethane": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 3550,
-        "y": 3552
+        "x": 4723,
+        "y": 3568
       },
       "size": {
         "x": 768,
         "y": 218
+      }
+    }
+  },
+  "Icon::ethoxymethane": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 6178,
+        "y": 3568
+      },
+      "size": {
+        "x": 585,
+        "y": 228
       }
     }
   },
@@ -757,7 +796,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 6890,
+        "x": 4586,
         "y": 1312
       },
       "size": {
@@ -796,8 +835,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 7257,
-        "y": 3040
+        "x": 586,
+        "y": 3568
       },
       "size": {
         "x": 587,
@@ -809,8 +848,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 1593,
-        "y": 3040
+        "x": 2585,
+        "y": 2864
       },
       "size": {
         "x": 624,
@@ -822,8 +861,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 598,
-        "y": 3552
+        "x": 1771,
+        "y": 3568
       },
       "size": {
         "x": 507,
@@ -835,8 +874,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 825,
-        "y": 3040
+        "x": 1817,
+        "y": 2864
       },
       "size": {
         "x": 768,
@@ -848,8 +887,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 6671,
-        "y": 3040
+        "x": 0,
+        "y": 3568
       },
       "size": {
         "x": 586,
@@ -861,8 +900,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 2985,
-        "y": 3040
+        "x": 3977,
+        "y": 2864
       },
       "size": {
         "x": 616,
@@ -870,12 +909,12 @@
       }
     }
   },
-  "Icon::methoymethane": {
+  "Icon::methoxymethane": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 5590,
-        "y": 3552
+        "x": 6763,
+        "y": 3568
       },
       "size": {
         "x": 712,
@@ -939,8 +978,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 6038,
-        "y": 3040
+        "x": 7030,
+        "y": 2864
       },
       "size": {
         "x": 633,
@@ -952,8 +991,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 4318,
-        "y": 3552
+        "x": 5491,
+        "y": 3568
       },
       "size": {
         "x": 687,
@@ -978,8 +1017,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 3601,
-        "y": 3040
+        "x": 4593,
+        "y": 2864
       },
       "size": {
         "x": 626,
@@ -991,8 +1030,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 4941,
-        "y": 3040
+        "x": 5933,
+        "y": 2864
       },
       "size": {
         "x": 1097,
@@ -1004,8 +1043,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 1105,
-        "y": 3552
+        "x": 2278,
+        "y": 3568
       },
       "size": {
         "x": 708,
