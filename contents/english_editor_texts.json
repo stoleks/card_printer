@@ -16,5 +16,8 @@
   "goToEditor": "Go to card editor",
   "buildTextures": "Concatene textures",
   "close": "Close app",
-  "displayNumber": "Display card number"
+  "displayNumber": "display card number",
+  "centerHori": "center horizontally",
+  "centerVerti": "center vertically",
+  "chainedDimensions": "chain texture dimensions"
 }

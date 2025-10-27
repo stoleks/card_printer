@@ -10,19 +10,23 @@
  * @brief Store rectangle and identifier of a card texture
  */
 struct CardTexture {
+  bool isCenteredHorizontally = false;
+  bool isCenteredVertically = false;
+  bool areDimensionsChained = true;
   sf::FloatRect rect = {};
   std::string identifier = "";
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardTexture, rect, identifier)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardTexture, isCenteredHorizontally, isCenteredVertically, areDimensionsChained, rect, identifier)
 
 /**
  * @brief Store position and identifier of a card text
  */
 struct CardText {
+  bool isCenteredHorizontally = false;
   sf::Vector2f position = {};
   std::string identifier = "";
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardText, position, identifier)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardText, isCenteredHorizontally, position, identifier)
 
 /**
  * @brief Store card's graphical and textual data

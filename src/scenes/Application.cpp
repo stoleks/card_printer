@@ -88,13 +88,27 @@ void Application::events (const sf::RenderWindow& window, const std::optional<sf
 }
 
 ////////////////////////////////////////////////////////////
-void Application::update (const sf::Time& dt)
+void Application::update (sf::RenderWindow& window, const sf::Time& dt)
 {
   app.gui.updateTimer (dt);
   // launch both gui
   app.gui.beginFrame ();
   app.cardGui.beginFrame ();
-  globalMenu ();
+  // open the main gui frame
+  if (app.gui.beginWindow (app.layout.get <sgui::Window> ("mainWindow"), app.texts)) {
+    // select app function with an upper menu
+    app.gui.beginMenu ();
+    if (app.gui.menuItem (app.texts.get ("toEditor"))) {
+      cardEditor (app, editor);
+    }
+    if (app.gui.menuItem (app.texts.get ("toPrinter"))) {
+      cardPrinter (app, page, cards, editor);
+    }
+    app.gui.endMenu ();
+    options (window);
+    app.gui.endWindow ();
+  }
+  // end gui
   app.gui.endFrame ();
   app.cardGui.endFrame ();
 }
@@ -109,28 +123,9 @@ void Application::draw (sf::RenderWindow& window)
 }
 
 ////////////////////////////////////////////////////////////
-void Application::globalMenu ()
+void Application::options (sf::RenderWindow& window)
 {
-  // open the main gui frame
-  if (app.gui.beginWindow (app.layout.get <sgui::Window> ("mainWindow"), app.texts)) {
-    // select app function with an upper menu
-    app.gui.beginMenu ();
-    if (app.gui.menuItem (app.texts.get ("toEditor"))) {
-      cardEditor (app, editor);
-    }
-    if (app.gui.menuItem (app.texts.get ("toPrinter"))) {
-      cardPrinter (app, page, cards, editor);
-    }
-    app.gui.endMenu ();
-    options ();
-    app.gui.endWindow ();
-  }
-}
-
-////////////////////////////////////////////////////////////
-void Application::options ()
-{
-  if (app.gui.beginWindow (app.layout.get <sgui::Window> ("options"), app.texts)) {
+  if (app.gui.beginWindow (app.layout.get <sgui::Window> ("options"))) {
     if (app.gui.textButton (app.texts.get ("buildTextures"))) {
       spdlog::info ("Prepare cards sprite sheet");
       const auto directory = app.cardTextureFile.substr (app.cardTextureFile.size () - 4);
@@ -142,12 +137,10 @@ void Application::options ()
       collage.atlas ().loadFromFile (app.atlasFile);
       sgui::saveInFile (collage.atlas (), app.cardAtlasFile);
     }
-    /**
-     * quit application
-     */
+    // quit application
     if (app.gui.textButton (app.texts.get ("close"))) {
-      // getController ().getWindow ().close ();
+      window.close ();
     }
-    app.gui.endWindow ();
+  app.gui.endWindow ();
   }
 }

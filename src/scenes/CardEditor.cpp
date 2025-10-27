@@ -98,13 +98,21 @@ void editCardTexts (CommonAppData& app, CardEditor& editor)
   }
   // edit text
   for (auto& text : parts.texts) {
+    // set text value
     app.gui.inputText (text.identifier, {}, {"Card text : "});
+
+    // set text position
     app.gui.inputVector2 (text.position, {"Text position : "});
     app.gui.addSpacing ({0.f, 1.f});
     const auto cardSize = CardFormat ().size; // default B8 size
     const auto textSize = app.gui.normalSizeOf (app.texts.get (text.identifier));
     app.gui.slider (text.position.x, 0.f, cardSize.x - textSize.x, {"x"});
     app.gui.slider (text.position.y, 0.f, cardSize.y - textSize.y, {"y"});
+
+    // center text
+    if (app.gui.checkBox (text.isCenteredHorizontally, {app.texts.get ("centerHori")})) {
+      text.position.x = 0.5f * (cardSize - textSize).x;
+    }
   }
 }
 
@@ -126,22 +134,38 @@ void editCardTextures (CommonAppData& app, CardEditor& editor)
     if (app.gui.textButton ("defaultTextureScale")) {
       texture.rect.size = textureBaseSize;
     }
+
+    // chain the dimensions of the texture
     auto textureScale = texture.rect.size.x / textureBaseSize.x;
+    if (app.gui.checkBox (texture.areDimensionsChained, {app.texts.get ("chainedDimensions")})) {
+      texture.rect.size.y = textureScale * textureBaseSize.y;
+    }
+
     // precise selection of texture size
     app.gui.inputText (texture.identifier, {}, {"Texture identifier : "});
     app.gui.inputVector2 (texture.rect.size, {"Texture size : "});
     app.gui.separation();
+
     // scaling of texture size
     app.gui.slider (textureScale, 0.01f, 1.5f);
     texture.rect.size = textureBaseSize * textureScale;
     app.gui.sameLine ();
     app.gui.inputNumber (textureScale, {" : scale of texture."});
+
     // set precisely texture position or slide it in the card
     const auto cardSize = CardFormat ().size; // default B8 size
     app.gui.inputVector2 (texture.rect.position, {"Texture position : "});
     app.gui.addSpacing ({0.f, 1.f});
     app.gui.slider (texture.rect.position.x, 0.f, cardSize.x - texture.rect.size.x, {"x"});
     app.gui.slider (texture.rect.position.y, 0.f, cardSize.y - texture.rect.size.y, {"y"});
+
+    // center texture in the card
+    if (app.gui.checkBox (texture.isCenteredHorizontally, {app.texts.get ("centerHori")})) {
+      texture.rect.position.x = 0.5f * (cardSize - texture.rect.size).x;
+    }
+    if (app.gui.checkBox (texture.isCenteredVertically, {app.texts.get ("centerVerti")})) {
+      texture.rect.position.y = 0.5f * (cardSize - texture.rect.size).y;
+    }
   }
 }
 

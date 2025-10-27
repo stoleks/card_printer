@@ -55,7 +55,7 @@ int main()
         }
       }
       if (!pause) {
-        app.update (dt);
+        app.update (window, dt);
       }
     }
     /**

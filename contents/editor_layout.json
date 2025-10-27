@@ -4,7 +4,7 @@
       "horizontal": "HorizontalAlignment::None",
       "relativePosition": {
         "x": 0.125,
-        "y": 0.05
+        "y": 0.055
       },
       "vertical": "VerticalAlignment::None"
     },
@@ -28,7 +28,7 @@
       "horizontal": "HorizontalAlignment::Right",
       "relativePosition": {
         "x": 0.0,
-        "y": 0.05
+        "y": 0.055
       },
       "vertical": "VerticalAlignment::None"
     },
@@ -52,7 +52,7 @@
       "horizontal": "HorizontalAlignment::Right",
       "relativePosition": {
         "x": 0.0,
-        "y": 0.05
+        "y": 0.055
       },
       "vertical": "VerticalAlignment::None"
     },
@@ -76,7 +76,7 @@
       "horizontal": "HorizontalAlignment::None",
       "relativePosition": {
         "x": 0.125,
-        "y": 0.05
+        "y": 0.055
       },
       "vertical": "VerticalAlignment::None"
     },
@@ -112,8 +112,8 @@
         "y": 0.0
       },
       "size": {
-        "x": 1.0,
-        "y": 0.95
+        "x": 1,
+        "y": 1
       },
       "title": "mainMenu",
       "visible": true
@@ -124,7 +124,7 @@
       "horizontal": "HorizontalAlignment::Left",
       "relativePosition": {
         "x": 0.0,
-        "y": 0.05
+        "y": 0.055
       },
       "vertical": "VerticalAlignment::None"
     },

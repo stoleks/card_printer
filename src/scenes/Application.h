@@ -69,7 +69,7 @@ public:
   Application ();
   void initialize (sf::RenderWindow& window);
   void events (const sf::RenderWindow& window, const std::optional<sf::Event>& event);
-  void update (const sf::Time& dt);
+  void update (sf::RenderWindow& window, const sf::Time& dt);
   void draw (sf::RenderWindow& window);
 public:
   PagePrint page;
@@ -77,8 +77,7 @@ public:
   CardEditor editor;
   CommonAppData app;
 private:
-  void globalMenu ();
-  void options ();
+  void options (sf::RenderWindow& window);
 private:
   // resources
   std::unique_ptr <sf::Font> m_font;
