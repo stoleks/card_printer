@@ -28,7 +28,6 @@ struct CommonAppData {
 struct CardEditor {
   CardEditor ();
   // data
-  bool isTemplate = false;
   int cardsCount = 0;
   std::string saveFile;
   entt::entity activeCard;

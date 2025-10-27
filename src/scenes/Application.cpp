@@ -5,7 +5,19 @@
 
 #include "scenes/CardEditor.h"
 #include "scenes/CardPrinter.h"
+#include "cards/CardsSerialization.h"
 #include "resources/TextureCollage.h"
+
+////////////////////////////////////////////////////////////
+CardEditor::CardEditor ()
+{
+  activeCard = cards.create ();
+  cards.emplace <CardIdentifier> (activeCard);
+  cards.emplace <CardFormat> (activeCard);
+  cards.emplace <GraphicalParts> (activeCard);
+  cards.emplace <CardModel> (activeCard);
+  cardsCount++;
+}
 
 ////////////////////////////////////////////////////////////
 Application::Application ()

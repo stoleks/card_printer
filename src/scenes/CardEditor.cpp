@@ -6,17 +6,6 @@
 #include "cards/CardUtils.h"
 #include "cards/CardsSerialization.h"
 
-////////////////////////////////////////////////////////////
-CardEditor::CardEditor ()
-{
-  activeCard = cards.create ();
-  cards.emplace <CardIdentifier> (activeCard);
-  cards.emplace <CardFormat> (activeCard);
-  cards.emplace <GraphicalParts> (activeCard);
-  cards.emplace <CardModel> (activeCard);
-  cardsCount++;
-}
-
 
 ////////////////////////////////////////////////////////////
 void cardEditor (CommonAppData& app, CardEditor& editor)
@@ -50,15 +39,12 @@ void editCardFromMenu (CommonAppData& app, CardEditor& editor)
 
   // choose if its a template for a set of cards
   auto& templ = editor.cards.get <CardModel> (editor.activeCard);
-  app.gui.checkBox (templ.isTemplate, app.texts.get ("isTemplate"));
+  app.gui.checkBox (templ.isModel, app.texts.get ("isModel"));
   app.gui.checkBox (templ.displayNumber, app.texts.get ("displayNumber"));
 
   // change card to edit
   if (app.gui.iconTextButton ("right", app.texts.get ("nextCard"))) {
     ::swipeToNextCard (editor.activeCard, editor.cards);
-    if (auto* c = editor.cards.try_get <CardModel> (editor.activeCard); c == nullptr) {
-      editor.isTemplate = false;
-    }
   }
 
   // change card background
@@ -105,7 +91,12 @@ void editCardTexts (CommonAppData& app, CardEditor& editor)
     app.gui.inputVector2 (text.position, {"Text position : "});
     app.gui.addSpacing ({0.f, 1.f});
     const auto cardSize = CardFormat ().size; // default B8 size
-    const auto textSize = app.gui.normalSizeOf (app.texts.get (text.identifier));
+    auto textSize = sf::Vector2f ();
+    if (app.texts.has (text.identifier)) {
+      textSize = app.gui.normalSizeOf (app.texts.get (text.identifier));
+    } else {
+      textSize = app.gui.normalSizeOf (text.identifier);
+    }
     app.gui.slider (text.position.x, 0.f, cardSize.x - textSize.x, {"x"});
     app.gui.slider (text.position.y, 0.f, cardSize.y - textSize.y, {"y"});
 
@@ -135,16 +126,13 @@ void editCardTextures (CommonAppData& app, CardEditor& editor)
       texture.rect.size = textureBaseSize;
     }
 
-    // chain the dimensions of the texture
-    auto textureScale = texture.rect.size.x / textureBaseSize.x;
-    if (app.gui.checkBox (texture.areDimensionsChained, {app.texts.get ("chainedDimensions")})) {
-      texture.rect.size.y = textureScale * textureBaseSize.y;
-    }
-
     // precise selection of texture size
     app.gui.inputText (texture.identifier, {}, {"Texture identifier : "});
     app.gui.inputVector2 (texture.rect.size, {"Texture size : "});
     app.gui.separation();
+    
+    // chain the dimensions of the texture
+    auto textureScale = texture.rect.size.x / textureBaseSize.x;
 
     // scaling of texture size
     app.gui.slider (textureScale, 0.01f, 1.5f);
@@ -158,14 +146,6 @@ void editCardTextures (CommonAppData& app, CardEditor& editor)
     app.gui.addSpacing ({0.f, 1.f});
     app.gui.slider (texture.rect.position.x, 0.f, cardSize.x - texture.rect.size.x, {"x"});
     app.gui.slider (texture.rect.position.y, 0.f, cardSize.y - texture.rect.size.y, {"y"});
-
-    // center texture in the card
-    if (app.gui.checkBox (texture.isCenteredHorizontally, {app.texts.get ("centerHori")})) {
-      texture.rect.position.x = 0.5f * (cardSize - texture.rect.size).x;
-    }
-    if (app.gui.checkBox (texture.isCenteredVertically, {app.texts.get ("centerVerti")})) {
-      texture.rect.position.y = 0.5f * (cardSize - texture.rect.size).y;
-    }
   }
 }
 

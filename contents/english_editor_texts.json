@@ -5,7 +5,7 @@
   "addText": "add text to current card",
   "addTexture": "add texture to current card",
   "changeCardBackground": "change card background",
-  "isTemplate" : "is card a base template ?",
+  "isModel" : "is this a model ?",
   "addCard": "add a card to the pack",
   "toEditor": "Go to card editor",
   "toPrinter": "Go to card printer",

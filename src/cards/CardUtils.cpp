@@ -19,16 +19,34 @@ void drawCardDecoration (
   // draw card decorations and texts
   auto& parts = cards.get <GraphicalParts> (activeCard);
   for (auto& icon : parts.textures) {
+    // scale texture is asked
+    if (icon.areDimensionsChained) {
+      const auto iconBaseSize = gui.textureSize ("Icon::" + icon.identifier);
+      icon.rect.size.y = iconBaseSize.y * icon.rect.size.x / iconBaseSize.x;
+    }
+    // center texture
+    if (icon.isCenteredHorizontally) {
+      icon.rect.position.x = 0.5f * (format.size - icon.rect.size).x;
+    }
+    if (icon.isCenteredVertically) {
+      icon.rect.position.y = 0.5f * (format.size - icon.rect.size).y;
+    }
+
+    // render it
     if (render) {
       gui.addSpacing ({-0.25f, -0.5f});
       gui.icon (icon.identifier, icon.rect.size, {icon.rect.position});
+
+    // or draw texture in a wrapper panel
     } else {
-      // draw texture in a wrapper panel
+      // set-up panel
       auto iconPanel = sgui::Panel ();
       iconPanel.position = icon.rect.position;
       iconPanel.size = sf::Vector2f (1.1f*icon.rect.size).componentWiseDiv (gui.parentGroupSize ());
       iconPanel.visible = false;
       iconPanel.scrollable = false;
+
+      // draw panel and texture
       gui.beginPanel (iconPanel); 
       gui.addSpacing ({-0.5f, -0.3125f});
       gui.icon (icon.identifier, icon.rect.size);
@@ -40,21 +58,28 @@ void drawCardDecoration (
 
   // draw card text
   for (auto& text : parts.texts) {
+    auto textValue = text.identifier;
+    if (cardsTexts.has (text.identifier)) {
+      textValue = cardsTexts.get (text.identifier);
+    }
+    // center text if asked
+    if (text.isCenteredHorizontally) {
+      text.position.x = 0.5f * (format.size - gui.normalSizeOf (textValue)).x;
+    }
+
     // draw text in a wrapper panel
     auto textPanel = sgui::Panel ();
     textPanel.scrollable = false;
     textPanel.position = text.position;
     textPanel.size = sf::Vector2f (
-      0.5f*gui.activePanelSize ().x,
-      10.f*gui.normalSizeOf ("A").y
-    ).componentWiseDiv (gui.parentGroupSize ());
+        0.5f*gui.activePanelSize ().x,
+        10.f*gui.normalSizeOf ("A").y
+      ).componentWiseDiv (gui.parentGroupSize ());
     textPanel.visible = false;
+
+    // draw panel and text
     gui.beginPanel (textPanel); 
-    if (cardsTexts.has (text.identifier)) {
-      gui.text (cardsTexts.get (text.identifier));
-    } else {
-      gui.text (text.identifier);
-    }
+    gui.text (textValue);
     gui.endPanel ();
     // store texture position
     text.position = textPanel.position;

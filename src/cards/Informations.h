@@ -20,7 +20,7 @@ NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardIdentifier, id, number)
  * or that is number need to be displayer
  */
 struct CardModel {
-  bool isTemplate = false;
+  bool isModel = false;
   bool displayNumber = false;
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardModel, isTemplate, displayNumber)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardModel, isModel, displayNumber)
