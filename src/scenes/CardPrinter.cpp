@@ -32,11 +32,13 @@ void cardPrinter (CommonAppData& app, PagePrint& page, CardsPrint& cards, CardEd
 {
   // Formats selection and print
   if (app.gui.beginWindow (app.layout.get <sgui::Window> ("chooseCardsFormat"), app.texts)) {
+    // load cards data
     if (app.gui.textButton ("Load cards")) {
       app.style.fontSize.normal = 
         loadCardsFromFile (editor.cards, ContentsDir"/model.json", ContentsDir"/cards_data.json");
       app.cardGui.setStyle (app.style);
     }
+
     // print cards
     renderOptions (app, page, cards);
     chooseCardsFormat (app, page, cards);
@@ -56,6 +58,7 @@ void renderOptions (CommonAppData& app, PagePrint& page, CardsPrint& cards)
   app.gui.slider (page.resolution, 75.f, 300.f, {fmt::format ("Card resolution : {} dpi", page.resolution)} );
   app.gui.inputNumber (page.resolution);
   page.resolution = std::round (page.resolution);
+
   // page padding
   app.gui.text (fmt::format ("Page padding: ({}, {})", page.padding.x, page.padding.y));
   app.gui.slider (page.padding.x, 2.f, 20.f);
@@ -65,6 +68,7 @@ void renderOptions (CommonAppData& app, PagePrint& page, CardsPrint& cards)
   app.gui.text (fmt::format ("Page size: ({}, {})", pageSize.x, pageSize.y));
   const auto format = millimToPixel (PaperFormatInMillimeter.at (page.format), page.resolution);
   app.gui.text (fmt::format ("Page format: ({}, {})", format.x, format.y));
+
   // card padding
   app.gui.text (fmt::format ("Card padding: ({}, {})", cards.padding.x, cards.padding.y));
   app.gui.slider (cards.padding.x, 0.f, 3.f);
@@ -74,9 +78,13 @@ void renderOptions (CommonAppData& app, PagePrint& page, CardsPrint& cards)
 ////////////////////////////////////////////////////////////
 void chooseCardsFormat (CommonAppData& app, PagePrint& page, CardsPrint& cards)
 {
+  // recto verso ?
+  app.gui.checkBox (cards.isRectoVerso, {"print with back for cards"});
+
   // cards' format selection
   app.gui.dropList (cards.selectedFormatId, cards.formatNames);
   cards.format = PaperFormatNames.at (cards.formatNames.at (cards.selectedFormatId));
+
   // choose paper orientation
   if (app.gui.textButton ("Change orientation")) {
     page.oldOrientation = page.orientation;
@@ -96,10 +104,17 @@ void exportCardsToPdf (CommonAppData& app, PagePrint& page, CardsPrint& cards, C
     auto pdfWriter = PDFWriter ();
     const auto path = std::string ("cards_print");
     pdfWriter.StartPDF (path + ".pdf", ePDFVersion13);
+
     // draw page one by one
     for (auto pageIndex = 0u; pageIndex < cards.positions.size (); pageIndex++) {
-      printPages (app, page, cards, editor, pdfWriter, path + std::to_string (pageIndex) + ".png", pageIndex);
+      spdlog::info ("Printing page {}/{}", pageIndex, cards.positions.size () - 1);
+      printPage (app, page, cards, editor, pdfWriter, path + std::to_string (2*pageIndex) + ".png", pageIndex);
+      // draw back of the cards
+      if (cards.isRectoVerso) {
+        printPage (app, page, cards, editor, pdfWriter, path + std::to_string (2*pageIndex + 1) + ".png", pageIndex, true);
+      }
     }
+
     // end pdf
     pdfWriter.EndPDF ();
     spdlog::info ("Cards saved at {}.pdf", path);
@@ -107,14 +122,15 @@ void exportCardsToPdf (CommonAppData& app, PagePrint& page, CardsPrint& cards, C
 }
 
 ////////////////////////////////////////////////////////////
-void printPages (
+void printPage (
   CommonAppData& app, PagePrint& page, CardsPrint& cards, CardEditor& editor, PDFWriter& pdfWriter,
   const std::string& path,
-  const uint32_t pageIndex)
+  const uint32_t pageIndex, const bool verso)
 {
   // draw page and then print it on a pdf page
-  if (drawCards (app, page, cards, editor, path, pageIndex)) {
+  if (drawCards (app, page, cards, editor, path, pageIndex, verso)) {
     // create a A4 page with the right orientation
+    spdlog::info ("  Starting to write on pdf...");
     auto pdfPage = std::make_unique <PDFPage> ();
     auto pageWidth = 595;
     auto pageHeight = 842;
@@ -123,17 +139,20 @@ void printPages (
       std::swap (pageWidth, pageHeight);
     }
     pdfPage->SetMediaBox (PDFRectangle (0, 0, pageWidth, pageHeight));
+
     // add card image that takes the whole page
     auto options = AbstractContentContext::ImageOptions ();
     options.transformationMethod = AbstractContentContext::eFit;
     options.boundingBoxWidth = pageWidth;
     options.boundingBoxHeight = pageHeight;
     options.fitProportional = true;
+
     // draw image and close pdf
     auto cxt = pdfWriter.StartPageContentContext (pdfPage.get ());
     cxt->DrawImage (0, 0, path, options);
     pdfWriter.EndPageContentContext (cxt);
     pdfWriter.WritePage (pdfPage.get ());
+    spdlog::info ("  Printed page {} on pdf.", pageIndex);
   }
 }
 
@@ -141,17 +160,26 @@ void printPages (
 bool drawCards (
   CommonAppData& app, PagePrint& page, CardsPrint& cards, CardEditor& editor,
   const std::string& path,
-  const uint32_t pageIndex)
+  const uint32_t pageIndex, const bool verso)
 {
+  // set-up card print gui
   app.cardPrint.setStyle (app.style);
   app.cardPrint.setView (cards.image);
   app.cardPrint.setScreenSize (sf::Vector2f (cards.image.getSize ()));
-  displayCardsInLattice (app, app.cardPrint, page, cards, editor, pageIndex, false);
+
+  // draw cards on a texture
+  displayCardsInLattice (app, app.cardPrint, page, cards, editor, pageIndex, false, verso);
   cards.image.clear (sf::Color::White);
   cards.image.draw (app.cardPrint);
   cards.image.display ();
+
+  // print cards to an image
   const auto printed = cards.image.getTexture ().copyToImage ().saveToFile (path);
-  spdlog::info ("Try to print cards to {}, success = {}", path, printed);
+  if (printed) {
+    spdlog::info ("  Printed cards to {}.", path, pageIndex);
+  } else {
+    spdlog::info ("  Failed to print cards to {}.", path, pageIndex);
+  }
   return printed;
 }
 
@@ -165,6 +193,7 @@ void computeLattice (PagePrint& page, CardsPrint& cards, CardEditor& editor)
   const auto pageSize = computePageSize (page);
   const auto textPos = computeTextPosition (page);;
   const auto textBox = sf::FloatRect (textPos, pageSize);
+
   // Initialize render texture
   if (!cards.image.resize (sf::Vector2u (pageSize))) {
     spdlog::warn ("Failed to initialize render texture");
@@ -182,17 +211,20 @@ void computeLattice (PagePrint& page, CardsPrint& cards, CardEditor& editor)
       lastCardPosition.x = textPos.x;
       lastCardPosition.y += cardSize.y + millimToPixel (cards.padding.y, page.resolution);
     }
+
     // if new card is outside the page boundaries, its a new page
     if (!textBox.contains (lastCardPosition + cardSize)) {
       lastCardPosition = textBox.position;
       cards.positions.emplace_back ();
     }
+
     // add card to the pack
     if (textBox.contains (lastCardPosition + cardSize)) {
       cards.positions.back ().push_back (lastCardPosition);
       lastCardPosition.x += cardSize.x + millimToPixel (cards.padding.x, page.resolution);
     }
   }
+  // update page orientation and print number of pages and cards
   if (page.orientation != page.oldOrientation) {
     page.oldOrientation = page.orientation;
     spdlog::info ("There are {} pages, with {} cards", cards.positions.size (), cardId);
@@ -202,14 +234,17 @@ void computeLattice (PagePrint& page, CardsPrint& cards, CardEditor& editor)
 ////////////////////////////////////////////////////////////
 void displayCardsInLattice (CommonAppData& app, sgui::Gui& gui, PagePrint& page, CardsPrint& cards, CardEditor& editor,
   const uint32_t pageIndex,
-  const bool onScreen)
+  const bool onScreen, const bool verso)
 {
-  // go to first card and skip model
-  const auto firstCard = cards.positions.at (0u).size () * pageIndex;
-  ::goToCard (editor.activeCard, editor.cards, firstCard);
-  if (editor.cards.get <const CardModel> (editor.activeCard).isModel) {
-    ::swipeToNextCard (editor.activeCard, editor.cards);
+  if (!verso) {
+    // go to first card and skip model
+    const auto firstCard = cards.positions.at (0u).size () * pageIndex + 1;
+    ::goToCard (editor.activeCard, editor.cards, firstCard);
+    if (editor.cards.get <const CardModel> (editor.activeCard).isModel) {
+      ::swipeToNextCard (editor.activeCard, editor.cards);
+    }
   }
+
   // draw cards
   gui.beginFrame ();
   // open panel that will hold cards
@@ -228,14 +263,18 @@ void displayCardsInLattice (CommonAppData& app, sgui::Gui& gui, PagePrint& page,
       cardPanel.scrollable = false;
       cardPanel.visible = false;
       editor.cards.get <CardFormat> (editor.activeCard).size = cardBox.size;
+
       // draw card decorations
       gui.beginPanel (cardPanel);
-      ::drawCardDecoration (gui, editor.cards, editor.activeCard, app.texts, true);
+      if (verso) {
+        const auto& format = editor.cards.get <CardFormat> (editor.activeCard);
+        gui.addSpacing ({-0.4f, -0.35f});
+        gui.icon (format.cardBack, format.size);
+      } else {
+        ::drawCardDecoration (gui, editor.cards, editor.activeCard, app.texts, true);
+      }
       gui.endPanel ();
       // go to next card
-      if (pageIndex > 0u) {
-        spdlog::warn ("Current card: {}", editor.activeCard);
-      }
       ::swipeToNextCard (editor.activeCard, editor.cards);
     }
     app.gui.endWindow ();

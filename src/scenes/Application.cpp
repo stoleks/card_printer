@@ -140,7 +140,7 @@ void Application::options (sf::RenderWindow& window)
   if (app.gui.beginWindow (app.layout.get <sgui::Window> ("options"))) {
     if (app.gui.textButton (app.texts.get ("buildTextures"))) {
       spdlog::info ("Prepare cards sprite sheet");
-      const auto directory = app.cardTextureFile.substr (app.cardTextureFile.size () - 4);
+      const auto directory = app.cardTextureFile.substr (0, app.cardTextureFile.size () - 4);
       spdlog::info ("Load image from {}/", directory);
       auto collage = TextureCollage (directory);
       if (!collage.image ().saveToFile (app.cardTextureFile)) {

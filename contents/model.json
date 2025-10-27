@@ -2,6 +2,7 @@
   "model": {
     "format": {
       "background": "carte_molecules",
+      "cardBack": "carte_molecules_dos",
       "size": {
         "x": 310.0,
         "y": 440.0
@@ -14,14 +15,14 @@
           "isCenteredHorizontally": false,
           "position": {
             "x": 10.0,
-            "y": 340.0
+            "y": 380.0
           }
         },
         {
           "identifier": "famille",
-          "isCenteredHorizontally": false,
+          "isCenteredHorizontally": true,
           "position": {
-            "x": 200.0,
+            "x": 0.0,
             "y": 340.0
           }
         },

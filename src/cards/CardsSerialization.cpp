@@ -44,6 +44,7 @@ void buildCardsFromModel (
   // build card data, first set identifier
   spdlog::info ("Set card number {} with model data", cardNumber); 
   cards.emplace <CardIdentifier> (card, cardNumber);
+  cards.emplace <CardModel> (card);
   // add textures and format components
   cards.emplace <CardFormat> (card);
   cards.emplace <GraphicalParts> (card);

@@ -72,8 +72,18 @@
   },
   {
     "texts": [
-      { "key": "title", "text": "" },
+      { "key": "title", "text": "Méthanol" },
       { "key": "description", "text": "methanol" }
+    ],
+    "textures": [
+      { "key": "background", "texture": "carte_molecules" },
+      { "key": "molecule", "texture": "methanol" }
+    ]
+  },
+  {
+    "texts": [
+      { "key": "title", "text": "Cétone" },
+      { "key": "description", "text": "butan-2-one" }
     ],
     "textures": [
       { "key": "background", "texture": "carte_molecules" },
@@ -81,35 +91,23 @@
     ]
   },
   {
-    "texts": [],
-    "textures": [ { "key": "background", "texture": "carte_molecules_dos" } ]
+    "texts": [
+      { "key": "title", "text": "Méthanol" },
+      { "key": "description", "text": "methanol" }
+    ],
+    "textures": [
+      { "key": "background", "texture": "carte_molecules" },
+      { "key": "molecule", "texture": "methanol" }
+    ]
   },
   {
-    "texts": [],
-    "textures": [ { "key": "background", "texture": "carte_molecules_dos" } ]
-  },
-  {
-    "texts": [],
-    "textures": [ { "key": "background", "texture": "carte_molecules_dos" } ]
-  },
-  {
-    "texts": [],
-    "textures": [ { "key": "background", "texture": "carte_molecules_dos" } ]
-  },
-  {
-    "texts": [],
-    "textures": [ { "key": "background", "texture": "carte_molecules_dos" } ]
-  },
-  {
-    "texts": [],
-    "textures": [ { "key": "background", "texture": "carte_molecules_dos" } ]
-  },
-  {
-    "texts": [],
-    "textures": [ { "key": "background", "texture": "carte_molecules_dos" } ]
-  },
-  {
-    "texts": [],
-    "textures": [ { "key": "background", "texture": "carte_molecules_dos" } ]
+    "texts": [
+      { "key": "title", "text": "Cétone" },
+      { "key": "description", "text": "butan-2-one" }
+    ],
+    "textures": [
+      { "key": "background", "texture": "carte_molecules" },
+      { "key": "molecule", "texture": "butan-2-one" }
+    ]
   }
 ]
