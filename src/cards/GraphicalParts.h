@@ -32,7 +32,6 @@ NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardText, isCenteredHorizontally
  * @brief Store card's graphical and textual data
  */
 struct GraphicalParts {
-  GraphicalParts () = default;
   std::vector <CardText> texts;
   std::vector <CardTexture> textures;
 };

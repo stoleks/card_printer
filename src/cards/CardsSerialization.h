@@ -68,18 +68,20 @@ void loadCardsFromFile (
 
 ////////////////////////////////////////////////////////////
 void buildCardsFromModel (
-  uint32_t& cardNumber,
   entt::registry& registry,
+  uint32_t& cardNumber,
   const entt::entity& card,
   const CardFingerPrint& data,
   const Card& model);
 
 ////////////////////////////////////////////////////////////
-sf::FloatRect findTexture (
+void setTexture (
+  CardTexture& cardTexture,
   const std::string& key,
   const std::vector <CardTexture>& textures);
 
 ////////////////////////////////////////////////////////////
-sf::Vector2f findText (
+void setText (
+  CardText& cardText,
   const std::string& key,
   const std::vector <CardText>& texts);

@@ -172,7 +172,7 @@ void computeLattice (PagePrint& page, CardsPrint& cards, CardEditor& editor)
   const auto view = editor.cards.view <const CardIdentifier> ();
   auto lastCardPosition = textBox.position;
   auto cardId = 0u;
-  for (; cardId < view.size (); cardId++) {
+  for (; cardId < view.size () - 1; cardId++) {
     // if new card is outside the page boundaries, try to go to new line
     const auto cardBottomRight = lastCardPosition + cardSize;
     if (cardBottomRight.x >= textBox.position.x + textBox.size.x) {
@@ -201,9 +201,12 @@ void displayCardsInLattice (CommonAppData& app, sgui::Gui& gui, PagePrint& page,
   const uint32_t pageIndex,
   const bool onScreen)
 {
-  // go to first card
+  // go to first card and skip model
   const auto firstCard = cards.positions.at (0u).size () * pageIndex;
   ::goToCard (editor.activeCard, editor.cards, firstCard);
+  if (editor.cards.get <const CardModel> (editor.activeCard).isModel) {
+    ::swipeToNextCard (editor.activeCard, editor.cards);
+  }
   // draw cards
   gui.beginFrame ();
   // open panel that will hold cards

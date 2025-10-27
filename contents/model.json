@@ -11,6 +11,7 @@
       "texts": [
         {
           "identifier": "description",
+          "isCenteredHorizontally": true,
           "position": {
             "x": 86.0,
             "y": 311.0
@@ -18,6 +19,7 @@
         },
         {
           "identifier": "title",
+          "isCenteredHorizontally": true,
           "position": {
             "x": 60.0,
             "y": 20.0
@@ -26,7 +28,10 @@
       ],
       "textures": [
         {
+          "areDimensionsChained": true,
           "identifier": "molecule",
+          "isCenteredHorizontally": true,
+          "isCenteredVertically": true,
           "rect": {
             "position": {
               "x": 20.0,
