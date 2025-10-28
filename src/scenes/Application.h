@@ -82,6 +82,9 @@ private:
   // close or concatene texture
   void options (sf::RenderWindow& window);
   
+  // build card from a csv file
+  void buildCardFromCSV ();
+  
   // Print cards to a pdf
   void cardPrinter ();
   // Choose render options (orientation, size of cards, etc.)

@@ -47,7 +47,7 @@
               "y": 50.0
             },
             "size": {
-              "x": 256.0,
+              "x": 278.0,
               "y": 256.0
             }
           }
@@ -60,7 +60,7 @@
     },
     "model": {
       "displayNumber": false,
-      "fontSize": 28,
+      "fontSize": 24,
       "isModel": true
     }
   }

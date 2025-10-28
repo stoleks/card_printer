@@ -1,5 +1,6 @@
 #include "Application.h"
 
+#include <iostream>
 #include <sgui/Serialization/LoadJson.h>
 #include <sgui/Serialization/LoadTextureAtlas.h>
 
@@ -11,7 +12,7 @@
 ////////////////////////////////////////////////////////////
 CardEditor::CardEditor ()
 {
-  activeCard = cards.create ();
+activeCard = cards.create ();
   cards.emplace <CardIdentifier> (activeCard);
   cards.emplace <CardFormat> (activeCard);
   cards.emplace <GraphicalParts> (activeCard);
@@ -66,6 +67,7 @@ void Application::initialize (sf::RenderWindow& window)
   app.atlasFile = std::string (ContentsDir"/atlas.json");
   m_atlas.loadFromFile (app.atlasFile);
   m_texture = std::make_unique <sf::Texture> (ContentsDir"/widgets.png");
+  m_texture->setSmooth (true);
   app.gui.setResources (*m_font, *m_texture, m_atlas);
   app.gui.setSounds (m_sounds);
   app.gui.setStyle (app.style);
@@ -138,6 +140,12 @@ void Application::draw (sf::RenderWindow& window)
 void Application::options (sf::RenderWindow& window)
 {
   if (app.gui.beginWindow (app.layout.get <sgui::Window> ("options"))) {
+    // use csv to build card data
+    if (app.gui.textButton (app.texts.get ("buildCardFromCSV"))) {
+      buildCardFromCSV ();
+    }
+
+    // concatene textures into one files
     if (app.gui.textButton (app.texts.get ("buildTextures"))) {
       spdlog::info ("Prepare cards sprite sheet");
       const auto directory = app.cardTextureFile.substr (0, app.cardTextureFile.size () - 4);
@@ -149,10 +157,93 @@ void Application::options (sf::RenderWindow& window)
       collage.atlas ().loadFromFile (app.atlasFile);
       sgui::saveInFile (collage.atlas (), app.cardAtlasFile);
     }
+
     // quit application
     if (app.gui.textButton (app.texts.get ("close"))) {
       window.close ();
     }
   app.gui.endWindow ();
   }
+}
+
+void Application::buildCardFromCSV ()
+{
+  // check that file exist
+  const auto path = ContentsDir"/cards_data.csv";
+  if (!std::filesystem::exists (path)) {
+    return;
+  }
+
+  // load model graphics
+  json modelJson = sgui::loadFromFile (ContentsDir"/model.json");
+  Card model = modelJson ["model"];
+  const auto& graph = model.graphics;
+
+  // extract first line and get model keys from it
+  std::fstream cardsData;
+  cardsData.open (path, std::ios::in);
+  auto firstLine = std::string ();
+  std::getline (cardsData, firstLine);
+  std::istringstream firstLineToProcess (firstLine);
+  std::unordered_map <uint32_t, std::string> indexToKeyForText;
+  std::unordered_map <uint32_t, std::string> indexToKeyForTexture;
+  spdlog::info (firstLine);
+  auto index = 0u;
+  auto indexOfBackground = 0u;
+  for (std::string key; std::getline (firstLineToProcess, key, ',');) {
+    spdlog::info ("{}: {}", key, index);
+    auto foundInTexture = std::find_if (
+        graph.textures.begin(),
+        graph.textures.end (), 
+        [&key] (const auto& texture) { return texture.identifier == key; });
+    if (foundInTexture != graph.textures.end ()) {
+       indexToKeyForTexture.emplace (index, key);
+    }
+    auto foundInText = std::find_if (
+        graph.texts.begin (),
+        graph.texts.end (),
+        [&key] (const auto& text) { return text.identifier == key; });
+    if (foundInText != graph.texts.end ()) {
+      indexToKeyForText.emplace (index, key);
+    }
+    if (key == "background") {
+      indexOfBackground = index;
+    }
+    index++;
+  }
+
+  // extract all the lines
+  json out;
+  auto card = std::vector <CardFingerPrint> ();
+  while (!cardsData.eof ()) {
+    auto line = std::string ();
+    std::getline (cardsData, line);
+    std::istringstream lineToProcess (line);
+    spdlog::info (line);
+    auto cellIndex = 0u;
+    card.emplace_back ();
+    for (std::string cell; std::getline (lineToProcess, cell, ',');) {
+      // set background 
+      if (cellIndex == indexOfBackground) {
+        card.back ().textures.emplace_back (TextureData {"background", cell});
+      }
+
+      // set text
+      if (auto found = indexToKeyForText.find (cellIndex); found != indexToKeyForText.end ()) {
+        card.back ().texts.emplace_back (TextData {found->second, cell});
+        spdlog::info ("key: {}, value: {}", found->second, cell);
+      }
+
+      // set texture
+      if (auto found = indexToKeyForTexture.find (cellIndex); found != indexToKeyForTexture.end ()) {
+        card.back ().textures.emplace_back (TextureData {found->second, cell});
+        spdlog::info ("key: {}, value: {}", found->second, cell);
+      }
+      cellIndex++;
+    }
+  }
+  out = card;
+  sgui::saveInFile (out, ContentsDir"/cards_data.json");
+  std::cout << std::setw(1) << out << std::endl;
+  cardsData.close ();
 }

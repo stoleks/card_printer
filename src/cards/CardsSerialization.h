@@ -25,10 +25,8 @@ NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(Card, format, model, identifier,
  * @brief : store a card's text
  */
 struct TextData {
-  TextData () = default;
-  // data
-  std::string key;
-  std::string text;
+  std::string key = "";
+  std::string text = "";
 };
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(TextData, key, text)
 
@@ -36,10 +34,8 @@ NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(TextData, key, text)
  * @brief : store a card's texture
  */
 struct TextureData {
-  TextureData () = default;
-  // data
-  std::string key;
-  std::string texture;
+  std::string key = "";
+  std::string texture = "";
 };
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(TextureData, key, texture)
 

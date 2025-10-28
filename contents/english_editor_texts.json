@@ -19,5 +19,6 @@
   "displayNumber": "display card number",
   "centerHori": "center horizontally",
   "centerVerti": "center vertically",
-  "chainedDimensions": "chain texture dimensions"
+  "chainedDimensions": "chain texture dimensions",
+  "buildCardFromCSV": "build cards from CSV"
 }

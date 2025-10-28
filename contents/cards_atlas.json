@@ -467,51 +467,12 @@
       }
     }
   },
-  "Icon::Nmethylethanamide": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 5219,
-        "y": 2864
-      },
-      "size": {
-        "x": 714,
-        "y": 399
-      }
-    }
-  },
-  "Icon::Nmethylmethanamide": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 992,
-        "y": 2864
-      },
-      "size": {
-        "x": 825,
-        "y": 417
-      }
-    }
-  },
-  "Icon::adenine": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 2881,
-        "y": 1312
-      },
-      "size": {
-        "x": 768,
-        "y": 848
-      }
-    }
-  },
   "Icon::alanine": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 6890,
-        "y": 1312
+        "x": 6613,
+        "y": 0
       },
       "size": {
         "x": 768,
@@ -536,12 +497,12 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 5285,
-        "y": 0
+        "x": 1488,
+        "y": 2016
       },
       "size": {
-        "x": 1666,
-        "y": 993
+        "x": 735,
+        "y": 475
       }
     }
   },
@@ -549,8 +510,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 1173,
-        "y": 3568
+        "x": 7431,
+        "y": 2016
       },
       "size": {
         "x": 598,
@@ -562,8 +523,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 3209,
-        "y": 2864
+        "x": 3615,
+        "y": 2016
       },
       "size": {
         "x": 768,
@@ -571,12 +532,25 @@
       }
     }
   },
+  "Icon::butanamide": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 7171,
+        "y": 2720
+      },
+      "size": {
+        "x": 411,
+        "y": 199
+      }
+    }
+  },
   "Icon::butanamine": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 3857,
-        "y": 3568
+        "x": 2086,
+        "y": 2720
       },
       "size": {
         "x": 866,
@@ -588,8 +562,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 3643,
-        "y": 2160
+        "x": 4391,
+        "y": 1312
       },
       "size": {
         "x": 848,
@@ -601,8 +575,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 2986,
-        "y": 3568
+        "x": 1215,
+        "y": 2720
       },
       "size": {
         "x": 871,
@@ -614,8 +588,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 6731,
-        "y": 2160
+        "x": 992,
+        "y": 2016
       },
       "size": {
         "x": 496,
@@ -627,8 +601,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 496,
-        "y": 2864
+        "x": 0,
+        "y": 2016
       },
       "size": {
         "x": 496,
@@ -640,8 +614,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 7227,
-        "y": 2160
+        "x": 496,
+        "y": 2016
       },
       "size": {
         "x": 496,
@@ -653,8 +627,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 6235,
-        "y": 2160
+        "x": 6983,
+        "y": 1312
       },
       "size": {
         "x": 496,
@@ -666,8 +640,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 0,
-        "y": 2864
+        "x": 7479,
+        "y": 1312
       },
       "size": {
         "x": 496,
@@ -693,7 +667,7 @@
     "texture": {
       "position": {
         "x": 2009,
-        "y": 2160
+        "y": 1312
       },
       "size": {
         "x": 837,
@@ -705,12 +679,25 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 5387,
-        "y": 2160
+        "x": 6135,
+        "y": 1312
       },
       "size": {
         "x": 848,
         "y": 431
+      }
+    }
+  },
+  "Icon::ethanamide": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 342,
+        "y": 3175
+      },
+      "size": {
+        "x": 326,
+        "y": 196
       }
     }
   },
@@ -719,7 +706,7 @@
     "texture": {
       "position": {
         "x": 1136,
-        "y": 2160
+        "y": 1312
       },
       "size": {
         "x": 873,
@@ -731,8 +718,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 4491,
-        "y": 2160
+        "x": 5239,
+        "y": 1312
       },
       "size": {
         "x": 896,
@@ -745,7 +732,7 @@
     "texture": {
       "position": {
         "x": 2846,
-        "y": 2160
+        "y": 1312
       },
       "size": {
         "x": 797,
@@ -757,8 +744,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 4723,
-        "y": 3568
+        "x": 2952,
+        "y": 2720
       },
       "size": {
         "x": 768,
@@ -770,8 +757,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 6178,
-        "y": 3568
+        "x": 4857,
+        "y": 2720
       },
       "size": {
         "x": 585,
@@ -783,12 +770,12 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 3649,
-        "y": 1312
+        "x": 4407,
+        "y": 2720
       },
       "size": {
-        "x": 937,
-        "y": 660
+        "x": 450,
+        "y": 306
       }
     }
   },
@@ -796,12 +783,12 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 4586,
-        "y": 1312
+        "x": 5775,
+        "y": 2720
       },
       "size": {
-        "x": 768,
-        "y": 768
+        "x": 336,
+        "y": 325
       }
     }
   },
@@ -809,12 +796,12 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 3732,
-        "y": 0
+        "x": 3643,
+        "y": 1312
       },
       "size": {
-        "x": 1553,
-        "y": 1077
+        "x": 748,
+        "y": 514
       }
     }
   },
@@ -831,25 +818,12 @@
       }
     }
   },
-  "Icon::methamide": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 586,
-        "y": 3568
-      },
-      "size": {
-        "x": 587,
-        "y": 427
-      }
-    }
-  },
   "Icon::methamine": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 2585,
-        "y": 2864
+        "x": 2991,
+        "y": 2016
       },
       "size": {
         "x": 624,
@@ -861,8 +835,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 1771,
-        "y": 3568
+        "x": 0,
+        "y": 2720
       },
       "size": {
         "x": 507,
@@ -870,12 +844,38 @@
       }
     }
   },
+  "Icon::methanamide": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 6844,
+        "y": 2016
+      },
+      "size": {
+        "x": 587,
+        "y": 427
+      }
+    }
+  },
+  "Icon::methanamide.png": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 668,
+        "y": 3175
+      },
+      "size": {
+        "x": 300,
+        "y": 202
+      }
+    }
+  },
   "Icon::methanoatemethyl": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 1817,
-        "y": 2864
+        "x": 2223,
+        "y": 2016
       },
       "size": {
         "x": 768,
@@ -887,8 +887,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 0,
-        "y": 3568
+        "x": 6258,
+        "y": 2016
       },
       "size": {
         "x": 586,
@@ -900,8 +900,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 3977,
-        "y": 2864
+        "x": 4383,
+        "y": 2016
       },
       "size": {
         "x": 616,
@@ -913,8 +913,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 6763,
-        "y": 3568
+        "x": 6111,
+        "y": 2720
       },
       "size": {
         "x": 712,
@@ -939,8 +939,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 0,
-        "y": 1312
+        "x": 3732,
+        "y": 0
       },
       "size": {
         "x": 1712,
@@ -952,8 +952,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 1712,
-        "y": 1312
+        "x": 5444,
+        "y": 0
       },
       "size": {
         "x": 1169,
@@ -974,12 +974,25 @@
       }
     }
   },
+  "Icon::proline": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 6823,
+        "y": 2720
+      },
+      "size": {
+        "x": 348,
+        "y": 285
+      }
+    }
+  },
   "Icon::propanal": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 7030,
-        "y": 2864
+        "x": 5625,
+        "y": 2016
       },
       "size": {
         "x": 633,
@@ -987,12 +1000,25 @@
       }
     }
   },
+  "Icon::propanamide": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 3175
+      },
+      "size": {
+        "x": 342,
+        "y": 201
+      }
+    }
+  },
   "Icon::propanamine": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 5491,
-        "y": 3568
+        "x": 3720,
+        "y": 2720
       },
       "size": {
         "x": 687,
@@ -1005,7 +1031,7 @@
     "texture": {
       "position": {
         "x": 0,
-        "y": 2160
+        "y": 1312
       },
       "size": {
         "x": 1136,
@@ -1017,8 +1043,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 4593,
-        "y": 2864
+        "x": 4999,
+        "y": 2016
       },
       "size": {
         "x": 626,
@@ -1030,12 +1056,12 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 5933,
-        "y": 2864
+        "x": 7582,
+        "y": 2720
       },
       "size": {
-        "x": 1097,
-        "y": 256
+        "x": 407,
+        "y": 184
       }
     }
   },
@@ -1043,8 +1069,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 2278,
-        "y": 3568
+        "x": 507,
+        "y": 2720
       },
       "size": {
         "x": 708,
@@ -1082,12 +1108,12 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 6122,
-        "y": 1312
+        "x": 5442,
+        "y": 2720
       },
       "size": {
-        "x": 768,
-        "y": 768
+        "x": 333,
+        "y": 328
       }
     }
   },
@@ -1095,8 +1121,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 5354,
-        "y": 1312
+        "x": 7381,
+        "y": 0
       },
       "size": {
         "x": 768,
