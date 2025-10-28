@@ -67,7 +67,7 @@ void Application::initialize (sf::RenderWindow& window)
   app.atlasFile = std::string (ContentsDir"/atlas.json");
   m_atlas.loadFromFile (app.atlasFile);
   m_texture = std::make_unique <sf::Texture> (ContentsDir"/widgets.png");
-  m_texture->setSmooth (true);
+  // m_texture->setSmooth (true);
   app.gui.setResources (*m_font, *m_texture, m_atlas);
   app.gui.setSounds (m_sounds);
   app.gui.setStyle (app.style);

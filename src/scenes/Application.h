@@ -40,10 +40,10 @@ struct CardEditor {
  * @brief : store data for page format, padding and resolution
  */
 struct PagePrint {
-  float resolution = 127.f;
+  float resolution = 200.f;
   sf::Vector2f padding = { 7.f, 10.f };
   PaperFormat format = PaperFormat::A4;
-  PaperOrientation orientation = PaperOrientation::Landscape;
+  PaperOrientation orientation = PaperOrientation::Portrait;
   PaperOrientation oldOrientation = PaperOrientation::Portrait;
 };
 

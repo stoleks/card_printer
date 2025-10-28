@@ -697,7 +697,7 @@
       },
       {
         "key": "molecule",
-        "texture": "propanoatemethyl"
+        "texture": "propanoatemethyle"
       }
     ]
   },
@@ -705,7 +705,7 @@
     "texts": [
       {
         "key": "title",
-        "text": "Méthanoate méthyle"
+        "text": "Oate méthyle"
       },
       {
         "key": "description",
@@ -723,7 +723,7 @@
       },
       {
         "key": "molecule",
-        "texture": "methanoatemethyl"
+        "texture": "oatemethyle"
       }
     ]
   },
@@ -1711,7 +1711,7 @@
       },
       {
         "key": "molecule",
-        "texture": "propanoatemethyl"
+        "texture": "propanoatemethyle"
       }
     ]
   },
@@ -1719,7 +1719,7 @@
     "texts": [
       {
         "key": "title",
-        "text": "Méthanoate méthyle"
+        "text": "Oate méthyle"
       },
       {
         "key": "description",
@@ -1737,7 +1737,7 @@
       },
       {
         "key": "molecule",
-        "texture": "methanoatemethyl"
+        "texture": "oatemethyle"
       }
     ]
   },

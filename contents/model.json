@@ -14,8 +14,8 @@
           "identifier": "description",
           "isCenteredHorizontally": false,
           "position": {
-            "x": 10.0,
-            "y": 450.0
+            "x": 40.0,
+            "y": 600.0
           }
         },
         {
@@ -23,7 +23,7 @@
           "isCenteredHorizontally": true,
           "position": {
             "x": 0.0,
-            "y": 400.0
+            "y": 500.0
           }
         },
         {
@@ -31,7 +31,7 @@
           "isCenteredHorizontally": true,
           "position": {
             "x": 0.0,
-            "y": 30.0
+            "y": 60.0
           }
         }
       ],
@@ -43,12 +43,12 @@
           "isCenteredVertically": true,
           "rect": {
             "position": {
-              "x": 20.0,
-              "y": 50.0
+              "x": 0.0,
+              "y": 0.0
             },
             "size": {
-              "x": 324.0,
-              "y": 256.0
+              "x": 462.0,
+              "y": 0.0
             }
           }
         }
@@ -60,7 +60,7 @@
     },
     "model": {
       "displayNumber": false,
-      "fontSize": 24,
+      "fontSize": 36,
       "isModel": true
     }
   }
