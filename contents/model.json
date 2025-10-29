@@ -22,16 +22,16 @@
           "identifier": "famille",
           "isCenteredHorizontally": true,
           "position": {
-            "x": 0.0,
-            "y": 500.0
+            "x": 1.0,
+            "y": 1500.0
           }
         },
         {
           "identifier": "title",
           "isCenteredHorizontally": true,
           "position": {
-            "x": 0.0,
-            "y": 60.0
+            "x": 1.0,
+            "y": 80.0
           }
         }
       ],
@@ -48,6 +48,22 @@
             },
             "size": {
               "x": 462.0,
+              "y": 0.0
+            }
+          }
+        },
+        {
+          "areDimensionsChained": true,
+          "identifier": "text",
+          "isCenteredHorizontally": false,
+          "isCenteredVertically": false,
+          "rect": {
+            "position": {
+              "x": 12.0,
+              "y": 590.0
+            },
+            "size": {
+              "x": 176.0,
               "y": 0.0
             }
           }

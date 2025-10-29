@@ -7,7 +7,7 @@
       },
       {
         "key": "description",
-        "text": "but"
+        "text": " but"
       },
       {
         "key": "famille",
@@ -22,6 +22,10 @@
       {
         "key": "molecule",
         "texture": "butanoique"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -29,7 +33,7 @@
     "texts": [
       {
         "key": "title",
-        "text": "Acide méthanoïque"
+        "text": " Acide méthanoïque"
       },
       {
         "key": "description",
@@ -48,6 +52,10 @@
       {
         "key": "molecule",
         "texture": "methanoique"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -74,6 +82,10 @@
       {
         "key": "molecule",
         "texture": "propanoique"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -85,7 +97,7 @@
       },
       {
         "key": "description",
-        "text": "éth"
+        "text": " éth"
       },
       {
         "key": "famille",
@@ -100,6 +112,10 @@
       {
         "key": "molecule",
         "texture": "ethanoique"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -121,7 +137,7 @@
     "textures": [
       {
         "key": "background",
-        "texture": "carte_molecules"
+        "texture": "carte_molecules_gras"
       },
       {
         "key": "molecule",
@@ -147,7 +163,7 @@
     "textures": [
       {
         "key": "background",
-        "texture": "carte_molecules"
+        "texture": "carte_molecules_gras"
       },
       {
         "key": "molecule",
@@ -173,7 +189,7 @@
     "textures": [
       {
         "key": "background",
-        "texture": "carte_molecules"
+        "texture": "carte_molecules_gras"
       },
       {
         "key": "molecule",
@@ -189,7 +205,7 @@
       },
       {
         "key": "description",
-        "text": "but"
+        "text": " but"
       },
       {
         "key": "famille",
@@ -204,6 +220,10 @@
       {
         "key": "molecule",
         "texture": "butanol"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -215,7 +235,7 @@
       },
       {
         "key": "description",
-        "text": "éth"
+        "text": " éth"
       },
       {
         "key": "famille",
@@ -230,6 +250,10 @@
       {
         "key": "molecule",
         "texture": "ethanol"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -256,6 +280,10 @@
       {
         "key": "molecule",
         "texture": "methanol"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -282,6 +310,10 @@
       {
         "key": "molecule",
         "texture": "propanol"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -293,7 +325,7 @@
       },
       {
         "key": "description",
-        "text": "but"
+        "text": " but"
       },
       {
         "key": "famille",
@@ -308,6 +340,10 @@
       {
         "key": "molecule",
         "texture": "butanal"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -319,7 +355,7 @@
       },
       {
         "key": "description",
-        "text": "éth"
+        "text": " éth"
       },
       {
         "key": "famille",
@@ -334,6 +370,10 @@
       {
         "key": "molecule",
         "texture": "ethanal"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -360,6 +400,10 @@
       {
         "key": "molecule",
         "texture": "methanal"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -386,6 +430,10 @@
       {
         "key": "molecule",
         "texture": "propanal"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -397,7 +445,7 @@
       },
       {
         "key": "description",
-        "text": "but"
+        "text": " but"
       },
       {
         "key": "famille",
@@ -412,6 +460,10 @@
       {
         "key": "molecule",
         "texture": "butanamide"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -423,7 +475,7 @@
       },
       {
         "key": "description",
-        "text": "éth"
+        "text": " éth"
       },
       {
         "key": "famille",
@@ -438,6 +490,10 @@
       {
         "key": "molecule",
         "texture": "ethanamide"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -464,6 +520,10 @@
       {
         "key": "molecule",
         "texture": "methanamide"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -490,6 +550,10 @@
       {
         "key": "molecule",
         "texture": "propanamide"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -501,7 +565,7 @@
       },
       {
         "key": "description",
-        "text": "but"
+        "text": " but"
       },
       {
         "key": "famille",
@@ -516,6 +580,10 @@
       {
         "key": "molecule",
         "texture": "butanamine"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -527,7 +595,7 @@
       },
       {
         "key": "description",
-        "text": "éth"
+        "text": " éth"
       },
       {
         "key": "famille",
@@ -542,6 +610,10 @@
       {
         "key": "molecule",
         "texture": "ethamine"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -568,6 +640,10 @@
       {
         "key": "molecule",
         "texture": "methamine"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -594,6 +670,10 @@
       {
         "key": "molecule",
         "texture": "propanamine"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -605,7 +685,7 @@
       },
       {
         "key": "description",
-        "text": "but"
+        "text": " but"
       },
       {
         "key": "famille",
@@ -620,6 +700,10 @@
       {
         "key": "molecule",
         "texture": "butan-2-one"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -646,6 +730,10 @@
       {
         "key": "molecule",
         "texture": "propanone"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -653,7 +741,7 @@
     "texts": [
       {
         "key": "title",
-        "text": "Éthanoate méthyle"
+        "text": "Éthanoate de méthyle"
       },
       {
         "key": "description",
@@ -672,6 +760,10 @@
       {
         "key": "molecule",
         "texture": "ethanoatemethyle"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -679,11 +771,11 @@
     "texts": [
       {
         "key": "title",
-        "text": "Propanoate méthyle"
+        "text": "Propanoate de méthyle"
       },
       {
         "key": "description",
-        "text": "but"
+        "text": " but"
       },
       {
         "key": "famille",
@@ -698,6 +790,10 @@
       {
         "key": "molecule",
         "texture": "propanoatemethyle"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -705,11 +801,11 @@
     "texts": [
       {
         "key": "title",
-        "text": "Oate méthyle"
+        "text": "Méthanpate  de méthyle"
       },
       {
         "key": "description",
-        "text": "éth"
+        "text": " éth"
       },
       {
         "key": "famille",
@@ -724,6 +820,10 @@
       {
         "key": "molecule",
         "texture": "oatemethyle"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -735,7 +835,7 @@
       },
       {
         "key": "description",
-        "text": "but"
+        "text": " but"
       },
       {
         "key": "famille",
@@ -750,6 +850,10 @@
       {
         "key": "molecule",
         "texture": "ethoxyethane"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -776,6 +880,10 @@
       {
         "key": "molecule",
         "texture": "ethoxymethane"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -787,7 +895,7 @@
       },
       {
         "key": "description",
-        "text": "éth"
+        "text": " éth"
       },
       {
         "key": "famille",
@@ -802,6 +910,10 @@
       {
         "key": "molecule",
         "texture": "methoxymethane"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -813,7 +925,7 @@
       },
       {
         "key": "description",
-        "text": ""
+        "text": "pent"
       },
       {
         "key": "famille",
@@ -828,6 +940,10 @@
       {
         "key": "molecule",
         "texture": "proline"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -839,7 +955,7 @@
       },
       {
         "key": "description",
-        "text": ""
+        "text": "prop"
       },
       {
         "key": "famille",
@@ -854,6 +970,10 @@
       {
         "key": "molecule",
         "texture": "alanine"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -865,7 +985,7 @@
       },
       {
         "key": "description",
-        "text": ""
+        "text": " but"
       },
       {
         "key": "famille",
@@ -880,6 +1000,10 @@
       {
         "key": "molecule",
         "texture": "threonine"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -891,7 +1015,7 @@
       },
       {
         "key": "description",
-        "text": ""
+        "text": "pent"
       },
       {
         "key": "famille",
@@ -906,6 +1030,10 @@
       {
         "key": "molecule",
         "texture": "valine"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -917,7 +1045,7 @@
       },
       {
         "key": "description",
-        "text": ""
+        "text": " hex"
       },
       {
         "key": "famille",
@@ -932,6 +1060,10 @@
       {
         "key": "molecule",
         "texture": "fructose"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -943,7 +1075,7 @@
       },
       {
         "key": "description",
-        "text": ""
+        "text": " hex"
       },
       {
         "key": "famille",
@@ -958,6 +1090,10 @@
       {
         "key": "molecule",
         "texture": "glucose"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -969,7 +1105,7 @@
       },
       {
         "key": "description",
-        "text": "+ 4"
+        "text": " + 4"
       },
       {
         "key": "famille",
@@ -984,6 +1120,10 @@
       {
         "key": "molecule",
         "texture": "aspartame"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -995,7 +1135,7 @@
       },
       {
         "key": "description",
-        "text": "+ 4"
+        "text": " + 4"
       },
       {
         "key": "famille",
@@ -1010,6 +1150,10 @@
       {
         "key": "molecule",
         "texture": "paracetamol"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1021,7 +1165,7 @@
       },
       {
         "key": "description",
-        "text": "but"
+        "text": " but"
       },
       {
         "key": "famille",
@@ -1036,6 +1180,10 @@
       {
         "key": "molecule",
         "texture": "butanoique"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1043,7 +1191,7 @@
     "texts": [
       {
         "key": "title",
-        "text": "Acide méthanoïque"
+        "text": " Acide méthanoïque"
       },
       {
         "key": "description",
@@ -1062,6 +1210,10 @@
       {
         "key": "molecule",
         "texture": "methanoique"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1088,6 +1240,10 @@
       {
         "key": "molecule",
         "texture": "propanoique"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1099,7 +1255,7 @@
       },
       {
         "key": "description",
-        "text": "éth"
+        "text": " éth"
       },
       {
         "key": "famille",
@@ -1114,6 +1270,10 @@
       {
         "key": "molecule",
         "texture": "ethanoique"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1135,7 +1295,7 @@
     "textures": [
       {
         "key": "background",
-        "texture": "carte_molecules"
+        "texture": "carte_molecules_gras"
       },
       {
         "key": "molecule",
@@ -1161,7 +1321,7 @@
     "textures": [
       {
         "key": "background",
-        "texture": "carte_molecules"
+        "texture": "carte_molecules_gras"
       },
       {
         "key": "molecule",
@@ -1187,7 +1347,7 @@
     "textures": [
       {
         "key": "background",
-        "texture": "carte_molecules"
+        "texture": "carte_molecules_gras"
       },
       {
         "key": "molecule",
@@ -1203,7 +1363,7 @@
       },
       {
         "key": "description",
-        "text": "but"
+        "text": " but"
       },
       {
         "key": "famille",
@@ -1218,6 +1378,10 @@
       {
         "key": "molecule",
         "texture": "butanol"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1229,7 +1393,7 @@
       },
       {
         "key": "description",
-        "text": "éth"
+        "text": " éth"
       },
       {
         "key": "famille",
@@ -1244,6 +1408,10 @@
       {
         "key": "molecule",
         "texture": "ethanol"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1270,6 +1438,10 @@
       {
         "key": "molecule",
         "texture": "methanol"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1296,6 +1468,10 @@
       {
         "key": "molecule",
         "texture": "propanol"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1307,7 +1483,7 @@
       },
       {
         "key": "description",
-        "text": "but"
+        "text": " but"
       },
       {
         "key": "famille",
@@ -1322,6 +1498,10 @@
       {
         "key": "molecule",
         "texture": "butanal"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1333,7 +1513,7 @@
       },
       {
         "key": "description",
-        "text": "éth"
+        "text": " éth"
       },
       {
         "key": "famille",
@@ -1348,6 +1528,10 @@
       {
         "key": "molecule",
         "texture": "ethanal"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1374,6 +1558,10 @@
       {
         "key": "molecule",
         "texture": "methanal"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1400,6 +1588,10 @@
       {
         "key": "molecule",
         "texture": "propanal"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1411,7 +1603,7 @@
       },
       {
         "key": "description",
-        "text": "but"
+        "text": " but"
       },
       {
         "key": "famille",
@@ -1426,6 +1618,10 @@
       {
         "key": "molecule",
         "texture": "butanamide"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1437,7 +1633,7 @@
       },
       {
         "key": "description",
-        "text": "éth"
+        "text": " éth"
       },
       {
         "key": "famille",
@@ -1452,6 +1648,10 @@
       {
         "key": "molecule",
         "texture": "ethanamide"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1478,6 +1678,10 @@
       {
         "key": "molecule",
         "texture": "methanamide"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1504,6 +1708,10 @@
       {
         "key": "molecule",
         "texture": "propanamide"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1515,7 +1723,7 @@
       },
       {
         "key": "description",
-        "text": "but"
+        "text": " but"
       },
       {
         "key": "famille",
@@ -1530,6 +1738,10 @@
       {
         "key": "molecule",
         "texture": "butanamine"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1541,7 +1753,7 @@
       },
       {
         "key": "description",
-        "text": "éth"
+        "text": " éth"
       },
       {
         "key": "famille",
@@ -1556,6 +1768,10 @@
       {
         "key": "molecule",
         "texture": "ethamine"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1582,6 +1798,10 @@
       {
         "key": "molecule",
         "texture": "methamine"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1608,6 +1828,10 @@
       {
         "key": "molecule",
         "texture": "propanamine"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1619,7 +1843,7 @@
       },
       {
         "key": "description",
-        "text": "but"
+        "text": " but"
       },
       {
         "key": "famille",
@@ -1634,6 +1858,10 @@
       {
         "key": "molecule",
         "texture": "butan-2-one"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1660,6 +1888,10 @@
       {
         "key": "molecule",
         "texture": "propanone"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1686,6 +1918,10 @@
       {
         "key": "molecule",
         "texture": "ethanoatemethyle"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1697,7 +1933,7 @@
       },
       {
         "key": "description",
-        "text": "but"
+        "text": " but"
       },
       {
         "key": "famille",
@@ -1712,6 +1948,10 @@
       {
         "key": "molecule",
         "texture": "propanoatemethyle"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1723,7 +1963,7 @@
       },
       {
         "key": "description",
-        "text": "éth"
+        "text": " éth"
       },
       {
         "key": "famille",
@@ -1738,6 +1978,10 @@
       {
         "key": "molecule",
         "texture": "oatemethyle"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1749,7 +1993,7 @@
       },
       {
         "key": "description",
-        "text": "but"
+        "text": " but"
       },
       {
         "key": "famille",
@@ -1764,6 +2008,10 @@
       {
         "key": "molecule",
         "texture": "ethoxyethane"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1790,6 +2038,10 @@
       {
         "key": "molecule",
         "texture": "ethoxymethane"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1801,7 +2053,7 @@
       },
       {
         "key": "description",
-        "text": "éth"
+        "text": " éth"
       },
       {
         "key": "famille",
@@ -1816,6 +2068,10 @@
       {
         "key": "molecule",
         "texture": "methoxymethane"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1827,7 +2083,7 @@
       },
       {
         "key": "description",
-        "text": ""
+        "text": "pent"
       },
       {
         "key": "famille",
@@ -1842,6 +2098,10 @@
       {
         "key": "molecule",
         "texture": "proline"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1853,7 +2113,7 @@
       },
       {
         "key": "description",
-        "text": ""
+        "text": "prop"
       },
       {
         "key": "famille",
@@ -1868,6 +2128,10 @@
       {
         "key": "molecule",
         "texture": "alanine"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1879,7 +2143,7 @@
       },
       {
         "key": "description",
-        "text": ""
+        "text": " but"
       },
       {
         "key": "famille",
@@ -1894,6 +2158,10 @@
       {
         "key": "molecule",
         "texture": "threonine"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1905,7 +2173,7 @@
       },
       {
         "key": "description",
-        "text": ""
+        "text": "pent"
       },
       {
         "key": "famille",
@@ -1920,6 +2188,10 @@
       {
         "key": "molecule",
         "texture": "valine"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1931,7 +2203,7 @@
       },
       {
         "key": "description",
-        "text": ""
+        "text": " hex"
       },
       {
         "key": "famille",
@@ -1946,6 +2218,10 @@
       {
         "key": "molecule",
         "texture": "fructose"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1957,7 +2233,7 @@
       },
       {
         "key": "description",
-        "text": ""
+        "text": " hex"
       },
       {
         "key": "famille",
@@ -1972,6 +2248,10 @@
       {
         "key": "molecule",
         "texture": "glucose"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -1983,7 +2263,7 @@
       },
       {
         "key": "description",
-        "text": "+ 4"
+        "text": " + 4"
       },
       {
         "key": "famille",
@@ -1998,6 +2278,10 @@
       {
         "key": "molecule",
         "texture": "aspartame"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
@@ -2009,7 +2293,7 @@
       },
       {
         "key": "description",
-        "text": "+ 4"
+        "text": " + 4"
       },
       {
         "key": "famille",
@@ -2024,6 +2308,10 @@
       {
         "key": "molecule",
         "texture": "paracetamol"
+      },
+      {
+        "key": "text",
+        "texture": "zone_texte"
       }
     ]
   },
