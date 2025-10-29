@@ -149,13 +149,17 @@ void Application::options (sf::RenderWindow& window)
     if (app.gui.textButton (app.texts.get ("buildTextures"))) {
       spdlog::info ("Prepare cards sprite sheet");
       const auto directory = app.cardTextureFile.substr (0, app.cardTextureFile.size () - 4);
-      spdlog::info ("Load image from {}/", directory);
+      spdlog::info ("Load images from {}/", directory);
       auto collage = TextureCollage (directory);
       if (!collage.image ().saveToFile (app.cardTextureFile)) {
         spdlog::warn ("Unable to save {}.png", app.cardTextureFile); 
+      } else if (!m_cardTexture->loadFromFile (app.cardTextureFile)) {
+        spdlog::warn ("Unable to reload {}.png after collage", app.cardTextureFile); 
       }
       collage.atlas ().loadFromFile (app.atlasFile);
       sgui::saveInFile (collage.atlas (), app.cardAtlasFile);
+      m_cardAtlas.clear ();
+      m_cardAtlas.loadFromFile (app.cardAtlasFile);
     }
 
     // quit application
@@ -166,6 +170,7 @@ void Application::options (sf::RenderWindow& window)
   }
 }
 
+////////////////////////////////////////////////////////////
 void Application::buildCardFromCSV ()
 {
   // check that file exist
@@ -177,73 +182,86 @@ void Application::buildCardFromCSV ()
   // load model graphics
   json modelJson = sgui::loadFromFile (ContentsDir"/model.json");
   Card model = modelJson ["model"];
-  const auto& graph = model.graphics;
 
   // extract first line and get model keys from it
   std::fstream cardsData;
   cardsData.open (path, std::ios::in);
+  auto forText = KeyIndex ();
+  auto forTexture = KeyIndex ();
+  const auto backgroundIndex = getKeysFromCSV (cardsData, forText, forTexture, model.graphics);
+
+  // extract all lines and save them
+  saveDataInJson (cardsData, backgroundIndex, forText, forTexture);
+  cardsData.close ();
+}
+
+////////////////////////////////////////////////////////////
+uint32_t Application::getKeysFromCSV (
+  std::fstream& cardsData,
+  KeyIndex& forText,
+  KeyIndex& forTexture,
+  const GraphicalParts& graph)
+{
+  auto index = 0u;
+  auto backgroundIndex = 0u;
   auto firstLine = std::string ();
   std::getline (cardsData, firstLine);
-  std::istringstream firstLineToProcess (firstLine);
-  std::unordered_map <uint32_t, std::string> indexToKeyForText;
-  std::unordered_map <uint32_t, std::string> indexToKeyForTexture;
-  spdlog::info (firstLine);
-  auto index = 0u;
-  auto indexOfBackground = 0u;
-  for (std::string key; std::getline (firstLineToProcess, key, ',');) {
-    spdlog::info ("{}: {}", key, index);
-    auto foundInTexture = std::find_if (
-        graph.textures.begin(),
-        graph.textures.end (), 
-        [&key] (const auto& texture) { return texture.identifier == key; });
-    if (foundInTexture != graph.textures.end ()) {
-       indexToKeyForTexture.emplace (index, key);
+  auto lineToProcess = std::istringstream (firstLine);
+  for (std::string key; std::getline (lineToProcess, key, ','); ) {
+    auto findKey = [&key] (const auto& data) { return data.identifier == key; };
+    // search key in model textures
+    const auto searchTexture = std::find_if (graph.textures.begin (), graph.textures.end (), findKey);
+    if (searchTexture != graph.textures.end ()) {
+       forTexture.emplace (index, key);
     }
-    auto foundInText = std::find_if (
-        graph.texts.begin (),
-        graph.texts.end (),
-        [&key] (const auto& text) { return text.identifier == key; });
-    if (foundInText != graph.texts.end ()) {
-      indexToKeyForText.emplace (index, key);
+
+    // search key in model texts
+    const auto searchText = std::find_if (graph.texts.begin (), graph.texts.end (), findKey);
+    if (searchText != graph.texts.end ()) {
+      forText.emplace (index, key);
     }
+    // keep track of background index
     if (key == "background") {
-      indexOfBackground = index;
+      backgroundIndex = index;
     }
     index++;
   }
+  return backgroundIndex;
+}
 
-  // extract all the lines
+////////////////////////////////////////////////////////////
+void Application::saveDataInJson (
+  std::fstream& cardsData,
+  const uint32_t backgroundIndex,
+  const KeyIndex& forText,
+  const KeyIndex& forTexture)
+{
   json out;
   auto card = std::vector <CardFingerPrint> ();
   while (!cardsData.eof ()) {
+    card.emplace_back ();
+    auto cellIndex = 0u;
     auto line = std::string ();
     std::getline (cardsData, line);
-    std::istringstream lineToProcess (line);
-    spdlog::info (line);
-    auto cellIndex = 0u;
-    card.emplace_back ();
-    for (std::string cell; std::getline (lineToProcess, cell, ',');) {
+    auto lineToProcess = std::istringstream (line);
+    for (std::string cell; std::getline (lineToProcess, cell, ','); ) {
       // set background 
-      if (cellIndex == indexOfBackground) {
+      if (cellIndex == backgroundIndex) {
         card.back ().textures.emplace_back (TextureData {"background", cell});
       }
 
       // set text
-      if (auto found = indexToKeyForText.find (cellIndex); found != indexToKeyForText.end ()) {
+      if (auto found = forText.find (cellIndex); found != forText.end ()) {
         card.back ().texts.emplace_back (TextData {found->second, cell});
-        spdlog::info ("key: {}, value: {}", found->second, cell);
       }
 
       // set texture
-      if (auto found = indexToKeyForTexture.find (cellIndex); found != indexToKeyForTexture.end ()) {
+      if (auto found = forTexture.find (cellIndex); found != forTexture.end ()) {
         card.back ().textures.emplace_back (TextureData {found->second, cell});
-        spdlog::info ("key: {}, value: {}", found->second, cell);
       }
       cellIndex++;
     }
   }
   out = card;
   sgui::saveInFile (out, ContentsDir"/cards_data.json");
-  std::cout << std::setw(1) << out << std::endl;
-  cardsData.close ();
 }
