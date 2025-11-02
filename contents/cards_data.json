@@ -33,7 +33,7 @@
     "texts": [
       {
         "key": "title",
-        "text": " Acide méthanoïque"
+        "text": "  Acide méthanoïque"
       },
       {
         "key": "description",
@@ -149,7 +149,7 @@
     "texts": [
       {
         "key": "title",
-        "text": "Acide hecasopentoïque"
+        "text": "    Acide eicosapentaénoïque"
       },
       {
         "key": "description",
@@ -741,7 +741,7 @@
     "texts": [
       {
         "key": "title",
-        "text": "Éthanoate de méthyle"
+        "text": "   Éthanoate de méthyle"
       },
       {
         "key": "description",
@@ -771,7 +771,7 @@
     "texts": [
       {
         "key": "title",
-        "text": "Propanoate de méthyle"
+        "text": " Propanoate de méthyle"
       },
       {
         "key": "description",
@@ -801,7 +801,7 @@
     "texts": [
       {
         "key": "title",
-        "text": "Méthanpate  de méthyle"
+        "text": "Méthanoate de méthyle"
       },
       {
         "key": "description",
@@ -831,7 +831,7 @@
     "texts": [
       {
         "key": "title",
-        "text": "Éthoxy-éthane"
+        "text": "  Éthoxy-éthane"
       },
       {
         "key": "description",
@@ -861,7 +861,7 @@
     "texts": [
       {
         "key": "title",
-        "text": "Éthoxy-méthane"
+        "text": "  Éthoxy-méthane"
       },
       {
         "key": "description",
@@ -891,7 +891,7 @@
     "texts": [
       {
         "key": "title",
-        "text": "Méthoxy-méthane"
+        "text": " Méthoxy-méthane"
       },
       {
         "key": "description",
@@ -1045,7 +1045,7 @@
       },
       {
         "key": "description",
-        "text": " hex"
+        "text": " + 2"
       },
       {
         "key": "famille",
@@ -1075,7 +1075,7 @@
       },
       {
         "key": "description",
-        "text": " hex"
+        "text": " + 2"
       },
       {
         "key": "famille",
@@ -1191,7 +1191,7 @@
     "texts": [
       {
         "key": "title",
-        "text": " Acide méthanoïque"
+        "text": "  Acide méthanoïque"
       },
       {
         "key": "description",
@@ -1307,7 +1307,7 @@
     "texts": [
       {
         "key": "title",
-        "text": "Acide hecasopentoïque"
+        "text": "    Acide eicosapentaénoïque"
       },
       {
         "key": "description",
@@ -1899,7 +1899,7 @@
     "texts": [
       {
         "key": "title",
-        "text": "Éthanoate méthyle"
+        "text": "   Éthanoate méthyle"
       },
       {
         "key": "description",
@@ -1929,7 +1929,7 @@
     "texts": [
       {
         "key": "title",
-        "text": "Propanoate méthyle"
+        "text": " Propanoate de méthyle"
       },
       {
         "key": "description",
@@ -1959,7 +1959,7 @@
     "texts": [
       {
         "key": "title",
-        "text": "Oate méthyle"
+        "text": "Méthanoate de méthyle"
       },
       {
         "key": "description",
@@ -1989,7 +1989,7 @@
     "texts": [
       {
         "key": "title",
-        "text": "Éthoxy-éthane"
+        "text": "  Éthoxy-éthane"
       },
       {
         "key": "description",
@@ -2019,7 +2019,7 @@
     "texts": [
       {
         "key": "title",
-        "text": "Éthoxy-méthane"
+        "text": "  Éthoxy-méthane"
       },
       {
         "key": "description",
@@ -2049,7 +2049,7 @@
     "texts": [
       {
         "key": "title",
-        "text": "Méthoxy-méthane"
+        "text": " Méthoxy-méthane"
       },
       {
         "key": "description",
@@ -2203,7 +2203,7 @@
       },
       {
         "key": "description",
-        "text": " hex"
+        "text": " + 2"
       },
       {
         "key": "famille",
@@ -2233,7 +2233,7 @@
       },
       {
         "key": "description",
-        "text": " hex"
+        "text": " + 2"
       },
       {
         "key": "famille",

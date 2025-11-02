@@ -510,7 +510,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 3234,
+        "x": 2772,
         "y": 1480
       },
       "size": {
@@ -523,7 +523,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 3696,
+        "x": 3234,
         "y": 1480
       },
       "size": {
@@ -536,7 +536,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 4158,
+        "x": 3696,
         "y": 1480
       },
       "size": {
@@ -549,7 +549,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 6384,
+        "x": 5922,
         "y": 776
       },
       "size": {
@@ -575,7 +575,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 6006,
+        "x": 5544,
         "y": 1480
       },
       "size": {
@@ -692,19 +692,6 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 5460,
-        "y": 776
-      },
-      "size": {
-        "x": 462,
-        "y": 299
-      }
-    }
-  },
-  "Icon::ethanamide": {
-    "count": 1,
-    "texture": {
-      "position": {
         "x": 2310,
         "y": 1776
       },
@@ -714,20 +701,7 @@
       }
     }
   },
-  "Icon::ethanoatemethyle": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 5922,
-        "y": 776
-      },
-      "size": {
-        "x": 462,
-        "y": 297
-      }
-    }
-  },
-  "Icon::ethanoique": {
+  "Icon::ethanamide": {
     "count": 1,
     "texture": {
       "position": {
@@ -740,7 +714,20 @@
       }
     }
   },
-  "Icon::ethanol": {
+  "Icon::ethanoatemethyle": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 5460,
+        "y": 776
+      },
+      "size": {
+        "x": 462,
+        "y": 297
+      }
+    }
+  },
+  "Icon::ethanoique": {
     "count": 1,
     "texture": {
       "position": {
@@ -753,7 +740,7 @@
       }
     }
   },
-  "Icon::ethoxyethane": {
+  "Icon::ethanol": {
     "count": 1,
     "texture": {
       "position": {
@@ -766,11 +753,24 @@
       }
     }
   },
-  "Icon::ethoxymethane": {
+  "Icon::ethoxyethane": {
     "count": 1,
     "texture": {
       "position": {
         "x": 462,
+        "y": 1776
+      },
+      "size": {
+        "x": 462,
+        "y": 296
+      }
+    }
+  },
+  "Icon::ethoxymethane": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
         "y": 1776
       },
       "size": {
@@ -835,19 +835,6 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 0,
-        "y": 1776
-      },
-      "size": {
-        "x": 462,
-        "y": 296
-      }
-    }
-  },
-  "Icon::methanal": {
-    "count": 1,
-    "texture": {
-      "position": {
         "x": 7392,
         "y": 1480
       },
@@ -857,7 +844,7 @@
       }
     }
   },
-  "Icon::methanamide": {
+  "Icon::methanal": {
     "count": 1,
     "texture": {
       "position": {
@@ -870,11 +857,24 @@
       }
     }
   },
+  "Icon::methanamide": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 6468,
+        "y": 1480
+      },
+      "size": {
+        "x": 462,
+        "y": 296
+      }
+    }
+  },
   "Icon::methanoatemethyl": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 7308,
+        "x": 6846,
         "y": 776
       },
       "size": {
@@ -887,7 +887,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 6468,
+        "x": 6006,
         "y": 1480
       },
       "size": {
@@ -913,7 +913,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 5544,
+        "x": 5082,
         "y": 1480
       },
       "size": {
@@ -939,7 +939,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 5082,
+        "x": 4620,
         "y": 1480
       },
       "size": {
@@ -952,7 +952,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 4620,
+        "x": 4158,
         "y": 1480
       },
       "size": {
@@ -1017,7 +1017,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 2772,
+        "x": 2310,
         "y": 1480
       },
       "size": {
@@ -1030,7 +1030,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 2310,
+        "x": 1848,
         "y": 1480
       },
       "size": {
@@ -1043,7 +1043,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 6846,
+        "x": 6384,
         "y": 776
       },
       "size": {
@@ -1056,7 +1056,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 1848,
+        "x": 924,
         "y": 1480
       },
       "size": {
@@ -1069,7 +1069,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 924,
+        "x": 462,
         "y": 1480
       },
       "size": {
@@ -1082,7 +1082,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 462,
+        "x": 0,
         "y": 1480
       },
       "size": {
@@ -1095,8 +1095,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 0,
-        "y": 1480
+        "x": 7308,
+        "y": 776
       },
       "size": {
         "x": 462,
