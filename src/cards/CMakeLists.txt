@@ -5,10 +5,10 @@ set (SRC
   ${INCROOT}/GraphicalParts.h
   ${INCROOT}/PaperFormats.h
   ${INCROOT}/Informations.h
-  ${INCROOT}/CardUtils.cpp
-  ${INCROOT}/CardUtils.h
-  ${INCROOT}/CardsSerialization.cpp
-  ${INCROOT}/CardsSerialization.h
+  ${INCROOT}/DisplayFunctions.cpp
+  ${INCROOT}/DisplayFunctions.h
+  ${INCROOT}/DeckFunctions.cpp
+  ${INCROOT}/DeckFunctions.h
 )
 source_group ("" FILES ${SRC})
 

@@ -1,6 +1,5 @@
-#include "CardUtils.h"
+#include "DisplayFunctions.h"
 #include "GraphicalParts.h"
-#include "Informations.h"
 
 ////////////////////////////////////////////////////////////
 void drawCardDecoration (
@@ -64,7 +63,7 @@ void drawCardDecoration (
     }
 
     // center text if asked
-    const auto textSize = gui.normalSizeOf (" " + textValue + " ");
+    const auto textSize = gui.normalSizeOf (textValue);
     if (text.isCenteredHorizontally) {
       text.position.x = 0.5f * (format.size - textSize).x;
     }
@@ -72,7 +71,7 @@ void drawCardDecoration (
     // draw text in a wrapper panel
     auto textPanel = sgui::Panel ();
     textPanel.scrollable = false;
-    const auto panelSize = sf::Vector2f (textSize.x, 4.f*textSize.y);
+    const auto panelSize = textSize + sf::Vector2f (20.f, 3.f*textSize.y);
     textPanel.position = text.position;
     textPanel.size = panelSize.componentWiseDiv (gui.parentGroupSize ());
     textPanel.visible = false;
@@ -86,42 +85,3 @@ void drawCardDecoration (
   }
 }
 
-
-////////////////////////////////////////////////////////////
-void swipeToNextCard (
-  entt::entity& activeCard,
-  const entt::registry& cards)
-{
-  // get current card number and id of all cards
-  const auto view = cards.view <const CardIdentifier> ();
-  auto nextCardNumber = view.get <const CardIdentifier> (activeCard).number + 1;
-  // if we are at the end of the pack, go back to first card
-  if (nextCardNumber >= view.size ()) {
-    nextCardNumber = 0;
-  }
-  // check every card number
-  for (const auto& card : view) {
-    const auto cardNum = view.get <const CardIdentifier> (card).number;
-    if (cardNum == nextCardNumber) {
-      activeCard = card;
-      return;
-    }
-  }
-}
-
-////////////////////////////////////////////////////////////
-void goToCard (
-  entt::entity& activeCard,
-  const entt::registry& cards,
-  const uint32_t firstCard)
-{
-  // check every card number
-  const auto view = cards.view <const CardIdentifier> ();
-  for (const auto& card : view) {
-    const auto cardNum = view.get <const CardIdentifier> (card).number;
-    if (firstCard == cardNum) {
-      activeCard = card;
-      return;
-    }
-  }
-}

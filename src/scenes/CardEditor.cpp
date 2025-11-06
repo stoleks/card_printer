@@ -3,8 +3,9 @@
 #include <sgui/Serialization/LoadJson.h>
 
 #include "scenes/Application.h"
-#include "cards/CardUtils.h"
-#include "cards/CardsSerialization.h"
+#include "cards/DeckFunctions.h"
+#include "cards/DisplayFunctions.h"
+#include "serialization/CardLoading.h"
 
 
 ////////////////////////////////////////////////////////////
@@ -49,6 +50,7 @@ void editCardFromMenu (CommonAppData& app, CardEditor& editor)
 
   // change card background
   auto& format = editor.cards.get <CardFormat> (editor.activeCard);
+  format.size = millimToPixel (CardFormat ().size, PagePrint ().resolution); // B8 size by default
   app.gui.inputText (format.background, {}, {app.texts.get ("changeCardBackground")});
 
   // add and edit text to the card
@@ -67,7 +69,7 @@ void editOnCard (CommonAppData& app, CardEditor& editor)
     window.panel.visible = false;
     window.panel.position = app.gui.cursorPosition ();
     const auto size = window.panel.size;
-    const auto cardSize = CardFormat ().size; // default B8 size
+    const auto cardSize = editor.cards.get <CardFormat> (editor.activeCard).size;
     window.panel.size = cardSize.componentWiseDiv (app.gui.parentGroupSize ());
     app.cardGui.beginPanel (window.panel);
     ::drawCardDecoration (app.cardGui, editor.cards, editor.activeCard, app.texts);
@@ -99,7 +101,7 @@ void editCardTexts (CommonAppData& app, CardEditor& editor)
     // set text position
     app.gui.inputVector2 (text.position, {"Text position : "});
     app.gui.addSpacing ({0.f, 1.f});
-    const auto cardSize = CardFormat ().size; // default B8 size
+    const auto cardSize = editor.cards.get <CardFormat> (editor.activeCard).size;
     auto textSize = sf::Vector2f ();
     if (app.texts.has (text.identifier)) {
       textSize = app.cardGui.normalSizeOf (app.texts.get (text.identifier));
@@ -150,7 +152,7 @@ void editCardTextures (CommonAppData& app, CardEditor& editor)
     app.gui.inputNumber (textureScale, {" : scale of texture."});
 
     // set precisely texture position or slide it in the card
-    const auto cardSize = CardFormat ().size; // default B8 size
+    const auto cardSize = editor.cards.get <CardFormat> (editor.activeCard).size;
     app.gui.inputVector2 (texture.rect.position, {"Texture position : "});
     app.gui.addSpacing ({0.f, 1.f});
     app.gui.slider (texture.rect.position.x, 0.f, cardSize.x - texture.rect.size.x, {"x"});
@@ -169,7 +171,7 @@ void saveCards (CardEditor& editor)
   auto view = editor.cards.view <
     const GraphicalParts, const CardIdentifier, const CardFormat
   > ();
-  for (const auto& [card, graphics, identifier, format] : view.each ()) {// (const auto& entity : view) {
+  for (const auto& [card, graphics, identifier, format] : view.each ()) {
     auto cardData = Card (format, identifier, graphics);
     const auto* t = editor.cards.try_get <CardModel> (card);
     if (t != nullptr) {

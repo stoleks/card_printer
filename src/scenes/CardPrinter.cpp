@@ -7,8 +7,9 @@
 #include <SFML/Graphics/Image.hpp>
 
 #include "scenes/Application.h"
-#include "cards/CardUtils.h"
-#include "cards/CardsSerialization.h"
+#include "cards/DeckFunctions.h"
+#include "cards/DisplayFunctions.h"
+#include "serialization/CardLoading.h"
 
 ////////////////////////////////////////////////////////////
 CardsPrint::CardsPrint ()
@@ -220,12 +221,12 @@ void Application::displayCardsInLattice (
       cardPanel.size = cardBox.size.componentWiseDiv (gui.parentGroupSize ());
       cardPanel.scrollable = false;
       cardPanel.visible = false;
-      editor.cards.get <CardFormat> (editor.activeCard).size = cardBox.size;
+      auto& format = editor.cards.get <CardFormat> (editor.activeCard);
+      format.size = cardBox.size;
 
       // draw card decorations
       gui.beginPanel (cardPanel);
       if (verso) {
-        const auto& format = editor.cards.get <CardFormat> (editor.activeCard);
         gui.addSpacing ({-0.4f, -0.35f});
         gui.icon (format.cardBack, format.size);
       } else {

@@ -55,7 +55,7 @@ struct CardsPrint {
   CardsPrint ();
   // data
   sf::Vector2f position = {};
-  sf::Vector2f padding = { 1.f,  1.f };
+  sf::Vector2f padding = { 0.f, 0.f };
   uint32_t selectedFormatId = 0u;
   bool isRectoVerso = true;
   PaperFormat format = PaperFormat::B8;
@@ -86,20 +86,6 @@ public:
 private:
   // close or concatene texture
   void options (sf::RenderWindow& window);
-  
-  // build card from a csv file
-  void buildCardFromCSV ();
-  using KeyIndex = std::unordered_map <uint32_t, std::string>;
-  uint32_t getKeysFromCSV (
-      std::fstream& cardsData,
-      KeyIndex& forText,
-      KeyIndex& forTexture,
-      const GraphicalParts& graphics);
-  void saveDataInJson (
-      std::fstream& cardsData,
-      const uint32_t backgroundIndex,
-      const KeyIndex& forText,
-      const KeyIndex& forTexture);
   
   // Print cards to a pdf
   void cardPrinter ();

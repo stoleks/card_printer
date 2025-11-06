@@ -5,6 +5,7 @@ add_executable(${PROJECT_NAME})
 add_subdirectory (cards)
 add_subdirectory (scenes)
 add_subdirectory (resources)
+add_subdirectory (serialization)
 
 ####
 # Add source files

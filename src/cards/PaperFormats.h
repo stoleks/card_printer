@@ -57,3 +57,17 @@ static const std::unordered_map <PaperFormat, sf::Vector2f> PaperFormatInMillime
 
 // Pixel per format = mmCardFormat / mmPerInch x resolution;
 constexpr float mmPerInch = 25.4f;
+
+/**
+ * @brief conversion to pixel from millimeter, or the reverse with pixelToMillim
+ */
+template <typename Type>
+Type millimToPixel (const Type& millimSize, const float resolution)
+{ 
+  return millimSize * resolution / mmPerInch;
+}
+template <typename Type>
+Type pixelToMillim (const Type& pixelsSize, const float resolution)
+{
+  return pixelsSize * mmPerInch / resolution;
+}

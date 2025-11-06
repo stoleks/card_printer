@@ -1,9 +1,7 @@
 #pragma once
 
-#include <sgui/sgui.h>
-#include <entt/entt.hpp>
-#include "Informations.h"
-#include "GraphicalParts.h"
+#include "cards/Informations.h"
+#include "cards/GraphicalParts.h"
 
 /**
  * @brief : store card complete model

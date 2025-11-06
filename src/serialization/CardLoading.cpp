@@ -1,4 +1,4 @@
-#include "CardsSerialization.h"
+#include "CardLoading.h"
 #include <sgui/Serialization/LoadJson.h>
 
 ////////////////////////////////////////////////////////////
@@ -42,7 +42,6 @@ void buildCardsFromModel (
   const Card& model)
 {
   // build card data, first set identifier
-  spdlog::info ("Set card number {} with model data", cardNumber); 
   cards.emplace <CardIdentifier> (card, cardNumber);
   cards.emplace <CardModel> (card);
   // add textures and format components
