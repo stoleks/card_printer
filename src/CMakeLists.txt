@@ -24,25 +24,25 @@ target_compile_definitions(${PROJECT_NAME}
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
 ####
-# No console window for non-debug builds
-# set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE
-#   $<AND:$<PLATFORM_ID:Windows>,$<NOT:$<CONFIG:Debug,RelWithDebInfo>>>
-# )
-#
-# # Fix MSVC entry point for non-debug builds
-# target_link_options(${PROJECT_NAME} PRIVATE
-#   $<$<AND:$<CXX_COMPILER_ID:MSVC>,$<NOT:$<CONFIG:Debug,RelWithDebInfo>>>:/ENTRY:mainCRTStartup>
-# )
+option (NO_CONSOLE "Build without a console." OFF)
+if (NO_CONSOLE)
+  # No console window for non-debug builds
+  set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE
+    $<AND:$<PLATFORM_ID:Windows>,$<NOT:$<CONFIG:Debug,RelWithDebInfo>>>
+  )
+  
+  # Fix MSVC entry point for non-debug builds
+  target_link_options(${PROJECT_NAME} PRIVATE
+    $<$<AND:$<CXX_COMPILER_ID:MSVC>,$<NOT:$<CONFIG:Debug,RelWithDebInfo>>>:/ENTRY:mainCRTStartup>
+  )
+endif ()
 
 ####
 # Link third party libraries
 target_link_libraries (${PROJECT_NAME} PRIVATE
-  SFML::Graphics
   SFML::Audio
-  EnTT
-  nlohmann_json
-  spdlog
   SmolGui
+  EnTT
   PDFHummus::PDFWriter
   PDFHummus::LibPng
 )

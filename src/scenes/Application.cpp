@@ -68,7 +68,8 @@ void Application::initialize (sf::RenderWindow& window)
   m_atlas.loadFromFile (app.atlasFile);
   m_texture = std::make_unique <sf::Texture> (ContentsDir"/widgets.png");
   // m_texture->setSmooth (true);
-  app.gui.setResources (*m_font, *m_texture, m_atlas);
+  app.gui.setResources (*m_font, *m_texture);
+  app.gui.setTextureAtlas (m_atlas);
   app.gui.setSounds (m_sounds);
   app.gui.setStyle (app.style);
   app.gui.setView (window);
@@ -85,12 +86,14 @@ void Application::initialize (sf::RenderWindow& window)
   app.style.fontColor = sf::Color::Black;
   // in app display
   spdlog::info ("Set gui for cards");
-  app.cardGui.setResources (*m_font, *m_cardTexture, m_cardAtlas);
+  app.cardGui.setResources (*m_font, *m_cardTexture);
+  app.cardGui.setTextureAtlas (m_cardAtlas);
   app.cardGui.setStyle (app.style);
   app.cardGui.setView (window);
   // pdf printing
   spdlog::info ("Set gui for printing");
-  app.cardPrint.setResources (*m_font, *m_cardTexture, m_cardAtlas);
+  app.cardPrint.setResources (*m_font, *m_cardTexture);
+  app.cardPrint.setTextureAtlas (m_cardAtlas);
   app.cardPrint.setStyle (app.style);
 }
 
