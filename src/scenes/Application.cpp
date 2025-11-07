@@ -13,7 +13,7 @@
 ////////////////////////////////////////////////////////////
 CardEditor::CardEditor ()
 {
-activeCard = cards.create ();
+  activeCard = cards.create ();
   cards.emplace <CardIdentifier> (activeCard);
   cards.emplace <CardFormat> (activeCard);
   cards.emplace <GraphicalParts> (activeCard);
@@ -116,11 +116,11 @@ void Application::update (sf::RenderWindow& window, const sf::Time& dt)
   if (app.gui.beginWindow (app.layout.get <sgui::Window> ("mainWindow"), app.texts)) {
     // select app function with an upper menu
     app.gui.beginMenu ();
-    if (app.gui.menuItem (app.texts.get ("toEditor"))) {
-      cardEditor (app, editor);
-    }
     if (app.gui.menuItem (app.texts.get ("toPrinter"))) {
       cardPrinter ();
+    }
+    if (app.gui.menuItem (app.texts.get ("toEditor"))) {
+      cardEditor (app, editor);
     }
     app.gui.endMenu ();
     options (window);

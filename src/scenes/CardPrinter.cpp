@@ -65,17 +65,13 @@ void Application::renderOptions ()
   resolution = std::round (resolution);
 
   // page padding
-  app.gui.text (fmt::format ("Page padding: ({}, {})", page.padding.x, page.padding.y));
-  app.gui.slider (page.padding.x, 2.f, 20.f);
-  app.gui.slider (page.padding.y, 2.f, 20.f);
-  page.padding = sgui::round (page.padding);
-  const auto pageSize = computePageSize (page);
-  app.gui.text (fmt::format ("Page size: ({}, {})", pageSize.x, pageSize.y));
-  const auto format = millimToPixel (PaperFormatInMillimeter.at (page.format), resolution);
-  app.gui.text (fmt::format ("Page format: ({}, {})", format.x, format.y));
+  const auto pagePadding = pixelToMillim (page.padding, page.resolution);
+  app.gui.text (fmt::format ("Page padding: ({} mm, {} mm)", pagePadding.x, pagePadding.y));
+  const auto pageSize = sf::Vector2u (computePageSize (page));
+  app.gui.text (fmt::format ("Page size: ({} pix, {} pix)", pageSize.x, pageSize.y));
 
   // card padding
-  app.gui.text (fmt::format ("Card padding: ({}, {})", cards.padding.x, cards.padding.y));
+  app.gui.text (fmt::format ("Card padding: ({} mm, {} mm)", cards.padding.x, cards.padding.y));
   app.gui.slider (cards.padding.x, 0.f, 3.f);
   app.gui.slider (cards.padding.y, 0.f, 3.f);
 }
@@ -246,47 +242,45 @@ void Application::computeLattice ()
 {
   // clear previous cards
   cards.positions.clear ();
-  cards.positions.emplace_back ();
-  // compute paper format and its orientation
-  const auto pageSize = computePageSize (page);
-  const auto textPos = computeTextPosition (page);;
-  const auto textBox = sf::FloatRect (textPos, pageSize);
 
-  // Initialize render texture
+  // Initialize render texture and compute page size
+  const auto pageSize = computePageSize (page);
   if (!cards.image.resize (sf::Vector2u (pageSize))) {
     spdlog::warn ("Failed to initialize render texture");
   }
+
   // compute card size, their orientations are always in portrait
-  const auto& resolution = page.resolution;
-  const auto cardSize = millimToPixel (PaperFormatInMillimeter.at (cards.format), resolution);
-  // compute number of cards (recto + verso)
+  const auto cardSize = millimToPixel (PaperFormatInMillimeter.at (cards.format), page.resolution);
+  const auto cardPadding = millimToPixel (cards.padding, page.resolution);
+
+  // compute page padding to center cards
+  const auto cardsCount = sf::Vector2u (pageSize.componentWiseDiv (cardSize + cardPadding));
+  const auto totalCardSize = sf::Vector2f (cardsCount).componentWiseMul (cardSize + cardPadding) - cardPadding;
+  page.padding = 0.5f * (pageSize - totalCardSize);
+
+  // compute cards position according to padding
+  const auto topLeftPos = computeTextPosition (page);
   const auto view = editor.cards.view <const CardIdentifier> ();
-  auto lastCardPosition = textBox.position;
+  auto lastCardPosition = sf::Vector2f ();
   auto cardId = 0u;
-  for (; cardId < view.size () - 1; cardId++) {
-    // if new card is outside the page boundaries, try to go to new line
-    const auto cardBottomRight = lastCardPosition + cardSize;
-    if (cardBottomRight.x >= textBox.position.x + textBox.size.x) {
-      lastCardPosition.x = textPos.x;
-      lastCardPosition.y += cardSize.y + millimToPixel (cards.padding.y, resolution);
-    }
-
-    // if new card is outside the page boundaries, its a new page
-    if (!textBox.contains (lastCardPosition + cardSize)) {
-      lastCardPosition = textBox.position;
-      cards.positions.emplace_back ();
-    }
-
-    // add card to the pack
-    if (textBox.contains (lastCardPosition + cardSize)) {
-      cards.positions.back ().push_back (lastCardPosition);
-      lastCardPosition.x += cardSize.x + millimToPixel (cards.padding.x, resolution);
+  while (cardId < view.size ()) {
+    cards.positions.emplace_back ();
+    lastCardPosition = topLeftPos;
+    for (auto i = 0u; i < cardsCount.y; i++) {
+      for (auto j = 0u; j < cardsCount.x; j++) {
+        if (cardId >= view.size ()) break;
+        cards.positions.back ().push_back (lastCardPosition);
+        lastCardPosition.x += cardSize.x + cardPadding.x;
+        cardId++;
+      }
+      lastCardPosition = topLeftPos;
+      lastCardPosition.y += (i + 1) * (cardSize.y + cardPadding.y);
     }
   }
+  
   // update page orientation and print number of pages and cards
   if (page.orientation != page.oldOrientation) {
     page.oldOrientation = page.orientation;
-    spdlog::info ("There are {} pages, with {} cards", cards.positions.size (), cardId);
   }
 }
  
@@ -294,7 +288,7 @@ void Application::computeLattice ()
 sf::Vector2f computePageSize (const PagePrint& page)
 {
   // substract page padding and use the correct orientation
-  auto pageSize = millimToPixel (PaperFormatInMillimeter.at (page.format) - page.padding, page.resolution);
+  auto pageSize = millimToPixel (PaperFormatInMillimeter.at (page.format), page.resolution);
   if (page.orientation == PaperOrientation::Landscape) {
     std::swap (pageSize.x, pageSize.y);
   }
@@ -305,7 +299,7 @@ sf::Vector2f computePageSize (const PagePrint& page)
 sf::Vector2f computeTextPosition (const PagePrint& page)
 {
   // use the correct orientation for padding
-  auto textPosition = millimToPixel (page.padding, page.resolution);
+  auto textPosition = page.padding;
   if (page.orientation == PaperOrientation::Landscape) {
     std::swap (textPosition.x, textPosition.y);
   }

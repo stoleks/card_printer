@@ -115,6 +115,7 @@ void editCardTexts (CommonAppData& app, CardEditor& editor)
     if (app.gui.checkBox (text.isCenteredHorizontally, {app.texts.get ("centerHori")})) {
       text.position.x = 0.5f * (cardSize - textSize).x;
     }
+    app.gui.separation();
   }
 }
 
@@ -140,7 +141,6 @@ void editCardTextures (CommonAppData& app, CardEditor& editor)
     // precise selection of texture size
     app.gui.inputText (texture.identifier, {}, {"Texture identifier : "});
     app.gui.inputVector2 (texture.rect.size, {"Texture size : "});
-    app.gui.separation();
     
     // chain the dimensions of the texture
     auto textureScale = texture.rect.size.x / textureBaseSize.x;
@@ -161,6 +161,7 @@ void editCardTextures (CommonAppData& app, CardEditor& editor)
     // set alignment
     app.gui.checkBox (texture.isCenteredHorizontally, {app.texts.get ("centerHori")});
     app.gui.checkBox (texture.isCenteredVertically, {app.texts.get ("centerVerti")});
+    app.gui.separation();
   }
 }
 

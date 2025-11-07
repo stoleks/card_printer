@@ -1,10 +1,10 @@
 title,description,famille,background,molecule,text
 Acide butanoïque, but,Acide carboxylique,carte_molecules,butanoique,zone_texte
-  Acide méthanoïque,méth,Acide carboxylique,carte_molecules,methanoique,zone_texte
+Acide méthanoïque,méth,Acide carboxylique,carte_molecules,methanoique,zone_texte
 Acide propanoïque,prop,Acide carboxylique,carte_molecules,propanoique,zone_texte
 Acide éthanoïque, éth,Acide carboxylique,carte_molecules,ethanoique,zone_texte
 Acide arachidonique,,Acide gras,carte_molecules_gras,arachidonique,
-    Acide eicosapentaénoïque,,Acide gras,carte_molecules_gras,hecasopentoique,
+Acide eicosapentaénoïque,,Acide gras,carte_molecules_gras,hecasopentoique,
 Acide oléique,,Acide gras,carte_molecules_gras,oleique,
 Butanol, but,Alcool,carte_molecules,butanol,zone_texte
 Éthanol, éth,Alcool,carte_molecules,ethanol,zone_texte
@@ -24,12 +24,12 @@ Méthamine,méth,Amine,carte_molecules,methamine,zone_texte
 Propanamine,prop,Amine,carte_molecules,propanamine,zone_texte
 Butan-2-one, but,Cétone,carte_molecules,butan-2-one,zone_texte
 Propanone,prop,Cétone,carte_molecules,propanone,zone_texte
-   Éthanoate de méthyle,prop,Ester,carte_molecules,ethanoatemethyle,zone_texte
- Propanoate de méthyle, but,Ester,carte_molecules,propanoatemethyle,zone_texte
+Éthanoate de méthyle,prop,Ester,carte_molecules,ethanoatemethyle,zone_texte
+Propanoate de méthyle, but,Ester,carte_molecules,propanoatemethyle,zone_texte
 Méthanoate de méthyle, éth,Ester,carte_molecules,oatemethyle,zone_texte
-  Éthoxy-éthane, but,Éther,carte_molecules,ethoxyethane,zone_texte
-  Éthoxy-méthane,prop,Éther,carte_molecules,ethoxymethane,zone_texte
- Méthoxy-méthane, éth,Éther,carte_molecules,methoxymethane,zone_texte
+Éthoxy-éthane, but,Éther,carte_molecules,ethoxyethane,zone_texte
+Éthoxy-méthane,prop,Éther,carte_molecules,ethoxymethane,zone_texte
+Méthoxy-méthane, éth,Éther,carte_molecules,methoxymethane,zone_texte
 Proline,pent,Acide aminé,carte_molecules_AA,proline,zone_texte
 Alanine,prop,Acide aminé,carte_molecules_AA,alanine,zone_texte
 Thréonine, but,Acide aminé,carte_molecules_AA,threonine,zone_texte
@@ -39,11 +39,11 @@ Glucose, + 2,Glucide,carte_molecules_glu,glucose,zone_texte
 Aspartame, + 4,Synthétique,carte_molecules_joker,aspartame,zone_texte
 Paracétamol, + 4,Synthétique,carte_molecules_joker,paracetamol,zone_texte
 Acide butanoïque, but,Acide carboxylique,carte_molecules,butanoique,zone_texte
-  Acide méthanoïque,méth,Acide carboxylique,carte_molecules,methanoique,zone_texte
+Acide méthanoïque,méth,Acide carboxylique,carte_molecules,methanoique,zone_texte
 Acide propanoïque,prop,Acide carboxylique,carte_molecules,propanoique,zone_texte
 Acide éthanoïque, éth,Acide carboxylique,carte_molecules,ethanoique,zone_texte
 Acide arachidonique,,Acide gras,carte_molecules_gras,arachidonique,
-    Acide eicosapentaénoïque,,Acide gras,carte_molecules_gras,hecasopentoique,
+Acide eicosapentaénoïque,,Acide gras,carte_molecules_gras,hecasopentoique,
 Acide oléique,,Acide gras,carte_molecules_gras,oleique,
 Butanol, but,Alcool,carte_molecules,butanol,zone_texte
 Éthanol, éth,Alcool,carte_molecules,ethanol,zone_texte
@@ -63,12 +63,12 @@ Méthamine,méth,Amine,carte_molecules,methamine,zone_texte
 Propanamine,prop,Amine,carte_molecules,propanamine,zone_texte
 Butan-2-one, but,Cétone,carte_molecules,butan-2-one,zone_texte
 Propanone,prop,Cétone,carte_molecules,propanone,zone_texte
-   Éthanoate méthyle,prop,Ester,carte_molecules,ethanoatemethyle,zone_texte
- Propanoate de méthyle, but,Ester,carte_molecules,propanoatemethyle,zone_texte
+Éthanoate de méthyle,prop,Ester,carte_molecules,ethanoatemethyle,zone_texte
+Propanoate de méthyle, but,Ester,carte_molecules,propanoatemethyle,zone_texte
 Méthanoate de méthyle, éth,Ester,carte_molecules,oatemethyle,zone_texte
-  Éthoxy-éthane, but,Éther,carte_molecules,ethoxyethane,zone_texte
-  Éthoxy-méthane,prop,Éther,carte_molecules,ethoxymethane,zone_texte
- Méthoxy-méthane, éth,Éther,carte_molecules,methoxymethane,zone_texte
+Éthoxy-éthane, but,Éther,carte_molecules,ethoxyethane,zone_texte
+Éthoxy-méthane,prop,Éther,carte_molecules,ethoxymethane,zone_texte
+Méthoxy-méthane, éth,Éther,carte_molecules,methoxymethane,zone_texte
 Proline,pent,Acide aminé,carte_molecules_AA,proline,zone_texte
 Alanine,prop,Acide aminé,carte_molecules_AA,alanine,zone_texte
 Thréonine, but,Acide aminé,carte_molecules_AA,threonine,zone_texte
