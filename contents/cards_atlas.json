@@ -471,8 +471,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 2688,
-        "y": 776
+        "x": 704,
+        "y": 1469
       },
       "size": {
         "x": 462,
@@ -484,7 +484,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 2048,
+        "x": 0,
         "y": 0
       },
       "size": {
@@ -497,7 +497,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 3972,
+        "x": 1924,
         "y": 0
       },
       "size": {
@@ -510,8 +510,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 2772,
-        "y": 1480
+        "x": 924,
+        "y": 2158
       },
       "size": {
         "x": 462,
@@ -523,8 +523,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 3234,
-        "y": 1480
+        "x": 1386,
+        "y": 2158
       },
       "size": {
         "x": 462,
@@ -536,8 +536,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 3696,
-        "y": 1480
+        "x": 1848,
+        "y": 2454
       },
       "size": {
         "x": 462,
@@ -549,8 +549,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 5922,
-        "y": 776
+        "x": 924,
+        "y": 1861
       },
       "size": {
         "x": 462,
@@ -562,8 +562,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 3234,
-        "y": 1776
+        "x": 1848,
+        "y": 2750
       },
       "size": {
         "x": 462,
@@ -575,8 +575,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 5544,
-        "y": 1480
+        "x": 0,
+        "y": 2454
       },
       "size": {
         "x": 462,
@@ -584,12 +584,12 @@
       }
     }
   },
-  "Icon::carte_molecules": {
+  "Icon::carte_molecules_0001": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 0,
-        "y": 776
+        "x": 2450,
+        "y": 765
       },
       "size": {
         "x": 496,
@@ -597,12 +597,51 @@
       }
     }
   },
-  "Icon::carte_molecules_AA": {
+  "Icon::carte_molecules_0002": {
     "count": 1,
     "texture": {
       "position": {
+        "x": 2946,
+        "y": 765
+      },
+      "size": {
         "x": 496,
-        "y": 776
+        "y": 704
+      }
+    }
+  },
+  "Icon::carte_molecules_0003": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 3442,
+        "y": 765
+      },
+      "size": {
+        "x": 496,
+        "y": 704
+      }
+    }
+  },
+  "Icon::carte_molecules_0004": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1954,
+        "y": 765
+      },
+      "size": {
+        "x": 496,
+        "y": 704
+      }
+    }
+  },
+  "Icon::carte_molecules_0005": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1458,
+        "y": 765
       },
       "size": {
         "x": 496,
@@ -614,47 +653,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 992,
-        "y": 776
-      },
-      "size": {
-        "x": 496,
-        "y": 704
-      }
-    }
-  },
-  "Icon::carte_molecules_glu": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1488,
-        "y": 776
-      },
-      "size": {
-        "x": 496,
-        "y": 704
-      }
-    }
-  },
-  "Icon::carte_molecules_gras": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 7354,
-        "y": 0
-      },
-      "size": {
-        "x": 496,
-        "y": 704
-      }
-    }
-  },
-  "Icon::carte_molecules_joker": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 6858,
-        "y": 0
+        "x": 962,
+        "y": 765
       },
       "size": {
         "x": 496,
@@ -679,8 +679,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 2772,
-        "y": 1776
+        "x": 1386,
+        "y": 2750
       },
       "size": {
         "x": 462,
@@ -692,8 +692,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 2310,
-        "y": 1776
+        "x": 924,
+        "y": 2750
       },
       "size": {
         "x": 462,
@@ -705,8 +705,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 1848,
-        "y": 1776
+        "x": 462,
+        "y": 2750
       },
       "size": {
         "x": 462,
@@ -718,8 +718,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 5460,
-        "y": 776
+        "x": 462,
+        "y": 1861
       },
       "size": {
         "x": 462,
@@ -731,8 +731,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 1386,
-        "y": 1776
+        "x": 0,
+        "y": 2750
       },
       "size": {
         "x": 462,
@@ -744,8 +744,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 924,
-        "y": 1776
+        "x": 3234,
+        "y": 2454
       },
       "size": {
         "x": 462,
@@ -757,8 +757,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 462,
-        "y": 1776
+        "x": 2772,
+        "y": 2454
       },
       "size": {
         "x": 462,
@@ -770,8 +770,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 0,
-        "y": 1776
+        "x": 2310,
+        "y": 2454
       },
       "size": {
         "x": 462,
@@ -783,8 +783,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 4536,
-        "y": 776
+        "x": 3014,
+        "y": 1469
       },
       "size": {
         "x": 462,
@@ -796,8 +796,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 4998,
-        "y": 776
+        "x": 2552,
+        "y": 1469
       },
       "size": {
         "x": 462,
@@ -809,7 +809,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 3010,
+        "x": 962,
         "y": 0
       },
       "size": {
@@ -835,8 +835,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 7392,
-        "y": 1480
+        "x": 1386,
+        "y": 2454
       },
       "size": {
         "x": 462,
@@ -848,8 +848,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 6930,
-        "y": 1480
+        "x": 924,
+        "y": 2454
       },
       "size": {
         "x": 462,
@@ -861,8 +861,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 6468,
-        "y": 1480
+        "x": 462,
+        "y": 2454
       },
       "size": {
         "x": 462,
@@ -874,8 +874,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 6846,
-        "y": 776
+        "x": 0,
+        "y": 1861
       },
       "size": {
         "x": 462,
@@ -887,8 +887,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 6006,
-        "y": 1480
+        "x": 2310,
+        "y": 1861
       },
       "size": {
         "x": 462,
@@ -900,8 +900,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 1386,
-        "y": 1480
+        "x": 3234,
+        "y": 2158
       },
       "size": {
         "x": 462,
@@ -913,8 +913,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 5082,
-        "y": 1480
+        "x": 2772,
+        "y": 2158
       },
       "size": {
         "x": 462,
@@ -939,8 +939,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 4620,
-        "y": 1480
+        "x": 2310,
+        "y": 2158
       },
       "size": {
         "x": 462,
@@ -952,8 +952,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 4158,
-        "y": 1480
+        "x": 1848,
+        "y": 2158
       },
       "size": {
         "x": 462,
@@ -965,8 +965,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 5896,
-        "y": 0
+        "x": 0,
+        "y": 765
       },
       "size": {
         "x": 962,
@@ -978,7 +978,7 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 4934,
+        "x": 2886,
         "y": 0
       },
       "size": {
@@ -1004,8 +1004,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 3150,
-        "y": 776
+        "x": 2090,
+        "y": 1469
       },
       "size": {
         "x": 462,
@@ -1017,8 +1017,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 2310,
-        "y": 1480
+        "x": 0,
+        "y": 2158
       },
       "size": {
         "x": 462,
@@ -1030,8 +1030,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 1848,
-        "y": 1480
+        "x": 3234,
+        "y": 1861
       },
       "size": {
         "x": 462,
@@ -1043,8 +1043,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 6384,
-        "y": 776
+        "x": 3476,
+        "y": 1469
       },
       "size": {
         "x": 462,
@@ -1056,8 +1056,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 924,
-        "y": 1480
+        "x": 1848,
+        "y": 1861
       },
       "size": {
         "x": 462,
@@ -1069,8 +1069,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 462,
-        "y": 1480
+        "x": 1386,
+        "y": 1861
       },
       "size": {
         "x": 462,
@@ -1082,8 +1082,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 0,
-        "y": 1480
+        "x": 2772,
+        "y": 1861
       },
       "size": {
         "x": 462,
@@ -1095,8 +1095,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 7308,
-        "y": 776
+        "x": 462,
+        "y": 2158
       },
       "size": {
         "x": 462,
@@ -1134,8 +1134,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 4074,
-        "y": 776
+        "x": 1628,
+        "y": 1469
       },
       "size": {
         "x": 462,
@@ -1147,8 +1147,8 @@
     "count": 1,
     "texture": {
       "position": {
-        "x": 3612,
-        "y": 776
+        "x": 1166,
+        "y": 1469
       },
       "size": {
         "x": 462,
@@ -1156,25 +1156,12 @@
       }
     }
   },
-  "Icon::widgets": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 0,
-        "y": 0
-      },
-      "size": {
-        "x": 2048,
-        "y": 776
-      }
-    }
-  },
   "Icon::zone_texte": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 1984,
-        "y": 776
+        "x": 0,
+        "y": 1469
       },
       "size": {
         "x": 704,

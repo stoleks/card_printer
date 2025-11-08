@@ -1,0 +1,11 @@
+{
+  "font": "Averia-bold.ttf",
+  "editorTexts": "editor_texts.json",
+  "editorLayout": "editor_layout.json",
+  "widgetsAtlas": "widgets_atlas.json",
+  "widgetsTextures": "widgets_textures.png",
+  "cardsAtlas": "cards_atlas.json",
+  "cardsTextures": "cards_textures.png",
+  "relativePathToExternal": "../cartes_molecules_uno/",
+  "externalFile": "init.json"
+}
