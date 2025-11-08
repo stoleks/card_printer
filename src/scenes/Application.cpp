@@ -38,25 +38,22 @@ Application::Application ()
 void Application::initialize (sf::RenderWindow& window)
 {
   /**
+   * Load paths
+   */
+  json internalData = sgui::loadFromFile (ContentsDir"filepath.json");
+  internPaths = internalData;
+  app.externDir = AppDir + internPaths.relativePathToExternal;
+  spdlog::info ("Load external files {}", app.externDir + internPaths.externalFile);
+  json externalData = sgui::loadFromFile (app.externDir + internPaths.externalFile);
+  externPaths = externalData;
+
+  /**
    * Font and text loading
    */
   spdlog::info ("Load font, layout and text");
-  m_font = std::make_unique <sf::Font> (ContentsDir"/Averia-Bold.ttf");
-  app.texts.loadFromFile (ContentsDir"/english_editor_texts.json", "english");
-  app.texts.loadFromFile (ContentsDir"/english_card_texts.json", "english");
-
-  /**
-   * Sounds loading
-   */
-  spdlog::info ("Load sounds");
-  for (const auto sound : {"Button", "CheckBox", "Slider", "Scroller", "InputText", "DropListItem", "InputNumber"}) {
-    m_sounds.load (sound, ContentsDir"/wood1.wav");
-  }
-
-  /**
-   * Layout loading
-   */
-  app.layout.loadFromFile (ContentsDir"/editor_layout.json");
+  m_font = std::make_unique <sf::Font> (ContentsDir + internPaths.font);
+  app.texts.loadFromFile (std::string (ContentsDir"english_" + internPaths.editorTexts), "english");
+  app.layout.loadFromFile (ContentsDir + internPaths.editorLayout);
   app.layout.get <sgui::Window> ("mainWindow").panel.hasMenu = true;
   auto& mainWindow = app.layout.get <sgui::Window> ("mainWindow");
   mainWindow.panel.position.y -= app.gui.titleTextHeight ();
@@ -65,24 +62,25 @@ void Application::initialize (sf::RenderWindow& window)
    * Gui initialization
    */
   spdlog::info ("Load atlas, texture and set gui");
-  app.atlasFile = std::string (ContentsDir"/atlas.json");
+  app.atlasFile = std::string (ContentsDir + internPaths.widgetsAtlas);
+  spdlog::info ("Load {}", app.atlasFile);
   m_atlas.loadFromFile (app.atlasFile);
-  m_texture = std::make_unique <sf::Texture> (ContentsDir"/widgets.png");
-  // m_texture->setSmooth (true);
+  spdlog::info ("Load {}", ContentsDir + internPaths.widgetsTextures);
+  m_texture = std::make_unique <sf::Texture> (ContentsDir + internPaths.widgetsTextures);
   app.gui.setResources (*m_font, *m_texture);
   app.gui.setTextureAtlas (m_atlas);
-  app.gui.setSounds (m_sounds);
   app.gui.setStyle (app.style);
   app.gui.setView (window);
 
   /**
    * Gui card initialization
    */
-  app.cardAtlasFile = std::string (ContentsDir"/cards_atlas.json");
-  app.cardTextureFile = std::string (ContentsDir"/cards_textures.png");
-  spdlog::info ("Load cards atlas");
+  app.cardAtlasFile = std::string (ContentsDir + internPaths.cardsAtlas);
+  app.cardTextureFile = std::string (ContentsDir + internPaths.cardsTextures);
+  spdlog::info ("Load cards atlas and texture");
+  spdlog::info ("Load {}", app.cardAtlasFile);
   m_cardAtlas.loadFromFile (app.cardAtlasFile);
-  spdlog::info ("Load cards texture");
+  spdlog::info ("Load {}", app.cardTextureFile);
   m_cardTexture = std::make_unique <sf::Texture> (app.cardTextureFile);
   app.style.fontColor = sf::Color::Black;
   // in app display
@@ -146,19 +144,19 @@ void Application::options (sf::RenderWindow& window)
   if (app.gui.beginWindow (app.layout.get <sgui::Window> ("options"))) {
     // use csv to build card data
     if (app.gui.textButton (app.texts.get ("buildCardFromCSV"))) {
-      buildCardFromCSV ();
+      buildCardFromCSV (app.externDir, externPaths);
     }
 
     // concatene textures into one files
     if (app.gui.textButton (app.texts.get ("buildTextures"))) {
       spdlog::info ("Prepare cards sprite sheet");
-      const auto directory = app.cardTextureFile.substr (0, app.cardTextureFile.size () - 4);
+      const auto directory = app.externDir + externPaths.texturesDirectory;
       spdlog::info ("Load images from {}/", directory);
       auto collage = TextureCollage (directory);
       if (!collage.image ().saveToFile (app.cardTextureFile)) {
-        spdlog::warn ("Unable to save {}.png", app.cardTextureFile); 
+        spdlog::warn ("Unable to save {}", app.cardTextureFile); 
       } else if (!m_cardTexture->loadFromFile (app.cardTextureFile)) {
-        spdlog::warn ("Unable to reload {}.png after collage", app.cardTextureFile); 
+        spdlog::warn ("Unable to reload {} after collage", app.cardTextureFile); 
       }
       collage.atlas ().loadFromFile (app.atlasFile);
       sgui::saveInFile (collage.atlas (), app.cardAtlasFile);

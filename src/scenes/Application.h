@@ -1,68 +1,10 @@
 #pragma once
 
-#include <SFML/Graphics/RenderTexture.hpp>
-#include <sgui/sgui.h>
-#include <entt/entt.hpp>
 #include <memory>
-
-#include "cards/PaperFormats.h"
+#include "CommonData.h"
 
 class PDFWriter;
 struct GraphicalParts;
-
-/**
- * @brief : data common to the different menus
- */
-struct CommonAppData {
-  sgui::Gui gui;
-  sgui::Gui cardGui;
-  sgui::Gui cardPrint;
-  sgui::Style style;
-  sgui::Layout layout;
-  sgui::TextContainer texts;
-  std::string atlasFile;
-  std::string cardAtlasFile;
-  std::string cardTextureFile;
-};
-
-/**
- * @brief : store editor informations
- */
-struct CardEditor {
-  CardEditor ();
-  // data
-  int cardsCount = 0;
-  std::string saveFile;
-  entt::entity activeCard;
-  entt::registry cards;
-};
-
-/**
- * @brief : store data for page format, padding and resolution
- */
-struct PagePrint {
-  float resolution = 200.f;
-  sf::Vector2f padding = { 7.f, 10.f };
-  PaperFormat format = PaperFormat::A4;
-  PaperOrientation orientation = PaperOrientation::Portrait;
-  PaperOrientation oldOrientation = PaperOrientation::Portrait;
-};
-
-/**
- * @brief : store data for card print (position, padding, format, etc.)
- */
-struct CardsPrint {
-  CardsPrint ();
-  // data
-  sf::Vector2f position = {};
-  sf::Vector2f padding = { 0.f, 0.f };
-  uint32_t selectedFormatId = 0u;
-  bool isRectoVerso = true;
-  PaperFormat format = PaperFormat::B8;
-  std::vector <std::string> formatNames;
-  std::vector <std::vector <sf::Vector2f>> positions;
-  sf::RenderTexture image;
-};
 
 /**
  * Main application
@@ -83,6 +25,8 @@ public:
   CardsPrint cards;
   CardEditor editor;
   CommonAppData app;
+  InternalFilepath internPaths;
+  ExternalFilepath externPaths;
 private:
   // close or concatene texture
   void options (sf::RenderWindow& window);

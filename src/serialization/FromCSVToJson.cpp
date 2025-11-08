@@ -3,29 +3,32 @@
 #include <filesystem>
 #include <sgui/Serialization/LoadJson.h>
 #include "serialization/CardLoading.h"
+#include "scenes/CommonData.h"
 
 ////////////////////////////////////////////////////////////
-void buildCardFromCSV ()
+void buildCardFromCSV (
+  const std::string& externDir,
+  const ExternalFilepath& paths)
 {
   // check that file exist
-  const auto path = ContentsDir"/cards_data.csv";
-  if (!std::filesystem::exists (path)) {
+  if (!std::filesystem::exists (externDir + paths.cardsDataCsv)) {
+    spdlog::error ("csv file {} does not exist", externDir + paths.cardsDataCsv);
     return;
   }
 
   // load model graphics
-  json modelJson = sgui::loadFromFile (ContentsDir"/model.json");
+  json modelJson = sgui::loadFromFile (externDir + paths.cardModelJson);
   Card model = modelJson ["model"];
 
   // extract first line and get model keys from it
   std::fstream cardsData;
-  cardsData.open (path, std::ios::in);
+  cardsData.open (externDir + paths.cardsDataCsv, std::ios::in);
   auto forText = KeyIndex ();
   auto forTexture = KeyIndex ();
   const auto backgroundIndex = getKeysFromCSV (cardsData, forText, forTexture, model.graphics);
 
   // extract all lines and save them
-  saveDataInJson (cardsData, backgroundIndex, forText, forTexture);
+  saveDataInJson (cardsData, backgroundIndex, forText, forTexture, externDir + paths.cardsDataJson);
   cardsData.close ();
 }
 
@@ -68,7 +71,8 @@ void saveDataInJson (
   std::fstream& cardsData,
   const uint32_t backgroundIndex,
   const KeyIndex& forText,
-  const KeyIndex& forTexture)
+  const KeyIndex& forTexture,
+  const std::string& jsonFile)
 {
   json out;
   auto card = std::vector <CardFingerPrint> ();
@@ -97,5 +101,5 @@ void saveDataInJson (
     }
   }
   out = card;
-  sgui::saveInFile (out, ContentsDir"/cards_data.json");
+  sgui::saveInFile (out, jsonFile);
 }

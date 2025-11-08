@@ -35,11 +35,10 @@ void Application::cardPrinter ()
   if (app.gui.beginWindow (app.layout.get <sgui::Window> ("chooseCardsFormat"), app.texts)) {
     // load cards data
     if (app.gui.textButton ("Load cards")) {
-      app.style.fontSize.normal = loadCardsFromFile (
-          editor.cards,
-          ContentsDir"/model.json",
-          ContentsDir"/cards_data.json"
-      );
+      const auto dataPath = app.externDir + externPaths.cardsDataJson;
+      const auto modelPath = app.externDir + externPaths.cardModelJson;
+      spdlog::info ("Load card with model from {}, save in {}", modelPath, dataPath);
+      app.style.fontSize.normal = loadCardsFromFile (editor.cards, modelPath, dataPath);
       app.cardGui.setStyle (app.style);
     }
 
@@ -103,7 +102,7 @@ void Application::exportCardsToPdf ()
   if (app.gui.textButton (app.texts.get ("print"))) {
     // start a pdf
     auto pdfWriter = PDFWriter ();
-    const auto path = std::string ("cards_print");
+    const auto path = app.externDir + externPaths.outputDirectory + "cards_print";
     pdfWriter.StartPDF (path + ".pdf", ePDFVersion13);
 
     // draw page one by one

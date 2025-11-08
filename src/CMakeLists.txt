@@ -17,7 +17,9 @@ target_include_directories (${PROJECT_NAME}
   PUBLIC "${PROJECT_SOURCE_DIR}/src"
 )
 target_compile_definitions(${PROJECT_NAME}
-  PRIVATE ContentsDir="${PROJECT_SOURCE_DIR}/contents"
+  PRIVATE 
+    AppDir="${PROJECT_SOURCE_DIR}/"
+    ContentsDir="${PROJECT_SOURCE_DIR}/contents/"
 )
 
 ####
