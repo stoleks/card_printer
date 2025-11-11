@@ -102,7 +102,7 @@ void Application::exportCardsToPdf ()
   if (app.gui.textButton (app.texts.get ("print"))) {
     // start a pdf
     auto pdfWriter = PDFWriter ();
-    const auto path = app.externDir + externPaths.outputDirectory + "cards_print";
+    const auto path = app.externDir + externPaths.outputDirectory + externPaths.outputFile;
     pdfWriter.StartPDF (path + ".pdf", ePDFVersion13);
 
     // draw page one by one

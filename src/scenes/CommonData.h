@@ -31,10 +31,11 @@ struct ExternalFilepath {
   std::string cardsDataCsv;
   std::string cardModelJson;
   std::string cardsDataJson;
+  std::string outputFile;
   std::string outputDirectory;
   std::string texturesDirectory;
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(ExternalFilepath, cardsTexts, cardsDataCsv, cardModelJson, cardsDataJson, outputDirectory, texturesDirectory)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(ExternalFilepath, cardsTexts, cardsDataCsv, cardModelJson, cardsDataJson, outputFile, outputDirectory, texturesDirectory)
 
 /**
  * @brief : data common to the different menus

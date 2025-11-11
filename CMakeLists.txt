@@ -5,9 +5,9 @@ set (CMAKE_CONFIGURATION_TYPES "Debug;Release")
 
 ####
 # Projects informations
-project (CardsGenerator
+project (CardsPrinter
   VERSION 0.0.1
-  DESCRIPTION "Cards generator"
+  DESCRIPTION "Cards editor and printer"
   LANGUAGES CXX
 )
 set (PROJECT_AUTHOR "Alexandre Jedrecy")

@@ -6,6 +6,6 @@
   "widgetsTextures": "widgets_textures.png",
   "cardsAtlas": "cards_atlas.json",
   "cardsTextures": "cards_textures.png",
-  "relativePathToExternal": "../cartes_molecules_uno/",
+  "relativePathToExternal": "../jeu_cartes_molecules_meth/",
   "externalFile": "init.json"
 }
