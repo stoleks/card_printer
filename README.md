@@ -19,9 +19,9 @@ You simply need to copy this git repository and then to call cmake
 ```console
 mkdir build
 cd build
-cmake
+cmake ..
+cmake --build .
 cd ..
-cmake --build build
 ```
 
 How to use it

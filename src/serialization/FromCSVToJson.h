@@ -1,6 +1,7 @@
 #pragma once
 
 #include <fstream>
+#include <cstdint>
 #include <unordered_map>
 
 struct GraphicalParts;
