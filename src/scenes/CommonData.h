@@ -84,7 +84,6 @@ struct CardsPrint {
   // data
   sf::Vector2f position = {};
   sf::Vector2f padding = { 0.f, 0.f };
-  uint32_t selectedFormatId = 0u;
   bool isRectoVerso = true;
   PaperFormat format = PaperFormat::B8;
   std::vector <std::string> formatNames;

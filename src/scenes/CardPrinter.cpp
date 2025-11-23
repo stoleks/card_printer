@@ -14,16 +14,11 @@
 ////////////////////////////////////////////////////////////
 CardsPrint::CardsPrint ()
 {
-  uint32_t formatId = 0u;
-  auto initialFormat = std::string ();
-  formatNames.reserve (PaperFormatNames.size ());
+  formatNames.reserve (PaperFormatNames.size () - 1);
   for (const auto& formatEntry : PaperFormatNames) {
-    if (formatEntry.second == format) {
-      initialFormat = formatEntry.first;
-      selectedFormatId = formatId;
+    if (formatEntry.second != PaperFormat::A3) {
+      formatNames.push_back (formatEntry.first);
     }
-    formatNames.push_back (formatEntry.first);
-    formatId++;
   }
 }
 
@@ -82,8 +77,8 @@ void Application::chooseCardsFormat ()
   app.gui.checkBox (cards.isRectoVerso, {"print with back for cards"});
 
   // cards' format selection
-  app.gui.dropList (cards.selectedFormatId, cards.formatNames);
-  cards.format = PaperFormatNames.at (cards.formatNames.at (cards.selectedFormatId));
+  const auto formatName = app.gui.comboBox (cards.formatNames);
+  cards.format = PaperFormatNames.at (formatName);
 
   // choose paper orientation
   if (app.gui.textButton ("Change orientation")) {

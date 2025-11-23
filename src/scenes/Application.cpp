@@ -55,8 +55,6 @@ void Application::initialize (sf::RenderWindow& window)
   app.texts.loadFromFile (std::string (ContentsDir"english_" + internPaths.editorTexts), "english");
   app.layout.loadFromFile (ContentsDir + internPaths.editorLayout);
   app.layout.get <sgui::Window> ("mainWindow").panel.hasMenu = true;
-  auto& mainWindow = app.layout.get <sgui::Window> ("mainWindow");
-  mainWindow.panel.position.y -= app.gui.titleTextHeight ();
 
   /**
    * Gui initialization

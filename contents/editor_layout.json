@@ -4,9 +4,9 @@
       "horizontal": "HorizontalAlignment::None",
       "relativePosition": {
         "x": 0.125,
-        "y": 0.055
+        "y": 0.0
       },
-      "vertical": "VerticalAlignment::None"
+      "vertical": "VerticalAlignment::Top"
     },
     "panel": {
       "closable": false,
@@ -28,9 +28,9 @@
       "horizontal": "HorizontalAlignment::Right",
       "relativePosition": {
         "x": 0.0,
-        "y": 0.055
+        "y": 0.0
       },
-      "vertical": "VerticalAlignment::None"
+      "vertical": "VerticalAlignment::Top"
     },
     "panel": {
       "closable": false,
@@ -52,9 +52,9 @@
       "horizontal": "HorizontalAlignment::Right",
       "relativePosition": {
         "x": 0.0,
-        "y": 0.055
+        "y": 0.0
       },
-      "vertical": "VerticalAlignment::None"
+      "vertical": "VerticalAlignment::Top"
     },
     "panel": {
       "closable": false,
@@ -76,9 +76,9 @@
       "horizontal": "HorizontalAlignment::None",
       "relativePosition": {
         "x": 0.125,
-        "y": 0.055
+        "y": 0.0
       },
-      "vertical": "VerticalAlignment::None"
+      "vertical": "VerticalAlignment::Top"
     },
     "panel": {
       "closable": false,
@@ -106,6 +106,7 @@
     },
     "panel": {
       "closable": false,
+      "hasHeader": false,
       "movable": false,
       "position": {
         "x": 0.0,
@@ -115,7 +116,7 @@
         "x": 1,
         "y": 1
       },
-      "title": "mainMenu",
+      "title": "",
       "visible": true
     }
   },
@@ -124,12 +125,13 @@
       "horizontal": "HorizontalAlignment::Left",
       "relativePosition": {
         "x": 0.0,
-        "y": 0.055
+        "y": 0.0
       },
-      "vertical": "VerticalAlignment::None"
+      "vertical": "VerticalAlignment::Top"
     },
     "panel": {
       "closable": false,
+      "hasHeader": false,
       "movable": true,
       "position": {
         "x": 0.0,

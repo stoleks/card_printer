@@ -31,9 +31,7 @@ Right now this app has basic functionnalities, so you need to specify a folder c
 
 ```json
 {
-    ...
-    "relativePathToExternal": "your_path_starting_from_this_repo_dir",
-    ...
+  "relativePathToExternal": "your_path_starting_from_this_repo_dir",
 }
 ```
 
