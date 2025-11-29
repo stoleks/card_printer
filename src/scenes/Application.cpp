@@ -1,6 +1,7 @@
 #include "Application.h"
 
 #include <iostream>
+#include <sgui/Resources/IconsFontAwesome7.h>
 #include <sgui/Serialization/LoadJson.h>
 #include <sgui/Serialization/LoadTextureAtlas.h>
 
@@ -22,19 +23,6 @@ CardEditor::CardEditor ()
 }
 
 ////////////////////////////////////////////////////////////
-Application::Application ()
-{
-  /**
-   * Set gui style
-   */
-  app.style.fontColor = sf::Color::White;
-  app.style.fontSize.normal = 15u;
-  app.style.fontSize.footnote = 12u;
-  app.style.fontSize.subtitle = 14u;
-  app.style.fontSize.title = 18u;
-}
-
-////////////////////////////////////////////////////////////
 void Application::initialize (sf::RenderWindow& window)
 {
   /**
@@ -48,10 +36,11 @@ void Application::initialize (sf::RenderWindow& window)
   externPaths = externalData;
 
   /**
-   * Font and text loading
+   * Font, text and layout loading
    */
   spdlog::info ("Load font, layout and text");
   m_font = std::make_unique <sf::Font> (ContentsDir + internPaths.font);
+  m_fontawesome = std::make_unique <sf::Font> (ContentsDir + internPaths.fontawesome);
   app.texts.loadFromFile (std::string (ContentsDir"english_" + internPaths.editorTexts), "english");
   app.layout.loadFromFile (ContentsDir + internPaths.editorLayout);
   app.layout.get <sgui::Window> ("mainWindow").panel.hasMenu = true;
@@ -66,6 +55,7 @@ void Application::initialize (sf::RenderWindow& window)
   spdlog::info ("Load {}", ContentsDir + internPaths.widgetsTextures);
   m_texture = std::make_unique <sf::Texture> (ContentsDir + internPaths.widgetsTextures);
   app.gui.setResources (*m_font, *m_texture);
+  app.gui.setFontawesome (*m_fontawesome);
   app.gui.setTextureAtlas (m_atlas);
   app.gui.setStyle (app.style);
   app.gui.setView (window);
@@ -112,10 +102,10 @@ void Application::update (sf::RenderWindow& window, const sf::Time& dt)
   if (app.gui.beginWindow (app.layout.get <sgui::Window> ("mainWindow"), app.texts)) {
     // select app function with an upper menu
     app.gui.beginMenu ();
-    if (app.gui.menuItem (app.texts.get ("toPrinter"))) {
+    if (app.gui.menuItem (fmt::format (app.texts.get ("toPrinter"), ICON_FA_ADDRESS_CARD))) {
       cardPrinter ();
     }
-    if (app.gui.menuItem (app.texts.get ("toEditor"))) {
+    if (app.gui.menuItem (fmt::format (app.texts.get ("toEditor"), ICON_FA_FILE_PEN))) {
       cardEditor (app, editor);
     }
     app.gui.endMenu ();
@@ -140,13 +130,8 @@ void Application::draw (sf::RenderWindow& window)
 void Application::options (sf::RenderWindow& window)
 {
   if (app.gui.beginWindow (app.layout.get <sgui::Window> ("options"))) {
-    // use csv to build card data
-    if (app.gui.textButton (app.texts.get ("buildCardFromCSV"))) {
-      buildCardFromCSV (app.externDir, externPaths);
-    }
-
     // concatene textures into one files
-    if (app.gui.textButton (app.texts.get ("buildTextures"))) {
+    if (app.gui.textButton (fmt::format (app.texts.get ("buildTextures"), ICON_FA_FILE_IMAGE))) {
       spdlog::info ("Prepare cards sprite sheet");
       const auto directory = app.externDir + externPaths.texturesDirectory;
       spdlog::info ("Load images from {}/", directory);
@@ -162,8 +147,22 @@ void Application::options (sf::RenderWindow& window)
       m_cardAtlas.loadFromFile (app.cardAtlasFile);
     }
 
+    // use csv to build card data
+    if (app.gui.textButton (fmt::format (app.texts.get ("buildFromCSV"), ICON_FA_FILE_CSV))) {
+      buildCardFromCSV (app.externDir, externPaths);
+    }
+
+    // load cards data
+    if (app.gui.textButton (fmt::format (app.texts.get ("loadCards"), ICON_FA_FILE_IMPORT))) {
+      const auto dataPath = app.externDir + externPaths.cardsDataJson;
+      const auto modelPath = app.externDir + externPaths.cardModelJson;
+      spdlog::info ("Load card with model from {}, save in {}", modelPath, dataPath);
+      app.style.fontSize.normal = loadCardsFromFile (editor.cards, modelPath, dataPath);
+      app.cardGui.setStyle (app.style);
+    }
+
     // quit application
-    if (app.gui.textButton (app.texts.get ("close"))) {
+    if (app.gui.textButton (fmt::format (app.texts.get ("close"), ICON_FA_CIRCLE_XMARK))) {
       window.close ();
     }
   app.gui.endWindow ();

@@ -63,7 +63,7 @@ void drawCardDecoration (
     }
 
     // center text if asked
-    const auto textSize = gui.normalSizeOf (textValue);
+    const auto textSize = gui.textSize (textValue);
     if (text.isCenteredHorizontally) {
       text.position.x = 0.5f * (format.size - textSize).x;
     }

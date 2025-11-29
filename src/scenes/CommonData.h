@@ -12,6 +12,7 @@
  */
 struct InternalFilepath {
   std::string font;
+  std::string fontawesome;
   std::string editorTexts;
   std::string editorLayout;
   std::string widgetsAtlas;
@@ -21,7 +22,7 @@ struct InternalFilepath {
   std::string relativePathToExternal;
   std::string externalFile;
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(InternalFilepath, font, editorTexts, editorLayout, widgetsAtlas, widgetsTextures, cardsAtlas, cardsTextures, relativePathToExternal, externalFile)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(InternalFilepath, font, fontawesome, editorTexts, editorLayout, widgetsAtlas, widgetsTextures, cardsAtlas, cardsTextures, relativePathToExternal, externalFile)
 
 /**
  * @brief: filepath for user

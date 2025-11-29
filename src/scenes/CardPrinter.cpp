@@ -5,6 +5,7 @@
 #include <PDFWriter.h>
 #include <PageContentContext.h>
 #include <SFML/Graphics/Image.hpp>
+#include <sgui/Resources/IconsFontAwesome7.h>
 
 #include "scenes/Application.h"
 #include "cards/DeckFunctions.h"
@@ -28,19 +29,10 @@ void Application::cardPrinter ()
 {
   // Formats selection and print
   if (app.gui.beginWindow (app.layout.get <sgui::Window> ("chooseCardsFormat"), app.texts)) {
-    // load cards data
-    if (app.gui.textButton ("Load cards")) {
-      const auto dataPath = app.externDir + externPaths.cardsDataJson;
-      const auto modelPath = app.externDir + externPaths.cardModelJson;
-      spdlog::info ("Load card with model from {}, save in {}", modelPath, dataPath);
-      app.style.fontSize.normal = loadCardsFromFile (editor.cards, modelPath, dataPath);
-      app.cardGui.setStyle (app.style);
-    }
-
     // print cards
-    renderOptions ();
-    chooseCardsFormat ();
     exportCardsToPdf ();
+    chooseCardsFormat ();
+    renderOptions ();
     app.gui.endWindow ();
   }
 
@@ -58,16 +50,16 @@ void Application::renderOptions ()
   app.gui.inputNumber (resolution);
   resolution = std::round (resolution);
 
+  // card padding
+  app.gui.text (fmt::format ("Card padding: ({} mm, {} mm)", cards.padding.x, cards.padding.y));
+  app.gui.slider (cards.padding.x, 0.f, 3.f, {"x padding"});
+  app.gui.slider (cards.padding.y, 0.f, 3.f, {"y padding"});
+
   // page padding
   const auto pagePadding = pixelToMillim (page.padding, page.resolution);
   app.gui.text (fmt::format ("Page padding: ({} mm, {} mm)", pagePadding.x, pagePadding.y));
   const auto pageSize = sf::Vector2u (computePageSize (page));
   app.gui.text (fmt::format ("Page size: ({} pix, {} pix)", pageSize.x, pageSize.y));
-
-  // card padding
-  app.gui.text (fmt::format ("Card padding: ({} mm, {} mm)", cards.padding.x, cards.padding.y));
-  app.gui.slider (cards.padding.x, 0.f, 3.f);
-  app.gui.slider (cards.padding.y, 0.f, 3.f);
 }
 
 ////////////////////////////////////////////////////////////
@@ -76,12 +68,8 @@ void Application::chooseCardsFormat ()
   // recto verso ?
   app.gui.checkBox (cards.isRectoVerso, {"print with back for cards"});
 
-  // cards' format selection
-  const auto formatName = app.gui.comboBox (cards.formatNames);
-  cards.format = PaperFormatNames.at (formatName);
-
   // choose paper orientation
-  if (app.gui.textButton ("Change orientation")) {
+  if (app.gui.textButton (fmt::format (app.texts.get ("rotatePage"), ICON_FA_ROTATE))) {
     page.oldOrientation = page.orientation;
     if (page.orientation == PaperOrientation::Landscape) {
       page.orientation = PaperOrientation::Portrait;
@@ -89,12 +77,18 @@ void Application::chooseCardsFormat ()
       page.orientation = PaperOrientation::Landscape;
     }
   }
+
+  // cards' format selection
+  app.gui.text (fmt::format (app.texts.get ("cardFormat"), ICON_FA_FILE));
+  const auto formatName = app.gui.comboBox (cards.formatNames);
+  cards.format = PaperFormatNames.at (formatName);
+  app.gui.separation ();
 }
 
 ////////////////////////////////////////////////////////////
 void Application::exportCardsToPdf ()
 {
-  if (app.gui.textButton (app.texts.get ("print"))) {
+  if (app.gui.textButton (fmt::format (app.texts.get ("print"), ICON_FA_FILE_PDF))) {
     // start a pdf
     auto pdfWriter = PDFWriter ();
     const auto path = app.externDir + externPaths.outputDirectory + externPaths.outputFile;
@@ -114,6 +108,7 @@ void Application::exportCardsToPdf ()
     pdfWriter.EndPDF ();
     spdlog::info ("Cards saved at {}.pdf", path);
   }
+  app.gui.separation ();
 }
 
 ////////////////////////////////////////////////////////////

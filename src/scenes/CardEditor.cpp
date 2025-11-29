@@ -1,5 +1,6 @@
 #include "CardEditor.h"
 
+#include <sgui/Resources/IconsFontAwesome7.h>
 #include <sgui/Serialization/LoadJson.h>
 
 #include "scenes/Application.h"
@@ -7,13 +8,12 @@
 #include "cards/DisplayFunctions.h"
 #include "serialization/CardLoading.h"
 
-
 ////////////////////////////////////////////////////////////
 void cardEditor (CommonAppData& app, CardEditor& editor)
 {
   if (app.gui.beginWindow (app.layout.get <sgui::Window> ("editFromMenu"), app.texts)) {
     // save cards
-    if (app.gui.textButton (app.texts.get ("saveCards"))) {
+    if (app.gui.textButton (fmt::format (app.texts.get ("saveCards"), ICON_FA_FILE_EXPORT))) {
       saveCards (editor);
     }
     // edit card
@@ -29,7 +29,7 @@ void cardEditor (CommonAppData& app, CardEditor& editor)
 void editCardFromMenu (CommonAppData& app, CardEditor& editor)
 {
   // add a card to the pack
-  if (app.gui.textButton (app.texts.get ("addCard"))) {
+  if (app.gui.textButton (fmt::format (app.texts.get ("addCard"), ICON_FA_FILE_CIRCLE_PLUS))) {
     const auto newCard = editor.cards.create ();
     editor.cards.emplace <CardIdentifier> (newCard, editor.cardsCount);
     editor.cards.emplace <CardFormat> (newCard);
@@ -51,7 +51,7 @@ void editCardFromMenu (CommonAppData& app, CardEditor& editor)
   // change card background
   auto& format = editor.cards.get <CardFormat> (editor.activeCard);
   format.size = millimToPixel (CardFormat ().size, PagePrint ().resolution); // B8 size by default
-  app.gui.inputText (format.background, {}, {app.texts.get ("changeCardBackground")});
+  app.gui.inputText (format.background, {}, {app.texts.get ("changeBackground")});
 
   // add and edit text to the card
   editCardTextures (app, editor);
@@ -86,7 +86,7 @@ void editCardTexts (CommonAppData& app, CardEditor& editor)
   auto& parts = editor.cards.get <GraphicalParts> (editor.activeCard);
   if (app.gui.textButton (app.texts.get ("addText"))) {
     parts.texts.emplace_back ();
-    parts.texts.back ().position = sf::Vector2f (1.f, app.gui.normalSizeOf ("A").y + 8.f);
+    parts.texts.back ().position = sf::Vector2f (1.f, app.gui.textSize ("A").y + 8.f);
   }
   // set text size
   const auto fontDescription = fmt::format ("font size is {}", app.style.fontSize.normal);
@@ -104,9 +104,9 @@ void editCardTexts (CommonAppData& app, CardEditor& editor)
     const auto cardSize = editor.cards.get <CardFormat> (editor.activeCard).size;
     auto textSize = sf::Vector2f ();
     if (app.texts.has (text.identifier)) {
-      textSize = app.cardGui.normalSizeOf (app.texts.get (text.identifier));
+      textSize = app.cardGui.textSize (app.texts.get (text.identifier));
     } else {
-      textSize = app.cardGui.normalSizeOf (text.identifier);
+      textSize = app.cardGui.textSize (text.identifier);
     }
     app.gui.slider (text.position.x, 0.f, cardSize.x - textSize.x, {"x"});
     app.gui.slider (text.position.y, 0.f, cardSize.y - textSize.y, {"y"});
@@ -128,7 +128,7 @@ void editCardTextures (CommonAppData& app, CardEditor& editor)
     // add texture to card
     parts.textures.emplace_back ();
     parts.textures.back ().rect.size = sf::Vector2f (64.f, 64.f);
-    parts.textures.back ().rect.position = sf::Vector2f (1.f, app.gui.normalSizeOf ("A").y + 8.f);
+    parts.textures.back ().rect.position = sf::Vector2f (1.f, app.gui.textSize ("A").y + 8.f);
   }
   // edit texture
   for (auto& texture : parts.textures) {
@@ -146,6 +146,7 @@ void editCardTextures (CommonAppData& app, CardEditor& editor)
     auto textureScale = texture.rect.size.x / textureBaseSize.x;
 
     // scaling of texture size
+    app.gui.addSpacing ({0.2f, 0.f});
     app.gui.slider (textureScale, 0.01f, 1.5f);
     texture.rect.size = textureBaseSize * textureScale;
     app.gui.sameLine ();
