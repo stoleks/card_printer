@@ -1,12 +1,13 @@
 #include "CardPrinter.h"
 
+#include <chrono>
 #include <iostream>
 #include <PDFPage.h>
-#include <PDFWriter.h>
 #include <PageContentContext.h>
 #include <SFML/Graphics/Image.hpp>
 #include <sgui/Resources/IconsFontAwesome7.h>
 
+#include "chrono.h"
 #include "scenes/Application.h"
 #include "cards/DeckFunctions.h"
 #include "cards/DisplayFunctions.h"
@@ -89,43 +90,64 @@ void Application::chooseCardsFormat ()
 void Application::exportCardsToPdf ()
 {
   if (app.gui.textButton (fmt::format (app.texts.get ("print"), ICON_FA_FILE_PDF))) {
-    // start a pdf
-    auto pdfWriter = PDFWriter ();
-    const auto path = app.externDir + externPaths.outputDirectory + externPaths.outputFile;
-    pdfWriter.StartPDF (path + ".pdf", ePDFVersion13);
-
-    // draw page one by one
-    for (auto pageIndex = 0u; pageIndex < cards.positions.size (); pageIndex++) {
-      spdlog::info ("Printing page {}/{}", pageIndex, cards.positions.size () - 1);
-      printPage (pdfWriter, path + std::to_string (2*pageIndex) + ".png", pageIndex);
-      // draw back of the cards
-      if (cards.isRectoVerso) {
-        printPage (pdfWriter, path + std::to_string (2*pageIndex + 1) + ".png", pageIndex, true);
-      }
+    // spdlog::info ("Start cards printing");
+    if (!m_isPrinting) {
+      m_isPrinting = true;
+      m_pageIndex = 0u;
     }
-
-    // end pdf
-    pdfWriter.EndPDF ();
-    spdlog::info ("Cards saved at {}.pdf", path);
   }
+  printAllPages ();
+  app.gui.progressBar (cards.advancement, app.gui.textHeight () * sf::Vector2f (10.f, 1.f));
   app.gui.separation ();
 }
 
 ////////////////////////////////////////////////////////////
+void Application::printAllPages ()
+{
+  // do nothing if we are not printing pages
+  if (!m_isPrinting) return;
+
+  // start pdf
+  const auto path = app.externDir + externPaths.outputDirectory + externPaths.outputFile;
+  if (m_pageIndex == 0u) {
+    m_totalTime.restart ();
+    // spdlog::info ("Initialize pdf writer...");
+    m_pdfWriter = std::make_unique <PDFWriter> ();
+    m_pdfWriter->StartPDF (path + ".pdf", ePDFVersion13);
+  }
+
+  // draw page one by one
+  // spdlog::info ("Printing page {}/{}", m_pageIndex, cards.positions.size () - 1);
+  printPage (path + std::to_string (2*m_pageIndex) + ".jpg");
+  // draw back of the cards
+  if (cards.isRectoVerso) {
+    printPage (path + std::to_string (2*m_pageIndex + 1) + ".jpg", true);
+  }
+  m_pageIndex++;
+  cards.advancement = static_cast <float> (m_pageIndex) / static_cast <float> (cards.positions.size ());
+  
+  // end pdf
+  if (m_pageIndex == cards.positions.size ()) {
+    m_isPrinting = false;
+    m_pdfWriter->EndPDF ();
+    printTime (m_totalTime, "printing all cards to pdf");
+    spdlog::info ("Cards saved at {}.pdf", path);
+  }
+}
+
+////////////////////////////////////////////////////////////
 void Application::printPage (
-  PDFWriter& pdfWriter,
   const std::string& path,
-  const uint32_t pageIndex,
   const bool verso)
 {
   // draw page and then print it on a pdf page
-  if (drawCards (path, pageIndex, verso)) {
+  if (drawCards (path, verso)) {
+    m_clock.restart ();
     // create a A4 page with the right orientation
-    spdlog::info ("  Starting to write on pdf...");
     auto pdfPage = std::make_unique <PDFPage> ();
     auto pageWidth = 595;
     auto pageHeight = 842;
-    const auto imageDimensions = pdfWriter.GetImageDimensions (path);
+    const auto imageDimensions = m_pdfWriter->GetImageDimensions (path);
     if (imageDimensions.first > imageDimensions.second) {
       std::swap (pageWidth, pageHeight);
     }
@@ -139,18 +161,17 @@ void Application::printPage (
     options.fitProportional = true;
 
     // draw image and close pdf
-    auto cxt = pdfWriter.StartPageContentContext (pdfPage.get ());
+    auto cxt = m_pdfWriter->StartPageContentContext (pdfPage.get ());
     cxt->DrawImage (0, 0, path, options);
-    pdfWriter.EndPageContentContext (cxt);
-    pdfWriter.WritePage (pdfPage.get ());
-    spdlog::info ("  Printed page {} on pdf.", pageIndex);
+    m_pdfWriter->EndPageContentContext (cxt);
+    m_pdfWriter->WritePage (pdfPage.get ());
+    printTime (m_clock, "drawing image to pdf");
   }
 }
 
 ////////////////////////////////////////////////////////////
 bool Application::drawCards (
   const std::string& path,
-  const uint32_t pageIndex,
   const bool verso)
 {
   // set-up cards and print them
@@ -158,7 +179,7 @@ bool Application::drawCards (
   app.cardPrint.setView (image);
   app.cardPrint.setStyle (app.style);
   app.cardPrint.setScreenSize (sf::Vector2f (image.getSize ()));
-  displayCardsInLattice (app.cardPrint, pageIndex, false, verso);
+  displayCardsInLattice (app.cardPrint, m_pageIndex, false, verso);
 
   // draw cards on a texture
   image.clear (sf::Color::White);
@@ -166,12 +187,9 @@ bool Application::drawCards (
   image.display ();
 
   // print cards to an image
+  m_clock.restart ();
   const auto printed = image.getTexture ().copyToImage ().saveToFile (path);
-  if (printed) {
-    spdlog::info ("  Printed cards to {}.", path, pageIndex);
-  } else {
-    spdlog::info ("  Failed to print cards to {}.", path, pageIndex);
-  }
+  printTime (m_clock, "writing cards to a .jpg");
   return printed;
 }
 
@@ -189,38 +207,40 @@ void Application::displayCardsInLattice (
     ::swipeToNextCard (editor.activeCard, editor.cards);
   }
 
-  // draw cards
   gui.beginFrame ();
-  // open panel that will hold cards
-  if (app.gui.beginWindow (app.layout.get <sgui::Window> ("displayCards"), app.texts)) {
-    auto shift = sf::Vector2f ();
-    if (onScreen) {
-      shift = app.gui.cursorPosition ();
-    }
-    const auto cardSize = millimToPixel (PaperFormatInMillimeter.at (cards.format), page.resolution);
-    for (const auto& cardPos : cards.positions.at (pageIndex)) {
-      // set card position and size
-      const auto cardBox = sf::FloatRect (sf::Vector2f (cardPos), sf::Vector2f (cardSize));
-      auto cardPanel = sgui::Panel ();
-      cardPanel.position = cardBox.position + shift;
-      cardPanel.size = cardBox.size.componentWiseDiv (gui.parentGroupSize ());
-      cardPanel.scrollable = false;
-      cardPanel.visible = false;
-      auto& format = editor.cards.get <CardFormat> (editor.activeCard);
-      format.size = cardBox.size;
+  // open a window if we display card on screen
+  auto shift = sf::Vector2f ();
+  if (onScreen) {
+    app.gui.beginWindow (app.layout.get <sgui::Window> ("displayCards"), app.texts);
+    shift = app.gui.cursorPosition ();
+  }
+  // draw cards
+  const auto cardSize = millimToPixel (PaperFormatInMillimeter.at (cards.format), page.resolution);
+  for (const auto& cardPos : cards.positions.at (pageIndex)) {
+    // set card position and size
+    const auto cardBox = sf::FloatRect (sf::Vector2f (cardPos), sf::Vector2f (cardSize));
+    auto cardPanel = sgui::Panel ();
+    cardPanel.position = cardBox.position + shift;
+    cardPanel.size = cardBox.size.componentWiseDiv (gui.parentGroupSize ());
+    cardPanel.scrollable = false;
+    cardPanel.visible = false;
+    auto& format = editor.cards.get <CardFormat> (editor.activeCard);
+    format.size = cardBox.size;
 
-      // draw card decorations
-      gui.beginPanel (cardPanel);
-      if (verso) {
-        gui.addSpacing ({-0.4f, -0.35f});
-        gui.icon (format.cardBack, format.size);
-      } else {
-        ::drawCardDecoration (gui, editor.cards, editor.activeCard, app.texts, true);
-      }
-      gui.endPanel ();
-      // go to next card
-      ::swipeToNextCard (editor.activeCard, editor.cards);
+    // draw card decorations
+    gui.beginPanel (cardPanel);
+    if (verso) {
+      gui.addSpacing ({-0.4f, -0.35f});
+      gui.icon (format.cardBack, format.size);
+    } else {
+      ::drawCardDecoration (gui, editor.cards, editor.activeCard, app.texts, true);
     }
+    gui.endPanel ();
+    // go to next card
+    ::swipeToNextCard (editor.activeCard, editor.cards);
+  }
+  // close window if we are on screen
+  if (onScreen) {
     app.gui.endWindow ();
   }
   gui.endFrame ();

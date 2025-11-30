@@ -146,11 +146,11 @@ void editCardTextures (CommonAppData& app, CardEditor& editor)
     auto textureScale = texture.rect.size.x / textureBaseSize.x;
 
     // scaling of texture size
-    app.gui.addSpacing ({0.2f, 0.f});
+    app.gui.text (""); // required due to bug with sameLine in sgui...
     app.gui.slider (textureScale, 0.01f, 1.5f);
-    texture.rect.size = textureBaseSize * textureScale;
     app.gui.sameLine ();
-    app.gui.inputNumber (textureScale, {" : scale of texture."});
+    app.gui.inputNumber (textureScale, {" scale of texture."});
+    texture.rect.size = textureBaseSize * textureScale;
 
     // set precisely texture position or slide it in the card
     const auto cardSize = editor.cards.get <CardFormat> (editor.activeCard).size;

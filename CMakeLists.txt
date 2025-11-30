@@ -37,6 +37,8 @@ FetchContent_Declare (PDFHummus
   GIT_TAG        v4.7.0
   FIND_PACKAGE_ARGS
 )
+option (PDFHUMMUS_NO_OPENSSL TRUE)
+option (PDFHUMMUS_NO_TIFF TRUE)
 
 FetchContent_MakeAvailable (
   entt

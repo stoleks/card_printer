@@ -83,9 +83,10 @@ struct PagePrint {
 struct CardsPrint {
   CardsPrint ();
   // data
+  bool isRectoVerso = true;
+  float advancement = 0.f;
   sf::Vector2f position = {};
   sf::Vector2f padding = { 0.f, 0.f };
-  bool isRectoVerso = true;
   PaperFormat format = PaperFormat::B8;
   std::vector <std::string> formatNames;
   std::vector <std::vector <sf::Vector2f>> positions;

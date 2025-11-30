@@ -1,9 +1,10 @@
 #pragma once
 
 #include <memory>
+#include <PDFWriter.h>
+#include <SFML/System/Clock.hpp>
 #include "CommonData.h"
 
-class PDFWriter;
 struct GraphicalParts;
 
 /**
@@ -39,16 +40,15 @@ private:
   
   // pdf export
   void exportCardsToPdf ();
+  // print all pages
+  void printAllPages ();
   // print a page to pdf
   void printPage (
-      PDFWriter& pdfWriter,
       const std::string& path,
-      const uint32_t pageIndex,
       const bool verso = false);
   // draw cards on a image
   bool drawCards (
       const std::string& path,
-      const uint32_t pageIndex,
       const bool verso = false);
   // display all cards in a regular lattice
   void displayCardsInLattice (
@@ -68,4 +68,10 @@ private:
   sgui::SoundHolder m_sounds;
   sgui::TextureAtlas m_atlas;
   sgui::TextureAtlas m_cardAtlas;
+  // for printing
+  bool m_isPrinting = false;
+  uint32_t m_pageIndex = 0u;
+  std::unique_ptr <PDFWriter> m_pdfWriter;
+  sf::Clock m_clock;
+  sf::Clock m_totalTime;
 };
