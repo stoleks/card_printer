@@ -64,16 +64,17 @@ void editOnCard (CommonAppData& app, CardEditor& editor)
   // open panel that will hold card
   auto window = app.layout.get <sgui::Window> ("editOnCard");
   if (app.gui.beginWindow (window, app.texts)) {
-    app.gui.addSpacing ({2.f, 4.f});
     // draw card decorations and texts
     window.panel.visible = false;
     window.panel.position = app.gui.cursorPosition ();
     const auto size = window.panel.size;
     const auto cardSize = editor.cards.get <CardFormat> (editor.activeCard).size;
     window.panel.size = cardSize.componentWiseDiv (app.gui.parentGroupSize ());
+    window.panel.scrollable = false;
     app.cardGui.beginPanel (window.panel);
     ::drawCardDecoration (app.cardGui, editor.cards, editor.activeCard, app.texts);
     app.cardGui.endPanel ();
+    window.panel.scrollable = true;
     window.panel.size = size;
     app.gui.endWindow ();
   }
@@ -94,6 +95,7 @@ void editCardTexts (CommonAppData& app, CardEditor& editor)
   app.cardGui.setStyle (app.style);
 
   // edit text
+  app.gui.separation();
   for (auto& text : parts.texts) {
     // set text value
     app.gui.inputText (text.identifier, {}, {"Card text : "});
@@ -115,7 +117,6 @@ void editCardTexts (CommonAppData& app, CardEditor& editor)
     if (app.gui.checkBox (text.isCenteredHorizontally, {app.texts.get ("centerHori")})) {
       text.position.x = 0.5f * (cardSize - textSize).x;
     }
-    app.gui.separation();
   }
 }
 
@@ -131,6 +132,7 @@ void editCardTextures (CommonAppData& app, CardEditor& editor)
     parts.textures.back ().rect.position = sf::Vector2f (1.f, app.gui.textSize ("A").y + 8.f);
   }
   // edit texture
+  app.gui.separation();
   for (auto& texture : parts.textures) {
     // allow user to set texture to its default size (the one in texture)
     const auto textureBaseSize = app.cardGui.textureSize ("Icon::" + texture.identifier);
@@ -155,14 +157,12 @@ void editCardTextures (CommonAppData& app, CardEditor& editor)
     // set precisely texture position or slide it in the card
     const auto cardSize = editor.cards.get <CardFormat> (editor.activeCard).size;
     app.gui.inputVector2 (texture.rect.position, {"Texture position : "});
-    app.gui.addSpacing ({0.f, 1.f});
     app.gui.slider (texture.rect.position.x, 0.f, cardSize.x - texture.rect.size.x, {"x"});
     app.gui.slider (texture.rect.position.y, 0.f, cardSize.y - texture.rect.size.y, {"y"});
 
     // set alignment
     app.gui.checkBox (texture.isCenteredHorizontally, {app.texts.get ("centerHori")});
     app.gui.checkBox (texture.isCenteredVertically, {app.texts.get ("centerVerti")});
-    app.gui.separation();
   }
 }
 

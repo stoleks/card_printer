@@ -62,7 +62,6 @@ private:
 private:
   // resources
   std::unique_ptr <sf::Font> m_font;
-  std::unique_ptr <sf::Font> m_fontawesome;
   std::unique_ptr <sf::Texture> m_texture;
   std::unique_ptr <sf::Texture> m_cardTexture;
   sgui::SoundHolder m_sounds;

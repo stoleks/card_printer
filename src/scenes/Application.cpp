@@ -40,7 +40,6 @@ void Application::initialize (sf::RenderWindow& window)
    */
   spdlog::info ("Load font, layout and text");
   m_font = std::make_unique <sf::Font> (ContentsDir + internPaths.font);
-  m_fontawesome = std::make_unique <sf::Font> (ContentsDir + internPaths.fontawesome);
   app.texts.loadFromFile (std::string (ContentsDir"english_" + internPaths.editorTexts), "english");
   app.layout.loadFromFile (ContentsDir + internPaths.editorLayout);
   app.layout.get <sgui::Window> ("mainWindow").panel.hasMenu = true;
@@ -54,11 +53,8 @@ void Application::initialize (sf::RenderWindow& window)
   m_atlas.loadFromFile (app.atlasFile);
   spdlog::info ("Load {}", ContentsDir + internPaths.widgetsTextures);
   m_texture = std::make_unique <sf::Texture> (ContentsDir + internPaths.widgetsTextures);
-  app.gui.setResources (*m_font, *m_texture);
-  app.gui.setFontawesome (*m_fontawesome);
-  app.gui.setTextureAtlas (m_atlas);
+  app.gui.initialize (*m_font, *m_texture, m_atlas, window);
   app.gui.setStyle (app.style);
-  app.gui.setView (window);
 
   /**
    * Gui card initialization
@@ -73,14 +69,11 @@ void Application::initialize (sf::RenderWindow& window)
   app.style.fontColor = sf::Color::Black;
   // in app display
   spdlog::info ("Set gui for cards");
-  app.cardGui.setResources (*m_font, *m_cardTexture);
-  app.cardGui.setTextureAtlas (m_cardAtlas);
+  app.cardGui.initialize (*m_font, *m_cardTexture, m_cardAtlas, window);
   app.cardGui.setStyle (app.style);
-  app.cardGui.setView (window);
   // pdf printing
   spdlog::info ("Set gui for printing");
-  app.cardPrint.setResources (*m_font, *m_cardTexture);
-  app.cardPrint.setTextureAtlas (m_cardAtlas);
+  app.cardPrint.initialize (*m_font, *m_cardTexture, m_cardAtlas, window);
   app.cardPrint.setStyle (app.style);
 }
 

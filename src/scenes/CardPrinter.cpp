@@ -176,7 +176,7 @@ bool Application::drawCards (
 {
   // set-up cards and print them
   auto& image = cards.image;
-  app.cardPrint.setView (image);
+  app.cardPrint.setView (image.getDefaultView ());
   app.cardPrint.setStyle (app.style);
   app.cardPrint.setScreenSize (sf::Vector2f (image.getSize ()));
   displayCardsInLattice (app.cardPrint, m_pageIndex, false, verso);

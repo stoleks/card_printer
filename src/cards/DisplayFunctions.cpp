@@ -11,9 +11,8 @@ void drawCardDecoration (
 {
   // draw card form 
   const auto& format = cards.get <CardFormat> (activeCard);
-  gui.addSpacing ({-0.4f, -0.35f});
+  gui.addSpacing ({-0.25f, -0.2f});
   gui.icon (format.background, format.size);
-  gui.addLastSpacing (-4.f);
 
   // draw card decorations and texts
   auto& parts = cards.get <GraphicalParts> (activeCard);
