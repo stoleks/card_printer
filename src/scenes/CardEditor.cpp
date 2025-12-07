@@ -13,7 +13,7 @@ void cardEditor (CommonAppData& app, CardEditor& editor)
 {
   if (app.gui.beginWindow (app.layout.get <sgui::Window> ("editFromMenu"), app.texts)) {
     // save cards
-    if (app.gui.textButton (fmt::format (app.texts.get ("saveCards"), ICON_FA_FILE_EXPORT))) {
+    if (app.gui.button (fmt::format (app.texts.get ("saveCards"), ICON_FA_FILE_EXPORT))) {
       saveCards (editor);
     }
     // edit card
@@ -29,7 +29,7 @@ void cardEditor (CommonAppData& app, CardEditor& editor)
 void editCardFromMenu (CommonAppData& app, CardEditor& editor)
 {
   // add a card to the pack
-  if (app.gui.textButton (fmt::format (app.texts.get ("addCard"), ICON_FA_FILE_CIRCLE_PLUS))) {
+  if (app.gui.button (fmt::format (app.texts.get ("addCard"), ICON_FA_FILE_CIRCLE_PLUS))) {
     const auto newCard = editor.cards.create ();
     editor.cards.emplace <CardIdentifier> (newCard, editor.cardsCount);
     editor.cards.emplace <CardFormat> (newCard);
@@ -44,7 +44,7 @@ void editCardFromMenu (CommonAppData& app, CardEditor& editor)
   app.gui.checkBox (templ.displayNumber, app.texts.get ("displayNumber"));
 
   // change card to edit
-  if (app.gui.iconTextButton ("right", app.texts.get ("nextCard"))) {
+  if (app.gui.icon (ICON_FA_FORWARD_STEP, app.texts.get ("nextCard"))) {
     ::swipeToNextCard (editor.activeCard, editor.cards);
   }
 
@@ -85,7 +85,7 @@ void editCardTexts (CommonAppData& app, CardEditor& editor)
 {
   // add text
   auto& parts = editor.cards.get <GraphicalParts> (editor.activeCard);
-  if (app.gui.textButton (app.texts.get ("addText"))) {
+  if (app.gui.button (app.texts.get ("addText"))) {
     parts.texts.emplace_back ();
     parts.texts.back ().position = sf::Vector2f (1.f, app.gui.textSize ("A").y + 8.f);
   }
@@ -125,7 +125,7 @@ void editCardTextures (CommonAppData& app, CardEditor& editor)
 {
   // add texture
   auto& parts = editor.cards.get <GraphicalParts> (editor.activeCard);
-  if (app.gui.textButton (app.texts.get ("addTexture"))) {
+  if (app.gui.button (app.texts.get ("addTexture"))) {
     // add texture to card
     parts.textures.emplace_back ();
     parts.textures.back ().rect.size = sf::Vector2f (64.f, 64.f);
@@ -136,7 +136,7 @@ void editCardTextures (CommonAppData& app, CardEditor& editor)
   for (auto& texture : parts.textures) {
     // allow user to set texture to its default size (the one in texture)
     const auto textureBaseSize = app.cardGui.textureSize ("Icon::" + texture.identifier);
-    if (app.gui.textButton ("defaultTextureScale")) {
+    if (app.gui.button ("defaultTextureScale")) {
       texture.rect.size = textureBaseSize;
     }
 

@@ -12,7 +12,7 @@ void drawCardDecoration (
   // draw card form 
   const auto& format = cards.get <CardFormat> (activeCard);
   gui.addSpacing ({-0.25f, -0.2f});
-  gui.icon (format.background, format.size);
+  gui.image (format.background, format.size);
 
   // draw card decorations and texts
   auto& parts = cards.get <GraphicalParts> (activeCard);
@@ -33,7 +33,7 @@ void drawCardDecoration (
     // render it
     if (render) {
       gui.addSpacing ({-0.25f, -0.5f});
-      gui.icon (icon.identifier, icon.rect.size, {icon.rect.position});
+      gui.image (icon.identifier, icon.rect.size, {icon.rect.position});
 
     // or draw texture in a wrapper panel
     } else {
@@ -47,7 +47,7 @@ void drawCardDecoration (
       // draw panel and texture
       gui.beginPanel (iconPanel); 
       gui.addSpacing ({-0.5f, -0.3125f});
-      gui.icon (icon.identifier, icon.rect.size);
+      gui.image (icon.identifier, icon.rect.size);
       gui.endPanel ();
       // store texture position
       icon.rect.position = {std::round (iconPanel.position.x), std::round (iconPanel.position.y)};

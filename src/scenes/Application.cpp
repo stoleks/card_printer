@@ -124,7 +124,7 @@ void Application::options (sf::RenderWindow& window)
 {
   if (app.gui.beginWindow (app.layout.get <sgui::Window> ("options"))) {
     // concatene textures into one files
-    if (app.gui.textButton (fmt::format (app.texts.get ("buildTextures"), ICON_FA_FILE_IMAGE))) {
+    if (app.gui.button (fmt::format (app.texts.get ("buildTextures"), ICON_FA_FILE_IMAGE))) {
       spdlog::info ("Prepare cards sprite sheet");
       const auto directory = app.externDir + externPaths.texturesDirectory;
       spdlog::info ("Load images from {}/", directory);
@@ -141,12 +141,12 @@ void Application::options (sf::RenderWindow& window)
     }
 
     // use csv to build card data
-    if (app.gui.textButton (fmt::format (app.texts.get ("buildFromCSV"), ICON_FA_FILE_CSV))) {
+    if (app.gui.button (fmt::format (app.texts.get ("buildFromCSV"), ICON_FA_FILE_CSV))) {
       buildCardFromCSV (app.externDir, externPaths);
     }
 
     // load cards data
-    if (app.gui.textButton (fmt::format (app.texts.get ("loadCards"), ICON_FA_FILE_IMPORT))) {
+    if (app.gui.button (fmt::format (app.texts.get ("loadCards"), ICON_FA_FILE_IMPORT))) {
       const auto dataPath = app.externDir + externPaths.cardsDataJson;
       const auto modelPath = app.externDir + externPaths.cardModelJson;
       spdlog::info ("Load card with model from {}, save in {}", modelPath, dataPath);
@@ -155,7 +155,7 @@ void Application::options (sf::RenderWindow& window)
     }
 
     // quit application
-    if (app.gui.textButton (fmt::format (app.texts.get ("close"), ICON_FA_CIRCLE_XMARK))) {
+    if (app.gui.button (fmt::format (app.texts.get ("close"), ICON_FA_CIRCLE_XMARK))) {
       window.close ();
     }
   app.gui.endWindow ();

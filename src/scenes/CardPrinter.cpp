@@ -70,7 +70,7 @@ void Application::chooseCardsFormat ()
   app.gui.checkBox (cards.isRectoVerso, {"print with back for cards"});
 
   // choose paper orientation
-  if (app.gui.textButton (fmt::format (app.texts.get ("rotatePage"), ICON_FA_ROTATE))) {
+  if (app.gui.button (fmt::format (app.texts.get ("rotatePage"), ICON_FA_ROTATE))) {
     page.oldOrientation = page.orientation;
     if (page.orientation == PaperOrientation::Landscape) {
       page.orientation = PaperOrientation::Portrait;
@@ -89,7 +89,7 @@ void Application::chooseCardsFormat ()
 ////////////////////////////////////////////////////////////
 void Application::exportCardsToPdf ()
 {
-  if (app.gui.textButton (fmt::format (app.texts.get ("print"), ICON_FA_FILE_PDF))) {
+  if (app.gui.button (fmt::format (app.texts.get ("print"), ICON_FA_FILE_PDF))) {
     // spdlog::info ("Start cards printing");
     if (!m_isPrinting) {
       m_isPrinting = true;
