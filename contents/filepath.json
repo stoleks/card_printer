@@ -1,6 +1,5 @@
 {
   "font": "Luciole-Regular.ttf",
-  "cardFont": "Luciole-Bold.ttf",
   "editorTexts": "editor_texts.json",
   "editorLayout": "editor_layout.json",
   "widgetsAtlas": "widgets_atlas.json",

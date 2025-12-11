@@ -40,7 +40,7 @@ void Application::initialize (sf::RenderWindow& window)
    */
   spdlog::info ("Load font, layout and text");
   m_font = std::make_unique <sf::Font> (ContentsDir + internPaths.font);
-  m_cardFont = std::make_unique <sf::Font> (ContentsDir + internPaths.cardFont);
+  m_cardFont = std::make_unique <sf::Font> (app.externDir + externPaths.fontFile);
   app.texts.loadFromFile (std::string (ContentsDir"english_" + internPaths.editorTexts), "english");
   app.layout.loadFromFile (ContentsDir + internPaths.editorLayout);
   app.layout.get <sgui::Window> ("mainWindow").panel.hasMenu = true;

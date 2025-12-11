@@ -12,7 +12,6 @@
  */
 struct InternalFilepath {
   std::string font;
-  std::string cardFont;
   std::string editorTexts;
   std::string editorLayout;
   std::string widgetsAtlas;
@@ -22,7 +21,7 @@ struct InternalFilepath {
   std::string relativePathToExternal;
   std::string externalFile;
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(InternalFilepath, font, cardFont, editorTexts, editorLayout, widgetsAtlas, widgetsTextures, cardsAtlas, cardsTextures, relativePathToExternal, externalFile)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(InternalFilepath, font, editorTexts, editorLayout, widgetsAtlas, widgetsTextures, cardsAtlas, cardsTextures, relativePathToExternal, externalFile)
 
 /**
  * @brief: filepath for user
@@ -33,10 +32,11 @@ struct ExternalFilepath {
   std::string cardModelJson;
   std::string cardsDataJson;
   std::string outputFile;
+  std::string fontFile;
   std::string outputDirectory;
   std::string texturesDirectory;
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(ExternalFilepath, cardsTexts, cardsDataCsv, cardModelJson, cardsDataJson, outputFile, outputDirectory, texturesDirectory)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(ExternalFilepath, cardsTexts, cardsDataCsv, cardModelJson, cardsDataJson, outputFile, fontFile, outputDirectory, texturesDirectory)
 
 /**
  * @brief : data common to the different menus
