@@ -62,6 +62,7 @@ private:
 private:
   // resources
   std::unique_ptr <sf::Font> m_font;
+  std::unique_ptr <sf::Font> m_cardFont;
   std::unique_ptr <sf::Texture> m_texture;
   std::unique_ptr <sf::Texture> m_cardTexture;
   sgui::SoundHolder m_sounds;
@@ -70,6 +71,9 @@ private:
   // for printing
   bool m_isPrinting = false;
   uint32_t m_pageIndex = 0u;
+  float m_zoom = 1.3f;
+  sf::Vector2f m_cardsShift = {};
+  sf::Vector2f m_baseShift = {4.f, 7.f};
   std::unique_ptr <PDFWriter> m_pdfWriter;
   sf::Clock m_clock;
   sf::Clock m_totalTime;

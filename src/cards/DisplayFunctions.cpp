@@ -64,7 +64,7 @@ void drawCardDecoration (
     // center text if asked
     const auto textSize = gui.textSize (textValue);
     if (text.isCenteredHorizontally) {
-      text.position.x = 0.5f * (format.size - textSize).x;
+      text.position.x = 0.5f * (format.size - textSize - gui.textSize ("A")).x;
     }
 
     // draw text in a wrapper panel

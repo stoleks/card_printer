@@ -1,10 +1,10 @@
 {
-  "font": "Averia-Bold.ttf",
-  "fontawesome": "fa-7-free-Solid-900.otf",
+  "font": "Luciole-Regular.ttf",
+  "cardFont": "Luciole-Bold.ttf",
   "editorTexts": "editor_texts.json",
   "editorLayout": "editor_layout.json",
   "widgetsAtlas": "widgets_atlas.json",
-  "widgetsTextures": "widgets_textures.png",
+  "widgetsTextures": "widgets.png",
   "cardsAtlas": "cards_atlas.json",
   "cardsTextures": "cards_textures.png",
   "relativePathToExternal": "../jeu_cartes_molecules_meth/",

@@ -12,6 +12,7 @@
  */
 struct InternalFilepath {
   std::string font;
+  std::string cardFont;
   std::string editorTexts;
   std::string editorLayout;
   std::string widgetsAtlas;
@@ -21,7 +22,7 @@ struct InternalFilepath {
   std::string relativePathToExternal;
   std::string externalFile;
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(InternalFilepath, font, editorTexts, editorLayout, widgetsAtlas, widgetsTextures, cardsAtlas, cardsTextures, relativePathToExternal, externalFile)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(InternalFilepath, font, cardFont, editorTexts, editorLayout, widgetsAtlas, widgetsTextures, cardsAtlas, cardsTextures, relativePathToExternal, externalFile)
 
 /**
  * @brief: filepath for user
@@ -86,7 +87,7 @@ struct CardsPrint {
   float advancement = 0.f;
   sf::Vector2f position = {};
   sf::Vector2f padding = { 0.f, 0.f };
-  PaperFormat format = PaperFormat::B8;
+  PaperFormat format = PaperFormat::Poker;
   std::vector <std::string> formatNames;
   std::vector <std::vector <sf::Vector2f>> positions;
   sf::RenderTexture image;

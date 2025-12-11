@@ -18,7 +18,7 @@ CardsPrint::CardsPrint ()
 {
   formatNames.reserve (PaperFormatNames.size () - 1);
   for (const auto& formatEntry : PaperFormatNames) {
-    if (formatEntry.second != PaperFormat::A3) {
+    if (formatEntry.second != PaperFormat::A3 && formatEntry.second != PaperFormat::A4) {
       formatNames.push_back (formatEntry.first);
     }
   }
@@ -45,6 +45,12 @@ void Application::cardPrinter ()
 ////////////////////////////////////////////////////////////
 void Application::renderOptions ()
 {
+  // set zoom for card gui
+  app.gui.slider (m_zoom, 0.5f, 3.f, fmt::format ("|{}|  zoom value {}", ICON_FA_MAGNIFYING_GLASS, m_zoom));
+  app.gui.inputVector2 (m_baseShift, fmt::format ("shift with base ({}, {})", m_baseShift.x, m_baseShift.y));
+  m_cardsShift = m_zoom * app.gui.textHeight () * m_baseShift;
+  app.gui.separation ();
+
   // resolution app.texts.get ("cardResolution")
   auto& resolution = page.resolution;
   app.gui.slider (resolution, 75.f, 300.f, {fmt::format ("Card resolution : {} dpi", resolution)} );
@@ -90,7 +96,6 @@ void Application::chooseCardsFormat ()
 void Application::exportCardsToPdf ()
 {
   if (app.gui.button (fmt::format (app.texts.get ("print"), ICON_FA_FILE_PDF))) {
-    // spdlog::info ("Start cards printing");
     if (!m_isPrinting) {
       m_isPrinting = true;
       m_pageIndex = 0u;
@@ -116,10 +121,8 @@ void Application::printAllPages ()
     m_pdfWriter->StartPDF (path + ".pdf", ePDFVersion13);
   }
 
-  // draw page one by one
-  // spdlog::info ("Printing page {}/{}", m_pageIndex, cards.positions.size () - 1);
+  // draw page one by one with their back
   printPage (path + std::to_string (2*m_pageIndex) + ".jpg");
-  // draw back of the cards
   if (cards.isRectoVerso) {
     printPage (path + std::to_string (2*m_pageIndex + 1) + ".jpg", true);
   }
@@ -211,17 +214,17 @@ void Application::displayCardsInLattice (
   // open a window if we display card on screen
   auto shift = sf::Vector2f ();
   if (onScreen) {
-    app.gui.beginWindow (app.layout.get <sgui::Window> ("displayCards"), app.texts);
+    auto& layout = app.layout.get <sgui::Window> ("displayCards");
+    app.gui.beginWindow (layout, app.texts);
     shift = app.gui.cursorPosition ();
+    shift -= m_cardsShift;
   }
   // draw cards
   const auto cardSize = millimToPixel (PaperFormatInMillimeter.at (cards.format), page.resolution);
   for (const auto& cardPos : cards.positions.at (pageIndex)) {
     // set card position and size
     const auto cardBox = sf::FloatRect (sf::Vector2f (cardPos), sf::Vector2f (cardSize));
-    auto cardPanel = sgui::Panel ();
-    cardPanel.position = cardBox.position + shift;
-    cardPanel.size = cardBox.size.componentWiseDiv (gui.parentGroupSize ());
+    auto cardPanel = sgui::Panel (cardBox.position + shift, gui.normalizeSize (cardBox.size));
     cardPanel.scrollable = false;
     cardPanel.visible = false;
     auto& format = editor.cards.get <CardFormat> (editor.activeCard);
@@ -230,8 +233,8 @@ void Application::displayCardsInLattice (
     // draw card decorations
     gui.beginPanel (cardPanel);
     if (verso) {
-      gui.addSpacing ({-0.4f, -0.35f});
-      gui.icon (format.cardBack, format.size);
+      gui.addSpacing ({-0.25f, -0.2f});
+      gui.image (format.cardBack, format.size);
     } else {
       ::drawCardDecoration (gui, editor.cards, editor.activeCard, app.texts, true);
     }
@@ -290,6 +293,13 @@ void Application::computeLattice ()
   // update page orientation and print number of pages and cards
   if (page.orientation != page.oldOrientation) {
     page.oldOrientation = page.orientation;
+    if (page.orientation == PaperOrientation::Landscape) {
+      m_zoom = 2.06f;
+      m_baseShift = {5.f, 7.f};
+    } else {
+      m_zoom = 1.3f;
+      m_baseShift = {4.f, 7.f};
+    }
   }
 }
  

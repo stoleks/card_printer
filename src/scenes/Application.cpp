@@ -40,6 +40,7 @@ void Application::initialize (sf::RenderWindow& window)
    */
   spdlog::info ("Load font, layout and text");
   m_font = std::make_unique <sf::Font> (ContentsDir + internPaths.font);
+  m_cardFont = std::make_unique <sf::Font> (ContentsDir + internPaths.cardFont);
   app.texts.loadFromFile (std::string (ContentsDir"english_" + internPaths.editorTexts), "english");
   app.layout.loadFromFile (ContentsDir + internPaths.editorLayout);
   app.layout.get <sgui::Window> ("mainWindow").panel.hasMenu = true;
@@ -69,11 +70,11 @@ void Application::initialize (sf::RenderWindow& window)
   app.style.fontColor = sf::Color::Black;
   // in app display
   spdlog::info ("Set gui for cards");
-  app.cardGui.initialize (*m_font, *m_cardTexture, m_cardAtlas, window);
+  app.cardGui.initialize (*m_cardFont, *m_cardTexture, m_cardAtlas, window);
   app.cardGui.setStyle (app.style);
   // pdf printing
   spdlog::info ("Set gui for printing");
-  app.cardPrint.initialize (*m_font, *m_cardTexture, m_cardAtlas, window);
+  app.cardPrint.initialize (*m_cardFont, *m_cardTexture, m_cardAtlas, window);
   app.cardPrint.setStyle (app.style);
 }
 
@@ -96,9 +97,17 @@ void Application::update (sf::RenderWindow& window, const sf::Time& dt)
     // select app function with an upper menu
     app.gui.beginMenu ();
     if (app.gui.menuItem (fmt::format (app.texts.get ("toPrinter"), ICON_FA_ADDRESS_CARD))) {
+      // set cards zoom
+      auto view = window.getDefaultView ();
+      view.zoom (m_zoom);
+      app.cardGui.setView (view);
       cardPrinter ();
     }
     if (app.gui.menuItem (fmt::format (app.texts.get ("toEditor"), ICON_FA_FILE_PEN))) {
+      // set cards zoom
+      auto view = window.getDefaultView ();
+      view.zoom (1.f);
+      app.cardGui.setView (view);
       cardEditor (app, editor);
     }
     app.gui.endMenu ();
@@ -113,6 +122,7 @@ void Application::update (sf::RenderWindow& window, const sf::Time& dt)
 ////////////////////////////////////////////////////////////
 void Application::draw (sf::RenderWindow& window)
 {
+  // display gui and cards
   window.clear ();
   window.draw (app.gui);
   window.draw (app.cardGui);

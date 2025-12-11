@@ -3,7 +3,7 @@
     "constraints": {
       "horizontal": "HorizontalAlignment::None",
       "relativePosition": {
-        "x": 0.125,
+        "x": 0.15,
         "y": 0.0
       },
       "vertical": "VerticalAlignment::Top"
@@ -16,7 +16,7 @@
         "y": 0.0
       },
       "size": {
-        "x": 0.175,
+        "x": 0.25,
         "y": 0.95
       },
       "title": "Choose format",
@@ -40,7 +40,7 @@
         "y": 0.0
       },
       "size": {
-        "x": 0.7,
+        "x": 0.6,
         "y": 0.95
       },
       "title": "Printable cards",
@@ -64,7 +64,7 @@
         "y": 0.0
       },
       "size": {
-        "x": 0.375,
+        "x": 0.45,
         "y": 0.95
       },
       "title": "editFromMenu",
@@ -75,7 +75,7 @@
     "constraints": {
       "horizontal": "HorizontalAlignment::None",
       "relativePosition": {
-        "x": 0.125,
+        "x": 0.15,
         "y": 0.0
       },
       "vertical": "VerticalAlignment::Top"
@@ -88,7 +88,7 @@
         "y": 0.0
       },
       "size": {
-        "x": 0.5,
+        "x": 0.4,
         "y": 0.95
       },
       "title": "editOnCard",
@@ -138,7 +138,7 @@
         "y": 0.0
       },
       "size": {
-        "x": 0.125,
+        "x": 0.15,
         "y": 0.95
       },
       "title": "Options",

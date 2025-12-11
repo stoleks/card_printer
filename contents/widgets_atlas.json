@@ -170,5 +170,7 @@
 
   "TitleButton::Neu": { "count": 1, "texture": { "position": { "x": 1728, "y": 384 }, "size": { "x": 128, "y": 128 } } },
   "TitleButton::Hov": { "count": 1, "texture": { "position": { "x": 1856, "y": 384 }, "size": { "x": 128, "y": 128 } } },
-  "TitleButton::Act": { "count": 1, "texture": { "position": { "x": 1856, "y": 384 }, "size": { "x": 128, "y": 128 } } }
+  "TitleButton::Act": { "count": 1, "texture": { "position": { "x": 1856, "y": 384 }, "size": { "x": 128, "y": 128 } } },
+
+  "blank": {"count": 1, "texture": { "position": { "x": 2084, "y": 384 }, "size": { "x": 128, "y": 128 } } }
 }

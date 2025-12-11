@@ -50,7 +50,7 @@ void editCardFromMenu (CommonAppData& app, CardEditor& editor)
 
   // change card background
   auto& format = editor.cards.get <CardFormat> (editor.activeCard);
-  format.size = millimToPixel (CardFormat ().size, PagePrint ().resolution); // B8 size by default
+  format.size = millimToPixel (CardFormat ().size, PagePrint ().resolution); // Poker size by default
   app.gui.inputText (format.background, {}, {app.texts.get ("changeBackground")});
 
   // add and edit text to the card
@@ -90,19 +90,18 @@ void editCardTexts (CommonAppData& app, CardEditor& editor)
     parts.texts.back ().position = sf::Vector2f (1.f, app.gui.textSize ("A").y + 8.f);
   }
   // set text size
+  app.gui.separation();
   const auto fontDescription = fmt::format ("font size is {}", app.style.fontSize.normal);
   app.gui.slider (app.style.fontSize.normal, 10u, 40u, {fontDescription});
   app.cardGui.setStyle (app.style);
 
   // edit text
-  app.gui.separation();
   for (auto& text : parts.texts) {
     // set text value
     app.gui.inputText (text.identifier, {}, {"Card text : "});
 
     // set text position
     app.gui.inputVector2 (text.position, {"Text position : "});
-    app.gui.addSpacing ({0.f, 1.f});
     const auto cardSize = editor.cards.get <CardFormat> (editor.activeCard).size;
     auto textSize = sf::Vector2f ();
     if (app.texts.has (text.identifier)) {
@@ -148,7 +147,6 @@ void editCardTextures (CommonAppData& app, CardEditor& editor)
     auto textureScale = texture.rect.size.x / textureBaseSize.x;
 
     // scaling of texture size
-    app.gui.text (""); // required due to bug with sameLine in sgui...
     app.gui.slider (textureScale, 0.01f, 1.5f);
     app.gui.sameLine ();
     app.gui.inputNumber (textureScale, {" scale of texture."});
