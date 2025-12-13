@@ -7,6 +7,7 @@
   "changeBackground": "change card background",
   "isModel" : "is this a model ?",
   "addCard": "|{}|  add a card",
+  "toOptions": "|{}| files",
   "toEditor": "|{}|  cards edition",
   "toPrinter": "|{}|  cards export",
   "saveCards": "|{}|  save cards to file",

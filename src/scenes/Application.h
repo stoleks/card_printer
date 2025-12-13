@@ -28,6 +28,8 @@ public:
   InternalFilepath internPaths;
   ExternalFilepath externPaths;
 private:
+  // set sub windows width
+  void setWindowsWidth (); 
   // close or concatene texture
   void options (sf::RenderWindow& window);
   
@@ -56,7 +58,6 @@ private:
       const uint32_t pageIndex = 0u,
       const bool onScreen = true,
       const bool verso = false);
-  
   // compute cards positions in a lattice that fit on the page dimension
   void computeLattice ();
 private:
@@ -68,6 +69,10 @@ private:
   sgui::SoundHolder m_sounds;
   sgui::TextureAtlas m_atlas;
   sgui::TextureAtlas m_cardAtlas;
+  // for menu
+  bool m_isOptionsOpen = false;
+  bool m_toPrinter = true;
+  uint32_t m_loop = 0u;
   // for printing
   bool m_isPrinting = false;
   uint32_t m_pageIndex = 0u;

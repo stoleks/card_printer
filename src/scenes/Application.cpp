@@ -96,22 +96,39 @@ void Application::update (sf::RenderWindow& window, const sf::Time& dt)
   if (app.gui.beginWindow (app.layout.get <sgui::Window> ("mainWindow"), app.texts)) {
     // select app function with an upper menu
     app.gui.beginMenu ();
+    // application options
+    if (app.gui.menuItem (fmt::format (app.texts.get ("toOptions"), ICON_FA_SCREWDRIVER_WRENCH))) {
+      if (m_loop == 0u) {
+        m_isOptionsOpen = !m_isOptionsOpen;
+	m_loop++;
+      }
+    } else {
+      m_loop = 0u;
+    }
     if (app.gui.menuItem (fmt::format (app.texts.get ("toPrinter"), ICON_FA_ADDRESS_CARD))) {
+      m_toPrinter = true;
+    }
+    if (app.gui.menuItem (fmt::format (app.texts.get ("toEditor"), ICON_FA_FILE_PEN))) {
+      m_toPrinter = false;
+    }
+    app.gui.endMenu ();
+    setWindowsWidth ();
+    if (m_isOptionsOpen) {
+      options (window);
+    }
+    if (m_toPrinter) {
       // set cards zoom
       auto view = window.getDefaultView ();
       view.zoom (m_zoom);
       app.cardGui.setView (view);
       cardPrinter ();
-    }
-    if (app.gui.menuItem (fmt::format (app.texts.get ("toEditor"), ICON_FA_FILE_PEN))) {
+    } else {
       // set cards zoom
       auto view = window.getDefaultView ();
       view.zoom (1.f);
       app.cardGui.setView (view);
       cardEditor (app, editor);
     }
-    app.gui.endMenu ();
-    options (window);
     app.gui.endWindow ();
   }
   // end gui
@@ -127,6 +144,32 @@ void Application::draw (sf::RenderWindow& window)
   window.draw (app.gui);
   window.draw (app.cardGui);
   window.display ();
+}
+
+////////////////////////////////////////////////////////////
+void Application::setWindowsWidth ()
+{
+  auto& optionsLayout = app.layout.get <sgui::Window> ("options");
+  auto& cardLayout = app.layout.get <sgui::Window> ("editOnCard");
+  auto& editorLayout = app.layout.get <sgui::Window> ("editFromMenu");
+  auto& formatLayout = app.layout.get <sgui::Window> ("chooseCardsFormat");
+  auto& displayLayout = app.layout.get <sgui::Window> ("displayCards");
+  const auto width = optionsLayout.panel.size.x;
+  if (m_isOptionsOpen) {
+    // printer
+    formatLayout.constraints.relativePosition.x = width;
+    displayLayout.panel.size.x = 1.f - width - formatLayout.panel.size.x;
+    // editor
+    cardLayout.constraints.relativePosition.x = width;
+    cardLayout.panel.size.x = 1.f - width - editorLayout.panel.size.x;
+  } else {
+    // printer
+    formatLayout.constraints.relativePosition.x = 0.f;
+    displayLayout.panel.size.x = 1.f - formatLayout.panel.size.x;
+    // editor
+    cardLayout.constraints.relativePosition.x = 0.f;
+    cardLayout.panel.size.x = 1.f - editorLayout.panel.size.x;
+  }
 }
 
 ////////////////////////////////////////////////////////////
