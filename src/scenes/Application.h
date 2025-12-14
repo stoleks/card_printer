@@ -28,8 +28,8 @@ public:
   InternalFilepath internPaths;
   ExternalFilepath externPaths;
 private:
-  // set sub windows width
-  void setWindowsWidth (); 
+  // set sub windows width and open options if asked
+  void setWindowsWidth (sf::RenderWindow& window); 
   // close or concatene texture
   void options (sf::RenderWindow& window);
   
@@ -70,13 +70,12 @@ private:
   sgui::TextureAtlas m_atlas;
   sgui::TextureAtlas m_cardAtlas;
   // for menu
-  bool m_isOptionsOpen = false;
+  bool m_isOptionsOpen = true;
   bool m_toPrinter = true;
-  uint32_t m_loop = 0u;
   // for printing
   bool m_isPrinting = false;
   uint32_t m_pageIndex = 0u;
-  float m_zoom = 1.3f;
+  float m_zoom = 1.5f;
   sf::Vector2f m_cardsShift = {};
   sf::Vector2f m_baseShift = {4.f, 7.f};
   std::unique_ptr <PDFWriter> m_pdfWriter;

@@ -16,6 +16,16 @@ void cardEditor (CommonAppData& app, CardEditor& editor)
     if (app.gui.button (fmt::format (app.texts.get ("saveCards"), ICON_FA_FILE_EXPORT))) {
       saveCards (editor);
     }
+    app.gui.sameLine ();
+    // add a card to the pack
+    if (app.gui.button (fmt::format (app.texts.get ("addCard"), ICON_FA_FILE_CIRCLE_PLUS))) {
+      const auto newCard = editor.cards.create ();
+      editor.cards.emplace <CardIdentifier> (newCard, editor.cardsCount);
+      editor.cards.emplace <CardFormat> (newCard);
+      editor.cards.emplace <GraphicalParts> (newCard);
+      editor.cards.emplace <CardModel> (newCard);
+      editor.cardsCount++;
+    }
     // edit card
     editCardFromMenu (app, editor);
     app.gui.endWindow ();
@@ -28,16 +38,6 @@ void cardEditor (CommonAppData& app, CardEditor& editor)
 ////////////////////////////////////////////////////////////
 void editCardFromMenu (CommonAppData& app, CardEditor& editor)
 {
-  // add a card to the pack
-  if (app.gui.button (fmt::format (app.texts.get ("addCard"), ICON_FA_FILE_CIRCLE_PLUS))) {
-    const auto newCard = editor.cards.create ();
-    editor.cards.emplace <CardIdentifier> (newCard, editor.cardsCount);
-    editor.cards.emplace <CardFormat> (newCard);
-    editor.cards.emplace <GraphicalParts> (newCard);
-    editor.cards.emplace <CardModel> (newCard);
-    editor.cardsCount++;
-  }
-
   // choose if its a template for a set of cards
   auto& templ = editor.cards.get <CardModel> (editor.activeCard);
   app.gui.checkBox (templ.isModel, app.texts.get ("isModel"));
@@ -84,13 +84,13 @@ void editOnCard (CommonAppData& app, CardEditor& editor)
 void editCardTexts (CommonAppData& app, CardEditor& editor)
 {
   // add text
+  app.gui.separation();
   auto& parts = editor.cards.get <GraphicalParts> (editor.activeCard);
   if (app.gui.button (app.texts.get ("addText"))) {
     parts.texts.emplace_back ();
     parts.texts.back ().position = sf::Vector2f (1.f, app.gui.textSize ("A").y + 8.f);
   }
   // set text size
-  app.gui.separation();
   const auto fontDescription = fmt::format ("font size is {}", app.style.fontSize.normal);
   app.gui.slider (app.style.fontSize.normal, 10u, 40u, {fontDescription});
   app.cardGui.setStyle (app.style);
@@ -109,8 +109,9 @@ void editCardTexts (CommonAppData& app, CardEditor& editor)
     } else {
       textSize = app.cardGui.textSize (text.identifier);
     }
-    app.gui.slider (text.position.x, 0.f, cardSize.x - textSize.x, {"x"});
-    app.gui.slider (text.position.y, 0.f, cardSize.y - textSize.y, {"y"});
+    app.gui.slider (text.position.x, 0.f, cardSize.x - textSize.x);
+    app.gui.sameLine ();
+    app.gui.slider (text.position.y, 0.f, cardSize.y - textSize.y, {"(x, y)"});
 
     // center text
     if (app.gui.checkBox (text.isCenteredHorizontally, {app.texts.get ("centerHori")})) {
@@ -123,6 +124,7 @@ void editCardTexts (CommonAppData& app, CardEditor& editor)
 void editCardTextures (CommonAppData& app, CardEditor& editor)
 {
   // add texture
+  app.gui.separation();
   auto& parts = editor.cards.get <GraphicalParts> (editor.activeCard);
   if (app.gui.button (app.texts.get ("addTexture"))) {
     // add texture to card
@@ -131,7 +133,6 @@ void editCardTextures (CommonAppData& app, CardEditor& editor)
     parts.textures.back ().rect.position = sf::Vector2f (1.f, app.gui.textSize ("A").y + 8.f);
   }
   // edit texture
-  app.gui.separation();
   for (auto& texture : parts.textures) {
     // allow user to set texture to its default size (the one in texture)
     const auto textureBaseSize = app.cardGui.textureSize ("Icon::" + texture.identifier);
@@ -155,8 +156,9 @@ void editCardTextures (CommonAppData& app, CardEditor& editor)
     // set precisely texture position or slide it in the card
     const auto cardSize = editor.cards.get <CardFormat> (editor.activeCard).size;
     app.gui.inputVector2 (texture.rect.position, {"Texture position : "});
-    app.gui.slider (texture.rect.position.x, 0.f, cardSize.x - texture.rect.size.x, {"x"});
-    app.gui.slider (texture.rect.position.y, 0.f, cardSize.y - texture.rect.size.y, {"y"});
+    app.gui.slider (texture.rect.position.x, 0.f, cardSize.x - texture.rect.size.x);
+    app.gui.sameLine ();
+    app.gui.slider (texture.rect.position.y, 0.f, cardSize.y - texture.rect.size.y, {"(x, y)"});
 
     // set alignment
     app.gui.checkBox (texture.isCenteredHorizontally, {app.texts.get ("centerHori")});

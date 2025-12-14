@@ -59,8 +59,9 @@ void Application::renderOptions ()
 
   // card padding
   app.gui.text (fmt::format ("Card padding: ({} mm, {} mm)", cards.padding.x, cards.padding.y));
-  app.gui.slider (cards.padding.x, 0.f, 3.f, {"x padding"});
-  app.gui.slider (cards.padding.y, 0.f, 3.f, {"y padding"});
+  app.gui.slider (cards.padding.x, 0.f, 3.f);
+  app.gui.sameLine ();
+  app.gui.slider (cards.padding.y, 0.f, 3.f, {"(x, y) padding"});
 
   // page padding
   const auto pagePadding = pixelToMillim (page.padding, page.resolution);
@@ -87,6 +88,7 @@ void Application::chooseCardsFormat ()
 
   // cards' format selection
   app.gui.text (fmt::format (app.texts.get ("cardFormat"), ICON_FA_FILE));
+  app.gui.sameLine ();
   const auto formatName = app.gui.comboBox (cards.formatNames);
   cards.format = PaperFormatNames.at (formatName);
   app.gui.separation ();
@@ -101,8 +103,9 @@ void Application::exportCardsToPdf ()
       m_pageIndex = 0u;
     }
   }
+  app.gui.sameLine ();
+  app.gui.progressBar (cards.advancement, app.gui.textHeight () * sf::Vector2f (7.f, 1.f));
   printAllPages ();
-  app.gui.progressBar (cards.advancement, app.gui.textHeight () * sf::Vector2f (10.f, 1.f));
   app.gui.separation ();
 }
 
@@ -294,11 +297,11 @@ void Application::computeLattice ()
   if (page.orientation != page.oldOrientation) {
     page.oldOrientation = page.orientation;
     if (page.orientation == PaperOrientation::Landscape) {
-      m_zoom = 2.06f;
-      m_baseShift = {5.f, 7.f};
+      m_zoom = 2.25f;
+      m_baseShift = {3.5f, 9.f};
     } else {
-      m_zoom = 1.3f;
-      m_baseShift = {4.f, 7.f};
+      m_zoom = 1.5f;
+      m_baseShift = app.layout.get <sf::Vector2f> ("cardsShift");
     }
   }
 }

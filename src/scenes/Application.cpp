@@ -76,6 +76,7 @@ void Application::initialize (sf::RenderWindow& window)
   spdlog::info ("Set gui for printing");
   app.cardPrint.initialize (*m_cardFont, *m_cardTexture, m_cardAtlas, window);
   app.cardPrint.setStyle (app.style);
+  m_baseShift = app.layout.get <sf::Vector2f> ("cardsShift");
 }
 
 ////////////////////////////////////////////////////////////
@@ -97,14 +98,7 @@ void Application::update (sf::RenderWindow& window, const sf::Time& dt)
     // select app function with an upper menu
     app.gui.beginMenu ();
     // application options
-    if (app.gui.menuItem (fmt::format (app.texts.get ("toOptions"), ICON_FA_SCREWDRIVER_WRENCH))) {
-      if (m_loop == 0u) {
-        m_isOptionsOpen = !m_isOptionsOpen;
-	m_loop++;
-      }
-    } else {
-      m_loop = 0u;
-    }
+    m_isOptionsOpen = app.gui.menuItem (fmt::format (app.texts.get ("toOptions"), ICON_FA_SCREWDRIVER_WRENCH));
     if (app.gui.menuItem (fmt::format (app.texts.get ("toPrinter"), ICON_FA_ADDRESS_CARD))) {
       m_toPrinter = true;
     }
@@ -112,10 +106,8 @@ void Application::update (sf::RenderWindow& window, const sf::Time& dt)
       m_toPrinter = false;
     }
     app.gui.endMenu ();
-    setWindowsWidth ();
-    if (m_isOptionsOpen) {
-      options (window);
-    }
+    setWindowsWidth (window);
+    // application states
     if (m_toPrinter) {
       // set cards zoom
       auto view = window.getDefaultView ();
@@ -147,7 +139,7 @@ void Application::draw (sf::RenderWindow& window)
 }
 
 ////////////////////////////////////////////////////////////
-void Application::setWindowsWidth ()
+void Application::setWindowsWidth (sf::RenderWindow& window)
 {
   auto& optionsLayout = app.layout.get <sgui::Window> ("options");
   auto& cardLayout = app.layout.get <sgui::Window> ("editOnCard");
@@ -156,18 +148,19 @@ void Application::setWindowsWidth ()
   auto& displayLayout = app.layout.get <sgui::Window> ("displayCards");
   const auto width = optionsLayout.panel.size.x;
   if (m_isOptionsOpen) {
+    options (window);
     // printer
     formatLayout.constraints.relativePosition.x = width;
     displayLayout.panel.size.x = 1.f - width - formatLayout.panel.size.x;
     // editor
-    cardLayout.constraints.relativePosition.x = width;
+    editorLayout.constraints.relativePosition.x = width;
     cardLayout.panel.size.x = 1.f - width - editorLayout.panel.size.x;
   } else {
     // printer
     formatLayout.constraints.relativePosition.x = 0.f;
     displayLayout.panel.size.x = 1.f - formatLayout.panel.size.x;
     // editor
-    cardLayout.constraints.relativePosition.x = 0.f;
+    editorLayout.constraints.relativePosition.x = 0.f;
     cardLayout.panel.size.x = 1.f - editorLayout.panel.size.x;
   }
 }

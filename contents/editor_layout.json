@@ -1,4 +1,8 @@
 {
+  "Position::cardsShift": {
+    "x": 3.0,
+    "y": 8.5
+  },
   "Window::chooseCardsFormat": {
     "constraints": {
       "horizontal": "HorizontalAlignment::None",
