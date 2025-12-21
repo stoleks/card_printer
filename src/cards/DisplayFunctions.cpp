@@ -1,13 +1,13 @@
 #include "DisplayFunctions.h"
 #include "GraphicalParts.h"
+#include <sgui/Widgets/Widgets.h>
 
 ////////////////////////////////////////////////////////////
 void drawCardDecoration (
   sgui::Gui& gui,
   entt::registry& cards,
   const entt::entity& activeCard,
-  const sgui::TextContainer& cardsTexts,
-  const bool render)
+  const sgui::TextContainer& cardsTexts)
 {
   // draw card form 
   const auto& format = cards.get <CardFormat> (activeCard);
@@ -19,7 +19,7 @@ void drawCardDecoration (
   for (auto& icon : parts.textures) {
     // scale texture is asked
     if (icon.areDimensionsChained) {
-      const auto iconBaseSize = gui.textureSize ("Icon::" + icon.identifier);
+      const auto iconBaseSize = gui.textureSize (icon.identifier);
       icon.rect.size.y = iconBaseSize.y * icon.rect.size.x / iconBaseSize.x;
     }
     // center texture
@@ -31,27 +31,8 @@ void drawCardDecoration (
     }
 
     // render it
-    if (render) {
-      gui.addSpacing ({-0.25f, -0.5f});
-      gui.image (icon.identifier, icon.rect.size, {icon.rect.position});
-
-    // or draw texture in a wrapper panel
-    } else {
-      // set-up panel
-      auto iconPanel = sgui::Panel ();
-      iconPanel.position = icon.rect.position;
-      iconPanel.size = sf::Vector2f (1.1f*icon.rect.size).componentWiseDiv (gui.parentGroupSize ());
-      iconPanel.visible = false;
-      iconPanel.scrollable = false;
-
-      // draw panel and texture
-      gui.beginPanel (iconPanel); 
-      gui.addSpacing ({-0.5f, -0.3125f});
-      gui.image (icon.identifier, icon.rect.size);
-      gui.endPanel ();
-      // store texture position
-      icon.rect.position = {std::round (iconPanel.position.x), std::round (iconPanel.position.y)};
-    }
+    gui.addSpacing ({-0.25f, -0.5f});
+    gui.image (icon.identifier, icon.rect.size, sgui::Slices::One, {icon.rect.position});
   }
 
   // draw card text
@@ -68,11 +49,10 @@ void drawCardDecoration (
     }
 
     // draw text in a wrapper panel
-    auto textPanel = sgui::Panel ();
-    textPanel.scrollable = false;
+    auto textPanel = sgui::Panel ({}, text.position);
     const auto panelSize = textSize + sf::Vector2f (20.f, 3.f*textSize.y);
-    textPanel.position = text.position;
     textPanel.size = panelSize.componentWiseDiv (gui.parentGroupSize ());
+    textPanel.scrollable = false;
     textPanel.visible = false;
 
     // draw panel and text

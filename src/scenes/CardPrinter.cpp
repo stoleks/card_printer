@@ -104,7 +104,7 @@ void Application::exportCardsToPdf ()
     }
   }
   app.gui.sameLine ();
-  app.gui.progressBar (cards.advancement, app.gui.textHeight () * sf::Vector2f (7.f, 1.f));
+  app.gui.progressBar (cards.advancement);
   printAllPages ();
   app.gui.separation ();
 }
@@ -119,7 +119,6 @@ void Application::printAllPages ()
   const auto path = app.externDir + externPaths.outputDirectory + externPaths.outputFile;
   if (m_pageIndex == 0u) {
     m_totalTime.restart ();
-    // spdlog::info ("Initialize pdf writer...");
     m_pdfWriter = std::make_unique <PDFWriter> ();
     m_pdfWriter->StartPDF (path + ".pdf", ePDFVersion13);
   }
@@ -213,21 +212,20 @@ void Application::displayCardsInLattice (
     ::swipeToNextCard (editor.activeCard, editor.cards);
   }
 
-  gui.beginFrame ();
   // open a window if we display card on screen
   auto shift = sf::Vector2f ();
   if (onScreen) {
     auto& layout = app.layout.get <sgui::Window> ("displayCards");
     app.gui.beginWindow (layout, app.texts);
-    shift = app.gui.cursorPosition ();
-    shift -= m_cardsShift;
+    shift = app.gui.cursorPosition () - m_cardsShift;
   }
+  gui.beginFrame ();
   // draw cards
   const auto cardSize = millimToPixel (PaperFormatInMillimeter.at (cards.format), page.resolution);
   for (const auto& cardPos : cards.positions.at (pageIndex)) {
     // set card position and size
-    const auto cardBox = sf::FloatRect (sf::Vector2f (cardPos), sf::Vector2f (cardSize));
-    auto cardPanel = sgui::Panel (cardBox.position + shift, gui.normalizeSize (cardBox.size));
+    const auto cardBox = sf::FloatRect (cardPos, cardSize);
+    auto cardPanel = sgui::Panel (gui.normalizeSize (cardBox.size), cardBox.position + shift);
     cardPanel.scrollable = false;
     cardPanel.visible = false;
     auto& format = editor.cards.get <CardFormat> (editor.activeCard);
@@ -239,7 +237,7 @@ void Application::displayCardsInLattice (
       gui.addSpacing ({-0.25f, -0.2f});
       gui.image (format.cardBack, format.size);
     } else {
-      ::drawCardDecoration (gui, editor.cards, editor.activeCard, app.texts, true);
+      ::drawCardDecoration (gui, editor.cards, editor.activeCard, app.texts);
     }
     gui.endPanel ();
     // go to next card

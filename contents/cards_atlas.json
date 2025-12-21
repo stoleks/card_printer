@@ -1,473 +1,18 @@
 {
-  "Box::Act::Bot::Cent": {
+  "a": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 1280,
-        "y": 256
+        "x": 2310,
+        "y": 2750
       },
       "size": {
-        "x": 128,
-        "y": 128
+        "x": 64,
+        "y": 64
       }
     }
   },
-  "Box::Act::Bot::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1152,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Act::Bot::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1408,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Act::Mid::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1280,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Act::Mid::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1152,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Act::Mid::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1408,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Act::Top::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1280,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Act::Top::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1152,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Act::Top::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1408,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Hov::Bot::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1280,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Hov::Bot::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1152,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Hov::Bot::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1408,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Hov::Mid::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1280,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Hov::Mid::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1152,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Hov::Mid::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1408,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Hov::Top::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1280,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Hov::Top::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1152,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Hov::Top::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1408,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Neu::Bot::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 896,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Neu::Bot::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 768,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Neu::Bot::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1024,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Neu::Mid::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 896,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Neu::Mid::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 768,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Neu::Mid::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1024,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Neu::Top::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 896,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Neu::Top::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 768,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Box::Neu::Top::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1024,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Button::Act": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 0,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Button::Hov": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 0,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Button::Neu": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 0,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "CheckBox::Act": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 512,
-        "y": 256
-      },
-      "size": {
-        "x": 256,
-        "y": 128
-      }
-    }
-  },
-  "CheckBox::Hov": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 512,
-        "y": 128
-      },
-      "size": {
-        "x": 256,
-        "y": 128
-      }
-    }
-  },
-  "CheckBox::Neu": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 512,
-        "y": 0
-      },
-      "size": {
-        "x": 256,
-        "y": 128
-      }
-    }
-  },
-  "FootnoteBox::Act": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 0,
-        "y": 640
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "FootnoteBox::Hov": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 0,
-        "y": 512
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "FootnoteBox::Neu": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 0,
-        "y": 384
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Icon::alanine": {
+  "alanine": {
     "count": 1,
     "texture": {
       "position": {
@@ -480,7 +25,7 @@
       }
     }
   },
-  "Icon::arachidonique": {
+  "arachidonique": {
     "count": 1,
     "texture": {
       "position": {
@@ -493,7 +38,7 @@
       }
     }
   },
-  "Icon::aspartame": {
+  "aspartame": {
     "count": 1,
     "texture": {
       "position": {
@@ -506,11 +51,11 @@
       }
     }
   },
-  "Icon::butan-2-one": {
+  "butan-2-one": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 924,
+        "x": 2772,
         "y": 2158
       },
       "size": {
@@ -519,11 +64,11 @@
       }
     }
   },
-  "Icon::butanal": {
+  "butanal": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 1386,
+        "x": 2310,
         "y": 2158
       },
       "size": {
@@ -532,12 +77,12 @@
       }
     }
   },
-  "Icon::butanamide": {
+  "butanamide": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 1848,
-        "y": 2454
+        "x": 2772,
+        "y": 1861
       },
       "size": {
         "x": 462,
@@ -545,11 +90,11 @@
       }
     }
   },
-  "Icon::butanamine": {
+  "butanamine": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 924,
+        "x": 0,
         "y": 1861
       },
       "size": {
@@ -558,12 +103,12 @@
       }
     }
   },
-  "Icon::butanoique": {
+  "butanoique": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 1848,
-        "y": 2750
+        "x": 2310,
+        "y": 1861
       },
       "size": {
         "x": 462,
@@ -571,11 +116,11 @@
       }
     }
   },
-  "Icon::butanol": {
+  "butanol": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 0,
+        "x": 2772,
         "y": 2454
       },
       "size": {
@@ -584,11 +129,11 @@
       }
     }
   },
-  "Icon::carte_molecules_0001": {
+  "carte_molecules_0001": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 2450,
+        "x": 962,
         "y": 765
       },
       "size": {
@@ -597,46 +142,7 @@
       }
     }
   },
-  "Icon::carte_molecules_0002": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 2946,
-        "y": 765
-      },
-      "size": {
-        "x": 496,
-        "y": 704
-      }
-    }
-  },
-  "Icon::carte_molecules_0003": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 3442,
-        "y": 765
-      },
-      "size": {
-        "x": 496,
-        "y": 704
-      }
-    }
-  },
-  "Icon::carte_molecules_0004": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1954,
-        "y": 765
-      },
-      "size": {
-        "x": 496,
-        "y": 704
-      }
-    }
-  },
-  "Icon::carte_molecules_0005": {
+  "carte_molecules_0002": {
     "count": 1,
     "texture": {
       "position": {
@@ -649,11 +155,11 @@
       }
     }
   },
-  "Icon::carte_molecules_dos": {
+  "carte_molecules_0003": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 962,
+        "x": 1954,
         "y": 765
       },
       "size": {
@@ -662,298 +168,51 @@
       }
     }
   },
-  "Icon::close": {
+  "carte_molecules_0004": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 1600,
-        "y": 640
+        "x": 2450,
+        "y": 765
       },
       "size": {
-        "x": 128,
-        "y": 128
+        "x": 496,
+        "y": 704
       }
     }
   },
-  "Icon::ethamine": {
+  "carte_molecules_0005": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 1386,
-        "y": 2750
+        "x": 2946,
+        "y": 765
       },
       "size": {
-        "x": 462,
-        "y": 296
+        "x": 496,
+        "y": 704
       }
     }
   },
-  "Icon::ethanal": {
+  "carte_molecules_dos": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 924,
-        "y": 2750
+        "x": 3442,
+        "y": 765
       },
       "size": {
-        "x": 462,
-        "y": 296
+        "x": 496,
+        "y": 704
       }
     }
   },
-  "Icon::ethanamide": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 462,
-        "y": 2750
-      },
-      "size": {
-        "x": 462,
-        "y": 296
-      }
-    }
-  },
-  "Icon::ethanoatemethyle": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 462,
-        "y": 1861
-      },
-      "size": {
-        "x": 462,
-        "y": 297
-      }
-    }
-  },
-  "Icon::ethanoique": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 0,
-        "y": 2750
-      },
-      "size": {
-        "x": 462,
-        "y": 296
-      }
-    }
-  },
-  "Icon::ethanol": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 3234,
-        "y": 2454
-      },
-      "size": {
-        "x": 462,
-        "y": 296
-      }
-    }
-  },
-  "Icon::ethoxyethane": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 2772,
-        "y": 2454
-      },
-      "size": {
-        "x": 462,
-        "y": 296
-      }
-    }
-  },
-  "Icon::ethoxymethane": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 2310,
-        "y": 2454
-      },
-      "size": {
-        "x": 462,
-        "y": 296
-      }
-    }
-  },
-  "Icon::fructose": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 3014,
-        "y": 1469
-      },
-      "size": {
-        "x": 462,
-        "y": 316
-      }
-    }
-  },
-  "Icon::glucose": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 2552,
-        "y": 1469
-      },
-      "size": {
-        "x": 462,
-        "y": 316
-      }
-    }
-  },
-  "Icon::hecasopentoique": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 962,
-        "y": 0
-      },
-      "size": {
-        "x": 962,
-        "y": 620
-      }
-    }
-  },
-  "Icon::left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1472,
-        "y": 384
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Icon::methamine": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1386,
-        "y": 2454
-      },
-      "size": {
-        "x": 462,
-        "y": 296
-      }
-    }
-  },
-  "Icon::methanal": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 924,
-        "y": 2454
-      },
-      "size": {
-        "x": 462,
-        "y": 296
-      }
-    }
-  },
-  "Icon::methanamide": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 462,
-        "y": 2454
-      },
-      "size": {
-        "x": 462,
-        "y": 296
-      }
-    }
-  },
-  "Icon::methanoatemethyl": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 0,
-        "y": 1861
-      },
-      "size": {
-        "x": 462,
-        "y": 297
-      }
-    }
-  },
-  "Icon::methanoique": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 2310,
-        "y": 1861
-      },
-      "size": {
-        "x": 462,
-        "y": 296
-      }
-    }
-  },
-  "Icon::methanol": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 3234,
-        "y": 2158
-      },
-      "size": {
-        "x": 462,
-        "y": 296
-      }
-    }
-  },
-  "Icon::methoxymethane": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 2772,
-        "y": 2158
-      },
-      "size": {
-        "x": 462,
-        "y": 296
-      }
-    }
-  },
-  "Icon::minus": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1600,
-        "y": 512
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Icon::oatemethyl": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 2310,
-        "y": 2158
-      },
-      "size": {
-        "x": 462,
-        "y": 296
-      }
-    }
-  },
-  "Icon::oatemethyle": {
+  "ethamine": {
     "count": 1,
     "texture": {
       "position": {
         "x": 1848,
-        "y": 2158
+        "y": 2750
       },
       "size": {
         "x": 462,
@@ -961,76 +220,11 @@
       }
     }
   },
-  "Icon::oleique": {
+  "ethanal": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 0,
-        "y": 765
-      },
-      "size": {
-        "x": 962,
-        "y": 457
-      }
-    }
-  },
-  "Icon::paracetamol": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 2886,
-        "y": 0
-      },
-      "size": {
-        "x": 962,
-        "y": 493
-      }
-    }
-  },
-  "Icon::plus": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1472,
-        "y": 512
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Icon::proline": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 2090,
-        "y": 1469
-      },
-      "size": {
-        "x": 462,
-        "y": 350
-      }
-    }
-  },
-  "Icon::propanal": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 0,
-        "y": 2158
-      },
-      "size": {
-        "x": 462,
-        "y": 296
-      }
-    }
-  },
-  "Icon::propanamide": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 3234,
+        "x": 1848,
         "y": 1861
       },
       "size": {
@@ -1039,7 +233,20 @@
       }
     }
   },
-  "Icon::propanamine": {
+  "ethanamide": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1386,
+        "y": 2750
+      },
+      "size": {
+        "x": 462,
+        "y": 296
+      }
+    }
+  },
+  "ethanoatemethyle": {
     "count": 1,
     "texture": {
       "position": {
@@ -1052,12 +259,12 @@
       }
     }
   },
-  "Icon::propanoatemethyle": {
+  "ethanoique": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 1848,
-        "y": 1861
+        "x": 924,
+        "y": 2750
       },
       "size": {
         "x": 462,
@@ -1065,7 +272,189 @@
       }
     }
   },
-  "Icon::propanoique": {
+  "ethanol": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 462,
+        "y": 2750
+      },
+      "size": {
+        "x": 462,
+        "y": 296
+      }
+    }
+  },
+  "ethoxyethane": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 2750
+      },
+      "size": {
+        "x": 462,
+        "y": 296
+      }
+    }
+  },
+  "ethoxymethane": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 3234,
+        "y": 2454
+      },
+      "size": {
+        "x": 462,
+        "y": 296
+      }
+    }
+  },
+  "fructose": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 2552,
+        "y": 1469
+      },
+      "size": {
+        "x": 462,
+        "y": 316
+      }
+    }
+  },
+  "glucose": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 3014,
+        "y": 1469
+      },
+      "size": {
+        "x": 462,
+        "y": 316
+      }
+    }
+  },
+  "hecasopentoique": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 962,
+        "y": 0
+      },
+      "size": {
+        "x": 962,
+        "y": 620
+      }
+    }
+  },
+  "methamine": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 2310,
+        "y": 2454
+      },
+      "size": {
+        "x": 462,
+        "y": 296
+      }
+    }
+  },
+  "methanal": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1848,
+        "y": 2454
+      },
+      "size": {
+        "x": 462,
+        "y": 296
+      }
+    }
+  },
+  "methanamide": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1386,
+        "y": 2454
+      },
+      "size": {
+        "x": 462,
+        "y": 296
+      }
+    }
+  },
+  "methanoatemethyl": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 462,
+        "y": 1861
+      },
+      "size": {
+        "x": 462,
+        "y": 297
+      }
+    }
+  },
+  "methanoique": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 924,
+        "y": 2454
+      },
+      "size": {
+        "x": 462,
+        "y": 296
+      }
+    }
+  },
+  "methanol": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 462,
+        "y": 2454
+      },
+      "size": {
+        "x": 462,
+        "y": 296
+      }
+    }
+  },
+  "methoxymethane": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 2454
+      },
+      "size": {
+        "x": 462,
+        "y": 296
+      }
+    }
+  },
+  "oatemethyl": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 3234,
+        "y": 2158
+      },
+      "size": {
+        "x": 462,
+        "y": 296
+      }
+    }
+  },
+  "oatemethyle": {
     "count": 1,
     "texture": {
       "position": {
@@ -1078,11 +467,50 @@
       }
     }
   },
-  "Icon::propanol": {
+  "oleique": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 2772,
+        "x": 0,
+        "y": 765
+      },
+      "size": {
+        "x": 962,
+        "y": 457
+      }
+    }
+  },
+  "paracetamol": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 2886,
+        "y": 0
+      },
+      "size": {
+        "x": 962,
+        "y": 493
+      }
+    }
+  },
+  "proline": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 2090,
+        "y": 1469
+      },
+      "size": {
+        "x": 462,
+        "y": 350
+      }
+    }
+  },
+  "propanal": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 3234,
         "y": 1861
       },
       "size": {
@@ -1091,7 +519,33 @@
       }
     }
   },
-  "Icon::propanone": {
+  "propanamide": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 0,
+        "y": 2158
+      },
+      "size": {
+        "x": 462,
+        "y": 296
+      }
+    }
+  },
+  "propanamine": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 924,
+        "y": 1861
+      },
+      "size": {
+        "x": 462,
+        "y": 297
+      }
+    }
+  },
+  "propanoatemethyle": {
     "count": 1,
     "texture": {
       "position": {
@@ -1104,33 +558,46 @@
       }
     }
   },
-  "Icon::reduce": {
+  "propanoique": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 1472,
-        "y": 640
+        "x": 924,
+        "y": 2158
       },
       "size": {
-        "x": 128,
-        "y": 128
+        "x": 462,
+        "y": 296
       }
     }
   },
-  "Icon::right": {
+  "propanol": {
     "count": 1,
     "texture": {
       "position": {
-        "x": 1600,
-        "y": 384
+        "x": 1386,
+        "y": 2158
       },
       "size": {
-        "x": 128,
-        "y": 128
+        "x": 462,
+        "y": 296
       }
     }
   },
-  "Icon::threonine": {
+  "propanone": {
+    "count": 1,
+    "texture": {
+      "position": {
+        "x": 1848,
+        "y": 2158
+      },
+      "size": {
+        "x": 462,
+        "y": 296
+      }
+    }
+  },
+  "threonine": {
     "count": 1,
     "texture": {
       "position": {
@@ -1143,7 +610,7 @@
       }
     }
   },
-  "Icon::valine": {
+  "valine": {
     "count": 1,
     "texture": {
       "position": {
@@ -1156,7 +623,7 @@
       }
     }
   },
-  "Icon::zone_texte": {
+  "zone_texte": {
     "count": 1,
     "texture": {
       "position": {
@@ -1166,1410 +633,6 @@
       "size": {
         "x": 704,
         "y": 392
-      }
-    }
-  },
-  "IconButton::Act": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 0,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "IconButton::Hov": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 0,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "IconButton::Neu": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 0,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "IconTextButton::Act": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 0,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "IconTextButton::Hov": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 0,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "IconTextButton::Neu": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 0,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ItemBox::Act::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ItemBox::Act::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ItemBox::Act::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ItemBox::Hov::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ItemBox::Hov::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ItemBox::Hov::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ItemBox::Neu::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ItemBox::Neu::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ItemBox::Neu::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "MenuBox::Act": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "MenuBox::Hov": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "MenuBox::Neu": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "MenuItemBox::Act": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "MenuItemBox::Hov": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "MenuItemBox::Neu": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ProgressBar::Act::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 960,
-        "y": 640
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "ProgressBar::Act::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 832,
-        "y": 640
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ProgressBar::Act::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1024,
-        "y": 640
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ProgressBar::Hov::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 960,
-        "y": 512
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "ProgressBar::Hov::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 832,
-        "y": 512
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ProgressBar::Hov::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1024,
-        "y": 512
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ProgressBar::Neu::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 960,
-        "y": 384
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "ProgressBar::Neu::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 832,
-        "y": 384
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ProgressBar::Neu::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1024,
-        "y": 384
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ProgressFilling::Act::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1280,
-        "y": 640
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ProgressFilling::Act::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1152,
-        "y": 640
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ProgressFilling::Act::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1344,
-        "y": 640
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ProgressFilling::Hov::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1280,
-        "y": 512
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ProgressFilling::Hov::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1152,
-        "y": 512
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ProgressFilling::Hov::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1344,
-        "y": 512
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ProgressFilling::Neu::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1280,
-        "y": 384
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ProgressFilling::Neu::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1152,
-        "y": 384
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "ProgressFilling::Neu::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1344,
-        "y": 384
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Scroller::Act::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 512,
-        "y": 640
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "Scroller::Act::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 448,
-        "y": 640
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "Scroller::Act::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 576,
-        "y": 640
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "Scroller::Hov::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 512,
-        "y": 512
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "Scroller::Hov::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 448,
-        "y": 512
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "Scroller::Hov::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 576,
-        "y": 512
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "Scroller::Neu::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 512,
-        "y": 384
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "Scroller::Neu::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 448,
-        "y": 384
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "Scroller::Neu::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 576,
-        "y": 384
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "ScrollerBar::Act::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 704,
-        "y": 640
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "ScrollerBar::Act::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 640,
-        "y": 640
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "ScrollerBar::Act::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 768,
-        "y": 640
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "ScrollerBar::Hov::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 704,
-        "y": 512
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "ScrollerBar::Hov::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 640,
-        "y": 512
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "ScrollerBar::Hov::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 768,
-        "y": 512
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "ScrollerBar::Neu::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 704,
-        "y": 384
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "ScrollerBar::Neu::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 640,
-        "y": 384
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "ScrollerBar::Neu::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 768,
-        "y": 384
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "Separation::Act::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1344,
-        "y": 640
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "Separation::Act::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1152,
-        "y": 640
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Separation::Act::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1280,
-        "y": 640
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Separation::Hov::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1344,
-        "y": 512
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "Separation::Hov::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1152,
-        "y": 512
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Separation::Hov::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1280,
-        "y": 512
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Separation::Neu::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1344,
-        "y": 512
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "Separation::Neu::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1152,
-        "y": 512
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Separation::Neu::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1280,
-        "y": 512
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "Slider::Act::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 192,
-        "y": 640
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "Slider::Act::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 128,
-        "y": 640
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "Slider::Act::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 256,
-        "y": 640
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "Slider::Hov::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 192,
-        "y": 512
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "Slider::Hov::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 128,
-        "y": 512
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "Slider::Hov::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 256,
-        "y": 512
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "Slider::Neu::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 192,
-        "y": 384
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "Slider::Neu::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 128,
-        "y": 384
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "Slider::Neu::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 256,
-        "y": 384
-      },
-      "size": {
-        "x": 64,
-        "y": 128
-      }
-    }
-  },
-  "SliderBar::Act": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 320,
-        "y": 640
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "SliderBar::Hov": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 320,
-        "y": 512
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "SliderBar::Neu": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 320,
-        "y": 384
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TextBox::Act::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TextBox::Act::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TextBox::Act::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TextBox::Hov::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TextBox::Hov::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TextBox::Hov::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TextBox::Neu::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TextBox::Neu::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TextBox::Neu::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1920,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TextButton::Act::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 256,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TextButton::Act::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 128,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TextButton::Act::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 384,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TextButton::Hov::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 256,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TextButton::Hov::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 128,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TextButton::Hov::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 384,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TextButton::Neu::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 256,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TextButton::Neu::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 128,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TextButton::Neu::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 384,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TitleBox::Act::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1664,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TitleBox::Act::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1536,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TitleBox::Act::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1792,
-        "y": 256
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TitleBox::Hov::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1664,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TitleBox::Hov::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1536,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TitleBox::Hov::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1792,
-        "y": 128
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TitleBox::Neu::Cent": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1664,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TitleBox::Neu::Left": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1536,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TitleBox::Neu::Righ": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1792,
-        "y": 0
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TitleButton::Act": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1856,
-        "y": 384
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TitleButton::Hov": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1856,
-        "y": 384
-      },
-      "size": {
-        "x": 128,
-        "y": 128
-      }
-    }
-  },
-  "TitleButton::Neu": {
-    "count": 1,
-    "texture": {
-      "position": {
-        "x": 1728,
-        "y": 384
-      },
-      "size": {
-        "x": 128,
-        "y": 128
       }
     }
   }

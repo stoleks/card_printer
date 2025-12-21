@@ -4,7 +4,6 @@ add_executable(${PROJECT_NAME})
 #include all subdirectories
 add_subdirectory (cards)
 add_subdirectory (scenes)
-add_subdirectory (resources)
 add_subdirectory (serialization)
 
 ####
@@ -19,7 +18,7 @@ target_include_directories (${PROJECT_NAME}
 target_compile_definitions(${PROJECT_NAME}
   PRIVATE 
     AppDir="${PROJECT_SOURCE_DIR}/"
-    ContentsDir="${PROJECT_SOURCE_DIR}/contents/"
+    LocalContentsDir="${PROJECT_SOURCE_DIR}/contents/"
 )
 
 ####

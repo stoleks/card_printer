@@ -23,7 +23,7 @@ public:
 public:
   PagePrint page;
   CardsPrint cards;
-  CardEditor editor;
+  CardEditor editor = {};
   CommonAppData app;
   InternalFilepath internPaths;
   ExternalFilepath externPaths;
@@ -71,7 +71,7 @@ private:
   sgui::TextureAtlas m_cardAtlas;
   // for menu
   bool m_isOptionsOpen = true;
-  bool m_toPrinter = true;
+  bool m_toPrinter = false;
   // for printing
   bool m_isPrinting = false;
   uint32_t m_pageIndex = 0u;

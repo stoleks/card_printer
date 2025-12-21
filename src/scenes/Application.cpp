@@ -1,13 +1,14 @@
 #include "Application.h"
 
 #include <iostream>
+#include <sgui/DefaultFiles.h>
+#include <sgui/Resources/TextureCollage.h>
 #include <sgui/Resources/IconsFontAwesome7.h>
 #include <sgui/Serialization/LoadJson.h>
 #include <sgui/Serialization/LoadTextureAtlas.h>
 
 #include "scenes/CardEditor.h"
 #include "scenes/CardPrinter.h"
-#include "resources/TextureCollage.h"
 #include "serialization/CardLoading.h"
 #include "serialization/FromCSVToJson.h"
 
@@ -28,7 +29,7 @@ void Application::initialize (sf::RenderWindow& window)
   /**
    * Load paths
    */
-  json internalData = sgui::loadFromFile (ContentsDir"filepath.json");
+  json internalData = sgui::loadFromFile (LocalContentsDir"filepath.json");
   internPaths = internalData;
   app.externDir = AppDir + internPaths.relativePathToExternal;
   spdlog::info ("Load external files {}", app.externDir + internPaths.externalFile);
@@ -39,29 +40,30 @@ void Application::initialize (sf::RenderWindow& window)
    * Font, text and layout loading
    */
   spdlog::info ("Load font, layout and text");
-  m_font = std::make_unique <sf::Font> (ContentsDir + internPaths.font);
+  spdlog::info ("Default font {}", sgui::DefaultFont);
+  m_font = std::make_unique <sf::Font> (sgui::DefaultFont);
   m_cardFont = std::make_unique <sf::Font> (app.externDir + externPaths.fontFile);
-  app.texts.loadFromFile (std::string (ContentsDir"english_" + internPaths.editorTexts), "english");
-  app.layout.loadFromFile (ContentsDir + internPaths.editorLayout);
+  app.texts.loadFromFile (std::string (LocalContentsDir"english_" + internPaths.editorTexts), "english");
+  app.layout.loadFromFile (LocalContentsDir + internPaths.editorLayout);
   app.layout.get <sgui::Window> ("mainWindow").panel.hasMenu = true;
 
   /**
    * Gui initialization
    */
   spdlog::info ("Load atlas, texture and set gui");
-  app.atlasFile = std::string (ContentsDir + internPaths.widgetsAtlas);
-  spdlog::info ("Load {}", app.atlasFile);
-  m_atlas.loadFromFile (app.atlasFile);
-  spdlog::info ("Load {}", ContentsDir + internPaths.widgetsTextures);
-  m_texture = std::make_unique <sf::Texture> (ContentsDir + internPaths.widgetsTextures);
+  app.atlasFile = std::string (LocalContentsDir + internPaths.widgetsAtlas);
+  spdlog::info ("Load {}", sgui::DefaultAtlas);
+  m_atlas.loadFromFile (sgui::DefaultAtlas);
+  spdlog::info ("Load {}", sgui::DefaultTexture);
+  m_texture = std::make_unique <sf::Texture> (sgui::DefaultTexture);
   app.gui.initialize (*m_font, *m_texture, m_atlas, window);
   app.gui.setStyle (app.style);
 
   /**
    * Gui card initialization
    */
-  app.cardAtlasFile = std::string (ContentsDir + internPaths.cardsAtlas);
-  app.cardTextureFile = std::string (ContentsDir + internPaths.cardsTextures);
+  app.cardAtlasFile = std::string (LocalContentsDir + internPaths.cardsAtlas);
+  app.cardTextureFile = std::string (LocalContentsDir + internPaths.cardsTextures);
   spdlog::info ("Load cards atlas and texture");
   spdlog::info ("Load {}", app.cardAtlasFile);
   m_cardAtlas.loadFromFile (app.cardAtlasFile);
@@ -99,11 +101,11 @@ void Application::update (sf::RenderWindow& window, const sf::Time& dt)
     app.gui.beginMenu ();
     // application options
     m_isOptionsOpen = app.gui.menuItem (fmt::format (app.texts.get ("toOptions"), ICON_FA_SCREWDRIVER_WRENCH));
-    if (app.gui.menuItem (fmt::format (app.texts.get ("toPrinter"), ICON_FA_ADDRESS_CARD))) {
-      m_toPrinter = true;
-    }
     if (app.gui.menuItem (fmt::format (app.texts.get ("toEditor"), ICON_FA_FILE_PEN))) {
       m_toPrinter = false;
+    }
+    if (app.gui.menuItem (fmt::format (app.texts.get ("toPrinter"), ICON_FA_ADDRESS_CARD))) {
+      m_toPrinter = true;
     }
     app.gui.endMenu ();
     setWindowsWidth (window);
@@ -141,12 +143,17 @@ void Application::draw (sf::RenderWindow& window)
 ////////////////////////////////////////////////////////////
 void Application::setWindowsWidth (sf::RenderWindow& window)
 {
+  // set options width
+  const auto largestText = fmt::format (app.texts.get ("buildTextures"), ICON_FA_ADDRESS_CARD);
+  const auto width = app.gui.normalizeSize (app.gui.textSize (largestText) + sf::Vector2f (55.f, 0.f)).x;
   auto& optionsLayout = app.layout.get <sgui::Window> ("options");
+  optionsLayout.panel.size.x = width;
+  // get all layouts
   auto& cardLayout = app.layout.get <sgui::Window> ("editOnCard");
   auto& editorLayout = app.layout.get <sgui::Window> ("editFromMenu");
   auto& formatLayout = app.layout.get <sgui::Window> ("chooseCardsFormat");
   auto& displayLayout = app.layout.get <sgui::Window> ("displayCards");
-  const auto width = optionsLayout.panel.size.x;
+  // update layouts width
   if (m_isOptionsOpen) {
     options (window);
     // printer
@@ -174,13 +181,15 @@ void Application::options (sf::RenderWindow& window)
       spdlog::info ("Prepare cards sprite sheet");
       const auto directory = app.externDir + externPaths.texturesDirectory;
       spdlog::info ("Load images from {}/", directory);
-      auto collage = TextureCollage (directory);
+      auto collage = sgui::TextureCollage (directory, { sf::Color::White });
       if (!collage.image ().saveToFile (app.cardTextureFile)) {
         spdlog::warn ("Unable to save {}", app.cardTextureFile); 
-      } else if (!m_cardTexture->loadFromFile (app.cardTextureFile)) {
+      } else {
+        spdlog::info ("Saved cards texture to {}", app.cardTextureFile);
+      }
+      if (!m_cardTexture->loadFromFile (app.cardTextureFile)) {
         spdlog::warn ("Unable to reload {} after collage", app.cardTextureFile); 
       }
-      collage.atlas ().loadFromFile (app.atlasFile);
       sgui::saveInFile (collage.atlas (), app.cardAtlasFile);
       m_cardAtlas.clear ();
       m_cardAtlas.loadFromFile (app.cardAtlasFile);

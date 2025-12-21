@@ -135,7 +135,7 @@ void editCardTextures (CommonAppData& app, CardEditor& editor)
   // edit texture
   for (auto& texture : parts.textures) {
     // allow user to set texture to its default size (the one in texture)
-    const auto textureBaseSize = app.cardGui.textureSize ("Icon::" + texture.identifier);
+    const auto textureBaseSize = app.cardGui.textureSize (texture.identifier);
     if (app.gui.button ("defaultTextureScale")) {
       texture.rect.size = textureBaseSize;
     }
