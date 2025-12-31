@@ -32,7 +32,7 @@ void drawCardDecoration (
 
     // render it
     gui.addSpacing ({-0.25f, -0.5f});
-    gui.image (icon.identifier, icon.rect.size, sgui::Slices::One, {icon.rect.position});
+    gui.image (icon.identifier, icon.rect.size, {icon.rect.position});
   }
 
   // draw card text
@@ -49,7 +49,8 @@ void drawCardDecoration (
     }
 
     // draw text in a wrapper panel
-    auto textPanel = sgui::Panel ({}, text.position);
+    auto textPanel = sgui::Panel ();
+    textPanel.position = text.position;
     const auto panelSize = textSize + sf::Vector2f (20.f, 3.f*textSize.y);
     textPanel.size = panelSize.componentWiseDiv (gui.parentGroupSize ());
     textPanel.scrollable = false;

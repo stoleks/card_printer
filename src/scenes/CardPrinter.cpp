@@ -225,7 +225,7 @@ void Application::displayCardsInLattice (
   for (const auto& cardPos : cards.positions.at (pageIndex)) {
     // set card position and size
     const auto cardBox = sf::FloatRect (cardPos, cardSize);
-    auto cardPanel = sgui::Panel (gui.normalizeSize (cardBox.size), cardBox.position + shift);
+    auto cardPanel = sgui::Panel ({cardBox.position + shift, gui.normalizeSize (cardBox.size)});
     cardPanel.scrollable = false;
     cardPanel.visible = false;
     auto& format = editor.cards.get <CardFormat> (editor.activeCard);

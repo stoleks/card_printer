@@ -91,7 +91,7 @@ void Application::events (const sf::RenderWindow& window, const std::optional<sf
 ////////////////////////////////////////////////////////////
 void Application::update (sf::RenderWindow& window, const sf::Time& dt)
 {
-  app.gui.updateTimer (dt);
+  app.gui.updateTimer ();
   // launch both gui
   app.gui.beginFrame ();
   app.cardGui.beginFrame ();
