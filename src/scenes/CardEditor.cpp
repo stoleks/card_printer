@@ -11,14 +11,16 @@
 ////////////////////////////////////////////////////////////
 void cardEditor (CommonAppData& app, CardEditor& editor)
 {
-  if (app.gui.beginWindow (app.layout.get <sgui::Window> ("editFromMenu"), app.texts)) {
+  auto& window = app.layout.get <sgui::Window> ("editFromMenu");
+  window.options.aspect.state = sgui::ItemState::Neutral;
+  if (app.gui.beginWindow (window, app.texts)) {
     // save cards
     if (app.gui.button (fmt::format (app.texts.get ("saveCards"), ICON_FA_FILE_EXPORT))) {
       saveCards (editor);
     }
     app.gui.sameLine ();
     // add a card to the pack
-    if (app.gui.button (fmt::format (app.texts.get ("addCard"), ICON_FA_FILE_CIRCLE_PLUS))) {
+    if (app.gui.button (fmt::format (app.texts.get ("addCard"), ICON_FA_SQUARE_PLUS))) {
       const auto newCard = editor.cards.create ();
       editor.cards.emplace <CardIdentifier> (newCard, editor.cardsCount);
       editor.cards.emplace <CardFormat> (newCard);
@@ -63,6 +65,7 @@ void editOnCard (CommonAppData& app, CardEditor& editor)
 {
   // open panel that will hold card
   auto window = app.layout.get <sgui::Window> ("editOnCard");
+  window.options.aspect.state = sgui::ItemState::Hovered;
   if (app.gui.beginWindow (window, app.texts)) {
     // draw card decorations and texts
     window.panel.visible = false;
@@ -86,22 +89,22 @@ void editCardTexts (CommonAppData& app, CardEditor& editor)
   // add text
   app.gui.separation();
   auto& parts = editor.cards.get <GraphicalParts> (editor.activeCard);
-  if (app.gui.button (app.texts.get ("addText"))) {
+  if (app.gui.button (fmt::format (app.texts.get ("addText"), ICON_FA_SQUARE_PLUS))) {
     parts.texts.emplace_back ();
     parts.texts.back ().position = sf::Vector2f (1.f, app.gui.textSize ("A").y + 8.f);
   }
   // set text size
-  const auto fontDescription = fmt::format ("font size is {}", app.style.fontSize.normal);
+  const auto fontDescription = fmt::format (app.texts.get ("fontSizeIs"), app.style.fontSize.normal);
   app.gui.slider (app.style.fontSize.normal, 10u, 40u, {fontDescription});
   app.cardGui.setStyle (app.style);
 
   // edit text
   for (auto& text : parts.texts) {
     // set text value
-    app.gui.inputText (text.identifier, {}, {"Card text : "});
+    app.gui.inputText (text.identifier, {}, {fmt::format (app.texts.get ("cardText"), ICON_FA_COMMENT)});
 
     // set text position
-    app.gui.inputVector2 (text.position, {"Text position : "});
+    app.gui.inputVector2 (text.position, {app.texts.get ("textPosition")});
     const auto cardSize = editor.cards.get <CardFormat> (editor.activeCard).size;
     auto textSize = sf::Vector2f ();
     if (app.texts.has (text.identifier)) {
@@ -126,7 +129,7 @@ void editCardTextures (CommonAppData& app, CardEditor& editor)
   // add texture
   app.gui.separation();
   auto& parts = editor.cards.get <GraphicalParts> (editor.activeCard);
-  if (app.gui.button (app.texts.get ("addTexture"))) {
+  if (app.gui.button (fmt::format (app.texts.get ("addTexture"), ICON_FA_SQUARE_PLUS))) {
     // add texture to card
     parts.textures.emplace_back ();
     parts.textures.back ().rect.size = sf::Vector2f (64.f, 64.f);
@@ -136,33 +139,30 @@ void editCardTextures (CommonAppData& app, CardEditor& editor)
   for (auto& texture : parts.textures) {
     // allow user to set texture to its default size (the one in texture)
     const auto textureBaseSize = app.cardGui.textureSize (texture.identifier);
-    if (app.gui.button ("defaultTextureScale")) {
-      texture.rect.size = textureBaseSize;
-    }
+    app.gui.inputText (texture.identifier, {}, {fmt::format (app.texts.get ("textureId"), ICON_FA_IMAGE)});
 
-    // precise selection of texture size
-    app.gui.inputText (texture.identifier, {}, {"Texture identifier : "});
-    app.gui.inputVector2 (texture.rect.size, {"Texture size : "});
-    
     // chain the dimensions of the texture
     auto textureScale = texture.rect.size.x / textureBaseSize.x;
-
-    // scaling of texture size
     app.gui.slider (textureScale, 0.01f, 1.5f);
-    app.gui.sameLine ();
-    app.gui.inputNumber (textureScale, {" scale of texture."});
+    app.gui.sameLine (); 
+    app.gui.inputNumber (textureScale, {app.texts.get ("scaleOfTexture")});
+    // size selection
     texture.rect.size = textureBaseSize * textureScale;
+    app.gui.inputVector2 (texture.rect.size, {app.texts.get ("textureSize")});
 
     // set precisely texture position or slide it in the card
     const auto cardSize = editor.cards.get <CardFormat> (editor.activeCard).size;
-    app.gui.inputVector2 (texture.rect.position, {"Texture position : "});
+    app.gui.inputVector2 (texture.rect.position, {app.texts.get ("texturePosition")});
     app.gui.slider (texture.rect.position.x, 0.f, cardSize.x - texture.rect.size.x);
     app.gui.sameLine ();
     app.gui.slider (texture.rect.position.y, 0.f, cardSize.y - texture.rect.size.y, {"(x, y)"});
 
     // set alignment
-    app.gui.checkBox (texture.isCenteredHorizontally, {app.texts.get ("centerHori")});
-    app.gui.checkBox (texture.isCenteredVertically, {app.texts.get ("centerVerti")});
+    app.gui.text (app.texts.get ("centerTexture"));
+    app.gui.sameLine ();
+    app.gui.checkBox (texture.isCenteredHorizontally, {app.texts.get ("hori")});
+    app.gui.sameLine ();
+    app.gui.checkBox (texture.isCenteredVertically, {app.texts.get ("verti")});
   }
 }
 

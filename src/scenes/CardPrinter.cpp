@@ -29,7 +29,9 @@ CardsPrint::CardsPrint ()
 void Application::cardPrinter ()
 {
   // Formats selection and print
-  if (app.gui.beginWindow (app.layout.get <sgui::Window> ("chooseCardsFormat"), app.texts)) {
+  auto& window = app.layout.get <sgui::Window> ("chooseCardsFormat");
+  window.options.aspect.state = sgui::ItemState::Neutral;
+  if (app.gui.beginWindow (window, app.texts)) {
     // print cards
     exportCardsToPdf ();
     chooseCardsFormat ();
@@ -46,35 +48,35 @@ void Application::cardPrinter ()
 void Application::renderOptions ()
 {
   // set zoom for card gui
-  app.gui.slider (m_zoom, 0.5f, 3.f, fmt::format ("|{}|  zoom value {}", ICON_FA_MAGNIFYING_GLASS, m_zoom));
-  app.gui.inputVector2 (m_baseShift, fmt::format ("shift with base ({}, {})", m_baseShift.x, m_baseShift.y));
+  app.gui.slider (m_zoom, 0.5f, 3.f, fmt::format (app.texts.get ("zoomValue"), ICON_FA_MAGNIFYING_GLASS, m_zoom));
+  app.gui.inputVector2 (m_baseShift, fmt::format (app.texts.get ("baseShift"), m_baseShift.x, m_baseShift.y));
   m_cardsShift = m_zoom * app.gui.textHeight () * m_baseShift;
   app.gui.separation ();
 
   // resolution app.texts.get ("cardResolution")
   auto& resolution = page.resolution;
-  app.gui.slider (resolution, 75.f, 300.f, {fmt::format ("Card resolution : {} dpi", resolution)} );
+  app.gui.slider (resolution, 75.f, 300.f, {fmt::format (app.texts.get ("cardRes"), resolution)} );
   app.gui.inputNumber (resolution);
   resolution = std::round (resolution);
 
   // card padding
-  app.gui.text (fmt::format ("Card padding: ({} mm, {} mm)", cards.padding.x, cards.padding.y));
+  app.gui.text (fmt::format (app.texts.get ("cardPadding"), cards.padding.x, cards.padding.y));
   app.gui.slider (cards.padding.x, 0.f, 3.f);
   app.gui.sameLine ();
-  app.gui.slider (cards.padding.y, 0.f, 3.f, {"(x, y) padding"});
+  app.gui.slider (cards.padding.y, 0.f, 3.f, {app.texts.get ("cardPaddingLegend")});
 
   // page padding
   const auto pagePadding = pixelToMillim (page.padding, page.resolution);
-  app.gui.text (fmt::format ("Page padding: ({} mm, {} mm)", pagePadding.x, pagePadding.y));
+  app.gui.text (fmt::format (app.texts.get ("pagePadding"), pagePadding.x, pagePadding.y));
   const auto pageSize = sf::Vector2u (computePageSize (page));
-  app.gui.text (fmt::format ("Page size: ({} pix, {} pix)", pageSize.x, pageSize.y));
+  app.gui.text (fmt::format (app.texts.get ("pageSize"), pageSize.x, pageSize.y));
 }
 
 ////////////////////////////////////////////////////////////
 void Application::chooseCardsFormat ()
 {
   // recto verso ?
-  app.gui.checkBox (cards.isRectoVerso, {"print with back for cards"});
+  app.gui.checkBox (cards.isRectoVerso, {app.texts.get ("printBack")});
 
   // choose paper orientation
   if (app.gui.button (fmt::format (app.texts.get ("rotatePage"), ICON_FA_ROTATE))) {
@@ -216,6 +218,7 @@ void Application::displayCardsInLattice (
   auto shift = sf::Vector2f ();
   if (onScreen) {
     auto& layout = app.layout.get <sgui::Window> ("displayCards");
+    layout.options.aspect.state = sgui::ItemState::Hovered;
     app.gui.beginWindow (layout, app.texts);
     shift = app.gui.cursorPosition () - m_cardsShift;
   }

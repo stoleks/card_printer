@@ -104,7 +104,7 @@ void Application::update (sf::RenderWindow& window, const sf::Time& dt)
     if (app.gui.menuItem (fmt::format (app.texts.get ("toEditor"), ICON_FA_FILE_PEN))) {
       m_toPrinter = false;
     }
-    if (app.gui.menuItem (fmt::format (app.texts.get ("toPrinter"), ICON_FA_ADDRESS_CARD))) {
+    if (app.gui.menuItem (fmt::format (app.texts.get ("toPrinter"), ICON_FA_FILE_PDF))) {
       m_toPrinter = true;
     }
     app.gui.endMenu ();
@@ -175,7 +175,9 @@ void Application::setWindowsWidth (sf::RenderWindow& window)
 ////////////////////////////////////////////////////////////
 void Application::options (sf::RenderWindow& window)
 {
-  if (app.gui.beginWindow (app.layout.get <sgui::Window> ("options"))) {
+  auto& optWindow = app.layout.get <sgui::Window> ("options");
+  optWindow.options.aspect.state = sgui::ItemState::Hovered;
+  if (app.gui.beginWindow (optWindow)) {
     // concatene textures into one files
     if (app.gui.button (fmt::format (app.texts.get ("buildTextures"), ICON_FA_FILE_IMAGE))) {
       spdlog::info ("Prepare cards sprite sheet");
@@ -213,6 +215,6 @@ void Application::options (sf::RenderWindow& window)
     if (app.gui.button (fmt::format (app.texts.get ("close"), ICON_FA_CIRCLE_XMARK))) {
       window.close ();
     }
-  app.gui.endWindow ();
+    app.gui.endWindow ();
   }
 }
