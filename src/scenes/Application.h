@@ -3,7 +3,7 @@
 #include <memory>
 #include <PDFWriter.h>
 #include <SFML/System/Clock.hpp>
-#include "CommonData.h"
+#include "scenes/CommonData.h"
 
 struct GraphicalParts;
 
@@ -71,7 +71,10 @@ private:
   sgui::TextureAtlas m_cardAtlas;
   // for menu
   bool m_isOptionsOpen = true;
+  bool m_isProjectOpen = true;
   bool m_toPrinter = false;
+  bool m_makeNewProject = false;
+  bool m_loadProject = false;
   // for printing
   bool m_isPrinting = false;
   uint32_t m_pageIndex = 0u;

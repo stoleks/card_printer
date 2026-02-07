@@ -128,6 +128,56 @@
       "visible": true
     }
   },
+  "Window::fileBrowser": {
+    "constraints": {
+      "horizontal": "HorizontalAlignment::None",
+      "relativePosition": {
+        "x": 0.1,
+        "y": 0.1
+      },
+      "vertical": "VerticalAlignment::None"
+    },
+    "panel": {
+      "closable": false,
+      "hasHeader": true,
+      "movable": false,
+      "position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "size": {
+        "x": 0.8,
+        "y": 0.8
+      },
+      "title": "File browser",
+      "visible": true
+    }
+  },
+  "Window::projects": {
+    "constraints": {
+      "horizontal": "HorizontalAlignment::None",
+      "relativePosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "vertical": "VerticalAlignment::Top"
+    },
+    "panel": {
+      "closable": false,
+      "hasHeader": false,
+      "movable": true,
+      "position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "size": {
+        "x": 1.0,
+        "y": 0.95
+      },
+      "title": "Options",
+      "visible": true
+    }
+  },
   "Window::options": {
     "constraints": {
       "horizontal": "HorizontalAlignment::Left",

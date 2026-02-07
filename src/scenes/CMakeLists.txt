@@ -8,6 +8,8 @@ set (SRC
   ${INCROOT}/CardEditor.h
   ${SRCROOT}/CardPrinter.cpp
   ${INCROOT}/CardPrinter.h
+  ${INCROOT}/ProjectSelection.h
+  ${SRCROOT}/ProjectSelection.cpp
   ${INCROOT}/Application.h
   ${SRCROOT}/Application.cpp
 )

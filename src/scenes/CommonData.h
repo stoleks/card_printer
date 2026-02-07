@@ -27,6 +27,7 @@ NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(InternalFilepath, font, editorTe
  * @brief: filepath for user
  */
 struct ExternalFilepath {
+  std::string projectFile;
   std::string cardsTexts;
   std::string cardsDataCsv;
   std::string cardModelJson;
@@ -48,6 +49,7 @@ struct CommonAppData {
   sgui::Style style;
   sgui::Layout layout;
   sgui::TextContainer texts;
+  std::string workingDir;
   std::string externDir;
   std::string atlasFile;
   std::string cardAtlasFile;

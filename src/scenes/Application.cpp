@@ -9,6 +9,7 @@
 
 #include "scenes/CardEditor.h"
 #include "scenes/CardPrinter.h"
+#include "scenes/ProjectSelection.h"
 #include "serialization/CardLoading.h"
 #include "serialization/FromCSVToJson.h"
 
@@ -35,6 +36,7 @@ void Application::initialize (sf::RenderWindow& window)
   spdlog::info ("Load external files {}", app.externDir + internPaths.externalFile);
   json externalData = sgui::loadFromFile (app.externDir + internPaths.externalFile);
   externPaths = externalData;
+  app.workingDir = AppDir;
 
   /**
    * Font, text and layout loading
@@ -46,6 +48,7 @@ void Application::initialize (sf::RenderWindow& window)
   app.texts.loadFromFile (std::string (LocalContentsDir"english_" + internPaths.editorTexts), "english");
   app.layout.loadFromFile (LocalContentsDir + internPaths.editorLayout);
   app.layout.get <sgui::Window> ("mainWindow").panel.hasMenu = true;
+  app.layout.get <sgui::Window> ("fileBrowser").panel.closed = true;
 
   /**
    * Gui initialization
@@ -99,6 +102,8 @@ void Application::update (sf::RenderWindow& window, const sf::Time& dt)
   if (app.gui.beginWindow (app.layout.get <sgui::Window> ("mainWindow"), app.texts)) {
     // select app function with an upper menu
     app.gui.beginMenu ();
+    // first open a project
+    m_isProjectOpen = app.gui.menuItem (app.texts.get ("projects"));
     // application options
     m_isOptionsOpen = app.gui.menuItem (fmt::format (app.texts.get ("toOptions"), ICON_FA_SCREWDRIVER_WRENCH));
     if (app.gui.menuItem (fmt::format (app.texts.get ("toEditor"), ICON_FA_FILE_PEN))) {
@@ -110,18 +115,29 @@ void Application::update (sf::RenderWindow& window, const sf::Time& dt)
     app.gui.endMenu ();
     setWindowsWidth (window);
     // application states
-    if (m_toPrinter) {
-      // set cards zoom
-      auto view = window.getDefaultView ();
-      view.zoom (m_zoom);
-      app.cardGui.setView (view);
-      cardPrinter ();
+    if (m_isProjectOpen) {
+      // main window for project selection or creation
+      if (app.gui.beginWindow (app.layout.get <sgui::Window> ("projects"))) {
+          projectSelection (m_makeNewProject, m_loadProject, app, externPaths);
+          if (app.gui.button (fmt::format (app.texts.get ("close"), ICON_FA_CIRCLE_XMARK))) {
+            window.close ();
+          }
+        app.gui.endWindow ();
+      }
     } else {
-      // set cards zoom
-      auto view = window.getDefaultView ();
-      view.zoom (1.f);
-      app.cardGui.setView (view);
-      cardEditor (app, editor);
+      if (m_toPrinter) {
+        // set cards zoom
+        auto view = window.getDefaultView ();
+        view.zoom (m_zoom);
+        app.cardGui.setView (view);
+        cardPrinter ();
+      } else {
+        // set cards zoom
+        auto view = window.getDefaultView ();
+        view.zoom (1.f);
+        app.cardGui.setView (view);
+        cardEditor (app, editor);
+      }
     }
     app.gui.endWindow ();
   }

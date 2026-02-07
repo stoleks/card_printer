@@ -38,5 +38,16 @@
   "cardPadding": "Card padding: ({} mm, {} mm)",
   "cardPaddingLegend": "(x, y) padding",
   "pagePadding": "Page padding: ({} mm, {} mm)",
-  "pageSize": "Page size: ({} pix, {} pix)"
+  "pageSize": "Page size: ({} pix, {} pix)",
+  "selectFolder": "Select current folder",
+  "cardsDataCsv": "Raw data of the cards",
+  "cardModelJson": "Template for the cards",
+  "outputPdf": "Name of the printed pdf",
+  "fontFile": "Fonts of the cards",
+  "outputDir": "Name of the output folder",
+  "texturesDir": "Folder with images of cards",
+  "newProject": "New project",
+  "openProject": "Open a project",
+  "projects": "Projects",
+  "fileBrowser": "File browser"
 }
