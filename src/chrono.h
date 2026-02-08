@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/System/Clock.hpp>
+#include <SFML/System/Time.hpp>
 #include <spdlog/spdlog.h>
 
 /**

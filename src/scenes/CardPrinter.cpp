@@ -1,17 +1,18 @@
-#include "CardPrinter.h"
-
 #include <chrono>
 #include <iostream>
+#include <filesystem>
 #include <PDFPage.h>
 #include <PageContentContext.h>
 #include <SFML/Graphics/Image.hpp>
 #include <sgui/Resources/IconsFontAwesome7.h>
 
 #include "chrono.h"
-#include "scenes/Application.h"
 #include "cards/DeckFunctions.h"
 #include "cards/DisplayFunctions.h"
 #include "serialization/CardLoading.h"
+#include "scenes/ProjectSelection.h"
+#include "scenes/Application.h"
+#include "scenes/CardPrinter.h"
 
 ////////////////////////////////////////////////////////////
 CardsPrint::CardsPrint ()
@@ -118,7 +119,9 @@ void Application::printAllPages ()
   if (!m_isPrinting) return;
 
   // start pdf
-  const auto path = app.externDir + externPaths.outputDirectory + externPaths.outputFile;
+  const auto directory = projectFilePath (files.project.outputFolder, files);
+  const auto path = directory + "/" + files.project.outputPdf;
+  std::filesystem::create_directory (directory);
   if (m_pageIndex == 0u) {
     m_totalTime.restart ();
     m_pdfWriter = std::make_unique <PDFWriter> ();

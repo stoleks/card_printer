@@ -1,34 +1,37 @@
-#include "FromCSVToJson.h"
-
 #include <filesystem>
 #include <sgui/Serialization/LoadJson.h>
-#include "serialization/CardLoading.h"
 #include "scenes/CommonData.h"
+#include "scenes/ProjectSelection.h"
+#include "serialization/CardLoading.h"
+#include "serialization/FromCSVToJson.h"
 
 ////////////////////////////////////////////////////////////
-void buildCardFromCSV (
-  const std::string& externDir,
-  const ExternalFilepath& paths)
+void buildCardFromCSV (const Files& files)
 {
   // check that file exist
-  if (!std::filesystem::exists (externDir + paths.cardsDataCsv)) {
-    spdlog::error ("csv file {} does not exist", externDir + paths.cardsDataCsv);
+  const auto cardsPath = projectFilePath (files.project.cards, files);
+  if (!std::filesystem::exists (cardsPath)) {
+    spdlog::error ("cards data file {} does not exist", cardsPath);
+    return;
+  }
+  const auto modelPath = projectFilePath (files.project.model, files);
+  if (!std::filesystem::exists (modelPath)) {
+    spdlog::error ("model file {} does not exist", modelPath);
     return;
   }
 
   // load model graphics
-  json modelJson = sgui::loadFromFile (externDir + paths.cardModelJson);
+  json modelJson = sgui::loadFromFile (modelPath);
   Card model = modelJson ["model"];
 
   // extract first line and get model keys from it
-  std::fstream cardsData;
-  cardsData.open (externDir + paths.cardsDataCsv, std::ios::in);
+  std::fstream cardsData (cardsPath, std::ios::in);
   auto forText = KeyIndex ();
   auto forTexture = KeyIndex ();
   const auto backgroundIndex = getKeysFromCSV (cardsData, forText, forTexture, model.graphics);
 
   // extract all lines and save them
-  saveDataInJson (cardsData, backgroundIndex, forText, forTexture, externDir + paths.cardsDataJson);
+  saveDataInJson (cardsData, backgroundIndex, forText, forTexture, files.inner.cards);
   cardsData.close ();
 }
 

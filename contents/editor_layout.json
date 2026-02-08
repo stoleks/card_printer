@@ -153,6 +153,31 @@
       "visible": true
     }
   },
+  "Window::newProject": {
+    "constraints": {
+      "horizontal": "HorizontalAlignment::None",
+      "relativePosition": {
+        "x": 0.1,
+        "y": 0.1
+      },
+      "vertical": "VerticalAlignment::None"
+    },
+    "panel": {
+      "closable": false,
+      "hasHeader": true,
+      "movable": false,
+      "position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "size": {
+        "x": 0.8,
+        "y": 0.8
+      },
+      "title": "New project",
+      "visible": true
+    }
+  },
   "Window::projects": {
     "constraints": {
       "horizontal": "HorizontalAlignment::None",

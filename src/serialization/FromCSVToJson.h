@@ -4,15 +4,13 @@
 #include <cstdint>
 #include <unordered_map>
 
+struct Files;
 struct GraphicalParts;
-struct ExternalFilepath;
 
 /**
  * build card json from a csv file
  */
-void buildCardFromCSV (
-    const std::string& externDir,
-    const ExternalFilepath& paths);
+void buildCardFromCSV (const Files& files);
 
 using KeyIndex = std::unordered_map <uint32_t, std::string>;
 uint32_t getKeysFromCSV (

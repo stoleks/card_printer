@@ -8,9 +8,7 @@
 
 int main()
 {
-  /**
-   * Window and app initialization
-   */
+  // Window and app initialization
   spdlog::info ("Open window");
   auto window = sf::RenderWindow (
     sf::VideoMode ({1920u, 1080u}),
@@ -19,12 +17,10 @@ int main()
     sf::State::Fullscreen
   );
   window.setFramerateLimit (60);
-  auto app = Application ();
-  app.initialize (window);
+  auto app = Application (window);
+  app.initialize ();
 
-  /**
-   * Main App loop
-   */
+  // Main App loop
   spdlog::info ("Main app loop");
   bool pause = false;
   auto timer = sf::Clock ();
@@ -34,9 +30,7 @@ int main()
   {
     const auto dt = timer.restart ();
     timeSinceLastUpdate += dt;
-    /**
-     * Inputs and logic
-     */
+    // Inputs and logic
     while (timeSinceLastUpdate > timePerFrame)
     {
       timeSinceLastUpdate -= timePerFrame;
@@ -51,16 +45,14 @@ int main()
           pause = false;
         }
         if (!pause) {
-          app.events (window, event);
+          app.events (event);
         }
       }
       if (!pause) {
-        app.update (window, dt);
+        app.update (dt);
       }
     }
-    /**
-     * Drawing
-     */
-    app.draw (window);
+    // Drawing
+    app.draw ();
   }
 }

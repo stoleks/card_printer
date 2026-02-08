@@ -25,74 +25,73 @@ CardEditor::CardEditor ()
 }
 
 ////////////////////////////////////////////////////////////
-void Application::initialize (sf::RenderWindow& window)
-{
-  /**
-   * Load paths
-   */
-  json internalData = sgui::loadFromFile (LocalContentsDir"filepath.json");
-  internPaths = internalData;
-  app.externDir = AppDir + internPaths.relativePathToExternal;
-  spdlog::info ("Load external files {}", app.externDir + internPaths.externalFile);
-  json externalData = sgui::loadFromFile (app.externDir + internPaths.externalFile);
-  externPaths = externalData;
-  app.workingDir = AppDir;
+Application::Application (sf::RenderWindow& window)
+  : m_window (window)
+{}
 
-  /**
-   * Font, text and layout loading
-   */
-  spdlog::info ("Load font, layout and text");
-  spdlog::info ("Default font {}", sgui::DefaultFont);
+////////////////////////////////////////////////////////////
+void Application::initialize ()
+{
+  // Load file settings
+  json internalData = sgui::loadFromFile (LocalContentsDir"filepath.json");
+  files.app = internalData;
+  files.app.folder = std::filesystem::current_path ().string ();
+  spdlog::info ("App path is {}", files.app.folder);
+
+  // Font, text and layout loading
+  spdlog::info ("Load font from {}", sgui::DefaultFont);
   m_font = std::make_unique <sf::Font> (sgui::DefaultFont);
-  m_cardFont = std::make_unique <sf::Font> (app.externDir + externPaths.fontFile);
-  app.texts.loadFromFile (std::string (LocalContentsDir"english_" + internPaths.editorTexts), "english");
-  app.layout.loadFromFile (LocalContentsDir + internPaths.editorLayout);
+  const auto textPath = std::string (LocalContentsDir"english_" + files.app.editorTexts);
+  spdlog::info ("Load text from {}", textPath);
+  app.texts.loadFromFile (textPath, "english");
+  const auto layoutPath = LocalContentsDir + files.app.editorLayout;
+  spdlog::info ("Load layout from {}", layoutPath);
+  app.layout.loadFromFile (layoutPath);
+  // set initial state
   app.layout.get <sgui::Window> ("mainWindow").panel.hasMenu = true;
   app.layout.get <sgui::Window> ("fileBrowser").panel.closed = true;
+  app.layout.get <sgui::Window> ("newProject").panel.closed = true;
 
-  /**
-   * Gui initialization
-   */
-  spdlog::info ("Load atlas, texture and set gui");
-  app.atlasFile = std::string (LocalContentsDir + internPaths.widgetsAtlas);
-  spdlog::info ("Load {}", sgui::DefaultAtlas);
+  // Gui initialization
+  spdlog::info ("Load atlas {}", sgui::DefaultAtlas);
   m_atlas.loadFromFile (sgui::DefaultAtlas);
-  spdlog::info ("Load {}", sgui::DefaultTexture);
+  spdlog::info ("Load texture {}", sgui::DefaultTexture);
   m_texture = std::make_unique <sf::Texture> (sgui::DefaultTexture);
-  app.gui.initialize (*m_font, *m_texture, m_atlas, window);
+  app.gui.initialize (*m_font, *m_texture, m_atlas, m_window);
   app.gui.setStyle (app.style);
+}
 
-  /**
-   * Gui card initialization
-   */
-  app.cardAtlasFile = std::string (LocalContentsDir + internPaths.cardsAtlas);
-  app.cardTextureFile = std::string (LocalContentsDir + internPaths.cardsTextures);
-  spdlog::info ("Load cards atlas and texture");
-  spdlog::info ("Load {}", app.cardAtlasFile);
-  m_cardAtlas.loadFromFile (app.cardAtlasFile);
-  spdlog::info ("Load {}", app.cardTextureFile);
-  m_cardTexture = std::make_unique <sf::Texture> (app.cardTextureFile);
+////////////////////////////////////////////////////////////
+void Application::loadCardsGui ()
+{
+  // load font and atlas
+  m_cardFont = std::make_unique <sf::Font> (projectFilePath (files.project.font, files));
+  spdlog::info ("Load atlas {}", files.inner.atlas);
+  m_cardAtlas.clear ();
+  m_cardAtlas.loadFromFile (files.inner.atlas);
+  spdlog::info ("Load texture {}", files.inner.texture);
+  m_cardTexture = std::make_unique <sf::Texture> (files.inner.texture);
   app.style.fontColor = sf::Color::Black;
   // in app display
-  spdlog::info ("Set gui for cards");
-  app.cardGui.initialize (*m_cardFont, *m_cardTexture, m_cardAtlas, window);
+  spdlog::info ("Set gui for cards edition");
+  app.cardGui.initialize (*m_cardFont, *m_cardTexture, m_cardAtlas, m_window);
   app.cardGui.setStyle (app.style);
   // pdf printing
-  spdlog::info ("Set gui for printing");
-  app.cardPrint.initialize (*m_cardFont, *m_cardTexture, m_cardAtlas, window);
+  spdlog::info ("Set gui for cards printing");
+  app.cardPrint.initialize (*m_cardFont, *m_cardTexture, m_cardAtlas, m_window);
   app.cardPrint.setStyle (app.style);
   m_baseShift = app.layout.get <sf::Vector2f> ("cardsShift");
 }
 
 ////////////////////////////////////////////////////////////
-void Application::events (const sf::RenderWindow& window, const std::optional<sf::Event>& event)
+void Application::events (const std::optional<sf::Event>& event)
 {
-  app.cardGui.update (window, event);
-  app.gui.update (window, event);
+  app.cardGui.update (m_window, event);
+  app.gui.update (m_window, event);
 }
 
 ////////////////////////////////////////////////////////////
-void Application::update (sf::RenderWindow& window, const sf::Time& dt)
+void Application::update (const sf::Time& dt)
 {
   app.gui.updateTimer ();
   // launch both gui
@@ -103,37 +102,48 @@ void Application::update (sf::RenderWindow& window, const sf::Time& dt)
     // select app function with an upper menu
     app.gui.beginMenu ();
     // first open a project
-    m_isProjectOpen = app.gui.menuItem (app.texts.get ("projects"));
+    projects.isOpen = app.gui.menuItem (app.texts.get ("projects"));
     // application options
     m_isOptionsOpen = app.gui.menuItem (fmt::format (app.texts.get ("toOptions"), ICON_FA_SCREWDRIVER_WRENCH));
-    if (app.gui.menuItem (fmt::format (app.texts.get ("toEditor"), ICON_FA_FILE_PEN))) {
-      m_toPrinter = false;
-    }
-    if (app.gui.menuItem (fmt::format (app.texts.get ("toPrinter"), ICON_FA_FILE_PDF))) {
-      m_toPrinter = true;
+    // only print editor and printer if a project is loaded
+    if (app.projectIsLoaded) {
+      if (app.gui.menuItem (fmt::format (app.texts.get ("toEditor"), ICON_FA_FILE_PEN))) {
+        m_toPrinter = false;
+      }
+      if (app.gui.menuItem (fmt::format (app.texts.get ("toPrinter"), ICON_FA_FILE_PDF))) {
+        m_toPrinter = true;
+      }
     }
     app.gui.endMenu ();
-    setWindowsWidth (window);
+    setWindowsWidth ();
+
     // application states
-    if (m_isProjectOpen) {
+    if (projects.isOpen) {
       // main window for project selection or creation
       if (app.gui.beginWindow (app.layout.get <sgui::Window> ("projects"))) {
-          projectSelection (m_makeNewProject, m_loadProject, app, externPaths);
-          if (app.gui.button (fmt::format (app.texts.get ("close"), ICON_FA_CIRCLE_XMARK))) {
-            window.close ();
-          }
+        projects.selection (app, files);
+        if (app.gui.button (app.texts.get ("loadProject")) && app.projectIsLoaded) {
+          spdlog::info ("Load project files data from {}", files.app.projectFile);
+          buildCardFromCSV (files);
+          generateTexture ();
+          loadCardsGui ();
+          loadCardsData ();
+        }
+        if (app.gui.button (fmt::format (app.texts.get ("close"), ICON_FA_CIRCLE_XMARK))) {
+          m_window.close ();
+        }
         app.gui.endWindow ();
       }
     } else {
       if (m_toPrinter) {
         // set cards zoom
-        auto view = window.getDefaultView ();
+        auto view = m_window.getDefaultView ();
         view.zoom (m_zoom);
         app.cardGui.setView (view);
         cardPrinter ();
       } else {
         // set cards zoom
-        auto view = window.getDefaultView ();
+        auto view = m_window.getDefaultView ();
         view.zoom (1.f);
         app.cardGui.setView (view);
         cardEditor (app, editor);
@@ -147,17 +157,17 @@ void Application::update (sf::RenderWindow& window, const sf::Time& dt)
 }
 
 ////////////////////////////////////////////////////////////
-void Application::draw (sf::RenderWindow& window)
+void Application::draw ()
 {
   // display gui and cards
-  window.clear ();
-  window.draw (app.gui);
-  window.draw (app.cardGui);
-  window.display ();
+  m_window.clear ();
+  m_window.draw (app.gui);
+  m_window.draw (app.cardGui);
+  m_window.display ();
 }
 
 ////////////////////////////////////////////////////////////
-void Application::setWindowsWidth (sf::RenderWindow& window)
+void Application::setWindowsWidth ()
 {
   // set options width
   const auto largestText = fmt::format (app.texts.get ("buildTextures"), ICON_FA_ADDRESS_CARD);
@@ -171,7 +181,7 @@ void Application::setWindowsWidth (sf::RenderWindow& window)
   auto& displayLayout = app.layout.get <sgui::Window> ("displayCards");
   // update layouts width
   if (m_isOptionsOpen) {
-    options (window);
+    options ();
     // printer
     formatLayout.constraints.relativePosition.x = width;
     displayLayout.panel.size.x = 1.f - width - formatLayout.panel.size.x;
@@ -189,48 +199,57 @@ void Application::setWindowsWidth (sf::RenderWindow& window)
 }
 
 ////////////////////////////////////////////////////////////
-void Application::options (sf::RenderWindow& window)
+void Application::options ()
 {
   auto& optWindow = app.layout.get <sgui::Window> ("options");
   optWindow.options.aspect.state = sgui::ItemState::Hovered;
   if (app.gui.beginWindow (optWindow)) {
     // concatene textures into one files
     if (app.gui.button (fmt::format (app.texts.get ("buildTextures"), ICON_FA_FILE_IMAGE))) {
-      spdlog::info ("Prepare cards sprite sheet");
-      const auto directory = app.externDir + externPaths.texturesDirectory;
-      spdlog::info ("Load images from {}/", directory);
-      auto collage = sgui::TextureCollage (directory, { sf::Color::White });
-      if (!collage.image ().saveToFile (app.cardTextureFile)) {
-        spdlog::warn ("Unable to save {}", app.cardTextureFile); 
-      } else {
-        spdlog::info ("Saved cards texture to {}", app.cardTextureFile);
-      }
-      if (!m_cardTexture->loadFromFile (app.cardTextureFile)) {
-        spdlog::warn ("Unable to reload {} after collage", app.cardTextureFile); 
-      }
-      sgui::saveInFile (collage.atlas (), app.cardAtlasFile);
-      m_cardAtlas.clear ();
-      m_cardAtlas.loadFromFile (app.cardAtlasFile);
+      generateTexture ();
     }
-
     // use csv to build card data
     if (app.gui.button (fmt::format (app.texts.get ("buildFromCSV"), ICON_FA_FILE_CSV))) {
-      buildCardFromCSV (app.externDir, externPaths);
+      buildCardFromCSV (files);
     }
-
     // load cards data
     if (app.gui.button (fmt::format (app.texts.get ("loadCards"), ICON_FA_FILE_IMPORT))) {
-      const auto dataPath = app.externDir + externPaths.cardsDataJson;
-      const auto modelPath = app.externDir + externPaths.cardModelJson;
-      spdlog::info ("Load card with model from {}, save in {}", modelPath, dataPath);
-      app.style.fontSize.normal = loadCardsFromFile (editor.cards, modelPath, dataPath);
-      app.cardGui.setStyle (app.style);
+      loadCardsData ();
     }
-
     // quit application
     if (app.gui.button (fmt::format (app.texts.get ("close"), ICON_FA_CIRCLE_XMARK))) {
-      window.close ();
+      m_window.close ();
     }
     app.gui.endWindow ();
   }
+}
+
+////////////////////////////////////////////////////////////
+void Application::generateTexture ()
+{
+  // if files already exist, quit
+  if (std::filesystem::is_regular_file (files.inner.texture)
+    && std::filesystem::is_regular_file (files.inner.atlas)) return;
+
+  // generate texture
+  const auto texturesPath = projectFilePath (files.project.texturesFolder, files);
+  spdlog::info ("Load images from {}", texturesPath);
+  auto collage = sgui::TextureCollage (texturesPath, { sf::Color::White });
+  if (!collage.image ().saveToFile (files.inner.texture)) {
+    spdlog::warn ("Unable to save {}", files.inner.texture); 
+  } else {
+    spdlog::info ("Saved cards texture to {}", files.inner.texture);
+  }
+  spdlog::info ("Save atlas in {}", files.inner.atlas);
+  sgui::saveInFile (collage.atlas (), files.inner.atlas);
+}
+
+////////////////////////////////////////////////////////////
+void Application::loadCardsData ()
+{
+  const auto modelPath = projectFilePath (files.project.model, files);
+  spdlog::info ("Load card with model from {}", modelPath);
+  spdlog::info ("Save in {}", files.inner.cards);
+  app.style.fontSize.normal = loadCardsFromFile (editor.cards, modelPath, files.inner.cards);
+  app.cardGui.setStyle (app.style);
 }

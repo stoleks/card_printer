@@ -8,41 +8,56 @@
 #include "cards/PaperFormats.h"
 
 /**
- * @brief: filepath for application
+ * @brief: files for application
  */
-struct InternalFilepath {
-  std::string font;
-  std::string editorTexts;
-  std::string editorLayout;
-  std::string widgetsAtlas;
-  std::string widgetsTextures;
-  std::string cardsAtlas;
-  std::string cardsTextures;
-  std::string relativePathToExternal;
-  std::string externalFile;
+struct AppFiles {
+  std::string folder = "";
+  std::string editorTexts = "";
+  std::string editorLayout = "";
+  std::string projectFolder = "";
+  std::string projectFile = "";
+  std::vector <std::string> projectsNames;
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(InternalFilepath, font, editorTexts, editorLayout, widgetsAtlas, widgetsTextures, cardsAtlas, cardsTextures, relativePathToExternal, externalFile)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(AppFiles, editorTexts, editorLayout, projectFolder, projectFile, projectsNames)
 
 /**
- * @brief: filepath for user
+ * @brief: files for project edited by users
  */
-struct ExternalFilepath {
-  std::string projectFile;
-  std::string cardsTexts;
-  std::string cardsDataCsv;
-  std::string cardModelJson;
-  std::string cardsDataJson;
-  std::string outputFile;
-  std::string fontFile;
-  std::string outputDirectory;
-  std::string texturesDirectory;
+struct ProjectFiles {
+  std::string texturesFolder = "";
+  std::string font = "";
+  std::string cards = ""; // csv with cards data
+  std::string model = ""; // json with cards model
+  std::string outputFolder = "";
+  std::string outputPdf = "";
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(ExternalFilepath, cardsTexts, cardsDataCsv, cardModelJson, cardsDataJson, outputFile, fontFile, outputDirectory, texturesDirectory)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(ProjectFiles, texturesFolder, font, cards, model, outputFolder, outputPdf)
+
+/**
+ * @brief: files for project edited by the application
+ */
+struct ProjectInnerFiles {
+  std::string cards = ""; // json generated from csv and model
+  std::string texture = "";
+  std::string atlas = "";
+  std::string folder = "";
+};
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(ProjectInnerFiles, cards, texture, atlas, folder)
+
+/**
+ * @brief all files used in application
+ */
+struct Files {
+  AppFiles app = {};
+  ProjectFiles project = {};
+  ProjectInnerFiles inner = {};
+};
 
 /**
  * @brief : data common to the different menus
  */
 struct CommonAppData {
+  bool projectIsLoaded = false;
   sgui::Gui gui;
   sgui::Gui cardGui;
   sgui::Gui cardPrint;
@@ -50,10 +65,6 @@ struct CommonAppData {
   sgui::Layout layout;
   sgui::TextContainer texts;
   std::string workingDir;
-  std::string externDir;
-  std::string atlasFile;
-  std::string cardAtlasFile;
-  std::string cardTextureFile;;
 };
 
 /**

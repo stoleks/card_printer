@@ -4,6 +4,7 @@
 #include <PDFWriter.h>
 #include <SFML/System/Clock.hpp>
 #include "scenes/CommonData.h"
+#include "scenes/ProjectSelection.h"
 
 struct GraphicalParts;
 
@@ -12,26 +13,27 @@ struct GraphicalParts;
  */
 class Application {
 public:
-  void initialize (sf::RenderWindow& window);
-  void events (
-      const sf::RenderWindow& window,
-      const std::optional<sf::Event>& event);
-  void update (
-      sf::RenderWindow& window,
-      const sf::Time& dt);
-  void draw (sf::RenderWindow& window);
+  Application (sf::RenderWindow& window);
+  void initialize ();
+  void events (const std::optional<sf::Event>& event);
+  void update (const sf::Time& dt);
+  void draw ();
 public:
   PagePrint page;
-  CardsPrint cards;
+  CardsPrint cards = {};
   CardEditor editor = {};
-  CommonAppData app;
-  InternalFilepath internPaths;
-  ExternalFilepath externPaths;
+  Projects projects = {};
+  CommonAppData app = {};
+  Files files = {};
 private:
   // set sub windows width and open options if asked
-  void setWindowsWidth (sf::RenderWindow& window); 
+  void setWindowsWidth (); 
   // close or concatene texture
-  void options (sf::RenderWindow& window);
+  void options ();
+  // load cards gui
+  void loadCardsGui ();
+  void generateTexture ();
+  void loadCardsData ();
   
   // Print cards to a pdf
   void cardPrinter ();
@@ -45,13 +47,9 @@ private:
   // print all pages
   void printAllPages ();
   // print a page to pdf
-  void printPage (
-      const std::string& path,
-      const bool verso = false);
+  void printPage (const std::string& path, const bool verso = false);
   // draw cards on a image
-  bool drawCards (
-      const std::string& path,
-      const bool verso = false);
+  bool drawCards (const std::string& path, const bool verso = false);
   // display all cards in a regular lattice
   void displayCardsInLattice (
       sgui::Gui& gui,
@@ -62,6 +60,7 @@ private:
   void computeLattice ();
 private:
   // resources
+  sf::RenderWindow& m_window;
   std::unique_ptr <sf::Font> m_font;
   std::unique_ptr <sf::Font> m_cardFont;
   std::unique_ptr <sf::Texture> m_texture;
@@ -71,10 +70,7 @@ private:
   sgui::TextureAtlas m_cardAtlas;
   // for menu
   bool m_isOptionsOpen = true;
-  bool m_isProjectOpen = true;
   bool m_toPrinter = false;
-  bool m_makeNewProject = false;
-  bool m_loadProject = false;
   // for printing
   bool m_isPrinting = false;
   uint32_t m_pageIndex = 0u;
