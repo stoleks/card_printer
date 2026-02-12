@@ -120,20 +120,7 @@ void Application::update (const sf::Time& dt)
     // application states
     if (projects.isOpen) {
       // main window for project selection or creation
-      if (app.gui.beginWindow (app.layout.get <sgui::Window> ("projects"))) {
-        projects.selection (app, files);
-        if (app.gui.button (app.texts.get ("loadProject")) && app.projectIsLoaded) {
-          spdlog::info ("Load project files data from {}", files.app.projectFile);
-          buildCardFromCSV (files);
-          generateTexture ();
-          loadCardsGui ();
-          loadCardsData ();
-        }
-        if (app.gui.button (fmt::format (app.texts.get ("close"), ICON_FA_CIRCLE_XMARK))) {
-          m_window.close ();
-        }
-        app.gui.endWindow ();
-      }
+      projects.selection (app, files, m_window, *this);
     } else {
       if (m_toPrinter) {
         // set cards zoom

@@ -18,6 +18,10 @@ public:
   void events (const std::optional<sf::Event>& event);
   void update (const sf::Time& dt);
   void draw ();
+  // load cards gui, texture and data
+  void loadCardsGui ();
+  void generateTexture ();
+  void loadCardsData ();
 public:
   PagePrint page;
   CardsPrint cards = {};
@@ -30,10 +34,6 @@ private:
   void setWindowsWidth (); 
   // close or concatene texture
   void options ();
-  // load cards gui
-  void loadCardsGui ();
-  void generateTexture ();
-  void loadCardsData ();
   
   // Print cards to a pdf
   void cardPrinter ();
