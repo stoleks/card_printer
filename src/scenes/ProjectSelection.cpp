@@ -114,7 +114,7 @@ void Projects::editFilesPaths (CommonAppData& app, Files& files)
 {
   // draw descriptions
   app.gui.setAnchor ();
-  app.gui.setPadding ({2.f, 1.2f});
+  app.gui.setPadding ({0.5f, 0.3f});
   auto textWidth = 0.f;
   for (const auto& entry : {"outputPdf", "texturesFolder", "font", "cards", "model", "outputFolder"}) {
     app.gui.text (app.texts.get (entry));
@@ -148,28 +148,59 @@ void fileBrowser (uint32_t& counter, uint32_t& active, std::string& directory, s
 
   // open file browser
   if (counter == active && app.gui.beginWindow (browser)) {
+    const auto firstPos = app.gui.cursorPosition ();
     app.gui.inputText (directory);
     app.gui.separation ();
+
     // select current folder
     if (app.gui.button ("selectFolder")) {
       finalEntry = directory;
       browser.panel.closed = true;
     }
+
+    // open a window for root paths
+    auto panel = sgui::Panel ();
+    panel.size.x = browser.panel.size.x * 0.25f;
+    const auto rootSpacing = app.gui.cursorPosition ().y - firstPos.y + app.gui.textHeight ();
+    panel.size.y = 1.f - rootSpacing / app.gui.parentGroupSize ().y;
+    panel.hasHeader = false;
+    app.gui.setAnchor ();
+    auto panelSize = sf::Vector2f ();
+    // display root paths
+    if (app.gui.beginWindow (panel)) {
+      panelSize = app.gui.parentGroupSize ();
+      const auto rootPath = std::filesystem::current_path ().root_path ();
+      for (const auto& entry : std::filesystem::directory_iterator (rootPath)) {
+        // allow user to go from folder to folder
+        if (entry.is_directory ()) {
+          const auto entryName = entry.path ().filename ().string ();
+          if (app.gui.button (fmt::format ("|{}| {}", ICON_FA_FOLDER_OPEN, entryName), {aspect})) {
+            directory = entry.path ().string ();
+          }
+        }
+      }
+      app.gui.endWindow ();
+    }
+    app.gui.backToAnchor ();
+
     // go to another folder
-    app.gui.addSpacing ({1.f, 0.f});
+    app.gui.addSpacing ({panelSize.x / app.gui.textHeight () + 0.5f, 0.f});
     if (app.gui.button (fmt::format ("|{}| ...", ICON_FA_FOLDER_OPEN), {aspect})) {
       directory = std::filesystem::path (directory).parent_path ().string ();
     }
     app.gui.addSpacing ({1.f, 0.f});
+    const auto buttonWidth = (app.gui.parentGroupSize ().x - panelSize.x) / app.gui.textHeight () - 3.f;
+    auto buttonOptions = sgui::WidgetOptions { aspect };
+    buttonOptions.size = { buttonWidth, 1.f };
     for (const auto& entry : std::filesystem::directory_iterator (directory)) {
       // allow user to go from folder to folder
       const auto entryName = entry.path ().filename ().string ();
       if (entry.is_directory ()) {
-        if (app.gui.button (fmt::format ("|{}| {}", ICON_FA_FOLDER_OPEN, entryName), {aspect})) {
+        if (app.gui.button (fmt::format ("|{}| {}", ICON_FA_FOLDER_OPEN, entryName), buttonOptions)) {
           directory = entry.path ().string ();
         }
       // print files names
-      } else if (app.gui.button (entryName, {aspect})) {
+      } else if (app.gui.button (entryName, buttonOptions)) {
         finalEntry = entryName;
         browser.panel.closed = true;
       }
