@@ -3,31 +3,6 @@
     "x": 3.0,
     "y": 8.5
   },
-  "Window::chooseCardsFormat": {
-    "constraints": {
-      "horizontal": "HorizontalAlignment::None",
-      "relativePosition": {
-        "x": 0.17,
-        "y": 0.0
-      },
-      "vertical": "VerticalAlignment::Bottom"
-    },
-    "panel": {
-      "closable": false,
-      "hasHeader": false,
-      "movable": true,
-      "position": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "size": {
-        "x": 0.28,
-        "y": 0.965
-      },
-      "title": "Choose format",
-      "visible": true
-    }
-  },
   "Window::displayCards": {
     "constraints": {
       "horizontal": "HorizontalAlignment::Right",
@@ -39,7 +14,7 @@
     },
     "panel": {
       "closable": false,
-      "hasHeader": false,
+      "hasHeader": true,
       "movable": true,
       "position": {
         "x": 0.0,
@@ -47,34 +22,9 @@
       },
       "size": {
         "x": 0.55,
-        "y": 0.965
+        "y": 1.0
       },
-      "title": "Printable cards",
-      "visible": true
-    }
-  },
-  "Window::editFromMenu": {
-    "constraints": {
-      "horizontal": "HorizontalAlignment::None",
-      "relativePosition": {
-        "x": 0.17,
-        "y": 0.0
-      },
-      "vertical": "VerticalAlignment::Bottom"
-    },
-    "panel": {
-      "closable": false,
-      "hasHeader": false,
-      "movable": true,
-      "position": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "size": {
-        "x": 0.43,
-        "y": 0.965
-      },
-      "title": "editFromMenu",
+      "title": "printableCards",
       "visible": true
     }
   },
@@ -89,7 +39,7 @@
     },
     "panel": {
       "closable": false,
-      "hasHeader": false,
+      "hasHeader": true,
       "movable": true,
       "position": {
         "x": 0.0,
@@ -97,7 +47,7 @@
       },
       "size": {
         "x": 0.4,
-        "y": 0.965
+        "y": 1.0
       },
       "title": "editOnCard",
       "visible": true
@@ -197,32 +147,7 @@
       },
       "size": {
         "x": 1.0,
-        "y": 0.95
-      },
-      "title": "Options",
-      "visible": true
-    }
-  },
-  "Window::options": {
-    "constraints": {
-      "horizontal": "HorizontalAlignment::Left",
-      "relativePosition": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "vertical": "VerticalAlignment::Top"
-    },
-    "panel": {
-      "closable": false,
-      "hasHeader": false,
-      "movable": true,
-      "position": {
-        "x": 0.0,
-        "y": 0.0
-      },
-      "size": {
-        "x": 0.17,
-        "y": 0.95
+        "y": 0.975
       },
       "title": "Options",
       "visible": true

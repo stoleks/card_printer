@@ -13,7 +13,7 @@ struct CommonAppData;
 struct Projects {
   bool isOpen = true;
   // load or create a project
-  void selection (CommonAppData& app, Files& files, sf::RenderWindow& window, Application& main);
+  void selection (CommonAppData& app, Files& files, Application& main);
 private:
   uint32_t m_browserCounter = 0u;
   uint32_t m_activeBrowser = 0u;

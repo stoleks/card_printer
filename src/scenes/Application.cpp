@@ -103,8 +103,6 @@ void Application::update (const sf::Time& dt)
     app.gui.beginMenu ();
     // first open a project
     projects.isOpen = app.gui.menuItem (app.texts.get ("projects"));
-    // application options
-    m_isOptionsOpen = app.gui.menuItem (fmt::format (app.texts.get ("toOptions"), ICON_FA_SCREWDRIVER_WRENCH));
     // only print editor and printer if a project is loaded
     if (app.projectIsLoaded) {
       if (app.gui.menuItem (fmt::format (app.texts.get ("toEditor"), ICON_FA_FILE_PEN))) {
@@ -120,7 +118,17 @@ void Application::update (const sf::Time& dt)
     // application states
     if (projects.isOpen) {
       // main window for project selection or creation
-      projects.selection (app, files, m_window, *this);
+      if (app.gui.beginWindow (app.layout.get <sgui::Window> ("projects"))) {
+        projects.selection (app, files, *this);
+        if (app.projectIsLoaded) {
+          options ();
+        }
+        // quit application
+        if (app.gui.button (fmt::format (app.texts.get ("close"), ICON_FA_CIRCLE_XMARK))) {
+          m_window.close ();
+        }
+        app.gui.endWindow ();
+      }
     } else {
       if (m_toPrinter) {
         // set cards zoom
@@ -137,6 +145,14 @@ void Application::update (const sf::Time& dt)
       }
     }
     app.gui.endWindow ();
+    if (!projects.isOpen && m_toPrinter) {
+      // Cards display for print
+      computeLattice ();
+      displayCardsInLattice (app.cardGui);
+    } else if (!projects.isOpen) {
+      // card display for edition
+      editOnCard (app, editor);
+    }
   }
   // end gui
   app.gui.endFrame ();
@@ -156,58 +172,38 @@ void Application::draw ()
 ////////////////////////////////////////////////////////////
 void Application::setWindowsWidth ()
 {
-  // set options width
-  const auto largestText = fmt::format (app.texts.get ("buildTextures"), ICON_FA_ADDRESS_CARD);
-  const auto width = app.gui.normalizeSize (app.gui.textSize (largestText) + sf::Vector2f (55.f, 0.f)).x;
-  auto& optionsLayout = app.layout.get <sgui::Window> ("options");
-  optionsLayout.panel.size.x = width;
-  // get all layouts
-  auto& cardLayout = app.layout.get <sgui::Window> ("editOnCard");
-  auto& editorLayout = app.layout.get <sgui::Window> ("editFromMenu");
-  auto& formatLayout = app.layout.get <sgui::Window> ("chooseCardsFormat");
-  auto& displayLayout = app.layout.get <sgui::Window> ("displayCards");
-  // update layouts width
-  if (m_isOptionsOpen) {
-    options ();
-    // printer
-    formatLayout.constraints.relativePosition.x = width;
-    displayLayout.panel.size.x = 1.f - width - formatLayout.panel.size.x;
-    // editor
-    editorLayout.constraints.relativePosition.x = width;
-    cardLayout.panel.size.x = 1.f - width - editorLayout.panel.size.x;
+  // set main window width
+  auto& mainLayout = app.layout.get <sgui::Window> ("mainWindow");
+  if (projects.isOpen) {
+    mainLayout.panel.size.x = 1.f;
   } else {
-    // printer
-    formatLayout.constraints.relativePosition.x = 0.f;
-    displayLayout.panel.size.x = 1.f - formatLayout.panel.size.x;
-    // editor
-    editorLayout.constraints.relativePosition.x = 0.f;
-    cardLayout.panel.size.x = 1.f - editorLayout.panel.size.x;
+    mainLayout.panel.size.x = 0.3f; // TODO : compute optimal size for small screen
   }
+  // set printer width
+  auto& displayLayout = app.layout.get <sgui::Window> ("displayCards");
+  displayLayout.panel.size.x = 1.f - mainLayout.panel.size.x;
+  // editor width
+  auto& cardLayout = app.layout.get <sgui::Window> ("editOnCard");
+  cardLayout.panel.size.x = 1.f - mainLayout.panel.size.x;
 }
 
 ////////////////////////////////////////////////////////////
 void Application::options ()
 {
-  auto& optWindow = app.layout.get <sgui::Window> ("options");
-  optWindow.options.aspect.state = sgui::ItemState::Hovered;
-  if (app.gui.beginWindow (optWindow)) {
-    // concatene textures into one files
-    if (app.gui.button (fmt::format (app.texts.get ("buildTextures"), ICON_FA_FILE_IMAGE))) {
-      generateTexture ();
-    }
-    // use csv to build card data
-    if (app.gui.button (fmt::format (app.texts.get ("buildFromCSV"), ICON_FA_FILE_CSV))) {
-      buildCardFromCSV (files);
-    }
-    // load cards data
-    if (app.gui.button (fmt::format (app.texts.get ("loadCards"), ICON_FA_FILE_IMPORT))) {
-      loadCardsData ();
-    }
-    // quit application
-    if (app.gui.button (fmt::format (app.texts.get ("close"), ICON_FA_CIRCLE_XMARK))) {
-      m_window.close ();
-    }
-    app.gui.endWindow ();
+  // concatene textures into one files
+  app.gui.sameLine ();
+  if (app.gui.button (fmt::format (app.texts.get ("buildTextures"), ICON_FA_FILE_IMAGE))) {
+    generateTexture ();
+  }
+  // use csv to build card data
+  app.gui.sameLine ();
+  if (app.gui.button (fmt::format (app.texts.get ("buildFromCSV"), ICON_FA_FILE_CSV))) {
+    buildCardFromCSV (files);
+  }
+  // load cards data
+  app.gui.sameLine ();
+  if (app.gui.button (fmt::format (app.texts.get ("loadCards"), ICON_FA_FILE_IMPORT))) {
+    loadCardsData ();
   }
 }
 

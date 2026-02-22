@@ -11,30 +11,22 @@
 ////////////////////////////////////////////////////////////
 void cardEditor (CommonAppData& app, CardEditor& editor)
 {
-  auto& window = app.layout.get <sgui::Window> ("editFromMenu");
-  window.options.aspect.state = sgui::ItemState::Neutral;
-  if (app.gui.beginWindow (window, app.texts)) {
-    // save cards
-    if (app.gui.button (fmt::format (app.texts.get ("saveCards"), ICON_FA_FILE_EXPORT))) {
-      saveCards (editor);
-    }
-    app.gui.sameLine ();
-    // add a card to the pack
-    if (app.gui.button (fmt::format (app.texts.get ("addCard"), ICON_FA_SQUARE_PLUS))) {
-      const auto newCard = editor.cards.create ();
-      editor.cards.emplace <CardIdentifier> (newCard, editor.cardsCount);
-      editor.cards.emplace <CardFormat> (newCard);
-      editor.cards.emplace <GraphicalParts> (newCard);
-      editor.cards.emplace <CardModel> (newCard);
-      editor.cardsCount++;
-    }
-    // edit card
-    editCardFromMenu (app, editor);
-    app.gui.endWindow ();
+  // save cards
+  if (app.gui.button (fmt::format (app.texts.get ("saveCards"), ICON_FA_FILE_EXPORT))) {
+    saveCards (editor);
   }
-
-  // Display and edit cards
-  editOnCard (app, editor);
+  app.gui.sameLine ();
+  // add a card to the pack
+  if (app.gui.button (fmt::format (app.texts.get ("addCard"), ICON_FA_SQUARE_PLUS))) {
+    const auto newCard = editor.cards.create ();
+    editor.cards.emplace <CardIdentifier> (newCard, editor.cardsCount);
+    editor.cards.emplace <CardFormat> (newCard);
+    editor.cards.emplace <GraphicalParts> (newCard);
+    editor.cards.emplace <CardModel> (newCard);
+    editor.cardsCount++;
+  }
+  // edit card
+  editCardFromMenu (app, editor);
 }
 
 ////////////////////////////////////////////////////////////

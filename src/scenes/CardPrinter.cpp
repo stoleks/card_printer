@@ -29,20 +29,11 @@ CardsPrint::CardsPrint ()
 ////////////////////////////////////////////////////////////
 void Application::cardPrinter ()
 {
-  // Formats selection and print
-  auto& window = app.layout.get <sgui::Window> ("chooseCardsFormat");
-  window.options.aspect.state = sgui::ItemState::Neutral;
-  if (app.gui.beginWindow (window, app.texts)) {
-    // print cards
-    exportCardsToPdf ();
-    chooseCardsFormat ();
-    renderOptions ();
-    app.gui.endWindow ();
-  }
-
-  // Cards display
-  computeLattice ();
-  displayCardsInLattice (app.cardGui);
+  // print cards
+  exportCardsToPdf ();
+  // formats selection and print options
+  chooseCardsFormat ();
+  renderOptions ();
 }
 
 ////////////////////////////////////////////////////////////

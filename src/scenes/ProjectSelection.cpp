@@ -7,97 +7,93 @@
 #include "scenes/ProjectSelection.h"
 
 ////////////////////////////////////////////////////////////
-void Projects::selection (CommonAppData& app, Files& files, sf::RenderWindow& window, Application& main)
+void Projects::selection (CommonAppData& app, Files& files, Application& main)
 {
   // open the window containing project information
   auto& newProject = app.layout.get <sgui::Window> ("newProject");
   m_browserCounter = 0u;
-  if (app.gui.beginWindow (app.layout.get <sgui::Window> ("projects"))) {
-    // initialize project folder
-    const auto filePath = std::filesystem::path (projectFilePath (files.app.projectFile, files));
-    const auto projectName = filePath.stem ().string ();
-    app.gui.text (fmt::format ("Project name: {}", projectName));
-    if (files.app.projectFolder == "") {
-      files.app.projectFolder = files.app.folder;
-    }
 
-    // open project file
-    app.gui.text (app.texts.get ("openProject"));
-    app.gui.sameLine ();
-    fileBrowser (m_browserCounter, m_activeBrowser, files.app.projectFolder, files.app.projectFile, app);
-    // then, load project file content and edit files location
-    if (filePath.extension ().string () == ".json" && newProject.panel.closed) {
-      // set-up project files
-      if (!m_arePathsInitialized) {
-        m_arePathsInitialized = true;
-        for (uint32_t i = 0u; i < m_filesPaths.size (); i++) {
-          m_filesPaths [i] = files.app.projectFolder;
-        }
-        setInnerFiles (files, projectName);
-        json projectFiles = sgui::loadFromFile (filePath.string ());
-        files.project = projectFiles;
+  // initialize project folder
+  const auto filePath = std::filesystem::path (projectFilePath (files.app.projectFile, files));
+  const auto projectName = filePath.stem ().string ();
+  if (files.app.projectFolder == "") {
+    files.app.projectFolder = files.app.folder;
+  }
+  
+  // make a new project
+  if (app.gui.button ("newProject")) {
+    newProject.panel.closed = false;
+  }
+  app.gui.sameLine ();
+  app.gui.text (fmt::format ("Project name: {}", projectName));
+
+  // open an existing project file
+  app.gui.text (app.texts.get ("openProject"));
+  app.gui.sameLine ();
+  fileBrowser (m_browserCounter, m_activeBrowser, files.app.projectFolder, files.app.projectFile, app);
+  // then, load project file content and edit files location
+  if (filePath.extension ().string () == ".json" && newProject.panel.closed) {
+    // set-up project files
+    if (!m_arePathsInitialized) {
+      m_arePathsInitialized = true;
+      for (uint32_t i = 0u; i < m_filesPaths.size (); i++) {
+        m_filesPaths [i] = files.app.projectFolder;
       }
-      // edit project files
-      editFilesPaths (app, files);
+      setInnerFiles (files, projectName);
+      json projectFiles = sgui::loadFromFile (filePath.string ());
+      files.project = projectFiles;
     }
+    // edit project files
+    editFilesPaths (app, files);
+  }
 
-    // load project data
-    if (app.gui.button (app.texts.get ("loadProject")) && filePath.extension ().string () == ".json") {
-      spdlog::info ("Save project files data in {}", files.app.projectFile);
-      json out = files.project;
-      sgui::saveInFile (out, projectFilePath (files.app.projectFile, files));
-      spdlog::info ("Load project files data from {}", files.app.projectFile);
-      buildCardFromCSV (files);
-      main.generateTexture ();
-      main.loadCardsGui ();
-      main.loadCardsData ();
-      app.projectIsLoaded = true;
-    }
+  // load project data
+  if (app.gui.button (app.texts.get ("loadProject")) && filePath.extension ().string () == ".json") {
+    spdlog::info ("Save project files data in {}", files.app.projectFile);
+    json out = files.project;
+    sgui::saveInFile (out, projectFilePath (files.app.projectFile, files));
+    spdlog::info ("Load project files data from {}", files.app.projectFile);
+    buildCardFromCSV (files);
+    main.generateTexture ();
+    main.loadCardsGui ();
+    main.loadCardsData ();
+    app.projectIsLoaded = true;
+  }
 
-    // make a new project
-    if (app.gui.button ("newProject")) {
-      newProject.panel.closed = false;
-    }
-    app.gui.setAnchor ();
-    if (app.gui.beginWindow (newProject)) {
-      app.gui.text ("Please select the project folder");
-      app.gui.inputText (files.app.projectFolder);
-      fileBrowser (m_browserCounter, m_activeBrowser, files.app.projectFolder, files.app.projectFolder, app);
-      if (app.gui.button ("createProject")) {
-        m_arePathsInitialized = false;
-        if (!std::filesystem::is_directory (files.app.projectFolder)) {
-          spdlog::error ("You have not selected a folder");
-        } else {
-          // create project file
-          auto pos = files.app.projectFolder.find_last_of ("/");
-          if (pos == std::string::npos) {
-            pos = files.app.projectFolder.find_last_of ("\\");
-          }
-          const auto newProjectName = files.app.projectFolder.substr (pos + 1);
-          const auto newProjectFilePath = projectFilePath (newProjectName, files) + ".json";
-          spdlog::info ("Create project files {}", newProjectFilePath);
-          json out = ProjectFiles ();
-          sgui::saveInFile (out, newProjectFilePath);
-          // set or create inner files
-          spdlog::info ("Set-up inner files");
-          setInnerFiles (files, newProjectName);
-          std::filesystem::create_directory (files.inner.folder);
-          files.app.projectFile = newProjectFilePath;
-          spdlog::info ("Loaded {}", files.app.projectFile);
-          // close special window
-          newProject.panel.closed = true;
+  // make a new project
+  app.gui.setAnchor ();
+  if (app.gui.beginWindow (newProject)) {
+    app.gui.text ("Please select the project folder");
+    app.gui.inputText (files.app.projectFolder);
+    fileBrowser (m_browserCounter, m_activeBrowser, files.app.projectFolder, files.app.projectFolder, app);
+    if (app.gui.button ("createProject")) {
+      m_arePathsInitialized = false;
+      if (!std::filesystem::is_directory (files.app.projectFolder)) {
+        spdlog::error ("You have not selected a folder");
+      } else {
+        // create project file
+        auto pos = files.app.projectFolder.find_last_of ("/");
+        if (pos == std::string::npos) {
+          pos = files.app.projectFolder.find_last_of ("\\");
         }
+        const auto newProjectName = files.app.projectFolder.substr (pos + 1);
+        const auto newProjectFilePath = projectFilePath (newProjectName, files) + ".json";
+        spdlog::info ("Create project files {}", newProjectFilePath);
+        json out = ProjectFiles ();
+        sgui::saveInFile (out, newProjectFilePath);
+        // set or create inner files
+        spdlog::info ("Set-up inner files");
+        setInnerFiles (files, newProjectName);
+        std::filesystem::create_directory (files.inner.folder);
+        files.app.projectFile = newProjectFilePath;
+        spdlog::info ("Loaded {}", files.app.projectFile);
+        // close special window
+        newProject.panel.closed = true;
       }
-      app.gui.endWindow ();
-    }
-    app.gui.backToAnchor ();
-
-    // close app
-    if (app.gui.button (fmt::format (app.texts.get ("close"), ICON_FA_CIRCLE_XMARK))) {
-      window.close ();
     }
     app.gui.endWindow ();
   }
+  app.gui.backToAnchor ();
 }
 
 ////////////////////////////////////////////////////////////
@@ -161,7 +157,7 @@ void fileBrowser (uint32_t& counter, uint32_t& active, std::string& directory, s
     // open a window for root paths
     auto panel = sgui::Panel ();
     panel.size.x = browser.panel.size.x * 0.25f;
-    const auto rootSpacing = app.gui.cursorPosition ().y - firstPos.y + app.gui.textHeight ();
+    const auto rootSpacing = app.gui.cursorPosition ().y - firstPos.y + 0.5f*app.gui.textHeight ();
     panel.size.y = 1.f - rootSpacing / app.gui.parentGroupSize ().y;
     panel.hasHeader = false;
     app.gui.setAnchor ();
