@@ -14,10 +14,9 @@ void Projects::selection (CommonAppData& app, Files& files, Application& main)
   m_browserCounter = 0u;
 
   // initialize project folder
-  const auto filePath = std::filesystem::path (projectFilePath (files.app.projectFile, files));
-  const auto projectName = filePath.stem ().string ();
-  if (files.app.projectFolder == "") {
-    files.app.projectFolder = files.app.folder;
+  auto projectName = std::filesystem::path (files.app.projectFile).stem ().string ();
+  if (m_filesPaths.at (0u) == "") {
+    m_filesPaths.at (0u) = files.app.folder;
   }
   
   // make a new project
@@ -25,30 +24,66 @@ void Projects::selection (CommonAppData& app, Files& files, Application& main)
     newProject.panel.closed = false;
   }
   app.gui.sameLine ();
-  app.gui.text (fmt::format ("Project name: {}", projectName));
+  app.gui.text (fmt::format ("Project name: {} ; path: {}", projectName, files.app.projectFolder));
 
   // open an existing project file
   app.gui.text (app.texts.get ("openProject"));
   app.gui.sameLine ();
-  fileBrowser (m_browserCounter, m_activeBrowser, files.app.projectFolder, files.app.projectFile, app);
+  const auto isSelectionOpen = fileBrowser (m_browserCounter, m_activeBrowser, m_filesPaths.at (0u), files.app.projectFile, app);
+  app.gui.text (app.texts.get ("openPreviousProject"));
+  app.gui.sameLine ();
+  auto comboOpt = sgui::WidgetOptions ();
+  comboOpt.size = { 9.f, 1.f };
+  const auto previousProject = app.gui.comboBox (files.app.projectsNames, comboOpt);
+  auto previousFile = std::string ("");
+  if (const auto search = files.app.projectsFiles.find (previousProject); search != files.app.projectsFiles.end ()) {
+    previousFile = files.app.projectsFiles.at (previousProject);
+  }
+  app.gui.sameLine ();
+
   // then, load project file content and edit files location
-  if (filePath.extension ().string () == ".json" && newProject.panel.closed) {
-    // set-up project files
-    if (!m_arePathsInitialized) {
-      m_arePathsInitialized = true;
-      for (uint32_t i = 0u; i < m_filesPaths.size (); i++) {
-        m_filesPaths [i] = files.app.projectFolder;
-      }
-      setInnerFiles (files, projectName);
-      json projectFiles = sgui::loadFromFile (filePath.string ());
-      files.project = projectFiles;
+  if (app.gui.button ("loadProject") && newProject.panel.closed) {
+    // load previous project
+    if (m_previousProject != previousFile) {
+      const auto previousPath = std::filesystem::path (previousFile);
+      projectName = previousPath.stem ().string ();
+      files.app.projectFolder = previousPath.parent_path ().string ();
+      files.app.projectFile = previousPath.filename ().string ();
+      m_previousProject = previousFile;
+      spdlog::error ("Previous project: path {}", previousPath.string ());
+    } else {
+      files.app.projectFolder = m_filesPaths.at (0u);
     }
-    // edit project files
+
+    // check that stored file path is valid
+    auto filePathStr = std::string ("");
+    const auto storedPath = std::filesystem::path (projectFilePath (files.app.projectFile, files));
+    if (std::filesystem::is_regular_file (storedPath)) {
+      filePathStr = storedPath.string ();
+      projectName = storedPath.stem ().string ();
+    // otherwise check previous project path
+    }
+    spdlog::warn ("file path : {}", filePathStr);
+    spdlog::warn ("stored path : {} and file {}", files.app.projectFolder, files.app.projectFile);
+
+    // set-up project files
+    for (uint32_t i = 1u; i < m_filesPaths.size (); i++) {
+      m_filesPaths.at (i) = files.app.projectFolder;
+    }
+    json projectFiles = sgui::loadFromFile (filePathStr);
+    setInnerFiles (files, projectName);
+    files.project = projectFiles;
+    m_arePathsInitialized = true;
+  }
+  // edit project files
+  if (m_arePathsInitialized && !isSelectionOpen) {
     editFilesPaths (app, files);
   }
 
   // load project data
-  if (app.gui.button (app.texts.get ("loadProject")) && filePath.extension ().string () == ".json") {
+  const auto filePath = std::filesystem::path (projectFilePath (files.app.projectFile, files));
+  const auto doesFileExist = std::filesystem::is_regular_file (filePath);
+  if (app.gui.button (app.texts.get ("loadProject")) && doesFileExist && m_arePathsInitialized) {
     spdlog::info ("Save project files data in {}", files.app.projectFile);
     json out = files.project;
     sgui::saveInFile (out, projectFilePath (files.app.projectFile, files));
@@ -57,6 +92,11 @@ void Projects::selection (CommonAppData& app, Files& files, Application& main)
     main.generateTexture ();
     main.loadCardsGui ();
     main.loadCardsData ();
+    // save project name
+    if (const auto search = files.app.projectsFiles.find (projectName); search == files.app.projectsFiles.end ()) {
+      files.app.projectsNames.push_back (projectName);
+      files.app.projectsFiles [projectName] = filePath.string ();
+    }
     app.projectIsLoaded = true;
   }
 
@@ -112,26 +152,42 @@ void Projects::editFilesPaths (CommonAppData& app, Files& files)
   app.gui.setAnchor ();
   app.gui.setPadding ({0.5f, 0.3f});
   auto textWidth = 0.f;
-  for (const auto& entry : {"outputPdf", "texturesFolder", "font", "cards", "model", "outputFolder"}) {
+  for (const auto& entry : {"texturesFolder", "font", "cards", "model", "outputFolder", "outputPdf"}) {
     app.gui.text (app.texts.get (entry));
     textWidth = std::max (textWidth, app.gui.lastSpacing ().x);
   }
   app.gui.backToAnchor ();
   app.gui.setPadding ();
   const auto width = (textWidth + 4.f) / app.gui.textHeight ();
-  // draw input text
+  // files selections
+  auto isOpen = false;
+  m_spacing = 1.3f;
   app.gui.addSpacing ({width, 0.f});
-  app.gui.inputText (files.project.outputPdf);
-  fileBrowser (m_browserCounter, m_activeBrowser, m_filesPaths.at (0), files.project.texturesFolder, app);
-  fileBrowser (m_browserCounter, m_activeBrowser, m_filesPaths.at (1), files.project.font, app);
-  fileBrowser (m_browserCounter, m_activeBrowser, m_filesPaths.at (2), files.project.cards, app);
-  fileBrowser (m_browserCounter, m_activeBrowser, m_filesPaths.at (3), files.project.model, app);
-  fileBrowser (m_browserCounter, m_activeBrowser, m_filesPaths.at (4), files.project.outputFolder, app);
+  displayBrowser (isOpen, files.project.texturesFolder, app, 1u);
+  displayBrowser (isOpen, files.project.font, app, 1u);
+  displayBrowser (isOpen, files.project.cards, app, 1u);
+  displayBrowser (isOpen, files.project.model, app, 1u);
+  displayBrowser (isOpen, files.project.outputFolder, app, 1u);
+  if (!isOpen) { 
+    app.gui.inputText (files.project.outputPdf);
+  } else {
+    app.gui.addSpacing ({0.f, m_spacing});
+  }
   app.gui.addSpacing ({-width, 0.f});
 }
 
 ////////////////////////////////////////////////////////////
-void fileBrowser (uint32_t& counter, uint32_t& active, std::string& directory, std::string& finalEntry, CommonAppData& app)
+void Projects::displayBrowser (bool& isOpen, std::string& file, CommonAppData& app, const uint32_t index) {
+  if (!isOpen) {
+    isOpen = fileBrowser (m_browserCounter, m_activeBrowser, m_filesPaths.at (index), file, app);
+  } else {
+    m_spacing -= 0.035f;
+    app.gui.addSpacing ({0.f, m_spacing});
+  }
+}
+
+////////////////////////////////////////////////////////////
+bool fileBrowser (uint32_t& counter, uint32_t& active, std::string& directory, std::string& finalEntry, CommonAppData& app)
 {
   // display path as a button
   auto& browser = app.layout.get <sgui::Window> ("fileBrowser");
@@ -143,7 +199,9 @@ void fileBrowser (uint32_t& counter, uint32_t& active, std::string& directory, s
   app.gui.setAnchor ();
 
   // open file browser
+  auto isOpen = false;
   if (counter == active && app.gui.beginWindow (browser)) {
+    isOpen = true;
     const auto firstPos = app.gui.cursorPosition ();
     app.gui.inputText (directory);
     app.gui.separation ();
@@ -205,6 +263,7 @@ void fileBrowser (uint32_t& counter, uint32_t& active, std::string& directory, s
   }
   app.gui.backToAnchor ();
   counter++;
+  return isOpen;
 }
 
 ////////////////////////////////////////////////////////////

@@ -102,58 +102,72 @@ void Application::update (const sf::Time& dt)
     // select app function with an upper menu
     app.gui.beginMenu ();
     // first open a project
-    projects.isOpen = app.gui.menuItem (app.texts.get ("projects"));
+    if (app.gui.menuItem (app.texts.get ("projects"))) {
+      m_activeMenu = Scenes::ProjectSelection;
+    }
     // only print editor and printer if a project is loaded
     if (app.projectIsLoaded) {
       if (app.gui.menuItem (fmt::format (app.texts.get ("toEditor"), ICON_FA_FILE_PEN))) {
-        m_toPrinter = false;
+        m_activeMenu = Scenes::CardEdition;
       }
       if (app.gui.menuItem (fmt::format (app.texts.get ("toPrinter"), ICON_FA_FILE_PDF))) {
-        m_toPrinter = true;
+        m_activeMenu = Scenes::CardPrint;
       }
     }
     app.gui.endMenu ();
+
+    // set width of the menus
     setWindowsWidth ();
 
-    // application states
-    if (projects.isOpen) {
+    // project menu
+    if (m_activeMenu == Scenes::ProjectSelection) {
       // main window for project selection or creation
-      if (app.gui.beginWindow (app.layout.get <sgui::Window> ("projects"))) {
-        projects.selection (app, files, *this);
-        if (app.projectIsLoaded) {
-          options ();
-        }
-        // quit application
-        if (app.gui.button (fmt::format (app.texts.get ("close"), ICON_FA_CIRCLE_XMARK))) {
-          m_window.close ();
-        }
-        app.gui.endWindow ();
+      projects.selection (app, files, *this);
+      if (app.projectIsLoaded) {
+        options ();
       }
-    } else {
-      if (m_toPrinter) {
-        // set cards zoom
-        auto view = m_window.getDefaultView ();
-        view.zoom (m_zoom);
-        app.cardGui.setView (view);
-        cardPrinter ();
-      } else {
-        // set cards zoom
-        auto view = m_window.getDefaultView ();
-        view.zoom (1.f);
-        app.cardGui.setView (view);
-        cardEditor (app, editor);
+      // quit application
+      if (app.gui.button (fmt::format (app.texts.get ("close"), ICON_FA_CIRCLE_XMARK))) {
+        // save inner files
+        json out;
+        out = files.app;
+        sgui::saveInFile (out, LocalContentsDir"filepath.json");
+        // close window
+        m_window.close ();
       }
     }
+    
+    // card edition menu
+    if (m_activeMenu == Scenes::CardEdition) {
+      // set cards zoom
+      auto view = m_window.getDefaultView ();
+      view.zoom (1.f);
+      app.cardGui.setView (view);
+      cardEditor (app, editor);
+    }
+    // card print menu
+    if (m_activeMenu == Scenes::CardPrint) {
+      // set cards zoom
+      auto view = m_window.getDefaultView ();
+      view.zoom (m_zoom);
+      app.cardGui.setView (view);
+      cardPrinter ();
+    }
     app.gui.endWindow ();
-    if (!projects.isOpen && m_toPrinter) {
-      // Cards display for print
-      computeLattice ();
-      displayCardsInLattice (app.cardGui);
-    } else if (!projects.isOpen) {
+
+    // card edition menu, card display
+    if (m_activeMenu == Scenes::CardEdition) {
       // card display for edition
       editOnCard (app, editor);
     }
-  }
+    // card print menu, cards display
+    if (m_activeMenu == Scenes::CardPrint) {
+      // Cards display for print
+      computeLattice ();
+      displayCardsInLattice (app.cardGui);
+    }
+  } // main window
+
   // end gui
   app.gui.endFrame ();
   app.cardGui.endFrame ();
@@ -174,10 +188,10 @@ void Application::setWindowsWidth ()
 {
   // set main window width
   auto& mainLayout = app.layout.get <sgui::Window> ("mainWindow");
-  if (projects.isOpen) {
+  if (m_activeMenu == Scenes::ProjectSelection) {
     mainLayout.panel.size.x = 1.f;
   } else {
-    mainLayout.panel.size.x = 0.3f; // TODO : compute optimal size for small screen
+    mainLayout.panel.size.x = 0.35f; // TODO : compute optimal size for small screen
   }
   // set printer width
   auto& displayLayout = app.layout.get <sgui::Window> ("displayCards");

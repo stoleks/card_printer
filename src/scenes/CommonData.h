@@ -8,6 +8,15 @@
 #include "cards/PaperFormats.h"
 
 /**
+ * @brief: menu of the application
+ */
+enum class Scenes {
+  ProjectSelection,
+  CardEdition,
+  CardPrint
+};
+
+/**
  * @brief: files for application
  */
 struct AppFiles {
@@ -16,9 +25,10 @@ struct AppFiles {
   std::string editorLayout = "";
   std::string projectFolder = "";
   std::string projectFile = "";
-  std::vector <std::string> projectsNames;
+  std::vector <std::string> projectsNames = {""};
+  std::unordered_map <std::string, std::string> projectsFiles;
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(AppFiles, editorTexts, editorLayout, projectFolder, projectFile, projectsNames)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(AppFiles, editorTexts, editorLayout, projectFolder, projectFile, projectsNames, projectsFiles)
 
 /**
  * @brief: files for project edited by users

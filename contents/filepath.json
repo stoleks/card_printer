@@ -1,11 +1,14 @@
 {
-  "font": "Luciole-Regular.ttf",
-  "editorTexts": "editor_texts.json",
   "editorLayout": "editor_layout.json",
-  "widgetsAtlas": "widgets_atlas.json",
-  "widgetsTextures": "widgets.png",
-  "cardsAtlas": "cards_atlas.json",
-  "cardsTextures": "cards_textures.png",
-  "relativePathToExternal": "../jeu_cartes_molecules_meth/",
-  "externalFile": "init.json"
+  "editorTexts": "editor_texts.json",
+  "projectFile": "jeu_molecule_meth.json",
+  "projectFolder": "/home/stoleks/Documents/projets/jeu_cartes_molecules_meth",
+  "projectsFiles": {
+    "cartes_mol": "/home/stoleks/Documents/projets/cartes_molecules/cartes_mol.json",
+    "jeu_molecule_meth": "/home/stoleks/Documents/projets/jeu_cartes_molecules_meth/jeu_molecule_meth.json"
+  },
+  "projectsNames": [
+    "jeu_molecule_meth",
+    "cartes_mol"
+  ]
 }

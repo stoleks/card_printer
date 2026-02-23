@@ -69,8 +69,7 @@ private:
   sgui::TextureAtlas m_atlas;
   sgui::TextureAtlas m_cardAtlas;
   // for menu
-  bool m_isOptionsOpen = true;
-  bool m_toPrinter = false;
+  Scenes m_activeMenu = Scenes::ProjectSelection;
   // for printing
   bool m_isPrinting = false;
   uint32_t m_pageIndex = 0u;
