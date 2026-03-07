@@ -156,12 +156,12 @@ void Projects::editFilesPaths (CommonAppData& app, Files& files)
     app.gui.text (app.texts.get (entry));
     textWidth = std::max (textWidth, app.gui.lastSpacing ().x);
   }
+  app.gui.setAnchor ("descriptionEnd");
   app.gui.backToAnchor ();
   app.gui.setPadding ();
   const auto width = (textWidth + 4.f) / app.gui.textHeight ();
   // files selections
   auto isOpen = false;
-  m_spacing = 1.3f;
   app.gui.addSpacing ({width, 0.f});
   displayBrowser (isOpen, files.project.texturesFolder, app, 1u);
   displayBrowser (isOpen, files.project.font, app, 1u);
@@ -170,19 +170,14 @@ void Projects::editFilesPaths (CommonAppData& app, Files& files)
   displayBrowser (isOpen, files.project.outputFolder, app, 1u);
   if (!isOpen) { 
     app.gui.inputText (files.project.outputPdf);
-  } else {
-    app.gui.addSpacing ({0.f, m_spacing});
   }
-  app.gui.addSpacing ({-width, 0.f});
+  app.gui.backToAnchor ("descriptionEnd");
 }
 
 ////////////////////////////////////////////////////////////
 void Projects::displayBrowser (bool& isOpen, std::string& file, CommonAppData& app, const uint32_t index) {
   if (!isOpen) {
     isOpen = fileBrowser (m_browserCounter, m_activeBrowser, m_filesPaths.at (index), file, app);
-  } else {
-    m_spacing -= 0.035f;
-    app.gui.addSpacing ({0.f, m_spacing});
   }
 }
 
@@ -207,6 +202,8 @@ bool fileBrowser (uint32_t& counter, uint32_t& active, std::string& directory, s
     app.gui.separation ();
 
     // select current folder
+    browser.panel.closed = app.gui.button ("back");
+    app.gui.sameLine ();
     if (app.gui.button ("selectFolder")) {
       finalEntry = directory;
       browser.panel.closed = true;

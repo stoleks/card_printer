@@ -177,7 +177,7 @@ void Application::update (const sf::Time& dt)
 void Application::draw ()
 {
   // display gui and cards
-  m_window.clear ();
+  m_window.clear (sf::Color (47, 89, 125));
   m_window.draw (app.gui);
   m_window.draw (app.cardGui);
   m_window.display ();

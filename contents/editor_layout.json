@@ -146,8 +146,8 @@
         "y": 0.0
       },
       "size": {
-        "x": 1.0,
-        "y": 0.975
+        "x": 1,
+        "y": 1
       },
       "title": "Options",
       "visible": true
