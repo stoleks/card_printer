@@ -23,7 +23,7 @@ target_compile_definitions(${PROJECT_NAME}
 
 ####
 # Compilation option
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 
 ####
 option (NO_CONSOLE "Build without a console." OFF)

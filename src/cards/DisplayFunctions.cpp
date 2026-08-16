@@ -32,7 +32,7 @@ void drawCardDecoration (
 
     // render it
     gui.addSpacing ({-0.25f, -0.5f});
-    gui.image (icon.identifier, icon.rect.size, {icon.rect.position});
+    gui.image (icon.identifier, icon.rect.size, {.displacement = icon.rect.position});
   }
 
   // draw card text
@@ -53,12 +53,12 @@ void drawCardDecoration (
     textPanel.position = text.position;
     const auto panelSize = textSize + sf::Vector2f (20.f, 3.f*textSize.y);
     textPanel.size = panelSize.componentWiseDiv (gui.parentGroupSize ());
-    textPanel.scrollable = false;
-    textPanel.visible = false;
+    textPanel.isScrollable = false;
+    textPanel.isVisible = false;
 
     // draw panel and text
     gui.beginPanel (textPanel); 
-    gui.text (textValue, {sgui::HorizontalAlignment::Center});
+    gui.text (textValue, {.horizontal = sgui::HorizontalAlignment::Center});
     gui.endPanel ();
     // store texture position
     text.position = textPanel.position;

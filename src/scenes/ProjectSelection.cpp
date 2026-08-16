@@ -21,7 +21,7 @@ void Projects::selection (CommonAppData& app, Files& files, Application& main)
   
   // make a new project
   if (app.gui.button ("newProject")) {
-    newProject.panel.closed = false;
+    newProject.panel.isClosed = false;
   }
   app.gui.sameLine ();
   app.gui.text (fmt::format ("Project name: {} ; path: {}", projectName, files.app.projectFolder));
@@ -36,13 +36,13 @@ void Projects::selection (CommonAppData& app, Files& files, Application& main)
   comboOpt.size = { 9.f, 1.f };
   const auto previousProject = app.gui.comboBox (files.app.projectsNames, comboOpt);
   auto previousFile = std::string ("");
-  if (const auto search = files.app.projectsFiles.find (previousProject); search != files.app.projectsFiles.end ()) {
+  if (files.app.projectsFiles.contains (previousProject)) {
     previousFile = files.app.projectsFiles.at (previousProject);
   }
   app.gui.sameLine ();
 
   // then, load project file content and edit files location
-  if (app.gui.button ("loadProject") && newProject.panel.closed) {
+  if (app.gui.button ("loadProject") && newProject.panel.isClosed) {
     // load previous project
     if (m_previousProject != previousFile) {
       const auto previousPath = std::filesystem::path (previousFile);
@@ -128,7 +128,7 @@ void Projects::selection (CommonAppData& app, Files& files, Application& main)
         files.app.projectFile = newProjectFilePath;
         spdlog::info ("Loaded {}", files.app.projectFile);
         // close special window
-        newProject.panel.closed = true;
+        newProject.panel.isClosed = true;
       }
     }
     app.gui.endWindow ();
@@ -186,9 +186,10 @@ bool fileBrowser (uint32_t& counter, uint32_t& active, std::string& directory, s
 {
   // display path as a button
   auto& browser = app.layout.get <sgui::Window> ("fileBrowser");
-  const auto aspect = sgui::WidgetAspect (sgui::Widget::TextBox);
-  if (app.gui.button (fmt::format ("|{}| {}", ICON_FA_FOLDER_OPEN, finalEntry), {aspect})) {
-    browser.panel.closed = false;
+  const auto aspect = sgui::WidgetAspect {.widget = sgui::Widget::TextBox};
+  const auto entryText = fmt::format ("|{}| {}", ICON_FA_FOLDER_OPEN, finalEntry);
+  if (app.gui.button (entryText, {.aspect = aspect})) {
+    browser.panel.isClosed = false;
     active = counter; 
   }
   app.gui.setAnchor ();
@@ -202,11 +203,11 @@ bool fileBrowser (uint32_t& counter, uint32_t& active, std::string& directory, s
     app.gui.separation ();
 
     // select current folder
-    browser.panel.closed = app.gui.button ("back");
+    browser.panel.isClosed = app.gui.button ("back");
     app.gui.sameLine ();
     if (app.gui.button ("selectFolder")) {
       finalEntry = directory;
-      browser.panel.closed = true;
+      browser.panel.isClosed = true;
     }
 
     // open a window for root paths
@@ -225,7 +226,7 @@ bool fileBrowser (uint32_t& counter, uint32_t& active, std::string& directory, s
         // allow user to go from folder to folder
         if (entry.is_directory ()) {
           const auto entryName = entry.path ().filename ().string ();
-          if (app.gui.button (fmt::format ("|{}| {}", ICON_FA_FOLDER_OPEN, entryName), {aspect})) {
+          if (app.gui.button (fmt::format ("|{}| {}", ICON_FA_FOLDER_OPEN, entryName), {.aspect = aspect})) {
             directory = entry.path ().string ();
           }
         }
@@ -236,13 +237,15 @@ bool fileBrowser (uint32_t& counter, uint32_t& active, std::string& directory, s
 
     // go to another folder
     app.gui.addSpacing ({panelSize.x / app.gui.textHeight () + 0.5f, 0.f});
-    if (app.gui.button (fmt::format ("|{}| ...", ICON_FA_FOLDER_OPEN), {aspect})) {
+    if (app.gui.button (fmt::format ("|{}| ...", ICON_FA_FOLDER_OPEN), {.aspect = aspect})) {
       directory = std::filesystem::path (directory).parent_path ().string ();
     }
     app.gui.addSpacing ({1.f, 0.f});
     const auto buttonWidth = (app.gui.parentGroupSize ().x - panelSize.x) / app.gui.textHeight () - 3.f;
-    auto buttonOptions = sgui::WidgetOptions { aspect };
-    buttonOptions.size = { buttonWidth, 1.f };
+    const auto buttonOptions = sgui::WidgetOptions {
+      .size = { buttonWidth, 1.f },
+      .aspect = aspect
+    };
     for (const auto& entry : std::filesystem::directory_iterator (directory)) {
       // allow user to go from folder to folder
       const auto entryName = entry.path ().filename ().string ();
@@ -253,7 +256,7 @@ bool fileBrowser (uint32_t& counter, uint32_t& active, std::string& directory, s
       // print files names
       } else if (app.gui.button (entryName, buttonOptions)) {
         finalEntry = entryName;
-        browser.panel.closed = true;
+        browser.panel.isClosed = true;
       }
     }
     app.gui.endWindow ();

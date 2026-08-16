@@ -40,38 +40,41 @@ void Application::cardPrinter ()
 void Application::renderOptions ()
 {
   // set zoom for card gui
-  app.gui.slider (m_zoom, 0.5f, 3.f, fmt::format (app.texts.get ("zoomValue"), ICON_FA_MAGNIFYING_GLASS, m_zoom));
-  app.gui.inputVector2 (m_baseShift, fmt::format (app.texts.get ("baseShift"), m_baseShift.x, m_baseShift.y));
+  const auto zoomText = format (app.texts.get ("zoomValue"), ICON_FA_MAGNIFYING_GLASS, m_zoom);
+  app.gui.slider (m_zoom, 0.5f, 3.f, {.description = zoomText});
+  const auto shiftText = format (app.texts.get ("baseShift"), m_baseShift.x, m_baseShift.y);
+  app.gui.inputVector2 (m_baseShift, {.description = shiftText});
   m_cardsShift = m_zoom * app.gui.textHeight () * m_baseShift;
   app.gui.separation ();
 
   // resolution app.texts.get ("cardResolution")
   auto& resolution = page.resolution;
-  app.gui.slider (resolution, 75.f, 300.f, {fmt::format (app.texts.get ("cardRes"), resolution)} );
+  const auto resolutionText = format (app.texts.get ("cardRes"), resolution);
+  app.gui.slider (resolution, 75.f, 300.f, {.description = resolutionText});
   app.gui.inputNumber (resolution);
   resolution = std::round (resolution);
 
   // card padding
-  app.gui.text (fmt::format (app.texts.get ("cardPadding"), cards.padding.x, cards.padding.y));
+  app.gui.text (format (app.texts.get ("cardPadding"), cards.padding.x, cards.padding.y));
   app.gui.slider (cards.padding.x, 0.f, 3.f);
   app.gui.sameLine ();
-  app.gui.slider (cards.padding.y, 0.f, 3.f, {app.texts.get ("cardPaddingLegend")});
+  app.gui.slider (cards.padding.y, 0.f, 3.f, {.description = app.texts.get ("cardPaddingLegend")});
 
   // page padding
   const auto pagePadding = pixelToMillim (page.padding, page.resolution);
-  app.gui.text (fmt::format (app.texts.get ("pagePadding"), pagePadding.x, pagePadding.y));
+  app.gui.text (format (app.texts.get ("pagePadding"), pagePadding.x, pagePadding.y));
   const auto pageSize = sf::Vector2u (computePageSize (page));
-  app.gui.text (fmt::format (app.texts.get ("pageSize"), pageSize.x, pageSize.y));
+  app.gui.text (format (app.texts.get ("pageSize"), pageSize.x, pageSize.y));
 }
 
 ////////////////////////////////////////////////////////////
 void Application::chooseCardsFormat ()
 {
   // recto verso ?
-  app.gui.checkBox (cards.isRectoVerso, {app.texts.get ("printBack")});
+  app.gui.checkBox (cards.isRectoVerso, {.description = app.texts.get ("printBack")});
 
   // choose paper orientation
-  if (app.gui.button (fmt::format (app.texts.get ("rotatePage"), ICON_FA_ROTATE))) {
+  if (app.gui.button (format (app.texts.get ("rotatePage"), ICON_FA_ROTATE))) {
     page.oldOrientation = page.orientation;
     if (page.orientation == PaperOrientation::Landscape) {
       page.orientation = PaperOrientation::Portrait;
@@ -81,7 +84,7 @@ void Application::chooseCardsFormat ()
   }
 
   // cards' format selection
-  app.gui.text (fmt::format (app.texts.get ("cardFormat"), ICON_FA_FILE));
+  app.gui.text (format (app.texts.get ("cardFormat"), ICON_FA_FILE));
   app.gui.sameLine ();
   const auto formatName = app.gui.comboBox (cards.formatNames);
   cards.format = PaperFormatNames.at (formatName);
@@ -91,7 +94,7 @@ void Application::chooseCardsFormat ()
 ////////////////////////////////////////////////////////////
 void Application::exportCardsToPdf ()
 {
-  if (app.gui.button (fmt::format (app.texts.get ("print"), ICON_FA_FILE_PDF))) {
+  if (app.gui.button (format (app.texts.get ("print"), ICON_FA_FILE_PDF))) {
     if (!m_isPrinting) {
       m_isPrinting = true;
       m_pageIndex = 0u;
@@ -222,9 +225,12 @@ void Application::displayCardsInLattice (
   for (const auto& cardPos : cards.positions.at (pageIndex)) {
     // set card position and size
     const auto cardBox = sf::FloatRect (cardPos, cardSize);
-    auto cardPanel = sgui::Panel ({cardBox.position + shift, gui.normalizeSize (cardBox.size)});
-    cardPanel.scrollable = false;
-    cardPanel.visible = false;
+    auto cardPanel = sgui::Panel ({
+      .position = cardBox.position + shift, 
+      .size = gui.normalizeSize (cardBox.size),
+      .isVisible = false,
+      .isScrollable = false
+    });
     auto& format = editor.cards.get <CardFormat> (editor.activeCard);
     format.size = cardBox.size;
 

@@ -115,3 +115,12 @@ struct CardsPrint {
   std::vector <std::vector <sf::Vector2f>> positions;
   sf::RenderTexture image;
 };
+
+/**
+ * to avoid fmt::format (fmt::runtime ()) mess
+ */
+template <typename... Args>
+std::string format (const std::string& message, Args... args)
+{
+  return fmt::format (fmt::runtime (message), args...);
+}

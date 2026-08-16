@@ -49,8 +49,8 @@ void Application::initialize ()
   app.layout.loadFromFile (layoutPath);
   // set initial state
   app.layout.get <sgui::Window> ("mainWindow").panel.hasMenu = true;
-  app.layout.get <sgui::Window> ("fileBrowser").panel.closed = true;
-  app.layout.get <sgui::Window> ("newProject").panel.closed = true;
+  app.layout.get <sgui::Window> ("fileBrowser").panel.isClosed = true;
+  app.layout.get <sgui::Window> ("newProject").panel.isClosed = true;
 
   // Gui initialization
   spdlog::info ("Load atlas {}", sgui::DefaultAtlas);
@@ -107,10 +107,10 @@ void Application::update (const sf::Time& dt)
     }
     // only print editor and printer if a project is loaded
     if (app.projectIsLoaded) {
-      if (app.gui.menuItem (fmt::format (app.texts.get ("toEditor"), ICON_FA_FILE_PEN))) {
+      if (app.gui.menuItem (format (app.texts.get ("toEditor"), ICON_FA_FILE_PEN))) {
         m_activeMenu = Scenes::CardEdition;
       }
-      if (app.gui.menuItem (fmt::format (app.texts.get ("toPrinter"), ICON_FA_FILE_PDF))) {
+      if (app.gui.menuItem (format (app.texts.get ("toPrinter"), ICON_FA_FILE_PDF))) {
         m_activeMenu = Scenes::CardPrint;
       }
     }
@@ -127,7 +127,7 @@ void Application::update (const sf::Time& dt)
         options ();
       }
       // quit application
-      if (app.gui.button (fmt::format (app.texts.get ("close"), ICON_FA_CIRCLE_XMARK))) {
+      if (app.gui.button (format (app.texts.get ("close"), ICON_FA_CIRCLE_XMARK))) {
         // save inner files
         json out;
         out = files.app;
@@ -206,17 +206,17 @@ void Application::options ()
 {
   // concatene textures into one files
   app.gui.sameLine ();
-  if (app.gui.button (fmt::format (app.texts.get ("buildTextures"), ICON_FA_FILE_IMAGE))) {
+  if (app.gui.button (format (app.texts.get ("buildTextures"), ICON_FA_FILE_IMAGE))) {
     generateTexture ();
   }
   // use csv to build card data
   app.gui.sameLine ();
-  if (app.gui.button (fmt::format (app.texts.get ("buildFromCSV"), ICON_FA_FILE_CSV))) {
+  if (app.gui.button (format (app.texts.get ("buildFromCSV"), ICON_FA_FILE_CSV))) {
     buildCardFromCSV (files);
   }
   // load cards data
   app.gui.sameLine ();
-  if (app.gui.button (fmt::format (app.texts.get ("loadCards"), ICON_FA_FILE_IMPORT))) {
+  if (app.gui.button (format (app.texts.get ("loadCards"), ICON_FA_FILE_IMPORT))) {
     loadCardsData ();
   }
 }
