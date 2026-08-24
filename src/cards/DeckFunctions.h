@@ -3,7 +3,14 @@
 #include <entt/entt.hpp>
 
 /**
- * @brief swipe to next card in the pack
+ * @brief swipe to the previous card in the pack
+ */
+void swipeToPreviousCard (
+  entt::entity& activeCard,
+  const entt::registry& cards);
+
+/**
+ * @brief swipe to the next card in the pack
  */
 void swipeToNextCard (
   entt::entity& activeCard,
