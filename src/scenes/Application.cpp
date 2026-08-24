@@ -15,14 +15,7 @@
 
 ////////////////////////////////////////////////////////////
 CardEditor::CardEditor ()
-{
-  activeCard = cards.create ();
-  cards.emplace <CardIdentifier> (activeCard);
-  cards.emplace <CardFormat> (activeCard);
-  cards.emplace <GraphicalParts> (activeCard);
-  cards.emplace <CardModel> (activeCard);
-  cardsCount++;
-}
+{}
 
 ////////////////////////////////////////////////////////////
 Application::Application (sf::RenderWindow& window)
@@ -158,7 +151,7 @@ void Application::update (const sf::Time& dt)
     // card edition menu, card display
     if (m_activeMenu == Scenes::CardEdition) {
       // card display for edition
-      editOnCard (app, editor);
+      editCardFromGui (app, editor, editor.activeCard);
     }
     // card print menu, cards display
     if (m_activeMenu == Scenes::CardPrint) {
@@ -247,6 +240,6 @@ void Application::loadCardsData ()
   const auto modelPath = projectFilePath (files.project.model, files);
   spdlog::info ("Load card with model from {}", modelPath);
   spdlog::info ("Save in {}", files.inner.cards);
-  app.style.fontSize.normal = loadCardsFromFile (editor.cards, modelPath, files.inner.cards);
+  app.style.fontSize.normal = loadCardsFromFile (editor, modelPath, files.inner.cards);
   app.cardGui.setStyle (app.style);
 }

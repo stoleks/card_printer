@@ -204,12 +204,9 @@ void Application::displayCardsInLattice (
   const bool onScreen,
   const bool verso)
 {
-  // go to first card and skip model
+  // go to first card skipping model
   const auto firstCard = cards.positions.at (0u).size () * pageIndex + 1;
   ::goToCard (editor.activeCard, editor.cards, firstCard);
-  if (editor.cards.get <const CardModel> (editor.activeCard).isModel) {
-    ::swipeToNextCard (editor.activeCard, editor.cards);
-  }
 
   // open a window if we display card on screen
   auto shift = sf::Vector2f ();
