@@ -49,12 +49,13 @@ void drawCardDecoration (
     }
 
     // draw text in a wrapper panel
-    auto textPanel = sgui::Panel ();
-    textPanel.position = text.position;
     const auto panelSize = textSize + sf::Vector2f (20.f, 3.f*textSize.y);
-    textPanel.size = panelSize.componentWiseDiv (gui.parentGroupSize ());
-    textPanel.isScrollable = false;
-    textPanel.isVisible = false;
+    auto textPanel = sgui::Panel {
+      .position = text.position,
+      .size = panelSize.componentWiseDiv (gui.parentGroupSize ()),
+      .isVisible = false,
+      .isScrollable = false
+    };
 
     // draw panel and text
     gui.beginPanel (textPanel); 
