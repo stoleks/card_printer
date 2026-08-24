@@ -83,9 +83,11 @@ struct CommonAppData {
 struct CardEditor {
   CardEditor ();
   // data
+  bool editCardModel = true;
   int cardsCount = 0;
   std::string saveFile;
   entt::entity activeCard;
+  entt::entity cardModel;
   entt::registry cards;
 };
 

@@ -3,16 +3,18 @@
 #include <entt/entt.hpp>
 #include "CardSaving.h"
 
+struct CardEditor;
+
 ////////////////////////////////////////////////////////////
 uint32_t loadCardsFromFile (
-  entt::registry& registry,
+  CardEditor& editor,
   const std::string& modelFile,
   const std::string& cardsFile);
 
 ////////////////////////////////////////////////////////////
 void buildCardsFromModel (
   entt::registry& registry,
-  uint32_t& cardNumber,
+  const uint32_t cardNumber,
   const entt::entity& card,
   const CardFingerPrint& data,
   const Card& model);

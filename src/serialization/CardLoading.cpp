@@ -1,33 +1,36 @@
 #include "CardLoading.h"
+#include "scenes/CommonData.h"
 #include <sgui/Serialization/LoadJson.h>
 
 ////////////////////////////////////////////////////////////
 uint32_t loadCardsFromFile (
-  entt::registry& cards,
+  CardEditor& editor,
   const std::string& modelFile,
   const std::string& cardsFile)
 {
   // clear registry
-  cards.clear ();
+  editor.cards.clear ();
 
   // Load card's model
   json modelJson = sgui::loadFromFile (modelFile);
   Card modelData = modelJson ["model"];
-  const auto model = cards.create ();
-  cards.emplace <CardModel> (model, modelData.model);
-  cards.emplace <CardFormat> (model, modelData.format);
-  cards.emplace <GraphicalParts> (model, modelData.graphics);
-  cards.emplace <CardIdentifier> (model, 0u);
+  editor.cardModel = editor.cards.create ();
+  editor.cards.emplace <CardModel> (editor.cardModel, modelData.model);
+  editor.cards.emplace <CardFormat> (editor.cardModel, modelData.format);
+  editor.cards.emplace <GraphicalParts> (editor.cardModel, modelData.graphics);
 
   // Load all cards informations and build every card data from model
-  auto cardNumber = 1u;
+  editor.cardsCount = 0u;
   json allCards = sgui::loadFromFile (cardsFile);
   for (auto& cardFingerPrint : allCards.items ()) {
     // load data from json
-    const auto card = cards.create ();
+    const auto card = editor.cards.create ();
     CardFingerPrint data = cardFingerPrint.value ();
-    buildCardsFromModel (cards, cardNumber, card, data, modelData);
-    cardNumber++;
+    buildCardsFromModel (editor.cards, editor.cardsCount, card, data, modelData);
+    if (editor.cardsCount == 0u) {
+      editor.activeCard = card;
+    }
+    editor.cardsCount++;
   }
 
   return modelData.model.fontSize;
@@ -36,7 +39,7 @@ uint32_t loadCardsFromFile (
 ////////////////////////////////////////////////////////////
 void buildCardsFromModel (
   entt::registry& cards,
-  uint32_t& cardNumber,
+  const uint32_t cardNumber,
   const entt::entity& card,
   const CardFingerPrint& data,
   const Card& model)
