@@ -85,9 +85,11 @@ void Application::chooseCardsFormat ()
 
   // cards' format selection
   app.gui.text (format (app.texts.get ("cardFormat"), ICON_FA_FILE));
+  app.gui.setAnchor ();
   app.gui.sameLine ();
   const auto formatName = app.gui.comboBox (cards.formatNames);
   cards.format = PaperFormatNames.at (formatName);
+  app.gui.backToAnchor ();
   app.gui.separation ();
 }
 
@@ -210,13 +212,13 @@ void Application::displayCardsInLattice (
 
   // open a window if we display card on screen
   auto shift = sf::Vector2f ();
+  gui.beginFrame ();
   if (onScreen) {
     auto& layout = app.layout.get <sgui::Window> ("displayCards");
     layout.options.aspect.state = sgui::ItemState::Hovered;
     app.gui.beginWindow (layout, app.texts);
     shift = app.gui.cursorPosition () - m_cardsShift;
   }
-  gui.beginFrame ();
   // draw cards
   const auto cardSize = millimToPixel (PaperFormatInMillimeter.at (cards.format), page.resolution);
   for (const auto& cardPos : cards.positions.at (pageIndex)) {

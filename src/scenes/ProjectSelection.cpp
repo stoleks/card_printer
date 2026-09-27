@@ -11,7 +11,6 @@ void Projects::selection (CommonAppData& app, Files& files, Application& main)
 {
   // open the window containing project information
   auto& newProject = app.layout.get <sgui::Window> ("newProject");
-  m_browserCounter = 0u;
 
   // initialize project folder
   auto projectName = std::filesystem::path (files.app.projectFile).stem ().string ();
@@ -29,11 +28,11 @@ void Projects::selection (CommonAppData& app, Files& files, Application& main)
   // open an existing project file
   app.gui.text (app.texts.get ("openProject"));
   app.gui.sameLine ();
-  const auto isSelectionOpen = fileBrowser (m_browserCounter, m_activeBrowser, m_filesPaths.at (0u), files.app.projectFile, app);
+  app.gui.fileBrowser (m_filesPaths.at (0u), files.app.projectFile);
   app.gui.text (app.texts.get ("openPreviousProject"));
+  app.gui.setAnchor ();
   app.gui.sameLine ();
-  auto comboOpt = sgui::WidgetOptions ();
-  comboOpt.size = { 9.f, 1.f };
+  const auto comboOpt = sgui::WidgetOptions {.size = { 9.f, 1.f }};
   const auto previousProject = app.gui.comboBox (files.app.projectsNames, comboOpt);
   auto previousFile = std::string ("");
   if (files.app.projectsFiles.contains (previousProject)) {
@@ -75,8 +74,10 @@ void Projects::selection (CommonAppData& app, Files& files, Application& main)
     files.project = projectFiles;
     m_arePathsInitialized = true;
   }
+
   // edit project files
-  if (m_arePathsInitialized && !isSelectionOpen) {
+  app.gui.backToAnchor ();
+  if (m_arePathsInitialized) {
     editFilesPaths (app, files);
   }
 
@@ -105,7 +106,7 @@ void Projects::selection (CommonAppData& app, Files& files, Application& main)
   if (app.gui.beginWindow (newProject)) {
     app.gui.text ("Please select the project folder");
     app.gui.inputText (files.app.projectFolder);
-    fileBrowser (m_browserCounter, m_activeBrowser, files.app.projectFolder, files.app.projectFolder, app);
+    app.gui.fileBrowser (files.app.projectFolder, files.app.projectFolder);
     if (app.gui.button ("createProject")) {
       m_arePathsInitialized = false;
       if (!std::filesystem::is_directory (files.app.projectFolder)) {
@@ -139,131 +140,31 @@ void Projects::selection (CommonAppData& app, Files& files, Application& main)
 ////////////////////////////////////////////////////////////
 void Projects::setInnerFiles (Files& files, const std::string& projectName) const
 {
-  files.inner.folder = files.app.projectFolder + "/educarte_files";
+  files.inner.folder  = files.app.projectFolder + "/educarte_files";
   files.inner.texture = files.inner.folder + "/texture_" + projectName + ".png";
-  files.inner.atlas = files.inner.folder + "/atlas_" + projectName + ".json";
-  files.inner.cards = files.inner.folder + "/cards_" + projectName + ".json";
+  files.inner.atlas   = files.inner.folder + "/atlas_" + projectName + ".json";
+  files.inner.cards   = files.inner.folder + "/cards_" + projectName + ".json";
 }
 
 ////////////////////////////////////////////////////////////
 void Projects::editFilesPaths (CommonAppData& app, Files& files)
 {
-  // draw descriptions
-  app.gui.setAnchor ();
-  app.gui.setPadding ({0.5f, 0.3f});
-  auto textWidth = 0.f;
-  for (const auto& entry : {"texturesFolder", "font", "cards", "model", "outputFolder", "outputPdf"}) {
-    app.gui.text (app.texts.get (entry));
-    textWidth = std::max (textWidth, app.gui.lastSpacing ().x);
-  }
-  app.gui.setAnchor ("descriptionEnd");
-  app.gui.backToAnchor ();
-  app.gui.setPadding ();
-  const auto width = (textWidth + 4.f) / app.gui.textHeight ();
-  // files selections
-  auto isOpen = false;
-  app.gui.addSpacing ({width, 0.f});
-  displayBrowser (isOpen, files.project.texturesFolder, app, 1u);
-  displayBrowser (isOpen, files.project.font, app, 1u);
-  displayBrowser (isOpen, files.project.cards, app, 1u);
-  displayBrowser (isOpen, files.project.model, app, 1u);
-  displayBrowser (isOpen, files.project.outputFolder, app, 1u);
-  if (!isOpen) { 
-    app.gui.inputText (files.project.outputPdf);
-  }
-  app.gui.backToAnchor ("descriptionEnd");
-}
-
-////////////////////////////////////////////////////////////
-void Projects::displayBrowser (bool& isOpen, std::string& file, CommonAppData& app, const uint32_t index) {
-  if (!isOpen) {
-    isOpen = fileBrowser (m_browserCounter, m_activeBrowser, m_filesPaths.at (index), file, app);
-  }
-}
-
-////////////////////////////////////////////////////////////
-bool fileBrowser (uint32_t& counter, uint32_t& active, std::string& directory, std::string& finalEntry, CommonAppData& app)
-{
-  // display path as a button
-  auto& browser = app.layout.get <sgui::Window> ("fileBrowser");
-  const auto aspect = sgui::WidgetAspect {.widget = sgui::Widget::TextBox};
-  const auto entryText = fmt::format ("|{}| {}", ICON_FA_FOLDER_OPEN, finalEntry);
-  if (app.gui.button (entryText, {.aspect = aspect})) {
-    browser.panel.isClosed = false;
-    active = counter; 
-  }
-  app.gui.setAnchor ();
-
-  // open file browser
-  auto isOpen = false;
-  if (counter == active && app.gui.beginWindow (browser)) {
-    isOpen = true;
-    const auto firstPos = app.gui.cursorPosition ();
-    app.gui.inputText (directory);
-    app.gui.separation ();
-
-    // select current folder
-    browser.panel.isClosed = app.gui.button ("back");
-    app.gui.sameLine ();
-    if (app.gui.button ("selectFolder")) {
-      finalEntry = directory;
-      browser.panel.isClosed = true;
-    }
-
-    // open a window for root paths
-    auto panel = sgui::Panel ();
-    panel.size.x = browser.panel.size.x * 0.25f;
-    const auto rootSpacing = app.gui.cursorPosition ().y - firstPos.y + 0.5f*app.gui.textHeight ();
-    panel.size.y = 1.f - rootSpacing / app.gui.parentGroupSize ().y;
-    panel.hasHeader = false;
-    app.gui.setAnchor ();
-    auto panelSize = sf::Vector2f ();
-    // display root paths
-    if (app.gui.beginWindow (panel)) {
-      panelSize = app.gui.parentGroupSize ();
-      const auto rootPath = std::filesystem::current_path ().root_path ();
-      for (const auto& entry : std::filesystem::directory_iterator (rootPath)) {
-        // allow user to go from folder to folder
-        if (entry.is_directory ()) {
-          const auto entryName = entry.path ().filename ().string ();
-          if (app.gui.button (fmt::format ("|{}| {}", ICON_FA_FOLDER_OPEN, entryName), {.aspect = aspect})) {
-            directory = entry.path ().string ();
-          }
-        }
-      }
-      app.gui.endWindow ();
-    }
-    app.gui.backToAnchor ();
-
-    // go to another folder
-    app.gui.addSpacing ({panelSize.x / app.gui.textHeight () + 0.5f, 0.f});
-    if (app.gui.button (fmt::format ("|{}| ...", ICON_FA_FOLDER_OPEN), {.aspect = aspect})) {
-      directory = std::filesystem::path (directory).parent_path ().string ();
-    }
-    app.gui.addSpacing ({1.f, 0.f});
-    const auto buttonWidth = (app.gui.parentGroupSize ().x - panelSize.x) / app.gui.textHeight () - 3.f;
-    const auto buttonOptions = sgui::WidgetOptions {
-      .size = { buttonWidth, 1.f },
-      .aspect = aspect
-    };
-    for (const auto& entry : std::filesystem::directory_iterator (directory)) {
-      // allow user to go from folder to folder
-      const auto entryName = entry.path ().filename ().string ();
-      if (entry.is_directory ()) {
-        if (app.gui.button (fmt::format ("|{}| {}", ICON_FA_FOLDER_OPEN, entryName), buttonOptions)) {
-          directory = entry.path ().string ();
-        }
-      // print files names
-      } else if (app.gui.button (entryName, buttonOptions)) {
-        finalEntry = entryName;
-        browser.panel.isClosed = true;
-      }
-    }
-    app.gui.endWindow ();
-  }
-  app.gui.backToAnchor ();
-  counter++;
-  return isOpen;
+  app.gui.text (app.texts.get ("texturesFolder"));
+  app.gui.sameLine ();
+  app.gui.fileBrowser (m_filesPaths.at (1u), files.project.texturesFolder);
+  app.gui.text (app.texts.get ("font"));
+  app.gui.sameLine ();
+  app.gui.fileBrowser (m_filesPaths.at (2u), files.project.font);
+  app.gui.text (app.texts.get ("cards"));
+  app.gui.sameLine ();
+  app.gui.fileBrowser (m_filesPaths.at (3u), files.project.cards);
+  app.gui.text (app.texts.get ("model"));
+  app.gui.sameLine ();
+  app.gui.fileBrowser (m_filesPaths.at (4u), files.project.model);
+  app.gui.text (app.texts.get ("outputFolder"));
+  app.gui.sameLine ();
+  app.gui.fileBrowser (m_filesPaths.at (5u), files.project.outputFolder);
+  app.gui.inputText (files.project.outputPdf);
 }
 
 ////////////////////////////////////////////////////////////
