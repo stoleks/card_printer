@@ -68,6 +68,8 @@ struct Files {
  */
 struct CommonAppData {
   bool projectIsLoaded = false;
+  float optimalMenuWidth = 0.3f;
+  float windowWidth;
   sgui::Gui gui;
   sgui::Gui cardGui;
   sgui::Gui cardPrint;

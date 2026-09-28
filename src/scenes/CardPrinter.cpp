@@ -59,9 +59,13 @@ void Application::renderOptions ()
 
   // card padding
   app.gui.text (format (app.texts.get ("cardPadding"), cards.padding.x, cards.padding.y));
+  auto optimalWidth = 0.f;
   app.gui.slider (cards.padding.x, 0.f, 3.f);
+  optimalWidth += app.gui.lastSpacing ().x;
   app.gui.sameLine ();
   app.gui.slider (cards.padding.y, 0.f, 3.f, {.description = app.texts.get ("cardPaddingLegend")});
+  optimalWidth += app.gui.lastSpacing ().x + 3.f*app.gui.textHeight ();
+  app.optimalMenuWidth = optimalWidth / app.windowWidth;
 
   // page padding
   const auto pagePadding = pixelToMillim (page.padding, page.resolution);

@@ -107,6 +107,7 @@ void Application::update (const sf::Time& dt)
     app.gui.endMenu ();
 
     // set width of the menus
+    app.windowWidth = app.gui.activePanelSize ().x;
     setWindowsWidth ();
 
     // project menu
@@ -169,15 +170,14 @@ void Application::draw ()
 void Application::setWindowsWidth ()
 {
   // set menu width
-  const auto optimalWidth = 0.35f;
   auto& menu = app.layout.get <sgui::Window> ("editionMenu");
-  menu.panel.size.x = optimalWidth;
+  menu.panel.size.x = app.optimalMenuWidth;
   // set printer width
   auto& displayLayout = app.layout.get <sgui::Window> ("displayCards");
-  displayLayout.panel.size.x = 1.f - optimalWidth;
+  displayLayout.panel.size.x = 1.f - app.optimalMenuWidth;
   // editor width
   auto& cardLayout = app.layout.get <sgui::Window> ("editOnCard");
-  cardLayout.panel.size.x = 1.f - optimalWidth;
+  cardLayout.panel.size.x = 1.f - app.optimalMenuWidth;
 }
 
 ////////////////////////////////////////////////////////////

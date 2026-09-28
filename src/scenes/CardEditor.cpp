@@ -13,13 +13,17 @@ void CardEditor::menuAndDisplay (CommonAppData& app)
 {
   if (app.gui.beginWindow (app.layout.get <sgui::Window> ("editionMenu"))) {
     // save cards
+    auto optimalWidth = 0.f;
     if (app.gui.button (format (app.texts.get ("saveCards"), ICON_FA_FILE_EXPORT))) {
       saveCards ();
     }
+    optimalWidth += app.gui.lastSpacing ().x;
     app.gui.sameLine ();
 
     // choose if we edit card model or cards in the pack
     const auto editModel = app.gui.checkBox (editCardModel, {.description = app.texts.get ("isModel")});
+    optimalWidth += app.gui.lastSpacing ().x + 3.f*app.gui.textHeight ();
+    app.optimalMenuWidth = optimalWidth / app.windowWidth;
 
     // add a card to the pack
     if (app.gui.button (format (app.texts.get ("addCard"), ICON_FA_SQUARE_PLUS))) {

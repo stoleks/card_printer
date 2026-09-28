@@ -1,10 +1,20 @@
 Reorganize how card editor work :
-- distinguish between template card and normal card ;
-- template card define all possibles textures/texts a card may have ;
-- when editing a card, user choose which attribute from the template is added to it ;
-- when saving cards, generate a csv with all required data (user can choose to edit visually or through csv)
+- when editing a card, user choose which attribute from the template is added to it ; to be refined
+  - add unordered map that store the textures and texts of each cards
+  - modification in the model should modify all cards
+  - add option to remove a texture or text from a card 
+- add a verso part for the model and the cards
+  - verso textures/texts are prefixed with verso_ in csv
+  - verso are drawn in reverse order of the cards (1 2 3 -> 3 2 1) 
+- add a contour to the position of model part (like debug mode in gui)
+  - fix the size of the card displayed
+  - make primitive shape render public in gui
+- when saving cards, generate a csv with all required data (user can choose to edit visually or through csv) ; 
 - add a droplist under the text for texture selection ;
-- change card render in app so that they are contained in the window and can be scrolled;
+- change card render in app so that they are contained in the window and can be scrolled 
+  - fuse gui and cardGui to achieve that simply.
+  - Add gui texture in the texture collage for that
 - automatically compute a reasonable position for cards in the render window ;
-- change texture of the panel to have a subtle gradient from one side to another and to have a line on only one side
-- 
+  - should be done with the fusion of gui texture and cards texture
+- reorganize code to have card editor and printer in their own classes ;
+- project creation should generate ok-ish default files ;
