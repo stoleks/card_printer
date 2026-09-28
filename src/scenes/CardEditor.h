@@ -3,16 +3,27 @@
 #include <entt/entity/registry.hpp>
 
 struct CommonAppData;
-struct CardEditor;
 
 /**
- * cards edition
+ * @brief : store editor informations
  */
-void cardEditor (CommonAppData& app, CardEditor& editor);
-void editCardFormat (CommonAppData& app, CardEditor& editor, entt::entity& cardEdited);
-void editCardFromGui (CommonAppData& app, CardEditor& editor, entt::entity& cardEdited);
-void editModelTexts (CommonAppData& app, CardEditor& editor);
-void editModelTextures (CommonAppData& app, CardEditor& editor);
-void editCardTexts (CommonAppData& app, CardEditor& editor, entt::entity& cardEdited);
-void editCardTextures (CommonAppData& app, CardEditor& editor, entt::entity& cardEdited);
-void saveCards (CardEditor& editor);
+struct CardEditor {
+  CardEditor () = default;
+  // data
+  bool editCardModel = true;
+  int cardsCount = 0;
+  std::string saveFile;
+  entt::entity activeCard;
+  entt::entity cardModel;
+  entt::registry cards;
+  // functions
+  void menuAndDisplay (CommonAppData& app);
+private:
+  void editFromGui (CommonAppData& app, entt::entity& cardEdited);
+  void editFormat (CommonAppData& app, entt::entity& cardEdited);
+  void editTexts (CommonAppData& app, entt::entity& cardEdited);
+  void editTextures (CommonAppData& app, entt::entity& cardEdited);
+  void editModelTexts (CommonAppData& app);
+  void editModelTextures (CommonAppData& app);
+  void saveCards ();
+};

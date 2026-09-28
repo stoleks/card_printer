@@ -14,7 +14,7 @@
     },
     "panel": {
       "closable": false,
-      "hasHeader": true,
+      "hasHeader": false,
       "movable": true,
       "position": {
         "x": 0.0,
@@ -39,7 +39,7 @@
     },
     "panel": {
       "closable": false,
-      "hasHeader": true,
+      "hasHeader": false,
       "movable": true,
       "position": {
         "x": 0.0,
@@ -50,6 +50,31 @@
         "y": 1.0
       },
       "title": "editOnCard",
+      "visible": true
+    }
+  },
+  "Window::editionMenu": {
+    "constraints": {
+      "horizontal": "HorizontalAlignment::Left",
+      "relativePosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "vertical": "VerticalAlignment::Bottom"
+    },
+    "panel": {
+      "closable": false,
+      "hasHeader": false,
+      "movable": true,
+      "position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "size": {
+        "x": 0.4,
+        "y": 1.0
+      },
+      "title": "editionMenu",
       "visible": true
     }
   },

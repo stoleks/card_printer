@@ -78,20 +78,6 @@ struct CommonAppData {
 };
 
 /**
- * @brief : store editor informations
- */
-struct CardEditor {
-  CardEditor ();
-  // data
-  bool editCardModel = true;
-  int cardsCount = 0;
-  std::string saveFile;
-  entt::entity activeCard;
-  entt::entity cardModel;
-  entt::registry cards;
-};
-
-/**
  * @brief : store data for page format, padding and resolution
  */
 struct PagePrint {

@@ -29,11 +29,14 @@ CardsPrint::CardsPrint ()
 ////////////////////////////////////////////////////////////
 void Application::cardPrinter ()
 {
-  // print cards
-  exportCardsToPdf ();
-  // formats selection and print options
-  chooseCardsFormat ();
-  renderOptions ();
+  if (app.gui.beginWindow (app.layout.get <sgui::Window> ("editionMenu"))) {
+    // print cards
+    exportCardsToPdf ();
+    // formats selection and print options
+    chooseCardsFormat ();
+    renderOptions ();
+    app.gui.endWindow ();
+  }
 }
 
 ////////////////////////////////////////////////////////////

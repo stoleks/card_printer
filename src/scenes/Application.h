@@ -5,6 +5,7 @@
 #include <SFML/System/Clock.hpp>
 #include "scenes/CommonData.h"
 #include "scenes/ProjectSelection.h"
+#include "scenes/CardEditor.h"
 
 struct GraphicalParts;
 

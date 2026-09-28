@@ -9,62 +9,71 @@
 #include "serialization/CardLoading.h"
 
 ////////////////////////////////////////////////////////////
-void cardEditor (CommonAppData& app, CardEditor& editor)
+void CardEditor::menuAndDisplay (CommonAppData& app)
 {
-  // save cards
-  if (app.gui.button (format (app.texts.get ("saveCards"), ICON_FA_FILE_EXPORT))) {
-    saveCards (editor);
-  }
-  app.gui.sameLine ();
-  // edit card model
-  if (app.gui.checkBox (editor.editCardModel, {.description = app.texts.get ("isModel")})) {
-    editCardFormat (app, editor, editor.cardModel);
-    editModelTextures (app, editor);
-    editModelTexts (app, editor);
-    return;
-  }
-  // add a card to the pack
-  if (app.gui.button (format (app.texts.get ("addCard"), ICON_FA_SQUARE_PLUS))) {
-    const auto newCard = editor.cards.create ();
-    editor.cards.emplace <CardIdentifier> (newCard, editor.cardsCount);
-    editor.cards.emplace <CardFormat> (newCard);
-    editor.cards.emplace <GraphicalParts> (newCard);
-    editor.cards.emplace <CardModel> (newCard);
-    editor.cardsCount++;
-  }
-  // edit card in the pack
-  if (editor.cardsCount > 0) {
-    // choose which card to edit
-    app.gui.text (app.texts.get ("skimCard"));
-    app.gui.sameLine ();
-    if (app.gui.icon (ICON_FA_BACKWARD_STEP)) {
-      ::swipeToPreviousCard (editor.activeCard, editor.cards);
+  if (app.gui.beginWindow (app.layout.get <sgui::Window> ("editionMenu"))) {
+    // save cards
+    if (app.gui.button (format (app.texts.get ("saveCards"), ICON_FA_FILE_EXPORT))) {
+      saveCards ();
     }
     app.gui.sameLine ();
-    if (app.gui.icon (ICON_FA_FORWARD_STEP)) {
-      ::swipeToNextCard (editor.activeCard, editor.cards);
+
+    // choose if we edit card model or cards in the pack
+    const auto editModel = app.gui.checkBox (editCardModel, {.description = app.texts.get ("isModel")});
+
+    // add a card to the pack
+    if (app.gui.button (format (app.texts.get ("addCard"), ICON_FA_SQUARE_PLUS))) {
+      const auto newCard = cards.create ();
+      cards.emplace <CardIdentifier> (newCard, cardsCount);
+      cards.emplace <CardFormat> (newCard);
+      cards.emplace <GraphicalParts> (newCard);
+      cards.emplace <CardModel> (newCard);
+      cardsCount++;
     }
-    app.gui.sameLine ();
-    const auto currentCardNumber = editor.cards.get <CardIdentifier> (editor.activeCard).number;
-    app.gui.text (fmt::format ("{} / {}", currentCardNumber + 1u, editor.cardsCount));
-    // edit card informations
-    editCardFormat (app, editor, editor.activeCard);
-    editCardTextures (app, editor, editor.activeCard);
-    editCardTexts (app, editor, editor.activeCard);
+
+    // edit card model
+    if (editModel) {
+      editFormat (app, cardModel);
+      editModelTextures (app);
+      editModelTexts (app);
+    // edit card in the pack
+    } else if (cardsCount > 0) {
+      // choose which card to edit
+      app.gui.text (app.texts.get ("skimCard"));
+      app.gui.sameLine ();
+      if (app.gui.icon (ICON_FA_BACKWARD_STEP)) {
+        ::swipeToPreviousCard (activeCard, cards);
+      }
+      app.gui.sameLine ();
+      if (app.gui.icon (ICON_FA_FORWARD_STEP)) {
+        ::swipeToNextCard (activeCard, cards);
+      }
+      app.gui.sameLine ();
+      const auto currentCardNumber = cards.get <CardIdentifier> (activeCard).number;
+      app.gui.text (fmt::format ("{} / {}", currentCardNumber + 1u, cardsCount));
+      // edit card informations
+      editFormat (app, activeCard);
+      editTextures (app, activeCard);
+      editTexts (app, activeCard);
+    }
+    app.gui.endWindow ();
   }
+
+  // edit active card
+  editFromGui (app, activeCard);
 }
 
 ////////////////////////////////////////////////////////////
-void editCardFormat (CommonAppData& app, CardEditor& editor, entt::entity& cardEdited)
+void CardEditor::editFormat (CommonAppData& app, entt::entity& cardEdited)
 {
   // change card background, poker is the format by default
-  auto& format = editor.cards.get <CardFormat> (cardEdited);
+  auto& format = cards.get <CardFormat> (cardEdited);
   format.size = millimToPixel (CardFormat ().size, PagePrint ().resolution); 
   app.gui.inputText (format.background, {}, {.description = app.texts.get ("changeBackground")});
 }
 
 ////////////////////////////////////////////////////////////
-void editCardFromGui (CommonAppData& app, CardEditor& editor, entt::entity& cardEdited)
+void CardEditor::editFromGui (CommonAppData& app, entt::entity& cardEdited)
 {
   // open panel that will hold card
   auto window = app.layout.get <sgui::Window> ("editOnCard");
@@ -74,11 +83,11 @@ void editCardFromGui (CommonAppData& app, CardEditor& editor, entt::entity& card
   window.panel.isVisible = false;
   window.panel.position = app.gui.cursorPosition ();
   const auto size = window.panel.size;
-  const auto cardSize = editor.cards.get <CardFormat> (cardEdited).size;
+  const auto cardSize = cards.get <CardFormat> (cardEdited).size;
   window.panel.size = cardSize.componentWiseDiv (app.gui.parentGroupSize ());
   window.panel.isScrollable = false;
   app.cardGui.beginPanel (window.panel);
-  ::drawCardDecoration (app.cardGui, editor.cards, cardEdited, app.texts);
+  ::drawCardDecoration (app.cardGui, cards, cardEdited, app.texts);
   app.cardGui.endPanel ();
   window.panel.isScrollable = true;
   window.panel.size = size;
@@ -86,11 +95,11 @@ void editCardFromGui (CommonAppData& app, CardEditor& editor, entt::entity& card
 }
 
 ////////////////////////////////////////////////////////////
-void editModelTexts (CommonAppData& app, CardEditor& editor)
+void CardEditor::editModelTexts (CommonAppData& app)
 {
   // add text
   app.gui.separation();
-  auto& parts = editor.cards.get <GraphicalParts> (editor.cardModel);
+  auto& parts = cards.get <GraphicalParts> (cardModel);
   if (app.gui.button (format (app.texts.get ("addText"), ICON_FA_SQUARE_PLUS))) {
     parts.texts.emplace_back ();
     parts.texts.back ().position = sf::Vector2f (1.f, app.gui.textSize ("A").y + 8.f);
@@ -108,7 +117,7 @@ void editModelTexts (CommonAppData& app, CardEditor& editor)
 
     // set text position
     app.gui.inputVector2 (text.position, {.description = app.texts.get ("textPosition")});
-    const auto cardSize = editor.cards.get <CardFormat> (editor.cardModel).size;
+    const auto cardSize = cards.get <CardFormat> (cardModel).size;
     auto textSize = sf::Vector2f ();
     if (app.texts.has (text.identifier)) {
       textSize = app.cardGui.textSize (app.texts.get (text.identifier));
@@ -127,7 +136,7 @@ void editModelTexts (CommonAppData& app, CardEditor& editor)
 }
 
 ////////////////////////////////////////////////////////////
-void editCardTexts (CommonAppData& app, CardEditor& editor, entt::entity& cardEdited)
+void CardEditor::editTexts (CommonAppData& app, entt::entity& cardEdited)
 {
   // set text size
   app.gui.separation();
@@ -136,8 +145,8 @@ void editCardTexts (CommonAppData& app, CardEditor& editor, entt::entity& cardEd
   app.cardGui.setStyle (app.style);
 
   // add text
-  auto& cardTexts = editor.cards.get <GraphicalParts> (cardEdited).texts;
-  const auto& modelTexts = editor.cards.get <GraphicalParts> (editor.cardModel).texts;
+  auto& cardTexts = cards.get <GraphicalParts> (cardEdited).texts;
+  const auto& modelTexts = cards.get <GraphicalParts> (cardModel).texts;
   if (cardTexts.size () != modelTexts.size ()) {
     for (auto& text : modelTexts) {
       if (app.gui.button (fmt::format ("add {}", text.identifier))) { 
@@ -155,11 +164,11 @@ void editCardTexts (CommonAppData& app, CardEditor& editor, entt::entity& cardEd
 }
 
 ////////////////////////////////////////////////////////////
-void editModelTextures (CommonAppData& app, CardEditor& editor)
+void CardEditor::editModelTextures (CommonAppData& app)
 {
   // add texture
   app.gui.separation();
-  auto& parts = editor.cards.get <GraphicalParts> (editor.cardModel);
+  auto& parts = cards.get <GraphicalParts> (cardModel);
   if (app.gui.button (format (app.texts.get ("addTexture"), ICON_FA_SQUARE_PLUS))) {
     // add texture to card
     parts.textures.emplace_back ();
@@ -183,7 +192,7 @@ void editModelTextures (CommonAppData& app, CardEditor& editor)
     app.gui.inputVector2 (texture.rect.size, {.description = app.texts.get ("textureSize")});
 
     // set precisely texture position or slide it in the card
-    const auto cardSize = editor.cards.get <CardFormat> (editor.cardModel).size;
+    const auto cardSize = cards.get <CardFormat> (cardModel).size;
     app.gui.inputVector2 (texture.rect.position, {.description = app.texts.get ("texturePosition")});
     app.gui.slider (texture.rect.position.x, 0.f, cardSize.x - texture.rect.size.x);
     app.gui.sameLine ();
@@ -199,12 +208,12 @@ void editModelTextures (CommonAppData& app, CardEditor& editor)
 }
 
 ////////////////////////////////////////////////////////////
-void editCardTextures (CommonAppData& app, CardEditor& editor, entt::entity& cardEdited)
+void CardEditor::editTextures (CommonAppData& app, entt::entity& cardEdited)
 {
   // add textures
   app.gui.separation();
-  auto& cardTextures = editor.cards.get <GraphicalParts> (cardEdited).textures;
-  const auto& modelTextures = editor.cards.get <GraphicalParts> (editor.cardModel).textures;
+  auto& cardTextures = cards.get <GraphicalParts> (cardEdited).textures;
+  const auto& modelTextures = cards.get <GraphicalParts> (cardModel).textures;
   if (cardTextures.size () != modelTextures.size ()) {
     for (auto& texture : modelTextures) {
       if (app.gui.button (fmt::format ("add {}", texture.identifier))) { 
@@ -220,17 +229,17 @@ void editCardTextures (CommonAppData& app, CardEditor& editor, entt::entity& car
 }
 
 /////////////////////////////////////////////////
-void saveCards (CardEditor& editor)
+void CardEditor::saveCards ()
 {
   json out;
-  auto view = editor.cards.view <const GraphicalParts, const CardIdentifier, const CardFormat> ();
+  auto view = cards.view <const GraphicalParts, const CardIdentifier, const CardFormat> ();
   for (const auto& [card, graphics, identifier, format] : view.each ()) {
     auto cardData = Card (format, identifier, graphics);
-    const auto* t = editor.cards.try_get <CardModel> (card);
+    const auto* t = cards.try_get <CardModel> (card);
     if (t != nullptr) {
       cardData.model = *t;
     }
     out [identifier.number] = cardData;
   }
-  sgui::saveInFile (out, editor.saveFile);
+  sgui::saveInFile (out, saveFile);
 }

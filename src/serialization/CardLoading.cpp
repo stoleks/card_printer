@@ -1,5 +1,6 @@
 #include "CardLoading.h"
 #include "scenes/CommonData.h"
+#include "scenes/CardEditor.h"
 #include <sgui/Serialization/LoadJson.h>
 
 ////////////////////////////////////////////////////////////

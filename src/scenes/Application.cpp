@@ -14,10 +14,6 @@
 #include "serialization/FromCSVToJson.h"
 
 ////////////////////////////////////////////////////////////
-CardEditor::CardEditor ()
-{}
-
-////////////////////////////////////////////////////////////
 Application::Application (sf::RenderWindow& window)
   : m_window (window)
 {}
@@ -39,6 +35,7 @@ void Application::initialize ()
   app.texts.loadFromFile (textPath, "english");
   const auto layoutPath = LocalContentsDir + files.app.editorLayout;
   spdlog::info ("Load layout from {}", layoutPath);
+
   app.layout.loadFromFile (layoutPath);
   // set initial state
   app.layout.get <sgui::Window> ("mainWindow").panel.hasMenu = true;
@@ -132,11 +129,11 @@ void Application::update (const sf::Time& dt)
     
     // card edition menu
     if (m_activeMenu == Scenes::CardEdition) {
-      // set cards zoom
+      // set cards zoom and launch editor
       auto view = m_window.getDefaultView ();
       view.zoom (1.f);
       app.cardGui.setView (view);
-      cardEditor (app, editor);
+      editor.menuAndDisplay (app);
     }
     // card print menu
     if (m_activeMenu == Scenes::CardPrint) {
@@ -144,21 +141,13 @@ void Application::update (const sf::Time& dt)
       auto view = m_window.getDefaultView ();
       view.zoom (m_zoom);
       app.cardGui.setView (view);
+      // card printer menu
       cardPrinter ();
-    }
-    app.gui.endWindow ();
-
-    // card edition menu, card display
-    if (m_activeMenu == Scenes::CardEdition) {
-      // card display for edition
-      editCardFromGui (app, editor, editor.activeCard);
-    }
-    // card print menu, cards display
-    if (m_activeMenu == Scenes::CardPrint) {
-      // Cards display for print
+      // display cards as they will be printed
       computeLattice ();
       displayCardsInLattice (app.cardGui);
     }
+    app.gui.endWindow ();
   } // main window
 
   // end gui
@@ -179,19 +168,16 @@ void Application::draw ()
 ////////////////////////////////////////////////////////////
 void Application::setWindowsWidth ()
 {
-  // set main window width
-  auto& mainLayout = app.layout.get <sgui::Window> ("mainWindow");
-  if (m_activeMenu == Scenes::ProjectSelection) {
-    mainLayout.panel.size.x = 1.f;
-  } else {
-    mainLayout.panel.size.x = 0.35f; // TODO : compute optimal size for small screen
-  }
+  // set menu width
+  const auto optimalWidth = 0.35f;
+  auto& menu = app.layout.get <sgui::Window> ("editionMenu");
+  menu.panel.size.x = optimalWidth;
   // set printer width
   auto& displayLayout = app.layout.get <sgui::Window> ("displayCards");
-  displayLayout.panel.size.x = 1.f - mainLayout.panel.size.x;
+  displayLayout.panel.size.x = 1.f - optimalWidth;
   // editor width
   auto& cardLayout = app.layout.get <sgui::Window> ("editOnCard");
-  cardLayout.panel.size.x = 1.f - mainLayout.panel.size.x;
+  cardLayout.panel.size.x = 1.f - optimalWidth;
 }
 
 ////////////////////////////////////////////////////////////
