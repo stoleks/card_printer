@@ -59,6 +59,8 @@ private:
       const bool verso = false);
   // compute cards positions in a lattice that fit on the page dimension
   void computeLattice ();
+  // update page orientation if required
+  void updateCameraForOrientation ();
 private:
   // resources
   sf::RenderWindow& m_window;

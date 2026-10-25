@@ -145,7 +145,6 @@ void Application::update (const sf::Time& dt)
       // card printer menu
       cardPrinter ();
       // display cards as they will be printed
-      computeLattice ();
       displayCardsInLattice (app.cardGui);
     }
     app.gui.endWindow ();

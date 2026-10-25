@@ -11,7 +11,7 @@ struct CardEditor {
   CardEditor () = default;
   // data
   bool editCardModel = true;
-  int cardsCount = 0;
+  uint32_t cardsCount = 0;
   std::string saveFile;
   entt::entity activeCard;
   entt::entity cardModel;

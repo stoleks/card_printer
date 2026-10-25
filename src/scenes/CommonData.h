@@ -98,11 +98,14 @@ struct CardsPrint {
   // data
   bool isRectoVerso = true;
   float advancement = 0.f;
+  uint32_t cardsCount = 0u;
+  sf::Vector2u countPerPage = {};
   sf::Vector2f position = {};
-  sf::Vector2f padding = { 0.f, 0.f };
+  sf::Vector2f padding = {};
   PaperFormat format = PaperFormat::Poker;
   std::vector <std::string> formatNames;
-  std::vector <std::vector <sf::Vector2f>> positions;
+  std::vector <sf::Vector2f> rectoPositions;
+  std::vector <sf::Vector2f> versoPositions;
   sf::RenderTexture image;
 };
 

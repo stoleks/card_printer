@@ -60,10 +60,15 @@ void Application::renderOptions ()
   // card padding
   app.gui.text (format (app.texts.get ("cardPadding"), cards.padding.x, cards.padding.y));
   auto optimalWidth = 0.f;
+  const auto initialPadding = cards.padding;
   app.gui.slider (cards.padding.x, 0.f, 3.f);
   optimalWidth += app.gui.lastSpacing ().x;
   app.gui.sameLine ();
   app.gui.slider (cards.padding.y, 0.f, 3.f, {.description = app.texts.get ("cardPaddingLegend")});
+  const auto paddingDifference = initialPadding - cards.padding;
+  if (paddingDifference.lengthSquared () > 0.01f) {
+    computeLattice ();
+  }
   optimalWidth += app.gui.lastSpacing ().x + 3.f*app.gui.textHeight ();
   app.optimalMenuWidth = optimalWidth / app.windowWidth;
 
@@ -82,12 +87,12 @@ void Application::chooseCardsFormat ()
 
   // choose paper orientation
   if (app.gui.button (format (app.texts.get ("rotatePage"), ICON_FA_ROTATE))) {
-    page.oldOrientation = page.orientation;
     if (page.orientation == PaperOrientation::Landscape) {
       page.orientation = PaperOrientation::Portrait;
     } else {
       page.orientation = PaperOrientation::Landscape;
     }
+    updateCameraForOrientation ();
   }
 
   // cards' format selection
@@ -95,7 +100,10 @@ void Application::chooseCardsFormat ()
   app.gui.setAnchor ();
   app.gui.sameLine ();
   const auto formatName = app.gui.comboBox (cards.formatNames);
-  cards.format = PaperFormatNames.at (formatName);
+  if (cards.format != PaperFormatNames.at (formatName)) {
+    cards.format = PaperFormatNames.at (formatName);
+    computeLattice ();
+  }
   app.gui.backToAnchor ();
   app.gui.separation ();
 }
@@ -107,6 +115,11 @@ void Application::exportCardsToPdf ()
     if (!m_isPrinting) {
       m_isPrinting = true;
       m_pageIndex = 0u;
+      // count the total number of cards to be printed
+      editor.cardsCount = 0u;
+      for (auto& card : editor.cards.view <const GraphicalParts, const CardIdentifier> ()) {
+        editor.cardsCount++;
+      }
     }
   }
   app.gui.sameLine ();
@@ -137,10 +150,12 @@ void Application::printAllPages ()
     printPage (path + std::to_string (2*m_pageIndex + 1) + ".jpg", true);
   }
   m_pageIndex++;
-  cards.advancement = static_cast <float> (m_pageIndex) / static_cast <float> (cards.positions.size ());
+  const auto cardsPerPage = cards.countPerPage.x * cards.countPerPage.y;
+  const uint32_t cardsPrinted = m_pageIndex * cardsPerPage;
+  cards.advancement = sgui::clamp (0.f, 1.f, static_cast<float> (cardsPrinted) / static_cast <float> (editor.cardsCount));
   
   // end pdf
-  if (m_pageIndex == cards.positions.size ()) {
+  if (cardsPrinted >= editor.cardsCount) {
     m_isPrinting = false;
     m_pdfWriter->EndPDF ();
     printTime (m_totalTime, "printing all cards to pdf");
@@ -214,8 +229,9 @@ void Application::displayCardsInLattice (
   const bool verso)
 {
   // go to first card skipping model
-  const auto firstCard = cards.positions.at (0u).size () * pageIndex + 1;
-  ::goToCard (editor.activeCard, editor.cards, firstCard);
+  const auto firstCardIndex = cards.countPerPage.x * cards.countPerPage.y * pageIndex;
+  ::goToCard (editor.activeCard, editor.cards, firstCardIndex);
+  const auto firstCard = editor.activeCard;
 
   // open a window if we display card on screen
   auto shift = sf::Vector2f ();
@@ -228,7 +244,11 @@ void Application::displayCardsInLattice (
   }
   // draw cards
   const auto cardSize = millimToPixel (PaperFormatInMillimeter.at (cards.format), page.resolution);
-  for (const auto& cardPos : cards.positions.at (pageIndex)) {
+  // cards position can be either recto or verso
+  const auto& cardsPositions = verso ? cards.versoPositions : cards.rectoPositions;
+  for (const auto& cardPos : cardsPositions) {
+    // check that we are not looping back to the start of the deck
+    if (editor.activeCard < firstCard) break;
     // set card position and size
     const auto cardBox = sf::FloatRect (cardPos, cardSize);
     auto cardPanel = sgui::Panel ({
@@ -242,6 +262,10 @@ void Application::displayCardsInLattice (
 
     // draw card decorations
     gui.beginPanel (cardPanel);
+    /**
+     * TODO : change code to generate card as "verso" can be a complete card 
+     * ::drawCardDecoration (gui, editor.cards, editor.activeCard, app.texts, verso);
+     */
     if (verso) {
       gui.addSpacing ({-0.25f, -0.2f});
       gui.image (format.cardBack, format.size);
@@ -262,9 +286,6 @@ void Application::displayCardsInLattice (
 ////////////////////////////////////////////////////////////
 void Application::computeLattice ()
 {
-  // clear previous cards
-  cards.positions.clear ();
-
   // Initialize render texture and compute page size
   const auto pageSize = computePageSize (page);
   if (!cards.image.resize (sf::Vector2u (pageSize))) {
@@ -276,40 +297,42 @@ void Application::computeLattice ()
   const auto cardPadding = millimToPixel (cards.padding, page.resolution);
 
   // compute page padding to center cards
-  const auto cardsCount = sf::Vector2u (pageSize.componentWiseDiv (cardSize + cardPadding));
-  const auto totalCardSize = sf::Vector2f (cardsCount).componentWiseMul (cardSize + cardPadding) - cardPadding;
+  cards.countPerPage = sf::Vector2u (pageSize.componentWiseDiv (cardSize + cardPadding));
+  const auto totalCardSize = sf::Vector2f (cards.countPerPage).componentWiseMul (cardSize + cardPadding) - cardPadding;
   page.padding = 0.5f * (pageSize - totalCardSize);
+
+  // clear previous cards
+  cards.rectoPositions.clear ();
+  cards.versoPositions.clear ();
 
   // compute cards position according to padding
   const auto topLeftPos = computeTextPosition (page);
-  const auto view = editor.cards.view <const CardIdentifier> ();
-  auto lastCardPosition = sf::Vector2f ();
-  auto cardId = 0u;
-  while (cardId < view.size ()) {
-    cards.positions.emplace_back ();
-    lastCardPosition = topLeftPos;
-    for (auto i = 0u; i < cardsCount.y; i++) {
-      for (auto j = 0u; j < cardsCount.x; j++) {
-        if (cardId >= view.size ()) break;
-        cards.positions.back ().push_back (lastCardPosition);
-        lastCardPosition.x += cardSize.x + cardPadding.x;
-        cardId++;
-      }
-      lastCardPosition = topLeftPos;
-      lastCardPosition.y += (i + 1) * (cardSize.y + cardPadding.y);
+  const auto topRightPos = topLeftPos + sf::Vector2f {(cardSize.x + cardPadding.x)*(cards.countPerPage.x - 1u), 0.f};
+  const auto verticalShift = sf::Vector2f {0.f, cardSize.y + cardPadding.y};
+  auto rectoLastPosition = topLeftPos;
+  auto versoLastPosition = topRightPos;
+  for (auto i = 0u; i < cards.countPerPage.y; i++) {
+    for (auto j = 0u; j < cards.countPerPage.x; j++) {
+      cards.rectoPositions.push_back (rectoLastPosition);
+      cards.versoPositions.push_back (versoLastPosition);
+      rectoLastPosition.x += cardSize.x + cardPadding.x;
+      versoLastPosition.x -= cardSize.x + cardPadding.x;
     }
+    rectoLastPosition = topLeftPos +  static_cast<float> (i + 1u) * verticalShift;
+    versoLastPosition = topRightPos + static_cast<float> (i + 1u) * verticalShift;
   }
-  
-  // update page orientation and print number of pages and cards
-  if (page.orientation != page.oldOrientation) {
-    page.oldOrientation = page.orientation;
-    if (page.orientation == PaperOrientation::Landscape) {
-      m_zoom = 2.25f;
-      m_baseShift = {3.5f, 9.f};
-    } else {
-      m_zoom = 1.5f;
-      m_baseShift = app.layout.get <sf::Vector2f> ("cardsShift");
-    }
+}
+
+////////////////////////////////////////////////////////////
+void Application::updateCameraForOrientation ()
+{
+  // update page orientation
+  if (page.orientation == PaperOrientation::Landscape) {
+    m_zoom = 2.25f;
+    m_baseShift = {3.5f, 9.f};
+  } else {
+    m_zoom = 1.5f;
+    m_baseShift = app.layout.get <sf::Vector2f> ("cardsShift");
   }
 }
  

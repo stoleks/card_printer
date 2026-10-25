@@ -63,7 +63,7 @@ uint32_t loadCardsFromFile (
 ////////////////////////////////////////////////////////////
 void buildCardsFromModel (
   entt::registry& registry,
-  uint32_t& cardNumber,
+  uint32_t cardNumber,
   const entt::entity& card,
   const CardFingerPrint& data,
   const Card& model);
