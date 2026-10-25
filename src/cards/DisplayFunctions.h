@@ -10,4 +10,5 @@ void drawCardDecoration (
   sgui::Gui& gui,
   entt::registry& cards,
   const entt::entity& activeCard,
-  const sgui::TextContainer& cardsTexts);
+  const sgui::TextContainer& cardsTexts,
+  bool verso = false);

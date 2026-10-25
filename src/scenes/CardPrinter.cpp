@@ -115,11 +115,7 @@ void Application::exportCardsToPdf ()
     if (!m_isPrinting) {
       m_isPrinting = true;
       m_pageIndex = 0u;
-      // count the total number of cards to be printed
-      editor.cardsCount = 0u;
-      for (auto& card : editor.cards.view <const GraphicalParts, const CardIdentifier> ()) {
-        editor.cardsCount++;
-      }
+      editor.cardsCount = editor.cards.view <const GraphicalParts, const CardIdentifier> ().size_hint ();
     }
   }
   app.gui.sameLine ();
@@ -257,21 +253,10 @@ void Application::displayCardsInLattice (
       .isVisible = false,
       .isScrollable = false
     });
-    auto& format = editor.cards.get <CardFormat> (editor.activeCard);
-    format.size = cardBox.size;
-
+    editor.cards.get <CardFormat> (editor.activeCard).size = cardBox.size;
     // draw card decorations
     gui.beginPanel (cardPanel);
-    /**
-     * TODO : change code to generate card as "verso" can be a complete card 
-     * ::drawCardDecoration (gui, editor.cards, editor.activeCard, app.texts, verso);
-     */
-    if (verso) {
-      gui.addSpacing ({-0.25f, -0.2f});
-      gui.image (format.cardBack, format.size);
-    } else {
-      ::drawCardDecoration (gui, editor.cards, editor.activeCard, app.texts);
-    }
+    ::drawCardDecoration (gui, editor.cards, editor.activeCard, app.texts, verso);
     gui.endPanel ();
     // go to next card
     ::swipeToNextCard (editor.activeCard, editor.cards);
