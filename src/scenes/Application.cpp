@@ -209,7 +209,7 @@ void Application::generateTexture ()
   // generate texture
   const auto texturesPath = projectFilePath (files.project.texturesFolder, files);
   spdlog::info ("Load images from {}", texturesPath);
-  auto collage = sgui::TextureCollage (texturesPath, { sf::Color::White });
+  auto collage = sgui::TextureCollage (texturesPath, { .useMask = true, .maskColor = sf::Color::White });
   if (!collage.image ().saveToFile (files.inner.texture)) {
     spdlog::warn ("Unable to save {}", files.inner.texture); 
   } else {

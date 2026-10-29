@@ -237,13 +237,17 @@ void CardEditor::saveCards ()
 {
   json out;
   auto view = cards.view <const GraphicalParts, const CardIdentifier, const CardFormat> ();
-  for (const auto& [card, graphics, identifier, format] : view.each ()) {
-    auto cardData = Card (format, identifier, graphics);
+  for (const auto& [card, graphics, id, format] : view.each ()) {
+    auto cardData = Card { 
+      .format = format,
+      .graphics = graphics,
+      .identifier = id 
+    };
     const auto* t = cards.try_get <CardModel> (card);
     if (t != nullptr) {
       cardData.model = *t;
     }
-    out [identifier.number] = cardData;
+    out [id.number] = cardData;
   }
   sgui::saveInFile (out, saveFile);
 }
