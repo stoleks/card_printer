@@ -13,7 +13,7 @@ void drawCardDecoration (
   // draw card format 
   const auto& format = cards.get <CardFormat> (activeCard);
   gui.addSpacing ({-0.25f, -0.2f});
-  gui.image (verso ? format.cardBack : format.background, format.size);
+  gui.image (verso ? format.versoBackground : format.background, format.size);
 
   // draw card textures and texts (recto or verso)
   auto& parts = cards.get <GraphicalParts> (activeCard);

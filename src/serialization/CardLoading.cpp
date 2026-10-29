@@ -51,40 +51,68 @@ void buildCardsFromModel (
   // add textures and format components
   cards.emplace <CardFormat> (card);
   cards.emplace <GraphicalParts> (card);
+  
+  // set card size
+  auto& format = cards.get <CardFormat> (card);
+  format.size = model.format.size;
 
   // go through every textures and set their positions and size
   auto& graphics = cards.get <GraphicalParts> (card);
-  for (const auto& pair : data.textures) {
+  setTextures (graphics, format, cards, data.textures, model.graphics.textures);
+  setTextures (graphics, format, cards, data.versoTextures, model.graphics.versoTextures);
+
+  // go through every texts and set their position
+  setTexts (graphics, data.texts, model.graphics.texts);
+  setTexts (graphics, data.versoTexts, model.graphics.versoTexts);
+}
+
+////////////////////////////////////////////////////////////
+void setTextures (
+  GraphicalParts& graphics,
+  CardFormat& format,
+  entt::registry& cards,
+  const std::vector <TextureData>& textures,
+  const std::vector <CardTexture>& modelTextures)
+{
+  for (const auto& textureData : textures) {
     // set background
-    if (pair.key == "background") {
-      auto& format = cards.get <CardFormat> (card);
-      format.background = pair.texture;
-      format.size = model.format.size;
+    if (textureData.key == "background") {
+      format.background = textureData.texture;
+      continue;
+    }
+    if (textureData.key == "verso_background") {
+      format.versoBackground = textureData.texture;
       continue;
     }
     // set texture position and size
     auto newTexture = CardTexture ();
-    setTexture (newTexture, pair.key, model.graphics.textures);
-    newTexture.identifier = pair.texture;
+    setTextureFromModel (newTexture, textureData.key, modelTextures);
+    newTexture.identifier = textureData.texture;
     graphics.textures.emplace_back (std::move (newTexture));
   }
+}
 
-  // go through every texts and set their position
-  for (const auto& pair : data.texts) {
+/////////////////////////////////////////////////
+void setTexts (
+  GraphicalParts& graphics,
+  const std::vector <TextData>& texts,
+  const std::vector <CardText>& modelTexts)
+{
+  for (const auto& textData : texts) {
     auto newText = CardText ();
-    setText (newText, pair.key, model.graphics.texts);
-    newText.identifier = pair.text;
+    setTextFromModel (newText, textData.key, modelTexts);
+    newText.identifier = textData.text;
     graphics.texts.emplace_back (std::move (newText));
   }
 }
 
 ////////////////////////////////////////////////////////////
-void setTexture (
+void setTextureFromModel (
   CardTexture& cardTexture,
   const std::string& key,
-  const std::vector <CardTexture>& textures)
+  const std::vector <CardTexture>& modelTextures)
 {
-  for (const auto& modelTexture : textures) {
+  for (const auto& modelTexture : modelTextures) {
     if (modelTexture.identifier == key) {
       cardTexture = modelTexture;
       return;
@@ -93,12 +121,12 @@ void setTexture (
 }
 
 ////////////////////////////////////////////////////////////
-void setText (
+void setTextFromModel (
   CardText& cardText,
   const std::string& key,
-  const std::vector <CardText>& texts)
+  const std::vector <CardText>& modelTexts)
 {
-  for (const auto& modelText : texts) {
+  for (const auto& modelText : modelTexts) {
     if (modelText.identifier == key) {
       cardText = modelText;
       return;

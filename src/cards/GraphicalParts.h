@@ -45,6 +45,6 @@ NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(GraphicalParts, texts, versoText
 struct CardFormat {
   sf::Vector2f size = { 62.f, 88.f }; // B8 at 127 dpi
   std::string background = "carte_molecules_0005";
-  std::string cardBack = "carte_molecules_dos";
+  std::string versoBackground = "carte_molecules_dos";
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardFormat, size, background, cardBack)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardFormat, size, background, versoBackground)

@@ -19,14 +19,28 @@ void buildCardsFromModel (
   const CardFingerPrint& data,
   const Card& model);
 
-////////////////////////////////////////////////////////////
-void setTexture (
-  CardTexture& cardTexture,
-  const std::string& key,
-  const std::vector <CardTexture>& textures);
+///////////////////////////////////////////////////////////
+void setTextures (
+  GraphicalParts& graphics,
+  CardFormat& format,
+  entt::registry& cards,
+  const std::vector <TextureData>& textures,
+  const std::vector <CardTexture>& modelTextures);
+
+///////////////////////////////////////////////////////////
+void setTexts (
+  GraphicalParts& graphics,
+  const std::vector <TextData>& texts,
+  const std::vector <CardText>& modelTexts);
 
 ////////////////////////////////////////////////////////////
-void setText (
+void setTextureFromModel (
+  CardTexture& cardTexture,
+  const std::string& key,
+  const std::vector <CardTexture>& modelTextures);
+
+////////////////////////////////////////////////////////////
+void setTextFromModel (
   CardText& cardText,
   const std::string& key,
-  const std::vector <CardText>& texts);
+  const std::vector <CardText>& modelTexts);
