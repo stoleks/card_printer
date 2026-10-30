@@ -19,21 +19,28 @@ enum class Scenes {
 /**
  * @brief: files for application
  */
-struct AppFiles {
+struct CommonAppFiles {
   std::string folder = "";
   std::string editorTexts = "";
   std::string editorLayout = "";
+};
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CommonAppFiles, editorTexts, editorLayout)
+
+/**
+ * @brief: files for local projects
+ */
+struct LocalProjectFiles {
   std::string projectFolder = "";
   std::string projectFile = "";
   std::vector <std::string> projectsNames = {""};
   std::unordered_map <std::string, std::string> projectsFiles;
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(AppFiles, editorTexts, editorLayout, projectFolder, projectFile, projectsNames, projectsFiles)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(LocalProjectFiles, projectFolder, projectFile, projectsNames, projectsFiles)
 
 /**
- * @brief: files for project edited by users
+ * @brief: files for the active project edited by users
  */
-struct ProjectFiles {
+struct ActiveProjectFiles {
   std::string texturesFolder = "";
   std::string font = "";
   std::string cards = ""; // csv with cards data
@@ -41,26 +48,27 @@ struct ProjectFiles {
   std::string outputFolder = "";
   std::string outputPdf = "";
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(ProjectFiles, texturesFolder, font, cards, model, outputFolder, outputPdf)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(ActiveProjectFiles, texturesFolder, font, cards, model, outputFolder, outputPdf)
 
 /**
  * @brief: files for project edited by the application
  */
-struct ProjectInnerFiles {
+struct ProjectInternFiles {
   std::string cards = ""; // json generated from csv and model
   std::string texture = "";
   std::string atlas = "";
   std::string folder = "";
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(ProjectInnerFiles, cards, texture, atlas, folder)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(ProjectInternFiles, cards, texture, atlas, folder)
 
 /**
  * @brief all files used in application
  */
 struct Files {
-  AppFiles app = {};
-  ProjectFiles project = {};
-  ProjectInnerFiles inner = {};
+  CommonAppFiles app = {};
+  LocalProjectFiles local = {};
+  ActiveProjectFiles project = {};
+  ProjectInternFiles intern = {};
 };
 
 /**
