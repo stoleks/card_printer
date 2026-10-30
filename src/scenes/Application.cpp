@@ -202,6 +202,10 @@ void Application::options ()
 ////////////////////////////////////////////////////////////
 void Application::generateTexture ()
 {
+  // store images file name
+  editor.imagesFileName = getImagesFileName (files.project.texturesFolder);
+  spdlog::info (editor.imagesFileName);
+  
   // if files already exist, quit
   if (std::filesystem::is_regular_file (files.inner.texture)
     && std::filesystem::is_regular_file (files.inner.atlas)) return;
@@ -227,4 +231,20 @@ void Application::loadCardsData ()
   spdlog::info ("Save in {}", files.inner.cards);
   app.style.fontSize.normal = loadCardsFromFile (editor, modelPath, files.inner.cards);
   app.cardGui.setStyle (app.style);
+}
+
+////////////////////////////////////////////////////////////
+std::vector <std::string> getImagesFileName (
+  const std::string& directory)
+{
+  auto imagesFileName = std::vector <std::string> ();
+  for (const auto& file : fs::directory_iterator (directory)) {
+    const auto extension = file.path ().extension ();
+    if (extension == ".bmp" || extension == ".png" || extension == ".tga" 
+    || extension == ".jpg"  || extension == ".gif" || extension == ".psd"
+    || extension == ".hdr"  || extension == ".pic" || extension == ".pnm") {
+       imagesFileName.emplace_back (file.path ().stem ().string ());
+    }
+  }
+  return imagesFileName;
 }
