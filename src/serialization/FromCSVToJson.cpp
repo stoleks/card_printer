@@ -44,9 +44,11 @@ uint32_t getKeysFromCSV (
 {
   auto index = 0u;
   auto backgroundIndex = 0u;
+  // get first line of the csv file
   auto firstLine = std::string ();
   std::getline (cardsData, firstLine);
   auto lineToProcess = std::istringstream (firstLine);
+  // check each entry of the first line
   for (std::string key; std::getline (lineToProcess, key, ','); ) {
     auto findKey = [&key] (const auto& data) { return data.identifier == key; };
     // search key in model textures
@@ -55,11 +57,16 @@ uint32_t getKeysFromCSV (
       forTexture.emplace (index, key);
     }
 
+    // search key in model verso textures
+
     // search key in model texts
     const auto searchText = std::find_if (graph.texts.begin (), graph.texts.end (), findKey);
     if (searchText != graph.texts.end ()) {
       forText.emplace (index, key);
     }
+
+    // search key in model verso texts
+
     // keep track of background index
     if (key == "background") {
       backgroundIndex = index;
@@ -91,20 +98,21 @@ void saveDataInJson (
     }
     // read card data based on the model
     card.emplace_back ();
+    auto& lastCard = card.back ();
     for (std::string cell; std::getline (lineToProcess, cell, ','); ) {
       // set background 
       if (cellIndex == backgroundIndex) {
-        card.back ().textures.emplace_back (TextureData {"background", cell});
+        lastCard.textures.emplace_back (TextureData {"background", cell});
       }
 
       // set text
-      if (auto found = keyForText.find (cellIndex); found != keyForText.end ()) {
-        card.back ().texts.emplace_back (TextData {found->second, cell});
+      if (const auto& found = keyForText.find (cellIndex); found != keyForText.end ()) {
+        lastCard.texts.emplace_back (TextData {found->second, cell});
       }
 
       // set texture
-      if (auto found = keyForTexture.find (cellIndex); found != keyForTexture.end ()) {
-        card.back ().textures.emplace_back (TextureData {found->second, cell});
+      if (const auto& found = keyForTexture.find (cellIndex); found != keyForTexture.end ()) {
+        lastCard.textures.emplace_back (TextureData {found->second, cell});
       }
       cellIndex++;
     }
