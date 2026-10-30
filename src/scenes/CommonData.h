@@ -53,13 +53,13 @@ NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(ActiveProjectFiles, texturesFold
 /**
  * @brief: files for project edited by the application
  */
-struct ProjectInternFiles {
+struct ProjectExternFiles {
   std::string cards = ""; // json generated from csv and model
   std::string texture = "";
   std::string atlas = "";
   std::string folder = "";
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(ProjectInternFiles, cards, texture, atlas, folder)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(ProjectExternFiles, cards, texture, atlas, folder)
 
 /**
  * @brief all files used in application
@@ -68,7 +68,7 @@ struct Files {
   CommonAppFiles app = {};
   LocalProjectFiles local = {};
   ActiveProjectFiles project = {};
-  ProjectInternFiles intern = {};
+  ProjectExternFiles externs = {};
 };
 
 /**

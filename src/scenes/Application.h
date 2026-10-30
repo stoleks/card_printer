@@ -83,3 +83,8 @@ private:
   sf::Clock m_clock;
   sf::Clock m_totalTime;
 };
+
+/**
+ * Get all image files in a folder
+ */
+std::vector <std::string> getImagesFileName (const std::string& directory);

@@ -10,7 +10,6 @@ Reorganize how card editor work :
   - fix the size of the card displayed
   - make primitive shape render public in gui
 - when saving cards, generate a csv with all required data (user can choose to edit visually or through csv) ; 
-- add a droplist under the text for texture selection ;
 - change card render in app so that they are contained in the window and can be scrolled 
   - fuse gui and cardGui to achieve that simply.
   - Add gui texture in the texture collage for that
@@ -18,3 +17,7 @@ Reorganize how card editor work :
   - should be done with the fusion of gui texture and cards texture
 - reorganize code to have card editor and printer in their own classes ;
 - project creation should generate ok-ish default files ;
+- add a droplist under the text for texture selection with all the available textures (the one in the images folder) ;
+- add a common .json that contains all data files necessary for the app and a local .json that contains all data related to projects ;
+- add a unordered map that stores a pair of model image key and card actual texture, to determine properly when a card is "full" and what image could be added ;
+- add a function to update all textures position/size when updating the model one ;

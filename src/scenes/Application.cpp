@@ -1,6 +1,7 @@
 #include "Application.h"
 
 #include <iostream>
+#include <filesystem>
 #include <sgui/DefaultFiles.h>
 #include <sgui/Resources/TextureCollage.h>
 #include <sgui/Resources/IconsFontAwesome7.h>
@@ -56,11 +57,11 @@ void Application::loadCardsGui ()
 {
   // load font and atlas
   m_cardFont = std::make_unique <sf::Font> (projectFilePath (files.project.font, files));
-  spdlog::info ("Load atlas {}", files.inner.atlas);
+  spdlog::info ("Load atlas {}", files.externs.atlas);
   m_cardAtlas.clear ();
-  m_cardAtlas.loadFromFile (files.inner.atlas);
-  spdlog::info ("Load texture {}", files.inner.texture);
-  m_cardTexture = std::make_unique <sf::Texture> (files.inner.texture);
+  m_cardAtlas.loadFromFile (files.externs.atlas);
+  spdlog::info ("Load texture {}", files.externs.texture);
+  m_cardTexture = std::make_unique <sf::Texture> (files.externs.texture);
   app.style.fontColor = sf::Color::Black;
   // in app display
   spdlog::info ("Set gui for cards edition");
@@ -204,23 +205,25 @@ void Application::generateTexture ()
 {
   // store images file name
   editor.imagesFileName = getImagesFileName (files.project.texturesFolder);
-  spdlog::info (editor.imagesFileName);
+  for (const auto& imageFile : editor.imagesFileName) {
+    spdlog::info (imageFile);
+  }
   
   // if files already exist, quit
-  if (std::filesystem::is_regular_file (files.inner.texture)
-    && std::filesystem::is_regular_file (files.inner.atlas)) return;
+  if (std::filesystem::is_regular_file (files.externs.texture)
+    && std::filesystem::is_regular_file (files.externs.atlas)) return;
 
   // generate texture
   const auto texturesPath = projectFilePath (files.project.texturesFolder, files);
   spdlog::info ("Load images from {}", texturesPath);
   auto collage = sgui::TextureCollage (texturesPath, { .useMask = true, .maskColor = sf::Color::White });
-  if (!collage.image ().saveToFile (files.inner.texture)) {
-    spdlog::warn ("Unable to save {}", files.inner.texture); 
+  if (!collage.image ().saveToFile (files.externs.texture)) {
+    spdlog::warn ("Unable to save {}", files.externs.texture); 
   } else {
-    spdlog::info ("Saved cards texture to {}", files.inner.texture);
+    spdlog::info ("Saved cards texture to {}", files.externs.texture);
   }
-  spdlog::info ("Save atlas in {}", files.inner.atlas);
-  sgui::saveInFile (collage.atlas (), files.inner.atlas);
+  spdlog::info ("Save atlas in {}", files.externs.atlas);
+  sgui::saveInFile (collage.atlas (), files.externs.atlas);
 }
 
 ////////////////////////////////////////////////////////////
@@ -228,10 +231,12 @@ void Application::loadCardsData ()
 {
   const auto modelPath = projectFilePath (files.project.model, files);
   spdlog::info ("Load card with model from {}", modelPath);
-  spdlog::info ("Save in {}", files.inner.cards);
-  app.style.fontSize.normal = loadCardsFromFile (editor, modelPath, files.inner.cards);
+  spdlog::info ("Save in {}", files.externs.cards);
+  app.style.fontSize.normal = loadCardsFromFile (editor, modelPath, files.externs.cards);
   app.cardGui.setStyle (app.style);
 }
+
+namespace fs = std::filesystem;
 
 ////////////////////////////////////////////////////////////
 std::vector <std::string> getImagesFileName (

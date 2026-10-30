@@ -16,6 +16,7 @@ struct CardEditor {
   entt::entity activeCard;
   entt::entity cardModel;
   entt::registry cards;
+  std::vector <std::string> imagesFileName;
   // functions
   void menuAndDisplay (CommonAppData& app);
 private:

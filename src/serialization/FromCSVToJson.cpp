@@ -31,7 +31,7 @@ void buildCardFromCSV (const Files& files)
   const auto backgroundIndex = getKeysFromCSV (cardsData, forText, forTexture, model.graphics);
 
   // extract all lines and save them
-  saveDataInJson (cardsData, backgroundIndex, forText, forTexture, files.inner.cards);
+  saveDataInJson (cardsData, backgroundIndex, forText, forTexture, files.externs.cards);
   cardsData.close ();
 }
 
