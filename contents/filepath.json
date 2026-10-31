@@ -1,12 +1,4 @@
 {
-  "editorLayout": "editor_layout.json",
-  "editorTexts": "editor_texts.json",
-  "projectFile": "jeu_molecule_meth.json",
-  "projectFolder": "D:\\Utilisateurs\\alex\\projets\\jeu_cartes_molecules_meth",
-  "projectsFiles": {
-    "jeu_molecule_meth": "D:\\Utilisateurs\\alex\\projets\\jeu_cartes_molecules_meth/jeu_molecule_meth.json"
-  },
-  "projectsNames": [
-    "jeu_molecule_meth"
-  ]
+  "layout": "editor_layout.json",
+  "texts": "editor_texts.json"
 }

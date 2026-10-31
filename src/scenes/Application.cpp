@@ -23,10 +23,22 @@ Application::Application (sf::RenderWindow& window)
 void Application::initialize ()
 {
   // Load file settings
-  json internalData = sgui::loadFromFile (LocalContentsDir"filepath.json");
-  files.app = internalData;
+  json internalAppData = sgui::loadFromFile (LocalContentsDir"filepath.json");
+  files.app = internalAppData;
   files.app.folder = std::filesystem::current_path ().string ();
   spdlog::info ("App path is {}", files.app.folder);
+
+  // Load local project settings
+  const auto localProjectFilepath = LocalContentsDir"project_filepath.json";
+  if (!std::filesystem::exists (localProjectFilepath)) {
+    const auto emptyProjects = LocalProjectFiles {.activeFolder = files.app.folder};
+    json emptyLocalProjects = emptyProjects;
+    sgui::saveInFile (emptyLocalProjects, localProjectFilepath);
+    files.localProjects = emptyProjects;
+  } else {
+    json localProjectsData = sgui::loadFromFile (localProjectFilepath);
+    files.localProjects = localProjectsData;
+  }
 
   // Font, text and layout loading
   spdlog::info ("Load font from {}", sgui::DefaultFont);

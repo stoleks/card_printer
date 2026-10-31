@@ -7,3 +7,4 @@ out
 CMakeFiles*
 CMakeCache*
 *.sh
+contents/project_filepath.json
