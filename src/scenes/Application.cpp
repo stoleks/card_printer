@@ -31,10 +31,10 @@ void Application::initialize ()
   // Font, text and layout loading
   spdlog::info ("Load font from {}", sgui::DefaultFont);
   m_font = std::make_unique <sf::Font> (sgui::DefaultFont);
-  const auto textPath = std::string (LocalContentsDir"english_" + files.app.editorTexts);
+  const auto textPath = std::string (LocalContentsDir"english_" + files.app.texts);
   spdlog::info ("Load text from {}", textPath);
   app.texts.loadFromFile (textPath, "english");
-  const auto layoutPath = LocalContentsDir + files.app.editorLayout;
+  const auto layoutPath = LocalContentsDir + files.app.layout;
   spdlog::info ("Load layout from {}", layoutPath);
 
   app.layout.loadFromFile (layoutPath);
@@ -56,12 +56,12 @@ void Application::initialize ()
 void Application::loadCardsGui ()
 {
   // load font and atlas
-  m_cardFont = std::make_unique <sf::Font> (projectFilePath (files.project.font, files));
-  spdlog::info ("Load atlas {}", files.externs.atlas);
+  m_cardFont = std::make_unique <sf::Font> (projectFilePath (files.userActiveProj.font, files));
+  spdlog::info ("Load atlas {}", files.appActiveProj.atlas);
   m_cardAtlas.clear ();
-  m_cardAtlas.loadFromFile (files.externs.atlas);
-  spdlog::info ("Load texture {}", files.externs.texture);
-  m_cardTexture = std::make_unique <sf::Texture> (files.externs.texture);
+  m_cardAtlas.loadFromFile (files.appActiveProj.atlas);
+  spdlog::info ("Load texture {}", files.appActiveProj.texture);
+  m_cardTexture = std::make_unique <sf::Texture> (files.appActiveProj.texture);
   app.style.fontColor = sf::Color::Black;
   // in app display
   spdlog::info ("Set gui for cards edition");
@@ -204,35 +204,35 @@ void Application::options ()
 void Application::generateTexture ()
 {
   // store images file name
-  editor.imagesFileName = getImagesFileName (files.project.texturesFolder);
+  editor.imagesFileName = getImagesFileName (files.userActiveProj.texturesFolder);
   for (const auto& imageFile : editor.imagesFileName) {
     spdlog::info (imageFile);
   }
   
   // if files already exist, quit
-  if (std::filesystem::is_regular_file (files.externs.texture)
-    && std::filesystem::is_regular_file (files.externs.atlas)) return;
+  if (std::filesystem::is_regular_file (files.appActiveProj.texture)
+    && std::filesystem::is_regular_file (files.appActiveProj.atlas)) return;
 
   // generate texture
-  const auto texturesPath = projectFilePath (files.project.texturesFolder, files);
+  const auto texturesPath = projectFilePath (files.userActiveProj.texturesFolder, files);
   spdlog::info ("Load images from {}", texturesPath);
   auto collage = sgui::TextureCollage (texturesPath, { .useMask = true, .maskColor = sf::Color::White });
-  if (!collage.image ().saveToFile (files.externs.texture)) {
-    spdlog::warn ("Unable to save {}", files.externs.texture); 
+  if (!collage.image ().saveToFile (files.appActiveProj.texture)) {
+    spdlog::warn ("Unable to save {}", files.appActiveProj.texture); 
   } else {
-    spdlog::info ("Saved cards texture to {}", files.externs.texture);
+    spdlog::info ("Saved cards texture to {}", files.appActiveProj.texture);
   }
-  spdlog::info ("Save atlas in {}", files.externs.atlas);
-  sgui::saveInFile (collage.atlas (), files.externs.atlas);
+  spdlog::info ("Save atlas in {}", files.appActiveProj.atlas);
+  sgui::saveInFile (collage.atlas (), files.appActiveProj.atlas);
 }
 
 ////////////////////////////////////////////////////////////
 void Application::loadCardsData ()
 {
-  const auto modelPath = projectFilePath (files.project.model, files);
+  const auto modelPath = projectFilePath (files.userActiveProj.model, files);
   spdlog::info ("Load card with model from {}", modelPath);
-  spdlog::info ("Save in {}", files.externs.cards);
-  app.style.fontSize.normal = loadCardsFromFile (editor, modelPath, files.externs.cards);
+  spdlog::info ("Save in {}", files.appActiveProj.cards);
+  app.style.fontSize.normal = loadCardsFromFile (editor, modelPath, files.appActiveProj.cards);
   app.cardGui.setStyle (app.style);
 }
 

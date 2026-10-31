@@ -9,12 +9,12 @@
 void buildCardFromCSV (const Files& files)
 {
   // check that file exist
-  const auto cardsPath = projectFilePath (files.project.cards, files);
+  const auto cardsPath = projectFilePath (files.userActiveProj.cards, files);
   if (!std::filesystem::exists (cardsPath)) {
     spdlog::error ("cards data file {} does not exist", cardsPath);
     return;
   }
-  const auto modelPath = projectFilePath (files.project.model, files);
+  const auto modelPath = projectFilePath (files.userActiveProj.model, files);
   if (!std::filesystem::exists (modelPath)) {
     spdlog::error ("model file {} does not exist", modelPath);
     return;
@@ -31,7 +31,7 @@ void buildCardFromCSV (const Files& files)
   const auto backgroundIndex = getKeysFromCSV (cardsData, forText, forTexture, model.graphics);
 
   // extract all lines and save them
-  saveDataInJson (cardsData, backgroundIndex, forText, forTexture, files.externs.cards);
+  saveDataInJson (cardsData, backgroundIndex, forText, forTexture, files.appActiveProj.cards);
   cardsData.close ();
 }
 

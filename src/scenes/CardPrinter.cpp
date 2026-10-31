@@ -131,8 +131,8 @@ void Application::printAllPages ()
   if (!m_isPrinting) return;
 
   // start pdf
-  const auto directory = projectFilePath (files.project.outputFolder, files);
-  const auto path = directory + "/" + files.project.outputPdf;
+  const auto directory = projectFilePath (files.userActiveProj.outputFolder, files);
+  const auto path = directory + "/" + files.userActiveProj.outputPdf;
   std::filesystem::create_directory (directory);
   if (m_pageIndex == 0u) {
     m_totalTime.restart ();
