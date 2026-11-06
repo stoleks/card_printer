@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////
 void buildCardFromCSV (const Files& files)
 {
-  // check that file exist
+  // check that files exist
   const auto cardsPath = projectFilePath (files.userActiveProj.cards, files);
   if (!std::filesystem::exists (cardsPath)) {
     spdlog::error ("cards data file {} does not exist", cardsPath);
@@ -24,96 +24,69 @@ void buildCardFromCSV (const Files& files)
   json modelJson = sgui::loadFromFile (modelPath);
   Card model = modelJson ["model"];
 
-  // extract first line and get keys from the card model
+  // read data from csv
+  // first get keys from the card model and map it to the first line of csv
+  auto keysForTexts = KeyIndexMap ();
+  auto keysForTextures = KeyIndexMap ();
   std::fstream cardsData (cardsPath, std::ios::in);
-  auto forText = KeyIndex ();
-  auto forTexture = KeyIndex ();
-  const auto backgroundIndex = getKeysFromCSV (cardsData, forText, forTexture, model.graphics);
-
-  // extract all lines and save them
-  saveDataInJson (cardsData, backgroundIndex, forText, forTexture, files.appActiveProj.cards);
+  readKeysFromCSV (cardsData, keysForTexts, keysForTextures, model.graphics);
+  // then extract all lines and save them using map of keys previously built
+  saveDataInJson (cardsData, keysForTexts, keysForTextures, files.appActiveProj.cards);
   cardsData.close ();
 }
 
 ////////////////////////////////////////////////////////////
-uint32_t getKeysFromCSV (
+void readKeysFromCSV (
   std::fstream& cardsData,
-  KeyIndex& forText,
-  KeyIndex& forTexture,
-  const GraphicalParts& graph)
+  KeyIndexMap& keysForTexts,
+  KeyIndexMap& keysForTextures,
+  const GraphicalParts& modelGraphics)
 {
   auto index = 0u;
-  auto backgroundIndex = 0u;
   // get first line of the csv file
   auto firstLine = std::string ();
   std::getline (cardsData, firstLine);
   auto lineToProcess = std::istringstream (firstLine);
   // check each entry of the first line
   for (std::string key; std::getline (lineToProcess, key, ','); ) {
-    auto findKey = [&key] (const auto& data) { return data.identifier == key; };
     // search key in model textures
-    const auto searchTexture = std::find_if (graph.textures.begin (), graph.textures.end (), findKey);
-    if (searchTexture != graph.textures.end ()) {
-      forTexture.emplace (index, key);
-    }
-
-    // search key in model verso textures
-
+    readKeysInModel (keysForTextures.recto, modelGraphics.textures, key, index);
+    readKeysInModel (keysForTextures.verso, modelGraphics.versoTextures, key, index);
     // search key in model texts
-    const auto searchText = std::find_if (graph.texts.begin (), graph.texts.end (), findKey);
-    if (searchText != graph.texts.end ()) {
-      forText.emplace (index, key);
-    }
-
-    // search key in model verso texts
-
-    // keep track of background index
-    if (key == "background") {
-      backgroundIndex = index;
-    }
+    readKeysInModel (keysForTexts.recto, modelGraphics.texts, key, index);
+    readKeysInModel (keysForTexts.verso, modelGraphics.versoTexts, key, index);
+    // update index
     index++;
   }
-  return backgroundIndex;
 }
 
 ////////////////////////////////////////////////////////////
 void saveDataInJson (
   std::fstream& cardsData,
-  const uint32_t backgroundIndex,
-  const KeyIndex& keyForText,
-  const KeyIndex& keyForTexture,
+  const KeyIndexMap& keysForTexts,
+  const KeyIndexMap& keysForTextures,
   const std::string& jsonFile)
 {
   json out;
   auto card = std::vector <CardFingerPrint> ();
   while (!cardsData.eof ()) {
     // process line by line
-    auto cellIndex = 0u;
     auto line = std::string ();
     std::getline (cardsData, line);
     auto lineToProcess = std::istringstream (line);
     // check that the line is not empty
-    if (line == "") {
-      break;
-    }
+    if (line == "") { break; }
     // read card data based on the model
-    card.emplace_back ();
-    auto& lastCard = card.back ();
+    auto cellIndex = 0u;
+    auto& lastCard = card.emplace_back ();
     for (std::string cell; std::getline (lineToProcess, cell, ','); ) {
-      // set background 
-      if (cellIndex == backgroundIndex) {
-        lastCard.textures.emplace_back (TextureData {"background", cell});
-      }
-
-      // set text
-      if (const auto& found = keyForText.find (cellIndex); found != keyForText.end ()) {
-        lastCard.texts.emplace_back (TextData {found->second, cell});
-      }
-
-      // set texture
-      if (const auto& found = keyForTexture.find (cellIndex); found != keyForTexture.end ()) {
-        lastCard.textures.emplace_back (TextureData {found->second, cell});
-      }
+      // set textures
+      readCellData (lastCard.textures, keysForTextures.recto, cell, cellIndex);
+      readCellData (lastCard.versoTextures, keysForTextures.verso, cell, cellIndex);
+      // set texts
+      readCellData (lastCard.texts, keysForTexts.recto, cell, cellIndex);
+      readCellData (lastCard.versoTexts, keysForTexts.verso, cell, cellIndex);
+      // keep track of cell index
       cellIndex++;
     }
   }
