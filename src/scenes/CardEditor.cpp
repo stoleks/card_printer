@@ -12,7 +12,7 @@
 void CardEditor::menuAndDisplay (CommonAppData& app)
 {
   if (app.gui.beginWindow (app.layout.get <sgui::Window> ("editionMenu"))) {
-    // save cards
+    // save cards to json
     auto optimalWidth = 0.f;
     if (app.gui.button (format (app.texts.get ("saveCards"), ICON_FA_FILE_EXPORT))) {
       saveCards ();
@@ -83,18 +83,25 @@ void CardEditor::editFromGui (CommonAppData& app, entt::entity& cardEdited)
   auto window = app.layout.get <sgui::Window> ("editOnCard");
   window.options.aspect.state = sgui::ItemState::Hovered;
   app.gui.beginPanel (window);
-  // draw card decorations and texts
-  window.panel.isVisible = false;
-  window.panel.position = app.gui.cursorPosition ();
-  const auto size = window.panel.size;
-  const auto cardSize = cards.get <CardFormat> (cardEdited).size;
-  window.panel.size = cardSize.componentWiseDiv (app.gui.parentGroupSize ());
-  window.panel.isScrollable = false;
-  app.cardGui.beginPanel (window.panel);
+  // open panel for the recto of the card
+  const auto& cardSize = cards.get <CardFormat> (cardEdited).size;
+  auto rectoPanel = sgui::Panel {
+    .position = app.gui.cursorPosition (),
+    .size = cardSize.componentWiseDiv (app.gui.parentGroupSize ()),
+    .isVisible = false,
+    .isScrollable = false
+  };
+  // draw recto of the card
+  app.cardGui.beginPanel (rectoPanel);
   ::drawCardDecoration (app.cardGui, cards, cardEdited, app.texts);
   app.cardGui.endPanel ();
-  window.panel.isScrollable = true;
-  window.panel.size = size;
+  // draw verso of the card beside the recto
+  auto versoPanel = rectoPanel;
+  versoPanel.position.x += cardSize.x;
+  app.cardGui.beginPanel (versoPanel);
+  ::drawCardDecoration (app.cardGui, cards, cardEdited, app.texts, true);
+  app.cardGui.endPanel ();
+  // close panel that hold the cards
   app.gui.endPanel ();
 }
 

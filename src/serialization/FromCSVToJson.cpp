@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////
 void buildCardFromCSV (const Files& files)
 {
-  // check that files exist
+  // check that files exist for model and cards data
   const auto cardsPath = projectFilePath (files.userActiveProj.cards, files);
   if (!std::filesystem::exists (cardsPath)) {
     spdlog::error ("cards data file {} does not exist", cardsPath);
@@ -23,6 +23,10 @@ void buildCardFromCSV (const Files& files)
   // load the card model graphics
   json modelJson = sgui::loadFromFile (modelPath);
   Card model = modelJson ["model"];
+  // add background and verso_background to correctly handle this data stored in csv
+  // TODO : add an option to fit an image to the card size and use this data to give user more control over this background stuff
+  model.graphics.textures.emplace_back (CardTexture {.identifier = "background"});
+  model.graphics.textures.emplace_back (CardTexture {.identifier = "verso_background"});
 
   // read data from csv
   // first get keys from the card model and map it to the first line of csv

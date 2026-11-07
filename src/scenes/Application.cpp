@@ -216,7 +216,7 @@ void Application::options ()
 void Application::generateTexture ()
 {
   // store images file name
-  editor.imagesFileName = getImagesFileName (files.userActiveProj.texturesFolder);
+  editor.imagesFileName = getImagesFileName (projectFilePath (files.userActiveProj.texturesFolder, files));
   for (const auto& imageFile : editor.imagesFileName) {
     spdlog::info (imageFile);
   }
