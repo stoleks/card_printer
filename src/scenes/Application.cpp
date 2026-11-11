@@ -129,6 +129,7 @@ void Application::update (const sf::Time& dt)
       projects.selection (app, files, *this);
       if (app.projectIsLoaded) {
         options ();
+        app.gui.separation ();
       }
       // quit application
       if (app.gui.button (format (app.texts.get ("close"), ICON_FA_CIRCLE_XMARK))) {

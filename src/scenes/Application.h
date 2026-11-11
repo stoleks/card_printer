@@ -27,7 +27,7 @@ public:
   PagePrint page;
   CardsPrint cards = {};
   CardEditor editor = {};
-  Projects projects = {};
+  ProjectSelection projects = {};
   CommonAppData app = {};
   Files files = {};
 private:

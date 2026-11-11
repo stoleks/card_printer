@@ -30,12 +30,12 @@ NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(AppFiles, texts, layout)
  * @brief: files for local projects
  */
 struct LocalProjectFiles {
-  std::string activeFolder = "";                       ///< folder of the active project
   std::string active = "";                             ///< active project json init file
-  std::vector <std::string> names = {""};              ///< all projects names
-  std::unordered_map <std::string, std::string> files; ///< all projects files
+  std::string activeFolder = "";                       ///< folder of the active project
+  std::vector <std::string> names = {};                ///< all projects names
+  std::unordered_map <std::string, std::string> paths; ///< all projects path
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(LocalProjectFiles, activeFolder, active, names, files)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(LocalProjectFiles, activeFolder, active, names, paths)
 
 /**
  * @brief: files for the active project edited by users
