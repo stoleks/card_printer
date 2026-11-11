@@ -21,6 +21,7 @@ private:
   std::array <std::string, 5> m_activeProjFilePath = { "", "", "", "", "" };
 private:
   void setupNewProject (CommonAppData& app, Files& files);
+  void createUserFiles (Files& files, const std::string& projectFilepath);
   void loadProjectFiles (CommonAppData& app, Files& files); 
   void setInnerFiles (Files& files) const;
   void editFilesPaths (CommonAppData& app, Files& files);

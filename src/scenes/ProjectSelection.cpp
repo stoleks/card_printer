@@ -1,6 +1,7 @@
 #include <fstream>
 #include <filesystem>
 #include <sgui/Serialization/LoadJson.h>
+#include "serialization/CardSaving.h"
 #include "serialization/FromCSVToJson.h"
 #include "scenes/CommonData.h"
 #include "scenes/Application.h"
@@ -65,13 +66,8 @@ void ProjectSelection::selection (CommonAppData& app, Files& files, Application&
   // load project data if the main file is valid
   const auto filePath = std::filesystem::path (projectFilePath (files.localProjects.active, files));
   const auto doesFileExist = std::filesystem::is_regular_file (filePath);
-  // and if all sub-paths are valid
-  const auto isFontSet = std::filesystem::is_regular_file (m_activeProjFilePath [1u]);
-  const auto isCardSet = std::filesystem::is_regular_file (m_activeProjFilePath [2u]);
-  const auto isModelSet = std::filesystem::is_regular_file (m_activeProjFilePath [3u]);
-  const auto isOutputPdfSet = files.userActiveProj.outputPdf != "";
   // ask user to load or not the project data
-  if (doesFileExist && m_arePathsInitialized && isFontSet && isCardSet && isModelSet && isOutputPdfSet) {
+  if (doesFileExist && m_arePathsInitialized) {
     if (app.gui.button (app.texts.get ("loadProject"))) {
       loadProjectData (app, files, main, filePath.string ());
     }
@@ -129,18 +125,20 @@ void ProjectSelection::setupNewProject (CommonAppData& app, Files& files)
           pos = files.localProjects.activeFolder.find_last_of ("\\");
         }
         m_projectName = files.localProjects.activeFolder.substr (pos + 1);
+        // create project user files with default values
         const auto newProjectFilePath = projectFilePath (m_projectName, files) + ".json";
-        spdlog::info ("Create project files {}", newProjectFilePath);
-        json out = AppActiveProjFiles ();
-        sgui::saveInFile (out, newProjectFilePath);
+        files.localProjects.active = newProjectFilePath;
+        spdlog::info ("Create project files {}", files.localProjects.active);
+        createUserFiles (files, newProjectFilePath);
         // set or create inner files
         spdlog::info ("Set-up inner files");
         setInnerFiles (files);
         std::filesystem::create_directory (files.appActiveProj.folder);
-        files.localProjects.active = newProjectFilePath;
         spdlog::info ("Loaded {}", files.localProjects.active);
         // close special window
         newProject.panel.isClosed = true;
+        m_arePathsInitialized = false;
+        app.projectIsLoaded = false;
       }
     }
     // cancel project creation
@@ -150,6 +148,35 @@ void ProjectSelection::setupNewProject (CommonAppData& app, Files& files)
     }
     app.gui.endWindow ();
   }
+}
+
+////////////////////////////////////////////////////////////
+void ProjectSelection::createUserFiles (Files& files, const std::string& projectFilepath) 
+{
+  // set default path
+  spdlog::info ("Set default path for font and make default files");
+  files.userActiveProj.font = sgui::DefaultFont;
+  files.userActiveProj.cards = "cards.csv";
+  files.userActiveProj.model = "model.json";
+  files.userActiveProj.outputPdf = "cards.pdf";
+  files.userActiveProj.outputFolder = "output";
+  files.userActiveProj.texturesFolder = "images";
+  const auto texturesPath = projectFilePath (files.userActiveProj.texturesFolder, files);
+  std::filesystem::create_directory (texturesPath);
+  // save app file
+  json appFileJson = files.userActiveProj;
+  sgui::saveInFile (appFileJson, projectFilepath);
+  // save a default model json
+  json modelJson;
+  modelJson ["model"] = Card ();
+  const auto modelPath = projectFilePath (files.userActiveProj.model, files);
+  sgui::saveInFile (modelJson, modelPath);
+  // save a default csv file
+  std::ofstream cardsCSV;
+  const auto csvPath = projectFilePath (files.userActiveProj.cards, files);
+  cardsCSV.open (csvPath);
+  cardsCSV << "title,description\n";
+  cardsCSV.close ();
 }
 
 ////////////////////////////////////////////////////////////
