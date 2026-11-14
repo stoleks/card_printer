@@ -15,18 +15,6 @@
 #include "scenes/CardPrinter.h"
 
 ////////////////////////////////////////////////////////////
-CardsPrint::CardsPrint ()
-{
-  formatNames.reserve (PaperFormatNames.size () - 1);
-  for (const auto& formatEntry : PaperFormatNames) {
-    if (formatEntry.second != PaperFormat::A3 && formatEntry.second != PaperFormat::A4) {
-      formatNames.push_back (formatEntry.first);
-    }
-  }
-}
-
-
-////////////////////////////////////////////////////////////
 void Application::cardPrinter ()
 {
   if (app.gui.beginWindow (app.layout.get <sgui::Window> ("editionMenu"))) {
@@ -99,7 +87,7 @@ void Application::chooseCardsFormat ()
   app.gui.text (format (app.texts.get ("cardFormat"), ICON_FA_FILE));
   app.gui.setAnchor ();
   app.gui.sameLine ();
-  const auto formatName = app.gui.comboBox (cards.formatNames);
+  const auto formatName = app.gui.comboBox (app.formatNames);
   if (cards.format != PaperFormatNames.at (formatName)) {
     cards.format = PaperFormatNames.at (formatName);
     computeLattice ();
@@ -239,7 +227,7 @@ void Application::displayCardsInLattice (
     shift = app.gui.cursorPosition () - m_cardsShift;
   }
   // draw cards
-  const auto cardSize = millimToPixel (PaperFormatInMillimeter.at (cards.format), page.resolution);
+  const auto cardSize = cardSizeInPixel (cards.format, page.resolution);
   // cards position can be either recto or verso
   const auto& cardsPositions = verso ? cards.versoPositions : cards.rectoPositions;
   for (const auto& cardPos : cardsPositions) {
@@ -253,7 +241,7 @@ void Application::displayCardsInLattice (
       .isVisible = false,
       .isScrollable = false
     });
-    editor.cards.get <CardFormat> (editor.activeCard).size = cardBox.size;
+    editor.cards.get <CardFormat> (editor.activeCard).size = cards.format;
     // draw card decorations
     gui.beginPanel (cardPanel);
     ::drawCardDecoration (gui, editor.cards, editor.activeCard, app.texts, verso);
@@ -278,7 +266,7 @@ void Application::computeLattice ()
   }
 
   // compute card size, their orientations are always in portrait
-  const auto cardSize = millimToPixel (PaperFormatInMillimeter.at (cards.format), page.resolution);
+  const auto cardSize = cardSizeInPixel (cards.format, page.resolution);
   const auto cardPadding = millimToPixel (cards.padding, page.resolution);
 
   // compute page padding to center cards

@@ -24,6 +24,17 @@ enum class PaperFormat {
   Tarot,
   Bridge
 };
+NLOHMANN_JSON_SERIALIZE_ENUM (PaperFormat, {
+  {PaperFormat::A3,     "PaperFormat::A3"},
+  {PaperFormat::A4,     "PaperFormat::A4"},
+  {PaperFormat::A5,     "PaperFormat::A5"},
+  {PaperFormat::A6,     "PaperFormat::A6"},
+  {PaperFormat::A7,     "PaperFormat::A7"},
+  {PaperFormat::B7,     "PaperFormat::B7"},
+  {PaperFormat::Poker,  "PaperFormat::Poker"},
+  {PaperFormat::Tarot,  "PaperFormat::Tarot"},
+  {PaperFormat::Bridge, "PaperFormat::Bridge"}
+})
 
 /**
  * @brief list of format name
@@ -59,15 +70,35 @@ static const std::unordered_map <PaperFormat, sf::Vector2f> PaperFormatInMillime
 constexpr float mmPerInch = 25.4f;
 
 /**
- * @brief conversion to pixel from millimeter, or the reverse with pixelToMillim
+ * @brief conversion to pixel from millimeter
  */
 template <typename Type>
 Type millimToPixel (const Type& millimSize, const float resolution)
 { 
   return millimSize * resolution / mmPerInch;
 }
+
+/**
+ * @brief conversion to millimeter from pixel
+ */
 template <typename Type>
 Type pixelToMillim (const Type& pixelsSize, const float resolution)
 {
   return pixelsSize * mmPerInch / resolution;
+}
+
+/**
+ * @brief get card size in pixel
+ */
+inline sf::Vector2f cardSizeInPixel (const PaperFormat& format, const float resolution = 200.f) 
+{
+  return millimToPixel (PaperFormatInMillimeter.at (format), resolution);
+}
+
+/**
+ * @brief get card size in millimeter
+ */
+inline sf::Vector2f cardSizeInMillim (const PaperFormat& format)
+{
+  return PaperFormatInMillimeter.at (format);
 }

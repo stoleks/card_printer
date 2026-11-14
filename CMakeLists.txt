@@ -29,7 +29,7 @@ FetchContent_Declare (entt
 FetchContent_Declare (SmolGui
   GIT_REPOSITORY https://github.com/stoleks/smolgui
   #GIT_TAG        v0.25.0
-  GIT_TAG        794851b572a2df27a93622baf7c6573fb8632f74 
+  GIT_TAG        d85b9d1bb0e6d334d32d9108cb0170259a6a82ff 
   GIT_PROGRESS TRUE
 )
 

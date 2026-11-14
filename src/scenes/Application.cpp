@@ -15,6 +15,17 @@
 #include "serialization/FromCSVToJson.h"
 
 ////////////////////////////////////////////////////////////
+CommonAppData::CommonAppData ()
+{
+  formatNames.reserve (PaperFormatNames.size () - 1);
+  for (const auto& formatEntry : PaperFormatNames) {
+    if (formatEntry.second != PaperFormat::A3 && formatEntry.second != PaperFormat::A4) {
+      formatNames.push_back (formatEntry.first);
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////
 Application::Application (sf::RenderWindow& window)
   : m_window (window)
 {}

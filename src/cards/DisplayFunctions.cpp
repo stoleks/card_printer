@@ -11,9 +11,10 @@ void drawCardDecoration (
   bool verso)
 {
   // draw card format 
-  const auto& format = cards.get <CardFormat> (activeCard);
   gui.addSpacing ({-0.25f, -0.2f});
-  gui.image (verso ? format.versoBackground : format.background, format.size);
+  const auto& format = cards.get <CardFormat> (activeCard);
+  const auto& cardSize = cardSizeInPixel (format.size);
+  gui.image (verso ? format.versoBackground : format.background, cardSize);
 
   // draw card textures and texts (recto or verso)
   auto& parts = cards.get <GraphicalParts> (activeCard);
@@ -25,10 +26,10 @@ void drawCardDecoration (
     }
     // center texture
     if (icon.isCenteredHorizontally) {
-      icon.rect.position.x = 0.5f * (format.size - icon.rect.size).x;
+      icon.rect.position.x = 0.5f * (cardSize - icon.rect.size).x;
     }
     if (icon.isCenteredVertically) {
-      icon.rect.position.y = 0.5f * (format.size - icon.rect.size).y;
+      icon.rect.position.y = 0.5f * (cardSize - icon.rect.size).y;
     }
     // render it
     gui.addSpacing ({-0.25f, -0.5f});
@@ -45,7 +46,7 @@ void drawCardDecoration (
     // center text if asked
     const auto textSize = gui.textSize (textValue);
     if (text.isCenteredHorizontally) {
-      text.position.x = 0.5f * (format.size - textSize - gui.textSize ("A")).x;
+      text.position.x = 0.5f * (cardSize - textSize - gui.textSize ("A")).x;
     }
     // draw text in a wrapper panel
     const auto panelSize = textSize + sf::Vector2f (20.f, 3.f*textSize.y);

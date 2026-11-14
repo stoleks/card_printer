@@ -16,7 +16,6 @@ uint32_t loadCardsFromFile (
   json modelJson = sgui::loadFromFile (modelFile);
   Card modelData = modelJson ["model"];
   editor.cardModel = editor.cards.create ();
-  editor.cards.emplace <CardModel> (editor.cardModel, modelData.model);
   editor.cards.emplace <CardFormat> (editor.cardModel, modelData.format);
   editor.cards.emplace <GraphicalParts> (editor.cardModel, modelData.graphics);
 
@@ -34,7 +33,7 @@ uint32_t loadCardsFromFile (
     editor.cardsCount++;
   }
 
-  return modelData.model.fontSize;
+  return modelData.format.fontSize;
 }
     
 ////////////////////////////////////////////////////////////
@@ -47,7 +46,6 @@ void buildCardsFromModel (
 {
   // build card data, first set identifier
   cards.emplace <CardIdentifier> (card, cardNumber);
-  cards.emplace <CardModel> (card);
   // add textures and format components
   cards.emplace <CardFormat> (card);
   cards.emplace <GraphicalParts> (card);

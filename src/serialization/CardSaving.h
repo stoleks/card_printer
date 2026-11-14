@@ -7,12 +7,11 @@
  * @brief : store card complete model
  */
 struct Card {
-  CardModel model = {};
   CardFormat format = {};
   GraphicalParts graphics = {};
   CardIdentifier identifier = {};
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(Card, format, model, identifier, graphics)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(Card, format, identifier, graphics)
 
 /**
  * @brief : store a card's text

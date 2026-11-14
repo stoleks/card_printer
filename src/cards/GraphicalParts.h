@@ -5,6 +5,7 @@
 #include <nlohmann/json.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <sgui/Serialization/SerializeSFML.h>
+#include "cards/PaperFormats.h"
 
 /**
  * @brief Store rectangle and identifier of a card texture
@@ -43,8 +44,9 @@ NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(GraphicalParts, texts, versoText
  * @brief Store card format
  */
 struct CardFormat {
-  sf::Vector2f size = { 62.f, 88.f }; // B8 at 127 dpi
-  std::string background = "carte_molecules_0005";
-  std::string versoBackground = "carte_molecules_dos";
+  uint32_t fontSize = 32u;
+  PaperFormat size = PaperFormat::Poker;
+  std::string background = "";
+  std::string versoBackground = "";
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardFormat, size, background, versoBackground)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardFormat, fontSize, size, background, versoBackground)

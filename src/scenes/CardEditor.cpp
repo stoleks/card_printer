@@ -31,7 +31,7 @@ void CardEditor::menuAndDisplay (CommonAppData& app)
       cards.emplace <CardIdentifier> (newCard, cardsCount);
       cards.emplace <CardFormat> (newCard);
       cards.emplace <GraphicalParts> (newCard);
-      cards.emplace <CardModel> (newCard);
+      cards.emplace <CardMetadata> (newCard);
       cardsCount++;
     }
 
@@ -71,9 +71,9 @@ void CardEditor::menuAndDisplay (CommonAppData& app)
 void CardEditor::editFormat (CommonAppData& app, entt::entity& cardEdited)
 {
   // change card background, poker is the format by default
-  auto& format = cards.get <CardFormat> (cardEdited);
-  format.size = millimToPixel (CardFormat ().size, PagePrint ().resolution); 
-  app.gui.inputText (format.background, {}, {.description = app.texts.get ("changeBackground")});
+  auto& cardFormat = cards.get <CardFormat> (cardEdited);
+  cardFormat.size = PaperFormatNames.at (app.gui.comboBox (app.formatNames));
+  app.gui.inputText (cardFormat.background, {}, {.description = app.texts.get ("changeBackground")});
 }
 
 ////////////////////////////////////////////////////////////
@@ -84,7 +84,7 @@ void CardEditor::editFromGui (CommonAppData& app, entt::entity& cardEdited)
   window.options.aspect.state = sgui::ItemState::Hovered;
   app.gui.beginPanel (window);
   // open panel for the recto of the card
-  const auto& cardSize = cards.get <CardFormat> (cardEdited).size;
+  const auto& cardSize = cardSizeInPixel (cards.get <CardFormat> (cardEdited).size);
   auto rectoPanel = sgui::Panel {
     .position = app.gui.cursorPosition (),
     .size = cardSize.componentWiseDiv (app.gui.parentGroupSize ()),
@@ -128,7 +128,7 @@ void CardEditor::editModelTexts (CommonAppData& app)
 
     // set text position
     app.gui.inputVector2 (text.position, {.description = app.texts.get ("textPosition")});
-    const auto cardSize = cards.get <CardFormat> (cardModel).size;
+    const auto& cardSize = cardSizeInPixel (cards.get <CardFormat> (cardModel).size);
     auto textSize = sf::Vector2f ();
     if (app.texts.has (text.identifier)) {
       textSize = app.cardGui.textSize (app.texts.get (text.identifier));
@@ -149,10 +149,12 @@ void CardEditor::editModelTexts (CommonAppData& app)
 ////////////////////////////////////////////////////////////
 void CardEditor::editTexts (CommonAppData& app, entt::entity& cardEdited)
 {
-  // set text size
+  // set text size for the edited card
   app.gui.separation();
-  const auto fontDescription = format (app.texts.get ("fontSizeIs"), app.style.fontSize.normal);
-  app.gui.slider (app.style.fontSize.normal, 10u, 40u, {.description = fontDescription});
+  auto& cardFormat = cards.get <CardFormat> (cardEdited);
+  const auto fontDescription = format (app.texts.get ("fontSizeIs"), cardFormat.fontSize);
+  app.gui.slider (cardFormat.fontSize, 10u, 40u, {.description = fontDescription});
+  app.style.fontSize.normal = cardFormat.fontSize;
   app.cardGui.setStyle (app.style);
 
   // add text
@@ -160,11 +162,36 @@ void CardEditor::editTexts (CommonAppData& app, entt::entity& cardEdited)
   const auto& modelTexts = cards.get <GraphicalParts> (cardModel).texts;
   if (cardTexts.size () != modelTexts.size ()) {
     for (auto& text : modelTexts) {
-      if (app.gui.button (fmt::format ("add {}", text.identifier))) { 
+      if (app.gui.button (fmt::format ("add {}", text.identifier))) {
         cardTexts.push_back (text);
       }
     }
   }
+  /*
+  auto& textsMetadata = cards.get <CardMetadata> (cardEdited).textsUsed;
+  for (auto& metadata : textsMetadata) {
+    if (!metadata.second) {
+      if (app.gui.button (fmt::format ("add {}", metadata.first))) {
+        const auto& found = std::find_if (modelTexts.begin (), modelTexts.end (),
+          [&metadata] (const auto& text) { return text.identifier == metadata.first; }
+        );
+        cardTexts.push_back (*found);
+        metadata.second = true;
+      }
+    } else {
+      if (app.gui.button (fmt::format ("remove {}", metadata.first))) {
+        cardTexts.erase (
+          std::remove_if (cardTexts.begin (), cardTexts.end (), 
+            [&metadata] (const auto& text) { 
+              return text.identifier == metadata.first;
+            }),
+          cardTexts.end ()
+        );
+        metadata.second = false;
+      }
+    }
+  }
+  */
 
   // edit text
   for (auto& text : cardTexts) {
@@ -182,9 +209,9 @@ void CardEditor::editModelTextures (CommonAppData& app)
   auto& parts = cards.get <GraphicalParts> (cardModel);
   if (app.gui.button (format (app.texts.get ("addTexture"), ICON_FA_SQUARE_PLUS))) {
     // add texture to card
-    parts.textures.emplace_back ();
-    parts.textures.back ().rect.size = sf::Vector2f (64.f, 64.f);
-    parts.textures.back ().rect.position = sf::Vector2f (1.f, app.gui.textSize ("A").y + 8.f);
+    auto& newTexture = parts.textures.emplace_back ();
+    newTexture.rect.size = sf::Vector2f (64.f, 64.f);
+    newTexture.rect.position = sf::Vector2f (1.f, app.gui.textSize ("A").y + 8.f);
   }
   // edit texture
   for (auto& texture : parts.textures) {
@@ -203,7 +230,7 @@ void CardEditor::editModelTextures (CommonAppData& app)
     app.gui.inputVector2 (texture.rect.size, {.description = app.texts.get ("textureSize")});
 
     // set precisely texture position or slide it in the card
-    const auto cardSize = cards.get <CardFormat> (cardModel).size;
+    const auto& cardSize = cardSizeInPixel (cards.get <CardFormat> (cardModel).size);
     app.gui.inputVector2 (texture.rect.position, {.description = app.texts.get ("texturePosition")});
     app.gui.slider (texture.rect.position.x, 0.f, cardSize.x - texture.rect.size.x);
     app.gui.sameLine ();
@@ -250,10 +277,6 @@ void CardEditor::saveCards ()
       .graphics = graphics,
       .identifier = id 
     };
-    const auto* t = cards.try_get <CardModel> (card);
-    if (t != nullptr) {
-      cardData.model = *t;
-    }
     out [id.number] = cardData;
   }
   sgui::saveInFile (out, saveFile);

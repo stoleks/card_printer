@@ -75,6 +75,7 @@ struct Files {
  * @brief : data common to the different menus
  */
 struct CommonAppData {
+  CommonAppData (); // fill formatNames with PaperFormat
   bool projectIsLoaded = false;
   float optimalMenuWidth = 0.3f;
   float windowWidth;
@@ -85,6 +86,7 @@ struct CommonAppData {
   sgui::Layout layout;
   sgui::TextContainer texts;
   std::string workingDir;
+  std::vector <std::string> formatNames;
 };
 
 /**
@@ -102,8 +104,6 @@ struct PagePrint {
  * @brief : store data for card print (position, padding, format, etc.)
  */
 struct CardsPrint {
-  CardsPrint ();
-  // data
   bool isRectoVerso = true;
   float advancement = 0.f;
   uint32_t cardsCount = 0u;
@@ -111,7 +111,6 @@ struct CardsPrint {
   sf::Vector2f position = {};
   sf::Vector2f padding = {};
   PaperFormat format = PaperFormat::Poker;
-  std::vector <std::string> formatNames;
   std::vector <sf::Vector2f> rectoPositions;
   std::vector <sf::Vector2f> versoPositions;
   sf::RenderTexture image;

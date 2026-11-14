@@ -11,17 +11,16 @@ struct CardIdentifier {
   CardIdentifier (uint32_t n) : number (n) {}
   // data
   std::string id = "";
-  uint32_t number = 0;
+  uint32_t number = 0u;
 };
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardIdentifier, id, number)
 
 /**
- * @brief Tag to indicate that a card is a template for other card generation
- * or that is number need to be displayer
+ * @brief Store card information about the textures or texts set in card model,
+ * if the card number need to be displayed or the font size
  */
-struct CardModel {
-  bool isModel = false;
-  bool displayNumber = false;
-  uint32_t fontSize = 16u;
+struct CardMetadata {
+  std::unordered_map <std::string, bool> textsUsed;
+  std::unordered_map <std::string, bool> texturesUsed;
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardModel, isModel, displayNumber, fontSize)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardMetadata, textsUsed, texturesUsed)
