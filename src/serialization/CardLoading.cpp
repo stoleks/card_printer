@@ -46,31 +46,30 @@ void buildCardsFromModel (
 {
   // build card data, first set identifier
   cards.emplace <CardIdentifier> (card, cardNumber);
-  // add textures and format components
+
+  // set card format
   cards.emplace <CardFormat> (card);
-  cards.emplace <GraphicalParts> (card);
-  
-  // set card size
   auto& format = cards.get <CardFormat> (card);
   format.size = model.format.size;
 
+  // set card elements (textures and texts)
+  cards.emplace <CardElements> (card);
+  auto& elements = cards.get <CardElements> (card);
+  
   // go through every textures and set their positions and size
-  auto& graphics = cards.get <GraphicalParts> (card);
-  setTextures (graphics, format, cards, data.textures, model.graphics.textures);
-  setTextures (graphics, format, cards, data.versoTextures, model.graphics.versoTextures);
+  setTextures (format, elements.textures, data.textures);
+  setTextures (format, elements.versoTextures, data.versoTextures);
 
   // go through every texts and set their position
-  setTexts (graphics, data.texts, model.graphics.texts);
-  setTexts (graphics, data.versoTexts, model.graphics.versoTexts);
+  setTexts (elements.texts, data.texts);
+  setTexts (elements.versoTexts, data.versoTexts);
 }
 
 ////////////////////////////////////////////////////////////
 void setTextures (
-  GraphicalParts& graphics,
   CardFormat& format,
-  entt::registry& cards,
-  const std::vector <CardEntry>& textures,
-  const std::vector <CardTexture>& modelTextures)
+  sgui::ObjectPool <CardEntry, std::string>& elements,
+  const std::vector <CardEntry>& textures)
 {
   for (const auto& textureData : textures) {
     // set background
@@ -82,52 +81,17 @@ void setTextures (
       format.versoBackground = textureData.cardKey;
       continue;
     }
-    // set texture position and size
-    auto newTexture = CardTexture ();
-    setTextureFromModel (newTexture, textureData.templateKey, modelTextures);
-    newTexture.identifier = textureData.cardKey;
-    graphics.textures.emplace_back (std::move (newTexture));
+    // set texture
+    elements.add (textureData, textureData.templateKey);
   }
 }
 
 /////////////////////////////////////////////////
 void setTexts (
-  GraphicalParts& graphics,
-  const std::vector <CardEntry>& texts,
-  const std::vector <CardText>& modelTexts)
+  sgui::ObjectPool <CardEntry, std::string>& elements,
+  const std::vector <CardEntry>& texts)
 {
   for (const auto& textData : texts) {
-    auto newText = CardText ();
-    setTextFromModel (newText, textData.templateKey, modelTexts);
-    newText.identifier = textData.cardKey;
-    graphics.texts.emplace_back (std::move (newText));
-  }
-}
-
-////////////////////////////////////////////////////////////
-void setTextureFromModel (
-  CardTexture& cardTexture,
-  const std::string& key,
-  const std::vector <CardTexture>& modelTextures)
-{
-  for (const auto& modelTexture : modelTextures) {
-    if (modelTexture.identifier == key) {
-      cardTexture = modelTexture;
-      return;
-    }
-  }
-}
-
-////////////////////////////////////////////////////////////
-void setTextFromModel (
-  CardText& cardText,
-  const std::string& key,
-  const std::vector <CardText>& modelTexts)
-{
-  for (const auto& modelText : modelTexts) {
-    if (modelText.identifier == key) {
-      cardText = modelText;
-      return;
-    }
+    elements.add (textData, textData.templateKey);
   }
 }

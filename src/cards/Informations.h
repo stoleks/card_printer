@@ -30,9 +30,9 @@ NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardEntry, templateKey, cardKey)
  * @brief Store all textures and texts elements of a card
  */
 struct CardElements {
-  sgui::ObjectPool <CardEntry, std::string> textures;
-  sgui::ObjectPool <CardEntry, std::string> versoTextures;
-  sgui::ObjectPool <CardEntry, std::string> texts;
-  sgui::ObjectPool <CardEntry, std::string> versoTexts;
+  sgui::ObjectPool <CardEntry, std::string> textures = {};
+  sgui::ObjectPool <CardEntry, std::string> versoTextures = {};
+  sgui::ObjectPool <CardEntry, std::string> texts = {};
+  sgui::ObjectPool <CardEntry, std::string> versoTexts = {};
 };
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(CardElements, textures, versoTextures, texts, versoTexts)

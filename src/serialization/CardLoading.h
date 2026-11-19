@@ -1,6 +1,7 @@
 #pragma once
 
 #include <entt/entt.hpp>
+#include <sgui/Core/ObjectPool.h>
 #include "CardSaving.h"
 
 struct CardEditor;
@@ -21,26 +22,11 @@ void buildCardsFromModel (
 
 ///////////////////////////////////////////////////////////
 void setTextures (
-  GraphicalParts& graphics,
   CardFormat& format,
-  entt::registry& cards,
-  const std::vector <CardEntry>& textures,
-  const std::vector <CardTexture>& modelTextures);
+  sgui::ObjectPool <CardEntry, std::string>& elements,
+  const std::vector <CardEntry>& textures);
 
 ///////////////////////////////////////////////////////////
 void setTexts (
-  GraphicalParts& graphics,
-  const std::vector <CardEntry>& texts,
-  const std::vector <CardText>& modelTexts);
-
-////////////////////////////////////////////////////////////
-void setTextureFromModel (
-  CardTexture& cardTexture,
-  const std::string& key,
-  const std::vector <CardTexture>& modelTextures);
-
-////////////////////////////////////////////////////////////
-void setTextFromModel (
-  CardText& cardText,
-  const std::string& key,
-  const std::vector <CardText>& modelTexts);
+  sgui::ObjectPool <CardEntry, std::string>& elements,
+  const std::vector <CardEntry>& texts);
