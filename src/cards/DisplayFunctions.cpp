@@ -1,27 +1,37 @@
 #include "DisplayFunctions.h"
 #include "GraphicalParts.h"
+#include "Informations.h"
 #include <sgui/Widgets/Widgets.h>
 
 ////////////////////////////////////////////////////////////
 void drawCardDecoration (
   sgui::Gui& gui,
   entt::registry& cards,
+  GraphicalParts& modelGraphics,
   const entt::entity& activeCard,
   const sgui::TextContainer& cardsTexts,
   bool verso)
 {
-  // draw card format 
-  gui.addSpacing ({-0.25f, -0.2f});
+  // set font size of the card 
   const auto& format = cards.get <CardFormat> (activeCard);
+  gui.style ().fontSize.normal = format.fontSize;
+
+  // draw background of the card
   const auto& cardSize = cardSizeInPixel (format.size);
+  gui.addSpacing ({-0.25f, -0.2f});
   gui.image (verso ? format.versoBackground : format.background, cardSize);
 
   // draw card textures and texts (recto or verso)
-  auto& parts = cards.get <GraphicalParts> (activeCard);
-  for (auto& icon : verso ? parts.versoTextures : parts.textures) {
+  const auto& elements = cards.get <CardElements> (activeCard);
+  for (auto& icon : verso ? modelGraphics.versoTextures : modelGraphics.textures) {
+    // get card key for the texture
+    const auto& cardTextures = verso ? elements.versoTextures : elements.textures;
+    if (!cardTextures.has (icon.identifier)) continue;
+    const auto& cardKey = cardTextures.get (icon.identifier).cardKey;
+    if (cardKey == "") continue;
     // scale texture is asked
     if (icon.areDimensionsChained) {
-      const auto iconBaseSize = gui.textureSize (icon.identifier);
+      const auto iconBaseSize = gui.textureSize (cardKey);
       icon.rect.size.y = iconBaseSize.y * icon.rect.size.x / iconBaseSize.x;
     }
     // center texture
@@ -33,15 +43,20 @@ void drawCardDecoration (
     }
     // render it
     gui.addSpacing ({-0.25f, -0.5f});
-    gui.image (icon.identifier, icon.rect.size, {.displacement = icon.rect.position});
+    gui.image (cardKey, icon.rect.size, {.displacement = icon.rect.position});
   }
 
   // draw card text
-  for (auto& text : verso ? parts.versoTexts : parts.texts) {
+  for (auto& text : verso ? modelGraphics.versoTexts : modelGraphics.texts) {
+    // get card key for the text
+    const auto& cardTexts = verso ? elements.versoTexts : elements.texts;
+    if (!cardTexts.has (text.identifier)) continue;
+    const auto& cardKey = cardTexts.get (text.identifier).cardKey;
+    if (cardKey == "") continue;
     // search for text using its identifier
-    auto textValue = text.identifier;
-    if (cardsTexts.has (text.identifier)) {
-      textValue = cardsTexts.get (text.identifier);
+    auto textValue = cardKey;
+    if (cardsTexts.has (cardKey)) {
+      textValue = cardsTexts.get (cardKey);
     }
     // center text if asked
     const auto textSize = gui.textSize (textValue);
