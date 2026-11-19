@@ -1,8 +1,10 @@
 #pragma once
 
 #include <entt/entity/registry.hpp>
+#include <sgui/Core/ObjectPool.h>
 
 struct CommonAppData;
+struct CardEntry;
 
 /**
  * @brief : store editor informations
@@ -26,5 +28,6 @@ private:
   void editTextures (CommonAppData& app, entt::entity& cardEdited);
   void editModelTexts (CommonAppData& app);
   void editModelTextures (CommonAppData& app);
+  void editCardEntry (CommonAppData& app, sgui::ObjectPool <CardEntry, std::string>& entries);
   void saveCards ();
 };

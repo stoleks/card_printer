@@ -30,14 +30,12 @@ void CardEditor::menuAndDisplay (CommonAppData& app)
       const auto newCard = cards.create ();
       cards.emplace <CardIdentifier> (newCard, cardsCount);
       cards.emplace <CardFormat> (newCard);
-      cards.emplace <GraphicalParts> (newCard);
-      cards.emplace <CardMetadata> (newCard);
+      cards.emplace <CardElements> (newCard);
       cardsCount++;
     }
 
     // edit card model
     if (editModel) {
-      editFormat (app, cardModel);
       editModelTextures (app);
       editModelTexts (app);
     // edit card in the pack
@@ -74,6 +72,7 @@ void CardEditor::editFormat (CommonAppData& app, entt::entity& cardEdited)
   auto& cardFormat = cards.get <CardFormat> (cardEdited);
   cardFormat.size = PaperFormatNames.at (app.gui.comboBox (app.formatNames));
   app.gui.inputText (cardFormat.background, {}, {.description = app.texts.get ("changeBackground")});
+  app.gui.inputText (cardFormat.versoBackground, {}, {.description = app.texts.get ("changeVersoBackground")});
 }
 
 ////////////////////////////////////////////////////////////
@@ -92,14 +91,15 @@ void CardEditor::editFromGui (CommonAppData& app, entt::entity& cardEdited)
     .isScrollable = false
   };
   // draw recto of the card
+  auto& parts = cards.get <GraphicalParts> (cardModel);
   app.cardGui.beginPanel (rectoPanel);
-  ::drawCardDecoration (app.cardGui, cards, cardEdited, app.texts);
+  ::drawCardDecoration (app.cardGui, cards, parts, cardEdited, app.texts);
   app.cardGui.endPanel ();
   // draw verso of the card beside the recto
   auto versoPanel = rectoPanel;
   versoPanel.position.x += cardSize.x;
   app.cardGui.beginPanel (versoPanel);
-  ::drawCardDecoration (app.cardGui, cards, cardEdited, app.texts, true);
+  ::drawCardDecoration (app.cardGui, cards, parts, cardEdited, app.texts, true);
   app.cardGui.endPanel ();
   // close panel that hold the cards
   app.gui.endPanel ();
@@ -154,50 +154,19 @@ void CardEditor::editTexts (CommonAppData& app, entt::entity& cardEdited)
   auto& cardFormat = cards.get <CardFormat> (cardEdited);
   const auto fontDescription = format (app.texts.get ("fontSizeIs"), cardFormat.fontSize);
   app.gui.slider (cardFormat.fontSize, 10u, 40u, {.description = fontDescription});
-  app.style.fontSize.normal = cardFormat.fontSize;
-  app.cardGui.setStyle (app.style);
 
-  // add text
-  auto& cardTexts = cards.get <GraphicalParts> (cardEdited).texts;
-  const auto& modelTexts = cards.get <GraphicalParts> (cardModel).texts;
-  if (cardTexts.size () != modelTexts.size ()) {
-    for (auto& text : modelTexts) {
-      if (app.gui.button (fmt::format ("add {}", text.identifier))) {
-        cardTexts.push_back (text);
-      }
-    }
-  }
-  /*
-  auto& textsMetadata = cards.get <CardMetadata> (cardEdited).textsUsed;
-  for (auto& metadata : textsMetadata) {
-    if (!metadata.second) {
-      if (app.gui.button (fmt::format ("add {}", metadata.first))) {
-        const auto& found = std::find_if (modelTexts.begin (), modelTexts.end (),
-          [&metadata] (const auto& text) { return text.identifier == metadata.first; }
-        );
-        cardTexts.push_back (*found);
-        metadata.second = true;
-      }
-    } else {
-      if (app.gui.button (fmt::format ("remove {}", metadata.first))) {
-        cardTexts.erase (
-          std::remove_if (cardTexts.begin (), cardTexts.end (), 
-            [&metadata] (const auto& text) { 
-              return text.identifier == metadata.first;
-            }),
-          cardTexts.end ()
-        );
-        metadata.second = false;
-      }
-    }
-  }
-  */
+  // edit text for the recto and the verso of the card
+  auto& cardElements = cards.get <CardElements> (cardEdited);
+  editCardEntry (app, cardElements.texts);
+  editCardEntry (app, cardElements.versoTexts);
+}
 
-  // edit text
-  for (auto& text : cardTexts) {
-    // set text value
-    const auto cardsText = format (app.texts.get ("cardText"), ICON_FA_COMMENT);
-    app.gui.inputText (text.identifier, {}, {.description = cardsText});
+////////////////////////////////////////////////////////////
+void CardEditor::editCardEntry (CommonAppData& app, sgui::ObjectPool <CardEntry, std::string>& entries)
+{
+  for (auto& entry : entries) {
+    const auto editDescription = fmt::format ("{} {}:", format (app.texts.get ("cardText"), ICON_FA_COMMENT), entry.templateKey);
+    app.gui.inputText (entry.cardKey, {}, {.description = editDescription});
   }
 }
 
@@ -242,28 +211,18 @@ void CardEditor::editModelTextures (CommonAppData& app)
     app.gui.checkBox (texture.isCenteredHorizontally, {.description = app.texts.get ("hori")});
     app.gui.sameLine ();
     app.gui.checkBox (texture.isCenteredVertically, {.description = app.texts.get ("verti")});
+    app.gui.checkBox (texture.areDimensionsChained, {.description = app.texts.get ("chainedDimensions")});
   }
 }
 
 ////////////////////////////////////////////////////////////
 void CardEditor::editTextures (CommonAppData& app, entt::entity& cardEdited)
 {
-  // add textures
+  // edit textures for the recto and the verso of the card
   app.gui.separation();
-  auto& cardTextures = cards.get <GraphicalParts> (cardEdited).textures;
-  const auto& modelTextures = cards.get <GraphicalParts> (cardModel).textures;
-  if (cardTextures.size () != modelTextures.size ()) {
-    for (auto& texture : modelTextures) {
-      if (app.gui.button (fmt::format ("add {}", texture.identifier))) { 
-        cardTextures.push_back (texture);
-      }
-    }
-  }
-  // edit texture
-  for (auto& texture : cardTextures) {
-    const auto textureText = format (app.texts.get ("textureId"), ICON_FA_IMAGE);
-    app.gui.inputText (texture.identifier, {}, {.description = textureText});
-  }
+  auto& cardElements = cards.get <CardElements> (cardEdited);
+  editCardEntry (app, cardElements.textures);
+  editCardEntry (app, cardElements.versoTextures);
 }
 
 /////////////////////////////////////////////////

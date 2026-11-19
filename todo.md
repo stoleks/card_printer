@@ -1,8 +1,4 @@
 Reorganize how card editor work :
-- when editing a card, user choose which attribute from the template is added to it ; to be refined
-  - add unordered map that store the textures and texts of each cards
-  - modification in the model should modify all cards
-  - add option to remove a texture or text from a card 
 - add a contour to the position of model part (like debug mode in gui)
   - fix the size of the card displayed
 - when saving cards, generate a csv with all required data (user can choose to edit visually or through csv) ; 
@@ -13,5 +9,4 @@ Reorganize how card editor work :
   - should be done with the fusion of gui texture and cards texture
 - reorganize code to have card editor and printer in their own classes ;
 - add a droplist under the text for texture selection with all the available textures (the one in the images folder) ;
-- add a unordered map that stores a pair of model image key and card actual texture, to determine properly when a card is "full" and what image could be added ;
-- add a function to update all textures position/size when updating the model one ;
+- merge CardFingerPrint and CardElements

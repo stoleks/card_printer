@@ -103,7 +103,7 @@ void Application::exportCardsToPdf ()
     if (!m_isPrinting) {
       m_isPrinting = true;
       m_pageIndex = 0u;
-      editor.cardsCount = editor.cards.view <const GraphicalParts, const CardIdentifier> ().size_hint ();
+      editor.cardsCount = editor.cards.view <const CardElements, const CardIdentifier> ().size_hint ();
     }
   }
   app.gui.sameLine ();
@@ -137,6 +137,7 @@ void Application::printAllPages ()
   const auto cardsPerPage = cards.countPerPage.x * cards.countPerPage.y;
   const uint32_t cardsPrinted = m_pageIndex * cardsPerPage;
   cards.advancement = sgui::clamp (0.f, 1.f, static_cast<float> (cardsPrinted) / static_cast <float> (editor.cardsCount));
+  spdlog::info ("Printing page {}, printed {}/{} cards", m_pageIndex, sgui::clamp (0u, editor.cardsCount, cardsPrinted), editor.cardsCount);
   
   // end pdf
   if (cardsPrinted >= editor.cardsCount) {
@@ -230,6 +231,7 @@ void Application::displayCardsInLattice (
   const auto cardSize = cardSizeInPixel (cards.format, page.resolution);
   // cards position can be either recto or verso
   const auto& cardsPositions = verso ? cards.versoPositions : cards.rectoPositions;
+  auto& parts = editor.cards.get <GraphicalParts> (editor.cardModel);
   for (const auto& cardPos : cardsPositions) {
     // check that we are not looping back to the start of the deck
     if (editor.activeCard < firstCard) break;
@@ -244,7 +246,7 @@ void Application::displayCardsInLattice (
     editor.cards.get <CardFormat> (editor.activeCard).size = cards.format;
     // draw card decorations
     gui.beginPanel (cardPanel);
-    ::drawCardDecoration (gui, editor.cards, editor.activeCard, app.texts, verso);
+    ::drawCardDecoration (gui, editor.cards, parts, editor.activeCard, app.texts, verso);
     gui.endPanel ();
     // go to next card
     ::swipeToNextCard (editor.activeCard, editor.cards);
