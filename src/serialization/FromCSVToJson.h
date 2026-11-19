@@ -41,10 +41,10 @@ void saveDataInJson (
 /**
  * Read model data to map index and usable key
  */
-template <typename TextOrTextureData>
+template <typename CardTextOrTexture>
 void readKeysInModel (
   std::unordered_map <uint32_t, std::string>& keysForData,
-  const std::vector <TextOrTextureData>& modelData,
+  const std::vector <CardTextOrTexture>& modelData,
   const std::string& key,
   const uint32_t index)
 {
@@ -60,15 +60,8 @@ void readKeysInModel (
 /**
  * Use keys in model to set data for texts or textures
  */
-template <typename TextOrTextureData>
 void readCellData (
-  std::vector <TextOrTextureData>& cardData,
+  std::vector <CardEntry>& cardData,
   const std::unordered_map <uint32_t, std::string>& keyIndexMap,
   const std::string& cell,
-  const uint32_t cellIndex)
-{
-  // store key and cell value
-  if (const auto& found = keyIndexMap.find (cellIndex); found != keyIndexMap.end ()) {
-    cardData.emplace_back (TextOrTextureData {found->second, cell});
-  }
-}
+  const uint32_t cellIndex);

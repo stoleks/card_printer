@@ -24,13 +24,13 @@ void setTextures (
   GraphicalParts& graphics,
   CardFormat& format,
   entt::registry& cards,
-  const std::vector <TextureData>& textures,
+  const std::vector <CardEntry>& textures,
   const std::vector <CardTexture>& modelTextures);
 
 ///////////////////////////////////////////////////////////
 void setTexts (
   GraphicalParts& graphics,
-  const std::vector <TextData>& texts,
+  const std::vector <CardEntry>& texts,
   const std::vector <CardText>& modelTexts);
 
 ////////////////////////////////////////////////////////////

@@ -97,3 +97,16 @@ void saveDataInJson (
   out = card;
   sgui::saveInFile (out, jsonFile);
 }
+
+////////////////////////////////////////////////////////////
+void readCellData (
+  std::vector <CardEntry>& cardData,
+  const std::unordered_map <uint32_t, std::string>& keyIndexMap,
+  const std::string& cell,
+  const uint32_t cellIndex)
+{
+  // store key and cell value
+  if (const auto& found = keyIndexMap.find (cellIndex); found != keyIndexMap.end ()) {
+    cardData.emplace_back (CardEntry {found->second, cell});
+  }
+}
