@@ -1,11 +1,14 @@
 #pragma once
 
+#include <string>
 #include <entt/entt.hpp>
 #include <sgui/Core/ObjectPool.h>
 
-#include "CardSaving.h"
-
+struct CardFingerPrint;
+struct CardFormat;
 struct CardEditor;
+struct CardEntry;
+struct Card;
 
 ////////////////////////////////////////////////////////////
 uint32_t loadCardsFromFile (

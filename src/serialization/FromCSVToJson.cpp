@@ -5,6 +5,7 @@
 #include "app/FilesData.h"
 #include "cards/Informations.h"
 #include "cards/GraphicalParts.h"
+#include "cards/SerializationData.h"
 #include "scenes/ProjectSelection.h"
 #include "serialization/CardLoading.h"
 #include "serialization/FromCSVToJson.h"

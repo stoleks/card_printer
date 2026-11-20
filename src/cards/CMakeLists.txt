@@ -5,6 +5,7 @@ set (SRC
   ${INCROOT}/GraphicalParts.h
   ${INCROOT}/PaperFormats.h
   ${INCROOT}/Informations.h
+  ${INCROOT}/SerializationData.h
   ${INCROOT}/DisplayFunctions.cpp
   ${INCROOT}/DisplayFunctions.h
   ${INCROOT}/DeckFunctions.cpp

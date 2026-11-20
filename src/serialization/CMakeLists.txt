@@ -4,7 +4,6 @@ set(INCROOT ${PROJECT_SOURCE_DIR}/src/serialization)
 set (SRC
   ${INCROOT}/CardLoading.h
   ${INCROOT}/CardLoading.cpp
-  ${INCROOT}/CardSaving.h
   ${INCROOT}/FromCSVToJson.cpp
   ${INCROOT}/FromCSVToJson.h
 )

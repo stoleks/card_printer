@@ -4,6 +4,7 @@
 #include "app/Application.h"
 #include "cards/DeckFunctions.h"
 #include "cards/DisplayFunctions.h"
+#include "cards/SerializationData.h"
 #include "serialization/CardLoading.h"
 #include "scenes/CardEditor.h"
 

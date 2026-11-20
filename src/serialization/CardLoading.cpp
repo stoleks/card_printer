@@ -1,7 +1,7 @@
 #include <sgui/Serialization/LoadJson.h>
 
 #include "scenes/CardEditor.h"
-#include "serialization/CardSaving.h"
+#include "cards/SerializationData.h"
 #include "serialization/CardLoading.h"
 
 ////////////////////////////////////////////////////////////

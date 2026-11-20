@@ -1,10 +1,12 @@
 #pragma once
 
+#include <string>
 #include <fstream>
 #include <cstdint>
 #include <unordered_map>
 
 struct Files;
+struct CardEntry;
 struct GraphicalParts;
 
 /**

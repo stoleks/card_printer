@@ -7,10 +7,12 @@
 #include <sgui/Resources/IconsFontAwesome7.h>
 
 #include "chrono.h"
+#include "app/Application.h"
+#include "cards/Informations.h"
 #include "cards/DeckFunctions.h"
+#include "cards/GraphicalParts.h"
 #include "cards/DisplayFunctions.h"
 #include "serialization/CardLoading.h"
-#include "app/Application.h"
 #include "scenes/CardPrinter.h"
 
 ////////////////////////////////////////////////////////////
