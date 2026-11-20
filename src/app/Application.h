@@ -3,9 +3,12 @@
 #include <memory>
 #include <PDFWriter.h>
 #include <SFML/System/Clock.hpp>
-#include "scenes/CommonData.h"
-#include "scenes/ProjectSelection.h"
+
+#include "app/FilesData.h"
+#include "app/CommonData.h"
 #include "scenes/CardEditor.h"
+#include "scenes/CardPrinter.h"
+#include "scenes/ProjectSelection.h"
 
 struct GraphicalParts;
 

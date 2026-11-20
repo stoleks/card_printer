@@ -1,6 +1,5 @@
 Reorganize how card editor work :
 - add a contour to the position of model part (like debug mode in gui)
-  - fix the size of the card displayed
 - when saving cards, generate a csv with all required data (user can choose to edit visually or through csv) ; 
 - change card render in app so that they are contained in the window and can be scrolled 
   - fuse gui and cardGui to achieve that simply.

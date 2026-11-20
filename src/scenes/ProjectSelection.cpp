@@ -1,10 +1,10 @@
 #include <fstream>
 #include <filesystem>
 #include <sgui/Serialization/LoadJson.h>
+
 #include "serialization/CardSaving.h"
 #include "serialization/FromCSVToJson.h"
-#include "scenes/CommonData.h"
-#include "scenes/Application.h"
+#include "app/Application.h"
 #include "scenes/ProjectSelection.h"
 
 ////////////////////////////////////////////////////////////

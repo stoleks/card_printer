@@ -1,10 +1,9 @@
-#include <iostream>
 #include <chrono>
 #include <thread>
-
-#include "scenes/Application.h"
-
+#include <iostream>
 #include <sgui/Serialization/LoadTextureAtlas.h>
+
+#include "app/Application.h"
 
 int main()
 {

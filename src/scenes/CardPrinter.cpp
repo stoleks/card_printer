@@ -10,8 +10,7 @@
 #include "cards/DeckFunctions.h"
 #include "cards/DisplayFunctions.h"
 #include "serialization/CardLoading.h"
-#include "scenes/ProjectSelection.h"
-#include "scenes/Application.h"
+#include "app/Application.h"
 #include "scenes/CardPrinter.h"
 
 ////////////////////////////////////////////////////////////

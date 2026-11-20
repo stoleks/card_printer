@@ -2,6 +2,7 @@ add_executable(${PROJECT_NAME})
 
 ####
 #include all subdirectories
+add_subdirectory (app)
 add_subdirectory (cards)
 add_subdirectory (scenes)
 add_subdirectory (serialization)

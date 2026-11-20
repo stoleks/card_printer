@@ -2,6 +2,7 @@
 
 #include <entt/entt.hpp>
 #include <sgui/Core/ObjectPool.h>
+
 #include "CardSaving.h"
 
 struct CardEditor;

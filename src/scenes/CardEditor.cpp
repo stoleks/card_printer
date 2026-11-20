@@ -1,12 +1,11 @@
-#include "CardEditor.h"
-
 #include <sgui/Resources/IconsFontAwesome7.h>
 #include <sgui/Serialization/LoadJson.h>
 
-#include "scenes/Application.h"
+#include "app/Application.h"
 #include "cards/DeckFunctions.h"
 #include "cards/DisplayFunctions.h"
 #include "serialization/CardLoading.h"
+#include "scenes/CardEditor.h"
 
 ////////////////////////////////////////////////////////////
 void CardEditor::menuAndDisplay (CommonAppData& app)

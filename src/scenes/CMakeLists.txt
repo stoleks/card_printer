@@ -10,8 +10,6 @@ set (SRC
   ${INCROOT}/CardPrinter.h
   ${INCROOT}/ProjectSelection.h
   ${SRCROOT}/ProjectSelection.cpp
-  ${INCROOT}/Application.h
-  ${SRCROOT}/Application.cpp
 )
 source_group ("" FILES ${SRC})
 

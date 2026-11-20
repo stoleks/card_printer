@@ -1,5 +1,3 @@
-#include "Application.h"
-
 #include <iostream>
 #include <filesystem>
 #include <sgui/DefaultFiles.h>
@@ -8,11 +6,9 @@
 #include <sgui/Serialization/LoadJson.h>
 #include <sgui/Serialization/LoadTextureAtlas.h>
 
-#include "scenes/CardEditor.h"
-#include "scenes/CardPrinter.h"
-#include "scenes/ProjectSelection.h"
 #include "serialization/CardLoading.h"
 #include "serialization/FromCSVToJson.h"
+#include "app/Application.h"
 
 ////////////////////////////////////////////////////////////
 CommonAppData::CommonAppData ()

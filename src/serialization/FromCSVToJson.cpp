@@ -1,6 +1,10 @@
 #include <filesystem>
+#include <spdlog/spdlog.h>
 #include <sgui/Serialization/LoadJson.h>
-#include "scenes/CommonData.h"
+
+#include "app/FilesData.h"
+#include "cards/Informations.h"
+#include "cards/GraphicalParts.h"
 #include "scenes/ProjectSelection.h"
 #include "serialization/CardLoading.h"
 #include "serialization/FromCSVToJson.h"

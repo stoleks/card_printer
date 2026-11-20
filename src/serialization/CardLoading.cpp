@@ -1,7 +1,8 @@
-#include "CardLoading.h"
-#include "scenes/CommonData.h"
-#include "scenes/CardEditor.h"
 #include <sgui/Serialization/LoadJson.h>
+
+#include "scenes/CardEditor.h"
+#include "serialization/CardSaving.h"
+#include "serialization/CardLoading.h"
 
 ////////////////////////////////////////////////////////////
 uint32_t loadCardsFromFile (
